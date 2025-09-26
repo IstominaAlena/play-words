@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@theme {
+  /* Breakpoints desktop first */
+  --breakpoint-2xl: {
+    max: 1535px;
+  };
+  --breakpoint-xl: {
+    max: 1279px;
+  };
+  --breakpoint-lg: {
+    max: 1023px;
+  };
+  --breakpoint-md: {
+    max: 767px;
+  };
+  --breakpoint-sm: {
+    max: 639px;
+  };
+  --breakpoint-xs: {
+    max: 479px;
+  };
+
+  /* Fonts */
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  /* Colors */
+  --color-primary: #6195ed;
+}
