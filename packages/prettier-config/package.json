@@ -1,0 +1,17 @@
+{
+    "name": "@repo/prettier-config",
+    "version": "0.0.0",
+    "private": true,
+    "license": "MIT",
+    "exports": {
+        "./base": "./base.js"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "devDependencies": {
+        "@trivago/prettier-plugin-sort-imports": "^5.2.2",
+        "prettier-plugin-tailwindcss": "^0.6.14",
+        "prettier": "^3.6.2"
+    }
+}
