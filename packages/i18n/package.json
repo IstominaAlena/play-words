@@ -1,0 +1,25 @@
+{
+    "name": "@repo/i18n",
+    "version": "0.0.0",
+    "private": true,
+    "exports": {
+        ".": "./src/index.ts",
+        "./config/*": "./src/config/*.ts"
+    },
+    "scripts": {
+        "lint": "eslint . --max-warnings 0",
+        "check-types": "tsc --noEmit"
+    },
+    "devDependencies": {
+        "@repo/eslint-config": "*",
+        "@repo/prettier-config": "*",
+        "@repo/typescript-config": "*",
+        "typescript": "5.9.2"
+    },
+    "dependencies": {
+        "@repo/tailwind-config": "*",
+        "next": "^15.5.4",
+        "next-intl": "^4.3.9",
+        "react": "^19.1.0"
+    }
+}

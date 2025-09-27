@@ -13,10 +13,8 @@ export const prettierConfig = {
   importOrderSortSpecifiers: true,
   importOrder: [
     "<THIRD_PARTY_MODULES>",
-    "@repo/(.*)$",
     "@repo/ui/(.*)$",
-    "@repo/ui/styles",
-
+    "@repo/(.*)$",
     "^[./]",
   ],
 };
