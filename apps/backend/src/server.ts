@@ -17,7 +17,7 @@ app.get("/users", async (req, res) => {
     try {
         const allUsers = await db.select().from(usersTable);
         res.json(allUsers);
-    } catch (error) {
+    } catch {
         res.status(500).json({ error: "Failed to fetch users" });
     }
 });
@@ -34,7 +34,7 @@ app.get("/users/:id", async (req, res) => {
             .where(eq(usersTable.id, Number(id)));
         if (user.length === 0) return res.status(404).json({ error: messages.USER_NOT_FOUND });
         res.json(user[0]);
-    } catch (error) {
+    } catch {
         res.status(500).json({ error: "Failed to fetch user" });
     }
 });
