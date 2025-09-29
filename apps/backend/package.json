@@ -6,17 +6,24 @@
   "dependencies": {
     "@neondatabase/serverless": "^1.0.1",
     "@repo/common": "*",
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
     "dotenv": "^17.2.2",
     "drizzle-orm": "^0.44.5",
     "express": "^5.1.0",
+    "helmet": "^8.1.0",
     "i18next": "^25.5.2",
-    "i18next-fs-backend": "^2.6.0"
+    "i18next-fs-backend": "^2.6.0",
+    "morgan": "^1.10.1"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
     "@repo/prettier-config": "*",
     "@repo/typescript-config": "*",
+    "@types/bcrypt": "^6.0.0",
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
+    "@types/morgan": "^1.9.10",
     "@types/node": "^24.5.2",
     "drizzle-kit": "^0.31.5",
     "nodemon": "^3.1.10",

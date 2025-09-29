@@ -13,12 +13,3 @@ export function i18nMiddleware(req: Request, _res: Response, next: NextFunction)
     req.messages = getBackendMessages(lang);
     next();
 }
-
-// Extend Request type for TypeScript
-declare global {
-    namespace Express {
-        interface Request {
-            messages: ReturnType<typeof getBackendMessages>;
-        }
-    }
-}
