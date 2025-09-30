@@ -1,5 +1,6 @@
+import cookieParser from "cookie-parser";
 import cors from "cors";
-import express, { Application, Request, Response } from "express";
+import express, { Application } from "express";
 import helmet from "helmet";
 import morgan from "morgan";
 
@@ -7,6 +8,7 @@ import userRoutes from "@/api/routes/users";
 
 import { i18nMiddleware } from "./config/i18n/middleware";
 import { errorHandler } from "./middlewares/error-handler";
+import { healthCheck } from "./middlewares/health-check";
 import { notFoundHandler } from "./middlewares/not-found-handler";
 
 const app: Application = express();
@@ -21,14 +23,14 @@ app.use(helmet());
 app.use(cors());
 //  HTTP-requests logger to console
 app.use(morgan("dev"));
+// Parse cookies from requests
+app.use(cookieParser());
 // Implement localizations for error messages
 app.use(i18nMiddleware);
 
 app.use("/api/users", userRoutes);
 
-app.get("/api/health", (_req: Request, res: Response) => {
-    res.json({ status: "ok" });
-});
+app.get("/api/health", healthCheck);
 
 app.use(notFoundHandler);
 app.use(errorHandler);
