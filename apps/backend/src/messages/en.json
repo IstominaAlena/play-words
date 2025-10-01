@@ -1,0 +1,14 @@
+{
+    "INTERNAL_SERVER_ERROR": "Internal server error",
+    "NOT_FOUND": "Not found",
+    "SOMETHING_WENT_WRONG": "Something went wrong",
+    "BAD_REQUEST": "Missing fields",
+    "ALREADY_EXISTS": "Already exists",
+    "VALIDATION_FAILED": "Validation failed",
+    "REQUIRED": "Field is required",
+    "INVALID_EMAIL": "Invalid email format",
+    "SHORT_PASSWORD": "Password to short",
+    "INVALID_CREDENTIALS": "Invalid credentials",
+    "INVALID_REFRESH_TOKEN": "Invalid refresh token",
+    "LOGOUT_SUCCESS": "Logged out successfully"
+}

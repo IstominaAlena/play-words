@@ -15,6 +15,7 @@ export const prettierConfig = {
     "<THIRD_PARTY_MODULES>",
     "@repo/ui/(.*)$",
     "@repo/(.*)$",
+    "@/(.*)$",
     "^[./]",
   ],
 };

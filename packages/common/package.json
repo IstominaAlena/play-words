@@ -5,12 +5,17 @@
   "license": "MIT",
   "exports": {
     "./constants/*": "./src/constants/*.ts",
-    "./enums/*": "./src/enums/*.ts"
+    "./enums/*": "./src/enums/*.ts",
+    "./types/*": "./src/types/*.ts",
+    "./schemas/*": "./src/schemas/*.ts"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
     "@repo/prettier-config": "*",
     "@repo/typescript-config": "*",
     "typescript": "5.9.2"
+  },
+  "dependencies": {
+    "zod": "^4.1.11"
   }
 }
