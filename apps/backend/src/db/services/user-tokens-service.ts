@@ -2,7 +2,7 @@ import { eq, sql } from "drizzle-orm";
 
 import { db } from "@/config/drizzle-orm/db";
 import { REFRESH_TOKEN_TTL_DAYS } from "@/constants/common";
-import { CreateUserToken } from "@/types/users";
+import { CreateUserToken, UserTokensTable } from "@/types/users";
 import { hashToken } from "@/utils/token";
 
 import { userTokensTable } from "../schemas/users";
@@ -33,6 +33,10 @@ export class UserTokensService {
         }
 
         return tokenRecord;
+    }
+
+    async deleteUserToken(id: UserTokensTable["id"]) {
+        await db.delete(userTokensTable).where(eq(userTokensTable.id, id));
     }
 }
 
