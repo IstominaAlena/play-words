@@ -1,14 +1,15 @@
-import { asc, sql } from "drizzle-orm";
+import { asc } from "drizzle-orm";
 import { eq } from "drizzle-orm";
 
 import { UpdateUserDto, User } from "@repo/common/types/users";
 
 import { db } from "@/config/drizzle-orm/db";
-import { REFRESH_TOKEN_TTL_DAYS } from "@/constants/common";
-import { userTokensTable, usersTable } from "@/db/schemas/users";
-import { CreateUser, CreateUserToken } from "@/types/users";
+import { usersTable } from "@/db/schemas/users";
+import { CreateUser } from "@/types/users";
 import { UsersTable } from "@/types/users";
 import { generateRandomToken, hashToken } from "@/utils/token";
+
+import { userTokensService } from "./user-tokens-service";
 
 export class UsersService {
     private static userFields = {
@@ -16,14 +17,6 @@ export class UsersService {
         email: usersTable.email,
         username: usersTable.username,
     };
-
-    private async createUserToken(rawData: CreateUserToken) {
-        return db.insert(userTokensTable).values({
-            ...rawData,
-            expiresAt: sql.raw(`now() + interval '${REFRESH_TOKEN_TTL_DAYS} days'`),
-            revoked: false,
-        });
-    }
 
     private async getUserByField<K extends keyof UsersTable>(
         field: K,
@@ -52,7 +45,7 @@ export class UsersService {
         const refreshTokenHash = hashToken(refreshToken);
 
         try {
-            await this.createUserToken({
+            await userTokensService.createUserToken({
                 userId: newUser.id,
                 tokenHash: refreshTokenHash,
             });

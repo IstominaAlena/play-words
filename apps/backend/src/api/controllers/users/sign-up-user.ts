@@ -8,7 +8,7 @@ import { AppRequest } from "@/types/common";
 import { getErrorMessage } from "@/utils/get-error-message";
 import { getLanguageFromRequest } from "@/utils/get-language-from-request";
 import { hashPassword } from "@/utils/password";
-import { setRefreshTokenCookie } from "@/utils/refresh-token-coolies";
+import { setRefreshTokenCookie } from "@/utils/refresh-token-cookies";
 import { generateAccessToken } from "@/utils/token";
 
 export const signUpUser = async (req: AppRequest<CreateUserDto>, res: Response) => {
