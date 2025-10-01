@@ -2,7 +2,7 @@ import { eq } from "drizzle-orm";
 
 import { db } from "@/config/drizzle-orm/db";
 import { usersTable } from "@/db/schemas/users";
-import { SelectUser } from "@/types/tables";
+import { SelectUser } from "@/types/users";
 
 type UpdateUserInput = Partial<Pick<SelectUser, "name" | "age" | "email">>;
 

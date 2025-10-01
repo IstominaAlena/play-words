@@ -6,6 +6,8 @@ import { usersControllersService } from "../controllers/users/users-controllers-
 
 const router = Router();
 
+router.post("/sign-up", controllerWrapper(usersControllersService.signUpUser));
+
 router.get("/:id", controllerWrapper(usersControllersService.getUserById));
 router.get("/", controllerWrapper(usersControllersService.getAllUsers));
 

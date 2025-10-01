@@ -1,9 +1,9 @@
 import { eq } from "drizzle-orm";
 
+import { User } from "@repo/common/types/users";
+
 import { db } from "@/config/drizzle-orm/db";
 import { usersTable } from "@/db/schemas/users";
-import { SelectUser } from "@/types/tables";
 
-export async function deleteUser(id: SelectUser["id"]) {
+export const deleteUser = async (id: User["id"]) =>
     await db.delete(usersTable).where(eq(usersTable.id, id));
-}
