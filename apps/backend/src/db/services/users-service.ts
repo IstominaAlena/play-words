@@ -28,7 +28,7 @@ export class UsersService {
     private async getUserByField<K extends keyof UsersTable>(
         field: K,
         value: UsersTable[K],
-    ): Promise<User | null> {
+    ): Promise<UsersTable | null> {
         const result = await db
             .select()
             .from(usersTable)
@@ -86,6 +86,16 @@ export class UsersService {
 
     async getUserByEmail(email: UsersTable["email"]) {
         return await this.getUserByField("email", email);
+    }
+
+    async getSafeUserById(id: UsersTable["id"]): Promise<User | null> {
+        const result = await db
+            .select(UsersService.userFields)
+            .from(usersTable)
+            .where(eq(usersTable.id, id))
+            .limit(1);
+
+        return result[0] ?? null;
     }
 
     async getAllUsers(page = 1, pageSize = 5): Promise<User[]> {

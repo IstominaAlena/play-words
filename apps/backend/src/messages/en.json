@@ -4,8 +4,9 @@
     "SOMETHING_WENT_WRONG": "Something went wrong",
     "BAD_REQUEST": "Missing fields",
     "ALREADY_EXISTS": "Already exists",
-    "VALIDATION_FAILED": "ValidationFailed",
+    "VALIDATION_FAILED": "Validation failed",
     "REQUIRED": "Field is required",
     "INVALID_EMAIL": "Invalid email format",
-    "SHORT_PASSWORD": "Password to short"
+    "SHORT_PASSWORD": "Password to short",
+    "INVALID_CREDENTIALS": "Invalid credentials"
 }

@@ -1,9 +1,14 @@
 import { z } from "zod";
 
-import { EMAIL_REGEX } from "../constants/regex";
+import { validationFields } from "./validation-fields";
 
 export const createUserSchema = z.object({
-    email: z.string().min(1, "REQUIRED").regex(EMAIL_REGEX, "INVALID_EMAIL"),
-    username: z.string().min(1, "REQUIRED"),
-    password: z.string().min(6, "SHORT_PASSWORD"),
+    email: validationFields.email,
+    username: validationFields.username,
+    password: validationFields.password,
+});
+
+export const loginUserSchema = z.object({
+    email: validationFields.email,
+    password: validationFields.password,
 });
