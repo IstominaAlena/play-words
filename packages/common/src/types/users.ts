@@ -1,11 +1,13 @@
+import z from "zod";
+
+import { createUserSchema } from "../schemas/users";
+
 export interface User {
     id: number;
     email: string;
     username: string;
 }
 
-export interface CreateUserDto {
-    email: string;
-    username: string;
-    password: string;
-}
+export type CreateUserDto = z.infer<typeof createUserSchema>;
+
+export type UpdateUserDto = Partial<CreateUserDto>;

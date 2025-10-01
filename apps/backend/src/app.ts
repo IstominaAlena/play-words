@@ -6,7 +6,6 @@ import morgan from "morgan";
 
 import userRoutes from "@/api/routes/users";
 
-import { i18nMiddleware } from "./config/i18n/middleware";
 import { errorHandler } from "./middlewares/error-handler";
 import { healthCheck } from "./middlewares/health-check";
 import { notFoundHandler } from "./middlewares/not-found-handler";
@@ -25,8 +24,6 @@ app.use(cors());
 app.use(morgan("dev"));
 // Parse cookies from requests
 app.use(cookieParser());
-// Implement localizations for error messages
-app.use(i18nMiddleware);
 
 app.use("/api/users", userRoutes);
 

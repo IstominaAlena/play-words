@@ -1,29 +1,31 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 
-import { getUserByEmail } from "@/db/queries/read/users";
+import { CreateUserDto } from "@repo/common/types/users";
+
+import { i18nService } from "@/config/i18n/service";
 import { usersService } from "@/db/services/users-service";
-import { AppError } from "@/types/common";
+import { AppRequest } from "@/types/common";
+import { getErrorMessage } from "@/utils/get-error-message";
+import { getLanguageFromRequest } from "@/utils/get-language-from-request";
 import { hashPassword } from "@/utils/password";
 import { setRefreshTokenCookie } from "@/utils/refresh-token-coolies";
 import { generateAccessToken } from "@/utils/token";
 
-export const signUpUser = async (req: Request, res: Response) => {
-    const messages = req.messages;
+export const signUpUser = async (req: AppRequest<CreateUserDto>, res: Response) => {
+    const lang = getLanguageFromRequest(req);
+
+    const messages = i18nService.getMessages(lang);
 
     try {
         const { email: rawEmail, username: rawUsername, password } = req.body;
 
-        if (!rawEmail || !password || !rawUsername) {
-            return res.status(400).json({ message: messages.BAD_REQUEST || "Missing fields" });
-        }
-
         const email = String(rawEmail).trim().toLowerCase();
         const username = rawUsername.trim();
 
-        const existingUser = (await getUserByEmail(email))[0];
+        const existingUser = await usersService.getUserByEmail(email);
 
         if (existingUser?.id) {
-            return res.status(409).json({ message: messages.ALREADY_EXISTS || "Already exists" });
+            return res.status(409).json({ message: messages.ALREADY_EXISTS });
         }
 
         const passwordHash = await hashPassword(password);
@@ -41,9 +43,7 @@ export const signUpUser = async (req: Request, res: Response) => {
 
         res.json({ user: newUser, accessToken });
     } catch (err: unknown) {
-        const error = err as AppError;
-        const status = error.statusCode || 500;
-        const message = error.messageKey ? messages[error.messageKey] : error.message;
+        const { status, message } = getErrorMessage(err, lang);
 
         return res.status(status).json({ message });
     }

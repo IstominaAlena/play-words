@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
 
-import { AppError } from "@/types/common";
+import { i18nService } from "@/config/i18n/service";
+import { getLanguageFromRequest } from "@/utils/get-language-from-request";
 
-export const notFoundHandler = (_err: AppError, req: Request, res: Response) => {
-    const messages = req.messages;
+export const notFoundHandler = (req: Request, res: Response) => {
+    const lang = getLanguageFromRequest(req);
+    const messages = i18nService.getMessages(lang);
+    const message = messages.NOT_FOUND;
 
-    const message = messages.NOT_FOUND || "Not found";
-
-    res.status(404).json({ message });
+    return res.status(404).json({ message });
 };
