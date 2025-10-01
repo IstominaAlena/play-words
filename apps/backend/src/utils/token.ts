@@ -15,3 +15,7 @@ export const generateAccessToken = (id: string | number, email: string) => {
 export const verifyAccessToken = (token: string) => {
     return jwt.verify(token, JWT_SECRET);
 };
+
+export const validateToken = (cookieToken: string, bdToken: string): boolean => {
+    return cookieToken === bdToken;
+};

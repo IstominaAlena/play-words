@@ -8,5 +8,6 @@
     "REQUIRED": "Field is required",
     "INVALID_EMAIL": "Invalid email format",
     "SHORT_PASSWORD": "Password to short",
-    "INVALID_CREDENTIALS": "Invalid credentials"
+    "INVALID_CREDENTIALS": "Invalid credentials",
+    "INVALID_REFRESH_TOKEN": "Invalid refresh token"
 }

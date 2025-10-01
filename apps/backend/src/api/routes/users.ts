@@ -20,4 +20,6 @@ router.post(
     controllerWrapper(usersControllersService.signInUser),
 );
 
+router.post("/refresh", controllerWrapper(usersControllersService.refreshUser));
+
 export default router;
