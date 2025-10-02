@@ -1,4 +1,4 @@
-import { userTokensTable, usersTable } from "@/db/schemas/users";
+import { userTokensTable, usersTable } from "@/db/schemas";
 
 export type UsersTable = typeof usersTable.$inferSelect;
 

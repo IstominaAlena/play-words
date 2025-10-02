@@ -5,7 +5,7 @@ import { REFRESH_TOKEN_TTL_DAYS } from "@/constants/common";
 import { tokenService } from "@/services/token-service";
 import { CreateUserToken, UserTokensTable } from "@/types/users";
 
-import { userTokensTable } from "../schemas/users";
+import { userTokensTable } from "../schemas";
 
 export class UserTokensService {
     async createUserToken(rawData: CreateUserToken) {

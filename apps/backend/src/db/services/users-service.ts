@@ -5,7 +5,7 @@ import { User } from "@repo/common/types/users";
 
 import { db } from "@/config/drizzle-orm/db";
 import { messageKeys } from "@/constants/common";
-import { usersTable } from "@/db/schemas/users";
+import { usersTable } from "@/db/schemas";
 import { tokenService } from "@/services/token-service";
 import { CreateUser, UpdateUser } from "@/types/users";
 import { UsersTable } from "@/types/users";
