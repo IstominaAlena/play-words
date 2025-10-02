@@ -2,7 +2,12 @@ import crypto from "crypto";
 import { Response } from "express";
 import jwt from "jsonwebtoken";
 
-import { ACCESS_TOKEN_EXP, JWT_SECRET, REFRESH_TOKEN_TTL_DAYS } from "@/constants/common";
+import {
+    ACCESS_TOKEN_EXP,
+    JWT_SECRET,
+    REFRESH_TOKEN_TTL_DAYS,
+    messageKeys,
+} from "@/constants/common";
 import { AuthUser } from "@/types/common";
 
 export class TokenService {
@@ -21,19 +26,19 @@ export class TokenService {
 
     verifyAccessToken(token: string = ""): AuthUser {
         if (!token) {
-            throw { statusCode: 401, messageKey: "UNAUTHORIZED" };
+            throw { statusCode: 401, messageKey: messageKeys.UNAUTHORIZED };
         }
 
         try {
             const payload = jwt.verify(token, JWT_SECRET) as AuthUser;
 
             if (typeof payload !== "object" || !payload.id || !payload.email) {
-                throw { statusCode: 401, messageKey: "UNAUTHORIZED" };
+                throw { statusCode: 401, messageKey: messageKeys.UNAUTHORIZED };
             }
 
             return { id: payload.id, email: payload.email };
         } catch {
-            throw { statusCode: 401, messageKey: "UNAUTHORIZED" };
+            throw { statusCode: 401, messageKey: messageKeys.UNAUTHORIZED };
         }
     }
 
