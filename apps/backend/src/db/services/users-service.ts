@@ -1,18 +1,18 @@
 import { asc } from "drizzle-orm";
 import { eq } from "drizzle-orm";
 
-import { UpdateUserDto, User } from "@repo/common/types/users";
+import { User } from "@repo/common/types/users";
 
 import { db } from "@/config/drizzle-orm/db";
 import { usersTable } from "@/db/schemas/users";
 import { tokenService } from "@/services/token-service";
-import { CreateUser } from "@/types/users";
+import { CreateUser, UpdateUser } from "@/types/users";
 import { UsersTable } from "@/types/users";
 
 import { userTokensService } from "./user-tokens-service";
 
 export class UsersService {
-    private static userFields = {
+    private static safeUserFields = {
         id: usersTable.id,
         email: usersTable.email,
         username: usersTable.username,
@@ -35,7 +35,7 @@ export class UsersService {
         const [newUser] = await db
             .insert(usersTable)
             .values(data)
-            .returning(UsersService.userFields);
+            .returning(UsersService.safeUserFields);
 
         if (!newUser?.id) {
             throw { statusCode: 500, messageKey: "SOMETHING_WENT_WRONG" };
@@ -60,14 +60,14 @@ export class UsersService {
         await db.delete(usersTable).where(eq(usersTable.id, id));
     }
 
-    async updateUser(id: User["id"], data: UpdateUserDto): Promise<User | null> {
+    async updateUser(id: User["id"], data: UpdateUser): Promise<User | null> {
         if (!data || Object.keys(data).length === 0) return null;
 
         const [updated] = await db
             .update(usersTable)
             .set(data)
             .where(eq(usersTable.id, id))
-            .returning(UsersService.userFields);
+            .returning(UsersService.safeUserFields);
 
         return updated ?? null;
     }
@@ -82,7 +82,7 @@ export class UsersService {
 
     async getSafeUserById(id: UsersTable["id"]): Promise<User | null> {
         const result = await db
-            .select(UsersService.userFields)
+            .select(UsersService.safeUserFields)
             .from(usersTable)
             .where(eq(usersTable.id, id))
             .limit(1);

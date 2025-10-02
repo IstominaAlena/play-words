@@ -12,3 +12,9 @@ export const loginUserSchema = z.object({
     email: validationFields.email,
     password: validationFields.password,
 });
+
+export const updateUserSchema = z.object({
+    email: validationFields.email.optional(),
+    username: validationFields.username.optional(),
+    password: validationFields.password.optional(),
+});

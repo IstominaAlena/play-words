@@ -3,18 +3,9 @@ import { Response } from "express";
 import jwt from "jsonwebtoken";
 
 import { ACCESS_TOKEN_EXP, JWT_SECRET, REFRESH_TOKEN_TTL_DAYS } from "@/constants/common";
+import { AuthUser } from "@/types/common";
 
 export class TokenService {
-    readonly ACCESS_TOKEN_EXP: string;
-    readonly JWT_SECRET: string;
-    readonly REFRESH_TOKEN_TTL_DAYS: number;
-
-    constructor() {
-        this.ACCESS_TOKEN_EXP = ACCESS_TOKEN_EXP;
-        this.JWT_SECRET = JWT_SECRET;
-        this.REFRESH_TOKEN_TTL_DAYS = REFRESH_TOKEN_TTL_DAYS;
-    }
-
     private generateRandomToken() {
         return crypto.randomBytes(64).toString("hex");
     }
@@ -25,11 +16,25 @@ export class TokenService {
 
     generateAccessToken(id: string | number, email: string) {
         const jti = crypto.randomUUID(); // unique token identifier
-        return jwt.sign({ sub: id, email, jti }, JWT_SECRET, { expiresIn: ACCESS_TOKEN_EXP });
+        return jwt.sign({ id, email, jti }, JWT_SECRET, { expiresIn: ACCESS_TOKEN_EXP });
     }
 
-    verifyAccessToken(token: string) {
-        return jwt.verify(token, JWT_SECRET);
+    verifyAccessToken(token: string = ""): AuthUser {
+        if (!token) {
+            throw { statusCode: 401, messageKey: "UNAUTHORIZED" };
+        }
+
+        try {
+            const payload = jwt.verify(token, JWT_SECRET) as AuthUser;
+
+            if (typeof payload !== "object" || !payload.id || !payload.email) {
+                throw { statusCode: 401, messageKey: "UNAUTHORIZED" };
+            }
+
+            return { id: payload.id, email: payload.email };
+        } catch {
+            throw { statusCode: 401, messageKey: "UNAUTHORIZED" };
+        }
     }
 
     generateRefreshTokenPair() {
