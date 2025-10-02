@@ -12,7 +12,7 @@ import { UsersTable } from "@/types/users";
 import { userTokensService } from "./user-tokens-service";
 
 export class UsersService {
-    private static userFields = {
+    private static safeUserFields = {
         id: usersTable.id,
         email: usersTable.email,
         username: usersTable.username,
@@ -35,7 +35,7 @@ export class UsersService {
         const [newUser] = await db
             .insert(usersTable)
             .values(data)
-            .returning(UsersService.userFields);
+            .returning(UsersService.safeUserFields);
 
         if (!newUser?.id) {
             throw { statusCode: 500, messageKey: "SOMETHING_WENT_WRONG" };
@@ -67,7 +67,7 @@ export class UsersService {
             .update(usersTable)
             .set(data)
             .where(eq(usersTable.id, id))
-            .returning(UsersService.userFields);
+            .returning(UsersService.safeUserFields);
 
         return updated ?? null;
     }
@@ -82,7 +82,7 @@ export class UsersService {
 
     async getSafeUserById(id: UsersTable["id"]): Promise<User | null> {
         const result = await db
-            .select(UsersService.userFields)
+            .select(UsersService.safeUserFields)
             .from(usersTable)
             .where(eq(usersTable.id, id))
             .limit(1);
