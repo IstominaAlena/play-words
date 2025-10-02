@@ -1,14 +1,14 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Response } from "express";
 
-type Controller = (req: Request, res: Response, next: NextFunction) => Promise<any>;
+import { AppRequest, AsyncController } from "@/types/common";
 
-export const controllerWrapper = (controller: Controller) => {
-    return async (req: Request, res: Response, next: NextFunction) => {
+export const controllerWrapper = <TBody = object, TResBody = any>(
+    controller: AsyncController<TBody>,
+) => {
+    return async (req: AppRequest<TBody>, res: Response, next: NextFunction) => {
         try {
             await controller(req, res, next);
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } catch (error: any) {
-            // TODO: figure out how to handle errors here and what exactly
+        } catch (error: unknown) {
             next(error);
         }
     };

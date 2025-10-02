@@ -16,7 +16,9 @@
       ],
       "env": [
         "DATABASE_URL",
-        "PORT"
+        "PORT",
+        "JWT_SECRET",
+        "NODE_ENV"
       ]
     },
     "lint": {
