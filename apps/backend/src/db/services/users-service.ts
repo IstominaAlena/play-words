@@ -1,12 +1,12 @@
 import { asc } from "drizzle-orm";
 import { eq } from "drizzle-orm";
 
-import { UpdateUserDto, User } from "@repo/common/types/users";
+import { User } from "@repo/common/types/users";
 
 import { db } from "@/config/drizzle-orm/db";
 import { usersTable } from "@/db/schemas/users";
 import { tokenService } from "@/services/token-service";
-import { CreateUser } from "@/types/users";
+import { CreateUser, UpdateUser } from "@/types/users";
 import { UsersTable } from "@/types/users";
 
 import { userTokensService } from "./user-tokens-service";
@@ -60,7 +60,7 @@ export class UsersService {
         await db.delete(usersTable).where(eq(usersTable.id, id));
     }
 
-    async updateUser(id: User["id"], data: UpdateUserDto): Promise<User | null> {
+    async updateUser(id: User["id"], data: UpdateUser): Promise<User | null> {
         if (!data || Object.keys(data).length === 0) return null;
 
         const [updated] = await db

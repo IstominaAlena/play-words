@@ -21,7 +21,7 @@ export const getCurrentUser = async (req: AppRequest, res: Response) => {
         const safeUser = await usersService.getSafeUserById(userId);
 
         if (!safeUser) {
-            return res.status(404).json({ message: req.messages.NOT_FOUND });
+            return res.status(404).json({ message: messages.NOT_FOUND });
         }
 
         res.json({ user: safeUser });
