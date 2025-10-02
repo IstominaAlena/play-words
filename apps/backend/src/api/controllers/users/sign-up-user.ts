@@ -4,12 +4,11 @@ import { CreateUserDto } from "@repo/common/types/users";
 
 import { i18nService } from "@/config/i18n/service";
 import { usersService } from "@/db/services/users-service";
+import { passwordService } from "@/services/password-service";
+import { tokenService } from "@/services/token-service";
 import { AppRequest } from "@/types/common";
 import { getErrorMessage } from "@/utils/get-error-message";
 import { getLanguageFromRequest } from "@/utils/get-language-from-request";
-import { hashPassword } from "@/utils/password";
-import { setRefreshTokenCookie } from "@/utils/refresh-token-cookies";
-import { generateAccessToken } from "@/utils/token";
 
 export const signUpUser = async (req: AppRequest<CreateUserDto>, res: Response) => {
     const lang = getLanguageFromRequest(req);
@@ -28,7 +27,7 @@ export const signUpUser = async (req: AppRequest<CreateUserDto>, res: Response) 
             return res.status(409).json({ message: messages.ALREADY_EXISTS });
         }
 
-        const passwordHash = await hashPassword(password);
+        const passwordHash = await passwordService.hashPassword(password);
 
         const { newUser, refreshToken } = await usersService.createUser({
             email,
@@ -36,10 +35,9 @@ export const signUpUser = async (req: AppRequest<CreateUserDto>, res: Response) 
             passwordHash,
         });
 
-        const accessToken = generateAccessToken(newUser.id, newUser.email);
+        const accessToken = tokenService.generateAccessToken(newUser.id, newUser.email);
 
-        // HttpOnly secure cookie for refresh token
-        setRefreshTokenCookie(res, refreshToken);
+        tokenService.setRefreshTokenCookie(res, refreshToken);
 
         res.json({ user: newUser, accessToken });
     } catch (err: unknown) {

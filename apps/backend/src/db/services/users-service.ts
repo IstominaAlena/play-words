@@ -5,9 +5,9 @@ import { UpdateUserDto, User } from "@repo/common/types/users";
 
 import { db } from "@/config/drizzle-orm/db";
 import { usersTable } from "@/db/schemas/users";
+import { tokenService } from "@/services/token-service";
 import { CreateUser } from "@/types/users";
 import { UsersTable } from "@/types/users";
-import { generateRandomToken, hashToken } from "@/utils/token";
 
 import { userTokensService } from "./user-tokens-service";
 
@@ -41,8 +41,7 @@ export class UsersService {
             throw { statusCode: 500, messageKey: "SOMETHING_WENT_WRONG" };
         }
 
-        const refreshToken = generateRandomToken();
-        const refreshTokenHash = hashToken(refreshToken);
+        const { refreshToken, refreshTokenHash } = tokenService.generateRefreshTokenPair();
 
         try {
             await userTokensService.createUserToken({

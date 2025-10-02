@@ -2,8 +2,8 @@ import { eq, sql } from "drizzle-orm";
 
 import { db } from "@/config/drizzle-orm/db";
 import { REFRESH_TOKEN_TTL_DAYS } from "@/constants/common";
+import { tokenService } from "@/services/token-service";
 import { CreateUserToken, UserTokensTable } from "@/types/users";
-import { hashToken } from "@/utils/token";
 
 import { userTokensTable } from "../schemas/users";
 
@@ -19,7 +19,7 @@ export class UserTokensService {
     }
 
     async validateRefreshToken(rawToken: string) {
-        const tokenHash = hashToken(rawToken);
+        const tokenHash = tokenService.hashToken(rawToken);
 
         const tokenRecord = await db
             .select()
