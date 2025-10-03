@@ -1,10 +1,18 @@
 import { Router } from "express";
 
-import { createUserSchema, loginUserSchema } from "@repo/common/schemas/users";
+import {
+    createUserSchema,
+    loginUserSchema,
+    resetUserPasswordRequestSchema,
+    resetUserPasswordSchema,
+    updateUserSchema,
+} from "@repo/common/schemas/users";
 
-import { usersControllersService } from "@/api/services/users-controllers-service";
+import { authValidation } from "@/middlewares/auth-validation";
 import { validateBody } from "@/middlewares/body-validation";
 import { controllerWrapper } from "@/middlewares/controller-wrapper";
+
+import { usersControllersService } from "../controllers/users/service";
 
 const router = Router();
 
@@ -23,5 +31,26 @@ router.post(
 router.post("/refresh", controllerWrapper(usersControllersService.refreshUser));
 
 router.post("/logout", controllerWrapper(usersControllersService.logoutUser));
+
+router.post(
+    "/reset-password-request",
+    validateBody(resetUserPasswordRequestSchema),
+    controllerWrapper(usersControllersService.resetUserPasswordRequest),
+);
+
+router.post(
+    "/reset-password",
+    validateBody(resetUserPasswordSchema),
+    controllerWrapper(usersControllersService.resetUserPassword),
+);
+
+router.get("/me", authValidation, controllerWrapper(usersControllersService.getCurrentUser));
+
+router.patch(
+    "/me",
+    authValidation,
+    validateBody(updateUserSchema),
+    controllerWrapper(usersControllersService.updateCurrentUser),
+);
 
 export default router;

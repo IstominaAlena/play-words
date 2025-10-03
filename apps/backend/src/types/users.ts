@@ -1,9 +1,15 @@
-import { userTokensTable, usersTable } from "@/db/schemas/users";
+import { refreshTokensTable, resetPasswordTokensTable, usersTable } from "@/db/schemas";
 
 export type UsersTable = typeof usersTable.$inferSelect;
 
-export type UserTokensTable = typeof userTokensTable.$inferSelect;
+export type RefreshTokensTable = typeof refreshTokensTable.$inferSelect;
+
+export type ResetPasswordTokensTable = typeof resetPasswordTokensTable.$inferSelect;
+
+export type ValidateTokenTableType = typeof refreshTokensTable | typeof resetPasswordTokensTable;
 
 export type CreateUser = typeof usersTable.$inferInsert;
 
-export type CreateUserToken = Pick<UserTokensTable, "userId" | "tokenHash">;
+export type UpdateUser = Partial<CreateUser>;
+
+export type CreateUserToken = { userId: number; tokenHash: string };
