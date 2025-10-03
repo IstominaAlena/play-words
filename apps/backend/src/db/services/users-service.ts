@@ -6,6 +6,7 @@ import { User } from "@repo/common/types/users";
 import { db } from "@/config/drizzle-orm/db";
 import { messageKeys } from "@/constants/common";
 import { usersTable } from "@/db/schemas";
+import { AppError } from "@/services/error-service";
 import { tokenService } from "@/services/token-service";
 import { CreateUser, UpdateUser } from "@/types/users";
 import { UsersTable } from "@/types/users";
@@ -39,7 +40,7 @@ export class UsersService {
             .returning(UsersService.safeUserFields);
 
         if (!newUser?.id) {
-            throw { statusCode: 500, messageKey: messageKeys.SOMETHING_WENT_WRONG };
+            throw new AppError(500, messageKeys.SOMETHING_WENT_WRONG);
         }
 
         const { token, tokenHash } = tokenService.generateTokenPair();

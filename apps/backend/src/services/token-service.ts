@@ -10,6 +10,8 @@ import {
 } from "@/constants/common";
 import { AuthUser } from "@/types/common";
 
+import { AppError } from "./error-service";
+
 export class TokenService {
     generateRandomToken() {
         return crypto.randomBytes(64).toString("hex");
@@ -26,19 +28,19 @@ export class TokenService {
 
     verifyAccessToken(token: string = ""): AuthUser {
         if (!token) {
-            throw { statusCode: 401, messageKey: messageKeys.UNAUTHORIZED };
+            throw new AppError(401, messageKeys.UNAUTHORIZED);
         }
 
         try {
             const payload = jwt.verify(token, JWT_SECRET) as AuthUser;
 
             if (typeof payload !== "object" || !payload.id || !payload.email) {
-                throw { statusCode: 401, messageKey: messageKeys.UNAUTHORIZED };
+                throw new AppError(401, messageKeys.UNAUTHORIZED);
             }
 
             return { id: payload.id, email: payload.email };
         } catch {
-            throw { statusCode: 401, messageKey: messageKeys.UNAUTHORIZED };
+            throw new AppError(401, messageKeys.UNAUTHORIZED);
         }
     }
 

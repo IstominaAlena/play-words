@@ -5,6 +5,7 @@ import { ResetUserPassword } from "@repo/common/types/users";
 import { messageKeys } from "@/constants/common";
 import { userTokensService } from "@/db/services/user-tokens-service";
 import { usersService } from "@/db/services/users-service";
+import { AppError } from "@/services/error-service";
 import { passwordService } from "@/services/password-service";
 import { AppRequest } from "@/types/common";
 
@@ -14,7 +15,7 @@ export const resetUserPassword = async (req: AppRequest<ResetUserPassword>, res:
     const tokenRecord = await userTokensService.validateResetPasswordToken(rawResetPasswordToken);
 
     if (!tokenRecord) {
-        throw { statusCode: 400, messageKey: messageKeys.INVALID_TOKEN };
+        throw new AppError(400, messageKeys.INVALID_TOKEN);
     }
 
     const newPasswordHash = await passwordService.hashPassword(newPassword);

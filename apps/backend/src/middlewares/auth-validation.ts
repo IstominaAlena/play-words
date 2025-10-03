@@ -1,20 +1,16 @@
 import { NextFunction, Response } from "express";
 
-import { i18nService } from "@/config/i18n/service";
+import { messageKeys } from "@/constants/common";
+import { AppError } from "@/services/error-service";
 import { tokenService } from "@/services/token-service";
 import { AppRequest } from "@/types/common";
-import { getLanguageFromRequest } from "@/utils/get-language-from-request";
 
 export const authValidation = (req: AppRequest, res: Response, next: NextFunction) => {
-    const lang = getLanguageFromRequest(req);
-
-    const messages = i18nService.getMessages(lang);
-
     try {
         const authHeader = req.headers["authorization"];
 
         if (!authHeader || !authHeader.startsWith("Bearer ")) {
-            return res.status(401).json({ message: messages.UNAUTHORIZED });
+            throw new AppError(401, messageKeys.UNAUTHORIZED);
         }
 
         const token = authHeader.split(" ")[1];
@@ -27,7 +23,7 @@ export const authValidation = (req: AppRequest, res: Response, next: NextFunctio
         };
 
         next();
-    } catch {
-        return res.status(401).json({ message: messages.UNAUTHORIZED });
+    } catch (error: unknown) {
+        next(error);
     }
 };

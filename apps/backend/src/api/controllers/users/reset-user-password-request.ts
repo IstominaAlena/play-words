@@ -6,6 +6,7 @@ import { i18nService } from "@/config/i18n/service";
 import { messageKeys } from "@/constants/common";
 import { userTokensService } from "@/db/services/user-tokens-service";
 import { usersService } from "@/db/services/users-service";
+import { AppError } from "@/services/error-service";
 import { tokenService } from "@/services/token-service";
 import { AppRequest } from "@/types/common";
 import { getLanguageFromRequest } from "@/utils/get-language-from-request";
@@ -20,7 +21,7 @@ export const resetUserPasswordRequest = async (
     const { email: rawEmail } = req.body;
 
     if (!rawEmail) {
-        throw { statusCode: 400, messageKey: messageKeys.BAD_REQUEST };
+        throw new AppError(400, messageKeys.BAD_REQUEST);
     }
 
     const email = rawEmail.trim().toLowerCase();

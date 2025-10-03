@@ -4,6 +4,7 @@ import { CreateUserDto } from "@repo/common/types/users";
 
 import { messageKeys } from "@/constants/common";
 import { usersService } from "@/db/services/users-service";
+import { AppError } from "@/services/error-service";
 import { passwordService } from "@/services/password-service";
 import { tokenService } from "@/services/token-service";
 import { AppRequest } from "@/types/common";
@@ -17,7 +18,7 @@ export const signUpUser = async (req: AppRequest<CreateUserDto>, res: Response) 
     const existingUser = await usersService.getUserByEmail(email);
 
     if (existingUser?.id) {
-        throw { statusCode: 404, messageKey: messageKeys.ALREADY_EXISTS };
+        throw new AppError(409, messageKeys.ALREADY_EXISTS);
     }
 
     const passwordHash = await passwordService.hashPassword(password);
