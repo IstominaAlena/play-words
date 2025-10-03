@@ -25,14 +25,14 @@ export const signInUser = async (req: AppRequest<LoginUserDto>, res: Response) =
 
     const accessToken = tokenService.generateAccessToken(user.id, user.email);
 
-    const { refreshToken, refreshTokenHash } = tokenService.generateRefreshTokenPair();
+    const { token, tokenHash } = tokenService.generateTokenPair();
 
-    await userTokensService.createUserToken({
+    await userTokensService.createUserRefreshToken({
         userId: user.id,
-        tokenHash: refreshTokenHash,
+        tokenHash,
     });
 
-    tokenService.setRefreshTokenCookie(res, refreshToken);
+    tokenService.setRefreshTokenCookie(res, token);
 
     const safeUser = await usersService.getSafeUserById(user.id);
 

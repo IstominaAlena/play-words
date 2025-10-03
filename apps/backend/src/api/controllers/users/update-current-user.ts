@@ -18,7 +18,7 @@ export const updateCurrentUser = async (req: AppRequest<UpdateUserDto>, res: Res
     const userId = req.user?.id;
 
     if (!userId) {
-        throw { statusCode: 404, messageKey: messageKeys.UNAUTHORIZED };
+        throw { statusCode: 401, messageKey: messageKeys.UNAUTHORIZED };
     }
 
     const currentUser = await usersService.getSafeUserById(userId);
@@ -36,7 +36,7 @@ export const updateCurrentUser = async (req: AppRequest<UpdateUserDto>, res: Res
     if (password) updateData.passwordHash = await passwordService.hashPassword(password);
 
     if (Object.keys(updateData).length === 0) {
-        throw { statusCode: 404, messageKey: messageKeys.BAD_REQUEST };
+        throw { statusCode: 400, messageKey: messageKeys.BAD_REQUEST };
     }
 
     const safeUser = await usersService.updateUser(currentUser.id, updateData);
