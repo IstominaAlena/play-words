@@ -18,3 +18,12 @@ export const updateUserSchema = z.object({
     username: validationFields.username.optional(),
     password: validationFields.password.optional(),
 });
+
+export const resetUserPasswordRequestSchema = z.object({
+    email: validationFields.email,
+});
+
+export const resetUserPasswordSchema = z.object({
+    token: z.string().min(1, "REQUIRED"),
+    password: validationFields.password,
+});

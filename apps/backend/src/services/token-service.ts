@@ -11,7 +11,7 @@ import {
 import { AuthUser } from "@/types/common";
 
 export class TokenService {
-    private generateRandomToken() {
+    generateRandomToken() {
         return crypto.randomBytes(64).toString("hex");
     }
 
@@ -42,11 +42,11 @@ export class TokenService {
         }
     }
 
-    generateRefreshTokenPair() {
-        const refreshToken = this.generateRandomToken();
-        const refreshTokenHash = this.hashToken(refreshToken);
+    generateTokenPair() {
+        const token = this.generateRandomToken();
+        const tokenHash = this.hashToken(token);
 
-        return { refreshToken, refreshTokenHash };
+        return { token, tokenHash };
     }
 
     setRefreshTokenCookie(res: Response, refreshToken: string) {

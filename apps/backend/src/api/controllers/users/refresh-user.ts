@@ -12,7 +12,7 @@ export const refreshUser = async (req: AppRequest, res: Response) => {
     const tokenRecord = await userTokensService.validateRefreshToken(rawCookiesRefreshToken);
 
     if (!tokenRecord) {
-        throw { statusCode: 404, messageKey: messageKeys.INVALID_REFRESH_TOKEN };
+        throw { statusCode: 404, messageKey: messageKeys.INVALID_TOKEN };
     }
 
     const safeUser = await usersService.getSafeUserById(tokenRecord.userId);
@@ -23,14 +23,14 @@ export const refreshUser = async (req: AppRequest, res: Response) => {
 
     const accessToken = tokenService.generateAccessToken(safeUser.id, safeUser.email);
 
-    const { refreshToken, refreshTokenHash } = tokenService.generateRefreshTokenPair();
+    const { token, tokenHash } = tokenService.generateTokenPair();
 
-    await userTokensService.createUserToken({
+    await userTokensService.createUserRefreshToken({
         userId: safeUser.id,
-        tokenHash: refreshTokenHash,
+        tokenHash,
     });
 
-    tokenService.setRefreshTokenCookie(res, refreshToken);
+    tokenService.setRefreshTokenCookie(res, token);
 
     res.json({ user: safeUser, accessToken });
 };

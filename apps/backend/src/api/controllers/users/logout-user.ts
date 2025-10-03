@@ -17,7 +17,7 @@ export const logoutUser = async (req: AppRequest, res: Response) => {
         const tokenRecord = await userTokensService.validateRefreshToken(rawCookiesRefreshToken);
 
         if (tokenRecord) {
-            await userTokensService.deleteUserToken(tokenRecord.id);
+            await userTokensService.deleteUserRefreshToken(tokenRecord.id);
         }
     }
 

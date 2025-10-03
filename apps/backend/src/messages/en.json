@@ -9,7 +9,8 @@
     "INVALID_EMAIL": "Invalid email format",
     "SHORT_PASSWORD": "Password to short",
     "INVALID_CREDENTIALS": "Invalid credentials",
-    "INVALID_REFRESH_TOKEN": "Invalid refresh token",
     "UNAUTHORIZED": "Unauthorized",
-    "LOGOUT_SUCCESS": "Logged out successfully"
+    "LOGOUT_SUCCESS": "Logged out successfully",
+    "RESET_LINK_SENT": "If the email exists, reset link has been sent",
+    "INVALID_TOKEN": "Invalid or expired token"
 }

@@ -42,15 +42,15 @@ export class UsersService {
             throw { statusCode: 500, messageKey: messageKeys.SOMETHING_WENT_WRONG };
         }
 
-        const { refreshToken, refreshTokenHash } = tokenService.generateRefreshTokenPair();
+        const { token, tokenHash } = tokenService.generateTokenPair();
 
         try {
-            await userTokensService.createUserToken({
+            await userTokensService.createUserRefreshToken({
                 userId: newUser.id,
-                tokenHash: refreshTokenHash,
+                tokenHash,
             });
 
-            return { newUser, refreshToken };
+            return { newUser, refreshToken: token };
         } catch (error) {
             await this.deleteUser(newUser.id);
             throw error;
