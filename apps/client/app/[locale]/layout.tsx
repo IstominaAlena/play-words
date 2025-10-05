@@ -6,6 +6,8 @@ import "@repo/ui/styles";
 
 import { routing } from "@repo/i18n/config/routing";
 
+import { MainLayout } from "@/components/layout/main-layout";
+
 export const metadata: Metadata = {
     title: "CLIENT",
     description: "",
@@ -22,13 +24,12 @@ const RootLayout = async ({ children, params }: Props) => {
     if (!hasLocale(routing.locales, locale)) {
         notFound();
     }
+
     return (
-        <html lang={locale}>
-            <body>
+        <html lang={locale} className="scroll-smooth">
+            <body className="bg-primary_dark w-ful flex h-[100dvh] flex-col">
                 <NextIntlClientProvider>
-                    <header></header>
-                    <main>{children}</main>
-                    <footer></footer>
+                    <MainLayout>{children}</MainLayout>
                 </NextIntlClientProvider>
             </body>
         </html>

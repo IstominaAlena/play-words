@@ -2,4 +2,6 @@
 
 @import "@repo/tailwind-config/tailwind-styles";
 
-@source "../components/**/*.{js,ts,jsx,tsx}";
+.container {
+    @apply mx-auto w-full max-w-406 px-6 md:px-4;
+}

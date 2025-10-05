@@ -1,50 +1,64 @@
-import { Slot } from "@radix-ui/react-slot";
-import { type VariantProps, cva } from "class-variance-authority";
-import Link from "next/link";
-import { ComponentProps, FC } from "react";
+import { ComponentProps, FC, PropsWithChildren } from "react";
 
-import "../styles/global.css";
 import { cn } from "../utils/class-names";
+import { HoverBorderGradient } from "./hover-border-gradient";
 
-const buttonVariants = cva("", {
-    variants: {
-        variant: {
-            default: "",
-        },
-        size: {
-            default: "",
-        },
-    },
-    defaultVariants: {
-        variant: "default",
-        size: "default",
-    },
-});
-
-interface ButtonProps extends ComponentProps<"button">, VariantProps<typeof buttonVariants> {
-    asChild?: boolean;
+interface Props extends PropsWithChildren {
+    onClick?: () => void;
+    className?: string;
+    disabled?: boolean;
+    isLoading?: boolean;
 }
 
-const Button: FC<ButtonProps> = ({ className, variant, size, asChild = false, ...props }) => {
-    const Comp = asChild ? Slot : "button";
-
+const Button: FC<Props> = ({ children, className, disabled, onClick, isLoading }) => {
     return (
-        <Comp
-            data-slot="button"
-            className={cn(buttonVariants({ variant, size, className }))}
+        <HoverBorderGradient
+            containerClassName="rounded-full"
+            as="button"
+            onClick={onClick}
+            className={cn(
+                "bg-primary_dark text-primary_light flex cursor-pointer items-center",
+                className,
+            )}
+            disabled={disabled}
+            isLoading={isLoading}
+        >
+            {children}
+        </HoverBorderGradient>
+    );
+};
+
+const SecondaryButton: FC<ComponentProps<"button">> = ({ children, className, ...props }) => {
+    return (
+        <button
             {...props}
-        />
+            className="group relative h-min cursor-pointer rounded-full p-px disabled:pointer-events-none disabled:opacity-50"
+        >
+            <div
+                className={cn(
+                    "bg-primary_dark relative z-10 h-full w-full rounded-[inherit] px-4 py-2 text-white",
+                    className,
+                )}
+            >
+                {children}
+            </div>
+            <div className="bg-primary_light/20 absolute top-1/2 left-1/2 z-1 h-full w-full -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-[inherit] blur-[2px] transition-all duration-300 group-hover:blur-xs" />
+        </button>
     );
 };
 
-interface LinkButtonProps extends ComponentProps<"a">, VariantProps<typeof buttonVariants> {
-    href: string;
-}
-
-const LinkButton: FC<LinkButtonProps> = ({ className, variant, size, href = "", ...props }) => {
+const GhostButton: FC<ComponentProps<"button">> = ({ children, className, ...props }) => {
     return (
-        <Link href={href} className={cn(buttonVariants({ variant, size, className }))} {...props} />
+        <button
+            {...props}
+            className={cn(
+                "text-primary_light/80 hover:text-primary_light tex-base cursor-pointer transition-all duration-300",
+                className,
+            )}
+        >
+            {children}
+        </button>
     );
 };
 
-export { Button, LinkButton, buttonVariants };
+export { Button, SecondaryButton, GhostButton };

@@ -4,8 +4,7 @@
   "private": true,
   "exports": {
     "./*": "./src/*.tsx",
-    "./styles": "./src/styles/global.css",
-    "./class-names": "./src/utils/class-names.ts"
+    "./styles": "./src/styles/global.css"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
@@ -14,8 +13,8 @@
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
-    "@repo/typescript-config": "*",
     "@repo/prettier-config": "*",
+    "@repo/typescript-config": "*",
     "@types/node": "^22.15.3",
     "@types/react": "19.1.0",
     "@types/react-dom": "19.1.1",
@@ -24,10 +23,15 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",
+    "@repo/i18n": "*",
     "@repo/tailwind-config": "*",
+    "@tsparticles/engine": "^3.9.1",
+    "@tsparticles/react": "^3.0.0",
+    "@tsparticles/slim": "^3.9.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.544.0",
+    "motion": "^12.23.22",
     "next": "^15.5.4",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
