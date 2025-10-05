@@ -1,7 +1,6 @@
 export enum Routes {
     HOME = "/",
     DICTIONARY = "/dictionary",
-    TRAININGS = "/trainings",
+    PRACTICE = "/practice",
     GAMES = "/games",
-    SETTINGS = "/settings",
 }

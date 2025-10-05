@@ -1,4 +1,10 @@
 {
+    "navigation": {
+        "home": "Головна",
+        "dictionary": "Словник",
+        "practice": "Практика",
+        "games": "Ігри"
+    },
     "auth": {
         "sign_in": "Увійти",
         "sign_up": "Зареєструватися"

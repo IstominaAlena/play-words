@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { FC } from "react";
 
 import { cn } from "@repo/ui/class-names";
-import { GradientLine } from "@repo/ui/components/gradient-line";
+import { GradientLine } from "@repo/ui/core/gradient-line";
 
 import { SupportedLanguages } from "@repo/common/enums/common";
 import { usePathname, useRouter } from "@repo/i18n/config/navigation";
@@ -29,8 +29,8 @@ export const Footer: FC = () => {
             key={lang}
             onClick={onLocaleChange(lang)}
             className={cn(
-                "text-secondary_light hover:text-accent_light cursor-pointer text-sm uppercase",
-                locale === lang && "underline",
+                "text-secondary_light hover:text-accent_dark cursor-pointer text-sm uppercase",
+                locale === lang && "text-accent_light",
             )}
         >
             {lang}

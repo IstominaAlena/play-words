@@ -1,4 +1,10 @@
 {
+    "navigation": {
+        "home": "Home",
+        "dictionary": "Dictionary",
+        "practice": "Practice",
+        "games": "Games"
+    },
     "auth": {
         "sign_in": "Sign in",
         "sign_up": "Sign up"

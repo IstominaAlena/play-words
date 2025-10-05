@@ -12,11 +12,11 @@ interface Props extends PropsWithChildren {
 
 const Button: FC<Props> = ({ children, className, disabled, onClick, isLoading }) => (
     <HoverBorderGradient
-        containerClassName="rounded-full"
+        containerClassName="rounded-full w-full"
         as="button"
         onClick={onClick}
         className={cn(
-            "bg-primary_dark text-primary_light flex cursor-pointer items-center px-5 py-2 text-sm capitalize",
+            "bg-primary_dark text-primary_light flex w-full cursor-pointer items-center justify-center px-5 py-2 text-sm capitalize",
             className,
         )}
         disabled={disabled}
@@ -29,11 +29,11 @@ const Button: FC<Props> = ({ children, className, disabled, onClick, isLoading }
 const SecondaryButton: FC<ComponentProps<"button">> = ({ children, className, ...props }) => (
     <button
         {...props}
-        className="group relative h-min cursor-pointer rounded-full p-px disabled:pointer-events-none disabled:opacity-50"
+        className="group relative h-min w-full cursor-pointer rounded-full p-px disabled:pointer-events-none disabled:opacity-50"
     >
         <div
             className={cn(
-                "bg-primary_dark text-primary-light relative z-10 h-full w-full rounded-[inherit] px-5 py-2 text-sm capitalize",
+                "bg-primary_dark text-primary_light relative z-10 h-full w-full rounded-[inherit] px-5 py-2 text-sm capitalize",
                 className,
             )}
         >

@@ -1,6 +1,6 @@
 "use client";
 
-import { SparklesCore } from "@repo/ui/components/sparkles";
+import { SparklesCore } from "@repo/ui/core/sparkles";
 
 const HomePage = () => {
     return (

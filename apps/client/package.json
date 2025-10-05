@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@repo/tailwind-config": "*",
+    "@repo/common": "*",
     "@repo/ui": "*",
     "@repo/i18n": "*",
     "next": "^15.5.0",

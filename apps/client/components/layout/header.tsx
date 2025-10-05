@@ -1,24 +1,32 @@
 "use client";
 
-import { useTranslations } from "next-intl";
 import { FC } from "react";
 
-import { Button, GhostButton } from "@repo/ui/components/button";
-import { GradientLine } from "@repo/ui/components/gradient-line";
-import { Logo } from "@repo/ui/components/logo";
+import { MobileMenu } from "@repo/ui/components/mobile-menu";
+import { NavBar } from "@repo/ui/components/nav-bar";
+import { GradientLine } from "@repo/ui/core/gradient-line";
+import { Logo } from "@repo/ui/core/logo";
 
+import { navLinks } from "@/constants/index";
 import { Routes } from "@/enums/routes";
 
-export const Header: FC = () => {
-    const t = useTranslations("auth");
+import { AuthBar } from "../auth/auth-bar";
 
+export const Header: FC = () => {
     return (
         <header className="relative flex h-16 w-full items-center">
-            <div className="container flex items-center justify-between gap-4">
-                <Logo href={Routes.HOME} />
-                <div className="flex gap-6">
-                    <GhostButton onClick={() => {}}>{t("sign_up")}</GhostButton>
-                    <Button onClick={() => {}}>{t("sign_in")}</Button>
+            <div className="container flex h-full items-center">
+                <div className="flex h-full flex-1 items-center lg:flex-2">
+                    <Logo href={Routes.HOME} />
+                </div>
+                <div className="flex h-full flex-2 justify-center lg:hidden">
+                    <NavBar links={navLinks} className="lg:hidden" />
+                </div>
+                <div className="flex h-full w-full flex-1 items-center justify-end gap-2">
+                    <AuthBar className="md:hidden" />
+                    <MobileMenu links={navLinks} className="hidden lg:block">
+                        <AuthBar className="hidden md:flex" />
+                    </MobileMenu>
                 </div>
             </div>
             <GradientLine className="absolute top-full left-0" />
