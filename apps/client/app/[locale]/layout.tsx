@@ -9,7 +9,7 @@ import { routing } from "@repo/i18n/config/routing";
 import { MainLayout } from "@/components/layout/main-layout";
 
 export const metadata: Metadata = {
-    title: "CLIENT",
+    title: "Play Words",
     description: "",
 };
 
