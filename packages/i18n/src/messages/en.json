@@ -1,5 +1,6 @@
 {
-    "home_page": {
-        "title": "Hello world!"
+    "auth": {
+        "sign_in": "Sign in",
+        "sign_up": "Sign up"
     }
 }
