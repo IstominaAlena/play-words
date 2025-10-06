@@ -9,12 +9,7 @@ interface Props extends PropsWithChildren {
 }
 
 export const PageTitle: FC<Props> = ({ children, className }) => (
-    <h2
-        className={cn(
-            "text-secondary_light text-6xl font-medium capitalize md:text-3xl",
-            className,
-        )}
-    >
+    <h2 className={cn("text-secondary_light text-6xl font-bold capitalize md:text-3xl", className)}>
         {children}
     </h2>
 );

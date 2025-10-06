@@ -36,7 +36,7 @@ interface DropdownMenuItemProps {
     variant?: "default" | "destructive";
 }
 
-const DropdownMenuItem: FC<
+export const DropdownMenuItem: FC<
     ComponentProps<typeof DropdownMenuPrimitive.Item> & DropdownMenuItemProps
 > = ({ className, inset, variant = "default", ...props }) => (
     <DropdownMenuPrimitive.Item
@@ -77,7 +77,8 @@ export const DropdownMenu: FC<DropdownMenuProps> = ({
             </DropdownMenuTrigger>
             <DropdownMenuContent className={contentClassName} side={"bottom"}>
                 {content.map(renderContentItem)}
-                {children && <DropdownMenuItem>{children}</DropdownMenuItem>}
+
+                {children}
             </DropdownMenuContent>
         </CoreDropdownMenu>
     );

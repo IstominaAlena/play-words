@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
+import { Loader } from "@repo/ui/core/loader";
 import "@repo/ui/styles";
 
+import { QueryProvider } from "@repo/api-config/api-config";
 import { routing } from "@repo/i18n/config/routing";
 
 import { MainLayout } from "@/components/layout/main-layout";
@@ -28,9 +31,13 @@ const RootLayout = async ({ children, params }: Props) => {
     return (
         <html lang={locale} className="scroll-smooth">
             <body className="bg-primary_dark w-ful flex h-[100dvh] flex-col">
-                <NextIntlClientProvider>
-                    <MainLayout>{children}</MainLayout>
-                </NextIntlClientProvider>
+                <QueryProvider>
+                    <NextIntlClientProvider>
+                        <Suspense fallback={<Loader />}>
+                            <MainLayout>{children}</MainLayout>
+                        </Suspense>
+                    </NextIntlClientProvider>
+                </QueryProvider>
             </body>
         </html>
     );

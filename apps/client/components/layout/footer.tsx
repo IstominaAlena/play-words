@@ -6,8 +6,10 @@ import { FC } from "react";
 
 import { cn } from "@repo/ui/class-names";
 import { GradientLine } from "@repo/ui/core/gradient-line";
+import { Loader } from "@repo/ui/core/loader";
 
 import { SupportedLanguages } from "@repo/common/enums/common";
+import { useLoaderStore } from "@repo/common/stores/loader-store";
 import { usePathname, useRouter } from "@repo/i18n/config/navigation";
 import { routing } from "@repo/i18n/config/routing";
 
@@ -18,6 +20,8 @@ export const Footer: FC = () => {
     const params = useSearchParams();
 
     const locale = useLocale();
+
+    const { isPending } = useLoaderStore();
 
     const onLocaleChange = (lang: SupportedLanguages) => () => {
         const query = Object.fromEntries(params.entries());
@@ -44,6 +48,7 @@ export const Footer: FC = () => {
                 <ul className="flex gap-6">{routing.locales.map(renderLocaleItem)}</ul>
             </div>
             <GradientLine className="absolute top-0 left-0" />
+            {isPending && <Loader isScreenProtection />}
         </footer>
     );
 };

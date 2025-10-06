@@ -26,5 +26,8 @@
         "sign_in": "Sign in",
         "sign_up": "Sign up",
         "forgot_password": "Forgot your password?"
+    },
+    "home_page": {
+        "title": "Let's play words!"
     }
 }

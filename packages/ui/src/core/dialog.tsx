@@ -40,7 +40,7 @@ const DialogContent: FC<
             <DialogPrimitive.Content
                 data-slot="dialog-content"
                 className={cn(
-                    "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 bg-secondary_dark fixed top-[50%] left-[50%] z-50 w-full max-w-[30rem] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-lg p-6 shadow-lg",
+                    "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 bg-secondary_dark fixed top-[50%] left-[50%] z-50 w-full max-w-[30rem] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-lg p-6 shadow-lg md:max-w-[calc(100%-1rem)]",
                     className,
                 )}
                 {...props}
