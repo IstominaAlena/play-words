@@ -8,7 +8,8 @@
     "./enums/*": "./src/enums/*.ts",
     "./types/*": "./src/types/*.ts",
     "./schemas/*": "./src/schemas/*.ts",
-    "./hooks/*": "./src/hooks/*.ts"
+    "./hooks/*.ts": "./src/hooks/*.ts",
+    "./hooks/*.tsx": "./src/hooks/*.tsx"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
@@ -17,7 +18,6 @@
     "typescript": "5.9.2"
   },
   "dependencies": {
-    "zod": "^4.1.11",
-    "@repo/ui": "*"
+    "zod": "^4.1.11"
   }
 }

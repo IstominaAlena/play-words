@@ -5,8 +5,26 @@
         "practice": "Practice",
         "games": "Games"
     },
+    "form": {
+        "submit": "Submit",
+        "username": "Username",
+        "username_placeholder": "John Doe",
+        "email": "Email",
+        "email_placeholder": "example@mail.com",
+        "password": "Password",
+        "confirm_password": "Confirm password",
+        "password_placeholder": "**********",
+        "show_password": "Show password"
+    },
+    "form_error": {
+        "REQUIRED": "Field is required",
+        "SHORT_PASSWORD": "Password to short",
+        "PASSWORD_MATCH": "Passwords should match",
+        "INVALID_EMAIL": "Email should be in valid format"
+    },
     "auth": {
         "sign_in": "Sign in",
-        "sign_up": "Sign up"
+        "sign_up": "Sign up",
+        "forgot_password": "Forgot your password?"
     }
 }

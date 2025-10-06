@@ -13,7 +13,6 @@ interface Props {
     className?: string;
     duration?: number;
     clockwise?: boolean;
-    disabled?: boolean;
     isLoading?: boolean;
 }
 
@@ -23,10 +22,9 @@ export const HoverBorderGradient: FC<
     children,
     containerClassName,
     className,
-    as: Tag = "button",
+    as: Tag = "div",
     duration = 1,
     clockwise = true,
-    disabled,
     isLoading,
     ...props
 }) => {
@@ -71,13 +69,9 @@ export const HoverBorderGradient: FC<
                     "absolute inset-0 z-0 h-full w-full flex-none overflow-hidden rounded-[inherit] blur-[2px] transition-all duration-300 group-hover:blur-xs",
                 )}
                 initial={{ background: movingMap[direction] }}
-                animate={
-                    disabled
-                        ? {}
-                        : {
-                              background: movingMap[direction],
-                          }
-                }
+                animate={{
+                    background: movingMap[direction],
+                }}
                 transition={{ ease: "linear", duration: duration ?? 1 }}
             />
         </Tag>

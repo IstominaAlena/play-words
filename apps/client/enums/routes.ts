@@ -4,3 +4,7 @@ export enum Routes {
     PRACTICE = "/practice",
     GAMES = "/games",
 }
+
+export enum SecondaryRoutes {
+    FORGOT_PASSWORD = "/forgot-password",
+}

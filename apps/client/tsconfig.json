@@ -10,7 +10,9 @@
         "paths": {
             "@/components/*": ["components/*"],
             "@/enums/*": ["enums/*"],
-            "@/constants/*": ["constants/*"]
+            "@/constants/*": ["constants/*"],
+            "@/schemas/*": ["schemas/*"],
+            "@/types/*": ["types/*"]
         }
     },
     "include": ["**/*.ts", "**/*.tsx", "next-env.d.ts", "next.config.js", ".next/types/**/*.ts"],

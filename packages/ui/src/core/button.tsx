@@ -1,29 +1,42 @@
-import { ComponentProps, FC, PropsWithChildren } from "react";
+import { ComponentProps, FC, ReactNode } from "react";
 
 import { cn } from "../utils/class-names";
 import { HoverBorderGradient } from "./hover-border-gradient";
 
-interface Props extends PropsWithChildren {
-    onClick?: () => void;
-    className?: string;
-    disabled?: boolean;
+interface Props extends ComponentProps<"button"> {
+    children?: ReactNode;
     isLoading?: boolean;
+    buttonClassName?: string;
 }
 
-const Button: FC<Props> = ({ children, className, disabled, onClick, isLoading }) => (
-    <HoverBorderGradient
-        containerClassName="rounded-full w-full"
-        as="button"
+const Button: FC<Props> = ({
+    children,
+    className,
+    buttonClassName,
+    disabled,
+    onClick,
+    isLoading,
+}) => (
+    <button
         onClick={onClick}
-        className={cn(
-            "bg-primary_dark text-primary_light flex w-full cursor-pointer items-center justify-center px-5 py-2 text-sm capitalize",
-            className,
-        )}
         disabled={disabled}
-        isLoading={isLoading}
+        className={cn(
+            "w-full disabled:opacity-50",
+            isLoading && "pointer-events-none",
+            buttonClassName,
+        )}
     >
-        {children}
-    </HoverBorderGradient>
+        <HoverBorderGradient
+            containerClassName="rounded-full w-full"
+            className={cn(
+                "bg-primary_dark text-primary_light flex w-full cursor-pointer items-center justify-center px-5 py-2 text-sm capitalize",
+                className,
+            )}
+            isLoading={isLoading}
+        >
+            {children}
+        </HoverBorderGradient>
+    </button>
 );
 
 const SecondaryButton: FC<ComponentProps<"button">> = ({ children, className, ...props }) => (
