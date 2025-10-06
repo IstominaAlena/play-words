@@ -7,7 +7,8 @@
     "./constants/*": "./src/constants/*.ts",
     "./enums/*": "./src/enums/*.ts",
     "./types/*": "./src/types/*.ts",
-    "./schemas/*": "./src/schemas/*.ts"
+    "./schemas/*": "./src/schemas/*.ts",
+    "./hooks/*": "./src/hooks/*.ts"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
@@ -16,6 +17,7 @@
     "typescript": "5.9.2"
   },
   "dependencies": {
-    "zod": "^4.1.11"
+    "zod": "^4.1.11",
+    "@repo/ui": "*"
   }
 }
