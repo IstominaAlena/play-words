@@ -11,9 +11,10 @@ import { cn } from "../utils/class-names";
 interface Props {
     links: NavLink[];
     className?: string;
+    linkClassName?: string;
 }
 
-export const NavBar: FC<Props> = ({ links, className }) => {
+export const NavBar: FC<Props> = ({ links, className, linkClassName }) => {
     const t = useTranslations("navigation");
 
     const currentPath = usePathname();
@@ -23,8 +24,9 @@ export const NavBar: FC<Props> = ({ links, className }) => {
             <Link
                 href={path}
                 className={cn(
-                    "hover:text-accent_dark flex h-full items-center gap-2 px-4 lg:px-2",
+                    "hover:text-accent_dark flex h-full items-center gap-2 px-4 transition-all duration-300 lg:px-2",
                     currentPath === path && "text-accent_light",
+                    linkClassName,
                 )}
             >
                 <Icon className="text-inherit" width={16} height={16} />

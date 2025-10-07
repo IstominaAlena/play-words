@@ -38,6 +38,10 @@ const config: Config = {
           "linear-gradient(to right, rgba(10, 10, 10, 0.1), rgba(6, 214, 160, 1), rgba(16, 79, 85, 1), rgba(6, 214, 160, 1), rgba(10, 10, 10, 0.1))",
         error_gradient:
           "linear-gradient(to right, rgba(235, 235, 235, 0.1), rgba(128, 5, 22, 1), rgba(230, 10, 12, 1), rgba(128, 5, 22, 1), rgba(235, 235, 235, 0.1))",
+        vertical_neutral_gradient:
+          "linear-gradient(to bottom, rgba(235, 235, 235, 0.1), rgba(112, 112, 112, 0.5), rgba(112, 112, 112, 1), rgba(112, 112, 112, 0.5), rgba(235, 235, 235, 0.1))",
+        horizontal_neutral_gradient:
+          "linear-gradient(to right, rgba(235, 235, 235, 0.1), rgba(112, 112, 112, 0.5), rgba(112, 112, 112, 1), rgba(112, 112, 112, 0.5), rgba(235, 235, 235, 0.1))",
       },
       animation: {
         "meteor-effect": "meteor 5s linear infinite",

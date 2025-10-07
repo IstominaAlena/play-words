@@ -23,3 +23,20 @@ export const resetUserPasswordDtoSchema = z
         path: ["confirmPassword"],
         message: "PASSWORD_MATCH",
     });
+
+export const editCurrentUserSchema = z.object({
+    username: validationFields.username,
+    email: validationFields.email,
+});
+
+// TODO: Get it from the backend side
+export const changePasswordSchema = z
+    .object({
+        oldPassword: validationFields.password,
+        newPassword: validationFields.password,
+        confirmPassword: z.string().min(MIN_PASSWORD_LENGTH, "PASSWORD_MATCH"),
+    })
+    .refine((data) => data.newPassword === data.confirmPassword, {
+        path: ["confirmPassword"],
+        message: "PASSWORD_MATCH",
+    });
