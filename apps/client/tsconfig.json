@@ -5,7 +5,17 @@
             {
                 "name": "next"
             }
-        ]
+        ],
+        "baseUrl": ".",
+        "paths": {
+            "@/components/*": ["components/*"],
+            "@/enums/*": ["enums/*"],
+            "@/constants/*": ["constants/*"],
+            "@/schemas/*": ["schemas/*"],
+            "@/types/*": ["types/*"],
+            "@/api/*": ["api/*"],
+            "@/hooks/*": ["hooks/*"]
+        }
     },
     "include": ["**/*.ts", "**/*.tsx", "next-env.d.ts", "next.config.js", ".next/types/**/*.ts"],
     "exclude": ["node_modules"]

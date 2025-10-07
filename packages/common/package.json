@@ -7,7 +7,11 @@
     "./constants/*": "./src/constants/*.ts",
     "./enums/*": "./src/enums/*.ts",
     "./types/*": "./src/types/*.ts",
-    "./schemas/*": "./src/schemas/*.ts"
+    "./schemas/*": "./src/schemas/*.ts",
+    "./stores/*": "./src/stores/*.ts",
+    "./config/*": "./src/config/*.ts",
+    "./hooks/*.ts": "./src/hooks/*.ts",
+    "./hooks/*.tsx": "./src/hooks/*.tsx"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
@@ -16,6 +20,8 @@
     "typescript": "5.9.2"
   },
   "dependencies": {
-    "zod": "^4.1.11"
+    "zod": "^4.1.11",
+    "zustand": "^5.0.8",
+    "cookies-next": "^6.1.0"
   }
 }

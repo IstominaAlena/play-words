@@ -33,5 +33,5 @@ export const refreshUser = async (req: AppRequest, res: Response) => {
 
     tokenService.setRefreshTokenCookie(res, token);
 
-    res.json({ user: safeUser, accessToken });
+    res.json({ accessToken });
 };

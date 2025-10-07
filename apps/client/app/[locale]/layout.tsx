@@ -1,13 +1,23 @@
 import type { Metadata } from "next";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
+import { LoaderScreen } from "@repo/ui/components/loader-screen";
+import { Toaster } from "@repo/ui/core/sonner";
 import "@repo/ui/styles";
 
+import { QueryProvider } from "@repo/api-config/api-config";
 import { routing } from "@repo/i18n/config/routing";
 
+import { AppInitializer } from "@/components/auth/auth-initializer";
+import { MainLayout } from "@/components/layout/main-layout";
+
 export const metadata: Metadata = {
-    title: "CLIENT",
+    title: {
+        default: "Play Words",
+        template: "%s - Play Words",
+    },
     description: "",
 };
 
@@ -22,14 +32,19 @@ const RootLayout = async ({ children, params }: Props) => {
     if (!hasLocale(routing.locales, locale)) {
         notFound();
     }
+
     return (
-        <html lang={locale}>
-            <body>
-                <NextIntlClientProvider>
-                    <header></header>
-                    <main>{children}</main>
-                    <footer></footer>
-                </NextIntlClientProvider>
+        <html lang={locale} className="scroll-smooth">
+            <body className="bg-primary_dark w-ful flex h-[100dvh] flex-col">
+                <QueryProvider>
+                    <NextIntlClientProvider>
+                        <Suspense fallback={<LoaderScreen />}>
+                            <AppInitializer />
+                            <MainLayout>{children}</MainLayout>
+                            <Toaster />
+                        </Suspense>
+                    </NextIntlClientProvider>
+                </QueryProvider>
             </body>
         </html>
     );
