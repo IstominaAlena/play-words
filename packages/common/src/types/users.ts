@@ -8,6 +8,10 @@ import {
     updateUserSchema,
 } from "../schemas/users";
 
+export interface ErrorResponse {
+    message?: string;
+}
+
 export interface User {
     id: number;
     email: string;

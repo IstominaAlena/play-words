@@ -1,4 +1,4 @@
 export enum SupportedLanguages {
     EN = "en",
-    UA = "ua",
+    UK = "uk",
 }

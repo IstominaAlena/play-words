@@ -19,7 +19,13 @@ app.use(express.urlencoded({ extended: true }));
 // Set of middlewares to protect HTTP-headers
 app.use(helmet());
 // Adds CORS (Access-Control-Allow-Origin) headers to protect api connection
-app.use(cors());
+app.use(
+    cors({
+        origin: "http://localhost:3000",
+        credentials: true, // to pass cookies
+        allowedHeaders: ["Content-Type", "Authorization"],
+    }),
+);
 //  HTTP-requests logger to console
 app.use(morgan("dev"));
 // Parse cookies from requests

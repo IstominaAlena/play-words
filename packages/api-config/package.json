@@ -1,0 +1,26 @@
+{
+  "name": "@repo/api-config",
+  "version": "1.0.0",
+  "main": "index.js",
+  "private": true,
+  "license": "MIT",
+  "exports": {
+    "./api-config": "./src/index.ts"
+  },
+  "scripts": {
+    "lint": "eslint . --max-warnings 0",
+    "check-types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@repo/common": "*",
+    "@tanstack/react-query": "^5.90.2",
+    "axios": "^1.12.2"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "*",
+    "@repo/prettier-config": "*",
+    "@repo/typescript-config": "*",
+    "@types/node": "^24.7.0",
+    "typescript": "5.9.2"
+  }
+}

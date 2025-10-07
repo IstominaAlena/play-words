@@ -11,17 +11,19 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
+    "@repo/api-config": "*",
+    "@repo/common": "*",
+    "@repo/i18n": "*",
     "@repo/tailwind-config": "*",
     "@repo/ui": "*",
-    "@repo/i18n": "*",
     "next": "^15.5.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
-    "@repo/typescript-config": "*",
     "@repo/prettier-config": "*",
+    "@repo/typescript-config": "*",
     "@types/node": "^22.15.3",
     "@types/react": "19.1.0",
     "@types/react-dom": "19.1.1",

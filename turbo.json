@@ -18,7 +18,8 @@
         "DATABASE_URL",
         "PORT",
         "JWT_SECRET",
-        "NODE_ENV"
+        "NODE_ENV",
+        "API_URL"
       ]
     },
     "lint": {

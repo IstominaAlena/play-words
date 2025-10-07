@@ -33,5 +33,5 @@ export const signUpUser = async (req: AppRequest<CreateUserDto>, res: Response) 
 
     tokenService.setRefreshTokenCookie(res, refreshToken);
 
-    res.json({ user: newUser, accessToken });
+    res.json({ accessToken });
 };
