@@ -1,16 +1,29 @@
 "use client";
 
 import { motion } from "motion/react";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 
 import { cn } from "../utils/class-names";
 
 interface Props {
     number?: number;
+    containerWidth?: number;
     className?: string;
 }
 
-export const Meteors: FC<Props> = ({ number, className }) => {
+export const Meteors: FC<Props> = ({ number, containerWidth }) => {
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    if (!mounted) return null;
+
+    return <MeteorsComponent number={number} containerWidth={containerWidth} />;
+};
+
+const MeteorsComponent: FC<Props> = ({ number, className, containerWidth = 800 }) => {
     const meteors = new Array(number || 20).fill(true);
     return (
         <motion.div
@@ -21,7 +34,7 @@ export const Meteors: FC<Props> = ({ number, className }) => {
             {meteors.map((el, idx) => {
                 const meteorCount = number || 20;
                 // Calculate position to evenly distribute meteors across container width
-                const position = idx * (800 / meteorCount) - 400; // Spread across 800px range, centered
+                const position = idx * (containerWidth / meteorCount) - 400; // Spread across 800px range, centered
 
                 return (
                     <span

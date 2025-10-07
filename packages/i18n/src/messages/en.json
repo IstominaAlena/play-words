@@ -32,7 +32,10 @@
         "sign_up": "Sign up",
         "logout": "Log out",
         "forgot_password": "Forgot your password?",
-        "logout_subtitle": "Are you sure you want to log out?"
+        "forgot_password_subtitle": "Enter your email to receive a password reset link",
+        "logout_subtitle": "Are you sure you want to log out?",
+        "reset_password_title": "Almost there!",
+        "reset_password_subtitle": "Choose a new password for your account. Make sure it’s strong and easy for you to remember."
     },
     "home_page": {
         "title": "Let's play words!"

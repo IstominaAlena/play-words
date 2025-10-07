@@ -6,6 +6,6 @@ export enum Routes {
 }
 
 export enum SecondaryRoutes {
-    FORGOT_PASSWORD = "/forgot-password",
+    FORGOT_PASSWORD = "/reset-password-request",
     ACCOUNT = "/account",
 }

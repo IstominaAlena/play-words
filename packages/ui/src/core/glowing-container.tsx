@@ -25,7 +25,7 @@ export const GlowingContainer: FC<Props> = ({
         >
             <div
                 className={cn(
-                    "bg-primary_dark text-primary_light relative z-10 h-full w-full rounded-[inherit] px-5 py-2 text-sm capitalize",
+                    "bg-primary_dark text-primary_light relative z-10 h-full w-full rounded-[inherit] px-5 py-2 text-sm",
                     contentClassName,
                 )}
             >

@@ -14,7 +14,10 @@ import { AppInitializer } from "@/components/auth/auth-initializer";
 import { MainLayout } from "@/components/layout/main-layout";
 
 export const metadata: Metadata = {
-    title: "Play Words",
+    title: {
+        default: "Play Words",
+        template: "%s - Play Words",
+    },
     description: "",
 };
 

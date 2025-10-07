@@ -1,7 +1,6 @@
-import { useRouter } from "next/navigation";
-
 import { queryClient, setApiHandlers } from "@repo/api-config/api-config";
 import { useUserStore } from "@repo/common/stores/user-store";
+import { useRouter } from "@repo/i18n/config/navigation";
 
 import { useGetCurrentUser } from "@/api/account/mutations";
 import { refresh } from "@/api/auth/endpoints";

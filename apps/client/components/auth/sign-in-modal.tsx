@@ -78,6 +78,7 @@ export const SignInModal: FC<Props> = ({ closeModal }) => {
                             </Checkbox>
                             <Link
                                 href={SecondaryRoutes.FORGOT_PASSWORD}
+                                onClick={closeModal}
                                 className="text-neutral text-xs hover:underline"
                             >
                                 {t("forgot_password")}

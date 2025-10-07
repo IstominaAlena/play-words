@@ -38,7 +38,7 @@ export const Form = <T extends FieldValues>({
     return (
         <form
             onSubmit={methods.handleSubmit(onSubmit)}
-            className={cn("flex w-full flex-col gap-4", className)}
+            className={cn("flex w-full flex-col gap-6", className)}
         >
             <div className={cn("flex flex-col gap-4", containerClassName)}>{render(methods)}</div>
             <Button
