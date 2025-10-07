@@ -37,12 +37,12 @@ export const UserDropdown: FC<Props> = ({ name, accountPath, onLogout, className
     );
 
     const accountLink = (
-        <DropdownMenuItem>
+        <DropdownMenuItem className="group transition-all duration-300">
             <Link
                 key="0"
                 href={accountPath}
                 className={cn(
-                    "text-secondary_light hover:text-accent_dark flex items-center gap-2 px-4 py-2 transition-all duration-300",
+                    "text-secondary_light group-hover:text-accent_dark flex items-center gap-2 px-4 py-2",
                 )}
             >
                 <AccountIcon className="text-inherit" width={16} height={16} />
@@ -52,8 +52,8 @@ export const UserDropdown: FC<Props> = ({ name, accountPath, onLogout, className
     );
 
     const logoutButton = (
-        <DropdownMenuItem onClick={onLogout}>
-            <div className="text-secondary_light hover:text-error_dark flex cursor-pointer items-center gap-2 px-4 py-2 transition-all duration-300">
+        <DropdownMenuItem onClick={onLogout} className="group transition-all duration-300">
+            <div className="text-secondary_light group-hover:text-error_dark flex cursor-pointer items-center gap-2 px-4 py-2">
                 <LogoutIcon className="text-inherit" width={16} height={16} />
                 <Text className="text-inherit">{t("logout")}</Text>
             </div>

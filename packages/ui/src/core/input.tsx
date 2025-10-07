@@ -21,8 +21,9 @@ export const Input: FC<Props> = ({ className, type, isError, ...props }) => {
             containerClassName="disabled:pointer-events-none disabled:opacity-50"
             contentClassName={cn("p-0", isFocused && "border-accent_dark")}
             glowClassName={cn(
-                isFocused && "bg-accent_light_gradient",
-                isError && "bg-error_gradient",
+                "border border-transparent",
+                isFocused && "bg-accent_light_gradient border-accent_dark",
+                isError && "bg-error_gradient border-error_dark",
             )}
         >
             <input

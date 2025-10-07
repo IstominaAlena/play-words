@@ -20,12 +20,12 @@ export const Checkbox: FC<Props> = ({
     ...props
 }) => {
     return (
-        <div className={cn("flex items-center gap-2", containerClassName)}>
+        <div className={cn("group flex w-fit items-center gap-2", containerClassName)}>
             <CheckboxPrimitive.Root
                 data-slot="checkbox"
                 id="checkbox"
                 className={cn(
-                    "data-[state=checked]:border-primary bg-secondary_dark border-primary_light/20 z-10 size-4 shrink-0 rounded-sm border outline-none",
+                    "data-[state=checked]:border-primary bg-secondary_dark border-primary_light/20 group-hover:border-accent_dark z-10 size-4 shrink-0 rounded-sm border outline-none",
                     className,
                 )}
                 {...props}
@@ -38,7 +38,7 @@ export const Checkbox: FC<Props> = ({
                 </CheckboxPrimitive.Indicator>
             </CheckboxPrimitive.Root>
 
-            <Label htmlFor="#checkbox" className={labelClassName}>
+            <Label htmlFor="checkbox" className={labelClassName}>
                 {children}
             </Label>
         </div>
