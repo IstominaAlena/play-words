@@ -35,7 +35,5 @@ export const signInUser = async (req: AppRequest<LoginUserDto>, res: Response) =
 
     tokenService.setRefreshTokenCookie(res, token);
 
-    const safeUser = await usersService.getSafeUserById(user.id);
-
-    res.json({ user: safeUser, accessToken });
+    res.json({ accessToken });
 };

@@ -6,14 +6,15 @@
 // };
 import axios from "axios";
 
+import { getAccessToken } from "@repo/common/config/client-storage";
+
 export const api = axios.create({
     baseURL: process.env.API_URL,
 });
 
 api.interceptors.request.use(
     (config) => {
-        // const token = readToken() || readAuthToken();
-        const token = "";
+        const token = getAccessToken();
 
         if (!config.headers.Authorization && token) {
             config.headers.Authorization = `Bearer ${token}`;
