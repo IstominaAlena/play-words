@@ -7,6 +7,7 @@ import { NavLink } from "@repo/common/types/common";
 import { Link, usePathname } from "@repo/i18n/config/navigation";
 
 import { DropdownMenu } from "../core/dropdown-menu";
+import { HoverBorderGradient } from "../core/hover-border-gradient";
 import { MenuIcon } from "../icons/menu";
 import { cn } from "../utils/class-names";
 
@@ -17,12 +18,18 @@ interface Props extends PropsWithChildren {
 
 export const MobileMenu: FC<Props> = ({ children, links, className }) => {
     const t = useTranslations("navigation");
+
     const currentPath = usePathname();
 
     const trigger = useMemo(
         () => (
-            <div>
-                <MenuIcon width={28} height={28} />
+            <div className="w-full max-w-11">
+                <HoverBorderGradient
+                    containerClassName="w-full h-fit"
+                    className="text-secondary_light group-hover:text-primary_light p-0"
+                >
+                    <MenuIcon width={20} height={20} className="text-inherit" />
+                </HoverBorderGradient>
             </div>
         ),
         [],
@@ -50,10 +57,7 @@ export const MobileMenu: FC<Props> = ({ children, links, className }) => {
     return (
         <DropdownMenu
             trigger={trigger}
-            triggerClassName={cn(
-                "border border-transparent rounded-full p-1 data-[state=open]:border-accent_light transition-all duration-300",
-                className,
-            )}
+            triggerClassName={cn("rounded-full transition-all duration-300 p-0", className)}
             content={content}
             contentClassName={className}
         >

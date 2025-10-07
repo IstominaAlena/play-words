@@ -43,7 +43,7 @@ export const DropdownMenuItem: FC<
         data-slot="dropdown-menu-item"
         data-inset={inset}
         data-variant={variant}
-        className={cn(className)}
+        className={cn("border-none bg-transparent p-0 outline-none", className)}
         {...props}
     />
 );

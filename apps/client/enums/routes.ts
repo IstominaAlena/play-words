@@ -7,4 +7,5 @@ export enum Routes {
 
 export enum SecondaryRoutes {
     FORGOT_PASSWORD = "/forgot-password",
+    ACCOUNT = "/account",
 }

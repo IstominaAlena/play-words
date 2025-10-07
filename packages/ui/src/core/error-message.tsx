@@ -16,5 +16,5 @@ export const ErrorMessage: FC<Props> = ({ message, className }) => {
 
     if (!message) return null;
 
-    return <Text className={cn("text-error_light text-xs", className)}>*{t(message)}</Text>;
+    return <Text className={cn("text-error_dark text-xs", className)}>*{t(message)}</Text>;
 };

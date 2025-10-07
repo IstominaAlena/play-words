@@ -63,7 +63,14 @@ export const HoverBorderGradient: FC<
             )}
             {...props}
         >
-            <div className={cn("z-10 w-auto rounded-[inherit]", className)}>{children}</div>
+            <div
+                className={cn(
+                    "bg-primary_dark text-primary_light z-10 flex min-h-10 w-full cursor-pointer items-center justify-center rounded-[inherit] px-5 py-2 text-sm capitalize",
+                    className,
+                )}
+            >
+                {children}
+            </div>
             <motion.div
                 className={cn(
                     "absolute inset-0 z-0 h-full w-full flex-none overflow-hidden rounded-[inherit] blur-[2px] transition-all duration-300 group-hover:blur-xs",

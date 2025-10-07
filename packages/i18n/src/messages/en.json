@@ -1,12 +1,14 @@
 {
     "global": {
-        "something_wrong": "Something went wrong"
+        "something_wrong": "Something went wrong",
+        "cancel": "Cancel"
     },
     "navigation": {
         "home": "Home",
         "dictionary": "Dictionary",
         "practice": "Practice",
-        "games": "Games"
+        "games": "Games",
+        "account": "Account"
     },
     "form": {
         "submit": "Submit",
@@ -28,7 +30,9 @@
     "auth": {
         "sign_in": "Sign in",
         "sign_up": "Sign up",
-        "forgot_password": "Forgot your password?"
+        "logout": "Log out",
+        "forgot_password": "Forgot your password?",
+        "logout_subtitle": "Are you sure you want to log out?"
     },
     "home_page": {
         "title": "Let's play words!"
