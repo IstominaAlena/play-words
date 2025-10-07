@@ -17,9 +17,11 @@
         "email": "Email",
         "email_placeholder": "example@mail.com",
         "password": "Password",
+        "old_password": "Old password",
+        "new_password": "New password",
         "confirm_password": "Confirm password",
-        "password_placeholder": "**********",
-        "show_password": "Show password"
+        "show_password": "Show password",
+        "password_placeholder": "**********"
     },
     "form_error": {
         "REQUIRED": "Field is required",
@@ -40,5 +42,15 @@
     },
     "home_page": {
         "title": "Let's play words!"
+    },
+    "account": {
+        "account": "Account",
+        "change_password": "Change password",
+        "security": "Security",
+        "enable_verification": "Enable OTP verification with Google Authenticator application",
+        "enable": "Enable",
+        "connect_accounts": "Connect other accounts",
+        "connect_google": "Connect Google to your account for quick access",
+        "connect": "Connect"
     }
 }

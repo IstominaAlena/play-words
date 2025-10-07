@@ -16,6 +16,7 @@ interface BaseFormProps<T extends FieldValues> {
     className?: string;
     containerClassName?: string;
     isLoading?: boolean;
+    submitButtonClassName?: string;
 }
 
 export const Form = <T extends FieldValues>({
@@ -26,6 +27,7 @@ export const Form = <T extends FieldValues>({
     className,
     containerClassName,
     isLoading,
+    submitButtonClassName,
 }: BaseFormProps<T>) => {
     const t = useTranslations("form");
 
@@ -43,8 +45,9 @@ export const Form = <T extends FieldValues>({
             <div className={cn("flex flex-col gap-4", containerClassName)}>{render(methods)}</div>
             <Button
                 type="submit"
-                disabled={!methods.formState.isValid}
+                disabled={!methods.formState.isValid || !methods.formState.isDirty}
                 isLoading={isLoading}
+                buttonClassName={submitButtonClassName}
                 className="bg-secondary_dark"
             >
                 {t("submit")}

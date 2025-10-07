@@ -35,7 +35,7 @@ const RootLayout = async ({ children, params }: Props) => {
 
     return (
         <html lang={locale} className="scroll-smooth">
-            <body className="bg-primary_dark w-ful flex h-[100dvh] flex-col">
+            <body className="bg-primary_dark w-ful flex min-h-[100dvh] flex-col">
                 <QueryProvider>
                     <NextIntlClientProvider>
                         <Suspense fallback={<LoaderScreen />}>
