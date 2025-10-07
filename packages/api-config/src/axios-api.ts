@@ -1,89 +1,80 @@
-// const logout = () => {
-//     deleteToken();
-//     deleteRefreshToken();
-//     deleteUserType();
-//     window.location.href = Route.HOME;
-// };
 import axios from "axios";
 
 import { getAccessToken } from "@repo/common/config/client-storage";
 
 export const api = axios.create({
     baseURL: process.env.API_URL,
+    withCredentials: true,
 });
 
-api.interceptors.request.use(
-    (config) => {
-        const token = getAccessToken();
-
-        if (!config.headers.Authorization && token) {
-            config.headers.Authorization = `Bearer ${token}`;
-        }
-
-        return config;
-    },
-    (error) => Promise.reject(error),
-);
-
 let isRefreshing = false;
-let failedQueue: {
-    resolve: (value?: unknown) => void;
-    reject: (reason?: any) => void;
-    config: any;
-}[] = [];
+let refreshSubscribers: ((token: string) => void)[] = [];
 
-const processQueue = (error: any, token: string | null = null) => {
-    failedQueue.forEach((prom) => {
-        if (error) {
-            prom.reject(error);
-        } else {
-            prom.config.headers.Authorization = `Bearer ${token}`;
-            prom.resolve(api(prom.config));
-        }
-    });
-    failedQueue = [];
+// Handlers that frontend will register
+let onRefreshToken: (() => Promise<string | null>) | null = null;
+let onUnauthorized: (() => void) | null = null;
+
+export const setApiHandlers = (handlers: {
+    onRefreshToken?: () => Promise<string | null>;
+    onUnauthorized?: () => void;
+}) => {
+    onRefreshToken = handlers.onRefreshToken || null;
+    onUnauthorized = handlers.onUnauthorized || null;
 };
 
+// Helper to broadcast new token to all waiting requests
+const subscribeTokenRefresh = (cb: (token: string) => void) => {
+    refreshSubscribers.push(cb);
+};
+
+const onTokenRefreshed = (token: string) => {
+    refreshSubscribers.forEach((cb) => cb(token));
+    refreshSubscribers = [];
+};
+
+// Request interceptor
+api.interceptors.request.use((config) => {
+    const token = getAccessToken();
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+});
+
+// Response interceptor
 api.interceptors.response.use(
     (response) => response,
     async (error) => {
-        const originalRequest = error.config;
+        const { response, config } = error;
 
-        if (originalRequest?.url?.includes("/users/refresh") && error.response?.status === 401) {
-            // logout();
-            return Promise.reject(error);
-        }
-
-        if (error.response?.status === 401 && error.response?.data?.message === "TOKEN_EXPIRED") {
+        if (response?.status === 401 && !config._retry && !config.url?.includes("/users/refresh")) {
             if (isRefreshing) {
-                return new Promise((resolve, reject) => {
-                    failedQueue.push({ resolve, reject, config: originalRequest });
+                // Wait for refresh
+                return new Promise((resolve) => {
+                    subscribeTokenRefresh((token) => {
+                        config.headers.Authorization = `Bearer ${token}`;
+                        resolve(api(config));
+                    });
                 });
             }
 
+            config._retry = true;
             isRefreshing = true;
 
             try {
-                // const refreshToken = readRefreshToken();
-                // if (!refreshToken) throw new Error("No refresh token");
-                // const { data } = await refreshUser({ Authorization: `Bearer ${refreshToken}` });
-                // const newAccessToken = data?.accessToken?.token;
-                // if (!newAccessToken) throw new Error("No access token returned");
-                // useAuthStore.getState().setToken(newAccessToken, data.accessToken.expiresAt);
-                // if (data.refreshToken) {
-                //     useAuthStore
-                //         .getState()
-                //         .setRefreshToken(data.refreshToken.token, data.refreshToken.expiresAt);
-                // }
-                // processQueue(null, newAccessToken);
-                // originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-                // return api(originalRequest);
-            } catch (err) {
-                processQueue(err, null);
+                if (!onRefreshToken) throw new Error("No refresh handler registered");
 
-                // logout();
+                const newToken = await onRefreshToken();
 
-                return Promise.reject(err);
+                if (newToken) {
+                    onTokenRefreshed(newToken);
+                    config.headers.Authorization = `Bearer ${newToken}`;
+                    return api(config);
+                } else {
+                    throw new Error("Token refresh failed");
+                }
+            } catch {
+                onUnauthorized?.();
             } finally {
                 isRefreshing = false;
             }

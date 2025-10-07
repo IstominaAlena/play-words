@@ -10,6 +10,7 @@ import "@repo/ui/styles";
 import { QueryProvider } from "@repo/api-config/api-config";
 import { routing } from "@repo/i18n/config/routing";
 
+import { AppInitializer } from "@/components/auth/auth-initializer";
 import { MainLayout } from "@/components/layout/main-layout";
 
 export const metadata: Metadata = {
@@ -35,6 +36,7 @@ const RootLayout = async ({ children, params }: Props) => {
                 <QueryProvider>
                     <NextIntlClientProvider>
                         <Suspense fallback={<LoaderScreen />}>
+                            <AppInitializer />
                             <MainLayout>{children}</MainLayout>
                             <Toaster />
                         </Suspense>

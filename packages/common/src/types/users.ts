@@ -18,11 +18,6 @@ export interface User {
     username: string;
 }
 
-export interface UserResponse {
-    user: User;
-    accessToken: string;
-}
-
 export type CreateUserDto = z.infer<typeof createUserSchema>;
 
 export type UpdateUserDto = z.infer<typeof updateUserSchema>;
