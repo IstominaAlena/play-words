@@ -15,6 +15,7 @@ interface BaseFormProps<T extends FieldValues> {
     schema: any;
     className?: string;
     containerClassName?: string;
+    isLoading?: boolean;
 }
 
 export const Form = <T extends FieldValues>({
@@ -24,6 +25,7 @@ export const Form = <T extends FieldValues>({
     schema,
     className,
     containerClassName,
+    isLoading,
 }: BaseFormProps<T>) => {
     const t = useTranslations("form");
 
@@ -42,6 +44,7 @@ export const Form = <T extends FieldValues>({
             <Button
                 type="submit"
                 disabled={!methods.formState.isValid}
+                isLoading={isLoading}
                 className="bg-secondary_dark"
             >
                 {t("submit")}

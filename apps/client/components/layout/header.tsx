@@ -15,7 +15,7 @@ import { Routes } from "@/enums/routes";
 import { AuthBar } from "../auth/auth-bar";
 
 export const Header: FC = () => {
-    const { Modal, openModal } = useModal();
+    const { Modal, openModal, closeModal } = useModal();
 
     return (
         <>
@@ -28,9 +28,18 @@ export const Header: FC = () => {
                         <NavBar links={navLinks} className="lg:hidden" />
                     </div>
                     <div className="flex h-full w-full flex-1 items-center justify-end gap-2">
-                        <AuthBar className="md:hidden" openModal={openModal} />
+                        <AuthBar
+                            className="md:hidden"
+                            openModal={openModal}
+                            closeModal={closeModal}
+                        />
                         <MobileMenu links={navLinks} className="hidden lg:block">
-                            <AuthBar className="hidden md:flex" openModal={openModal} />
+                            <AuthBar
+                                isDropdownItem
+                                className="hidden md:flex"
+                                openModal={openModal}
+                                closeModal={closeModal}
+                            />
                         </MobileMenu>
                     </div>
                 </div>

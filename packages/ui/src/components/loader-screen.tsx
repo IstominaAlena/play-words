@@ -6,15 +6,10 @@ import { FC } from "react";
 import { cn } from "../utils/class-names";
 
 interface Props {
-    size: "default" | "small";
+    isScreenProtection?: boolean;
 }
 
-const sizes = {
-    default: "size-4",
-    small: "size-2",
-};
-
-export const Loader: FC<Props> = ({ size = "default" }) => {
+export const LoaderScreen: FC<Props> = ({ isScreenProtection }) => {
     const transition = (x: number) => {
         return {
             duration: 0.5,
@@ -35,14 +30,20 @@ export const Loader: FC<Props> = ({ size = "default" }) => {
                 y: [0, 10, 0],
             }}
             transition={transition(item)}
-            className={cn(
-                "from-accent_dark to-accent_light rounded-full bg-gradient-to-t",
-                sizes[size],
-            )}
+            className="from-accent_dark to-accent_light size-4 rounded-full bg-gradient-to-t"
         />
     );
 
     const items = [0, 1, 2];
 
-    return items.map(renderItem);
+    return (
+        <div
+            className={cn(
+                "pointer-events-none fixed top-0 left-0 z-[100] flex h-screen w-full items-center justify-center",
+                !isScreenProtection && "backdrop-blur-sm",
+            )}
+        >
+            {!isScreenProtection && items.map(renderItem)}
+        </div>
+    );
 };

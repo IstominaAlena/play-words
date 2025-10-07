@@ -5,8 +5,8 @@ import { useSearchParams } from "next/navigation";
 import { FC } from "react";
 
 import { cn } from "@repo/ui/class-names";
+import { LoaderScreen } from "@repo/ui/components/loader-screen";
 import { GradientLine } from "@repo/ui/core/gradient-line";
-import { Loader } from "@repo/ui/core/loader";
 
 import { SupportedLanguages } from "@repo/common/enums/common";
 import { useLoaderStore } from "@repo/common/stores/loader-store";
@@ -48,7 +48,7 @@ export const Footer: FC = () => {
                 <ul className="flex gap-6">{routing.locales.map(renderLocaleItem)}</ul>
             </div>
             <GradientLine className="absolute top-0 left-0" />
-            {isPending && <Loader isScreenProtection />}
+            {isPending && <LoaderScreen isScreenProtection />}
         </footer>
     );
 };

@@ -76,6 +76,17 @@ const DialogTitle: FC<ComponentProps<typeof DialogPrimitive.Title>> = ({ classNa
     />
 );
 
+const DialogDescription: FC<ComponentProps<typeof DialogPrimitive.Description>> = ({
+    className,
+    ...props
+}) => (
+    <DialogPrimitive.Description
+        data-slot="dialog-description"
+        className={cn("text-muted-foreground text-sm", className)}
+        {...props}
+    />
+);
+
 interface DialogDemoProps extends PropsWithChildren {
     isOpen: boolean;
     onOpenChange: () => void;
@@ -92,7 +103,8 @@ export const Dialog: FC<DialogDemoProps> = ({
         <CoreDialog open={isOpen} onOpenChange={onOpenChange}>
             <DialogContent className={contentClassName}>
                 <DialogHeader className="hidden">
-                    <DialogTitle>Dialog</DialogTitle>
+                    <DialogTitle></DialogTitle>
+                    <DialogDescription></DialogDescription>
                 </DialogHeader>
                 {children}
                 <Meteors number={10} />

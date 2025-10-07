@@ -8,10 +8,19 @@ import {
     updateUserSchema,
 } from "../schemas/users";
 
+export interface ErrorResponse {
+    message?: string;
+}
+
 export interface User {
     id: number;
     email: string;
     username: string;
+}
+
+export interface UserResponse {
+    user: User;
+    accessToken: string;
 }
 
 export type CreateUserDto = z.infer<typeof createUserSchema>;

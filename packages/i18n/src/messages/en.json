@@ -1,4 +1,7 @@
 {
+    "global": {
+        "something_wrong": "Something went wrong"
+    },
     "navigation": {
         "home": "Home",
         "dictionary": "Dictionary",

@@ -20,7 +20,11 @@ const defaultValues = {
     password: "",
 };
 
-export const SignInModal: FC = () => {
+interface Props {
+    closeModal: () => void;
+}
+
+export const SignInModal: FC<Props> = ({ closeModal }) => {
     const t = useTranslations("auth");
     const tForm = useTranslations("form");
 
@@ -30,6 +34,12 @@ export const SignInModal: FC = () => {
 
     const onSubmit: SubmitHandler<LoginUserDto> = (formData) => {
         console.log("==========>>>", formData);
+
+        try {
+        } catch (error) {
+        } finally {
+            closeModal();
+        }
     };
 
     return (

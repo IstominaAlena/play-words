@@ -12,7 +12,8 @@
             "@/enums/*": ["enums/*"],
             "@/constants/*": ["constants/*"],
             "@/schemas/*": ["schemas/*"],
-            "@/types/*": ["types/*"]
+            "@/types/*": ["types/*"],
+            "@/api/*": ["api/*"]
         }
     },
     "include": ["**/*.ts", "**/*.tsx", "next-env.d.ts", "next.config.js", ".next/types/**/*.ts"],

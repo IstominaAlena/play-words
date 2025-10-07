@@ -7,8 +7,10 @@ import { SubmitHandler } from "react-hook-form";
 import { Form } from "@repo/ui/components/form";
 import { FormInput } from "@repo/ui/components/form-input";
 import { Checkbox } from "@repo/ui/core/checkbox";
+import { showToast } from "@repo/ui/core/sonner";
 import { Title } from "@repo/ui/core/typography";
 
+import { useSignUp } from "@/api/auth/mutations";
 import { signUpUserSchema } from "@/schemas/index";
 import { SignUpUser } from "@/types/index";
 
@@ -19,25 +21,39 @@ const defaultValues = {
     confirmPassword: "",
 };
 
-export const SignUpModal: FC = () => {
+interface Props {
+    closeModal: () => void;
+}
+
+export const SignUpModal: FC<Props> = ({ closeModal }) => {
     const t = useTranslations("auth");
     const tForm = useTranslations("form");
 
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
+    const { mutateAsync: signUp, isPending } = useSignUp();
+
     const togglePassword = () => setIsPasswordVisible((state) => !state);
 
-    const onSubmit: SubmitHandler<SignUpUser> = (formData) => {
-        console.log("==========>>>", formData);
+    const onSubmit: SubmitHandler<SignUpUser> = async (formData) => {
+        try {
+            await signUp(formData);
+        } catch (error: any) {
+            showToast.error(error.message);
+        } finally {
+            closeModal();
+        }
     };
 
     return (
         <div className="flex flex-col items-center justify-center gap-4">
             <Title>{t("sign_up")}</Title>
+
             <Form<SignUpUser>
                 defaultValues={defaultValues}
                 schema={signUpUserSchema}
                 onSubmit={onSubmit}
+                isLoading={isPending}
                 render={({ control }) => (
                     <>
                         <FormInput

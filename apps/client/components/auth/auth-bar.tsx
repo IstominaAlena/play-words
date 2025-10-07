@@ -12,20 +12,21 @@ import { SignUpModal } from "./sign-up-modal";
 
 interface Props {
     openModal: (content: ReactNode) => void;
+    closeModal: () => void;
     isDropdownItem?: boolean;
     className?: string;
 }
 
-export const AuthBar: FC<Props> = ({ openModal, className, isDropdownItem }) => {
+export const AuthBar: FC<Props> = ({ openModal, className, isDropdownItem, closeModal }) => {
     const t = useTranslations("auth");
 
-    const onSignupButtonClick = () => openModal(<SignUpModal />);
+    const onSignupButtonClick = () => openModal(<SignUpModal closeModal={closeModal} />);
 
-    const onSignInButtonClick = () => openModal(<SignInModal />);
+    const onSignInButtonClick = () => openModal(<SignInModal closeModal={closeModal} />);
 
     if (isDropdownItem) {
         return (
-            <div className={className}>
+            <div className={cn("flex-col gap-2 px-4 py-4", className)}>
                 <DropdownMenuItem>
                     <SecondaryButton onClick={onSignupButtonClick} className="md:bg-secondary_dark">
                         {t("sign_up")}

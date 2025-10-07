@@ -5,6 +5,7 @@ import { AxiosError } from "axios";
 import { FC, PropsWithChildren, useEffect, useState } from "react";
 
 import { useLoaderStore } from "@repo/common/stores/loader-store";
+import { ErrorResponse } from "@repo/common/types/users";
 
 import { ApiMutationProps, ApiQueryProps } from "./types";
 
@@ -54,7 +55,7 @@ export const useApiQuery = <TData,>({
     return query;
 };
 
-export const useApiMutation = <TData, TVariable, TError>({
+export const useApiMutation = <TData, TVariable>({
     mutationFn,
     mutationKey,
     retry = false,
@@ -63,8 +64,6 @@ export const useApiMutation = <TData, TVariable, TError>({
     onSettled,
     onError,
 }: ApiMutationProps<TData, TVariable>) => {
-    const [apiError, setApiError] = useState<TError | null>(null);
-
     const { startLoader, stopLoader } = useLoaderStore();
 
     const mutation = useMutation({
@@ -82,17 +81,17 @@ export const useApiMutation = <TData, TVariable, TError>({
         },
         onError: (error) => {
             onError?.();
-            const e = error as AxiosError<TError>;
-            if (e && e.response && e.response.data) {
-                setApiError(e.response.data);
-            }
+
+            const e = error as AxiosError<ErrorResponse>;
+            const message =
+                e.response?.data?.message ||
+                JSON.stringify(e.response?.data) ||
+                e.message ||
+                "Unknown error";
+
+            throw new Error(message);
         },
     });
 
-    const resetApiError = () => {
-        setApiError(null);
-        mutation.reset();
-    };
-
-    return { ...mutation, apiError, resetApiError };
+    return mutation;
 };

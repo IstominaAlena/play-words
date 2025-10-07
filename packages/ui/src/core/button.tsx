@@ -2,6 +2,7 @@ import { ComponentProps, FC, ReactNode } from "react";
 
 import { cn } from "../utils/class-names";
 import { HoverBorderGradient } from "./hover-border-gradient";
+import { Loader } from "./loader";
 
 interface Props extends ComponentProps<"button"> {
     children?: ReactNode;
@@ -34,7 +35,7 @@ const Button: FC<Props> = ({
             )}
             isLoading={isLoading}
         >
-            {children}
+            {isLoading ? <Loader size="small" /> : children}
         </HoverBorderGradient>
     </button>
 );

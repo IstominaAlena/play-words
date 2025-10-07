@@ -3,7 +3,8 @@ import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
-import { Loader } from "@repo/ui/core/loader";
+import { LoaderScreen } from "@repo/ui/components/loader-screen";
+import { Toaster } from "@repo/ui/core/sonner";
 import "@repo/ui/styles";
 
 import { QueryProvider } from "@repo/api-config/api-config";
@@ -33,8 +34,9 @@ const RootLayout = async ({ children, params }: Props) => {
             <body className="bg-primary_dark w-ful flex h-[100dvh] flex-col">
                 <QueryProvider>
                     <NextIntlClientProvider>
-                        <Suspense fallback={<Loader />}>
+                        <Suspense fallback={<LoaderScreen />}>
                             <MainLayout>{children}</MainLayout>
+                            <Toaster />
                         </Suspense>
                     </NextIntlClientProvider>
                 </QueryProvider>
