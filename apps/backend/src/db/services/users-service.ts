@@ -11,7 +11,7 @@ import { tokenService } from "@/services/token-service";
 import { CreateUser, UpdateUser } from "@/types/users";
 import { UsersTable } from "@/types/users";
 
-import { userTokensService } from "./user-tokens-service";
+import { userRefreshTokenService } from "./user-refresh-token-service";
 
 export class UsersService {
     private static safeUserFields = {
@@ -46,7 +46,7 @@ export class UsersService {
         const { token, tokenHash } = tokenService.generateTokenPair();
 
         try {
-            await userTokensService.createUserRefreshToken({
+            await userRefreshTokenService.createRefreshToken({
                 userId: newUser.id,
                 tokenHash,
             });

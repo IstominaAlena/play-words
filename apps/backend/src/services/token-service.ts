@@ -1,7 +1,9 @@
 import crypto from "crypto";
+import { eq } from "drizzle-orm";
 import { Response } from "express";
 import jwt from "jsonwebtoken";
 
+import { db } from "@/config/drizzle-orm/db";
 import {
     ACCESS_TOKEN_EXP,
     JWT_SECRET,
@@ -9,6 +11,7 @@ import {
     messageKeys,
 } from "@/constants/common";
 import { AuthUser } from "@/types/common";
+import { ValidateTokenTableType } from "@/types/users";
 
 import { AppError } from "./error-service";
 
@@ -49,6 +52,23 @@ export class TokenService {
         const tokenHash = this.hashToken(token);
 
         return { token, tokenHash };
+    }
+
+    async validateToken(table: ValidateTokenTableType, rawToken: string) {
+        const tokenHash = tokenService.hashToken(rawToken);
+
+        const tokenRecord = await db
+            .select()
+            .from(table)
+            .where(eq(table.tokenHash, tokenHash))
+            .limit(1)
+            .then((res) => res[0]);
+
+        if (!tokenRecord || new Date(tokenRecord.expiresAt) < new Date()) {
+            return null;
+        }
+
+        return tokenRecord;
     }
 
     setRefreshTokenCookie(res: Response, refreshToken: string) {

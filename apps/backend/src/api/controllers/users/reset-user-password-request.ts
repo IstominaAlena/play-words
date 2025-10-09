@@ -4,7 +4,7 @@ import { ResetUserPasswordRequest } from "@repo/common/types/users";
 
 import { i18nService } from "@/config/i18n/service";
 import { messageKeys } from "@/constants/common";
-import { userTokensService } from "@/db/services/user-tokens-service";
+import { userResetPasswordTokenService } from "@/db/services/user-reset-password-token-service";
 import { usersService } from "@/db/services/users-service";
 import { AppError } from "@/services/error-service";
 import { tokenService } from "@/services/token-service";
@@ -34,7 +34,7 @@ export const resetUserPasswordRequest = async (
 
     const { token, tokenHash } = tokenService.generateTokenPair();
 
-    await userTokensService.createUserResetPasswordToken({
+    await userResetPasswordTokenService.createResetPasswordToken({
         userId: user.id,
         tokenHash,
     });

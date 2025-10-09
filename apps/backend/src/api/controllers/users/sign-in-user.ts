@@ -2,7 +2,7 @@ import { NextFunction, Response } from "express";
 
 import { LoginUserDto } from "@repo/common/types/users";
 
-import { userTokensService } from "@/db/services/user-tokens-service";
+import { userRefreshTokenService } from "@/db/services/user-refresh-token-service";
 import { passportControllerWrapper } from "@/middlewares/passport-wrapper";
 import { tokenService } from "@/services/token-service";
 import { AppRequest } from "@/types/common";
@@ -18,7 +18,7 @@ export const signInUser = async (
 
     const { token, tokenHash } = tokenService.generateTokenPair();
 
-    await userTokensService.createUserRefreshToken({
+    await userRefreshTokenService.createRefreshToken({
         userId: user.id,
         tokenHash,
     });
