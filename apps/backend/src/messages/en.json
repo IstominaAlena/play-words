@@ -12,5 +12,6 @@
     "UNAUTHORIZED": "Unauthorized",
     "LOGOUT_SUCCESS": "Logged out successfully",
     "RESET_LINK_SENT": "If the email exists, reset link has been sent",
-    "INVALID_TOKEN": "Invalid or expired token"
+    "INVALID_TOKEN": "Invalid or expired token",
+    "SIGN_UP_FAILED": "Sign up process failed"
 }

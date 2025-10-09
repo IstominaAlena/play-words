@@ -16,17 +16,9 @@ import { usersControllersService } from "../controllers/users/service";
 
 const router = Router();
 
-router.post(
-    "/sign-up",
-    validateBody(createUserSchema),
-    controllerWrapper(usersControllersService.signUpUser),
-);
+router.post("/sign-up", validateBody(createUserSchema), usersControllersService.signUpUser);
 
-router.post(
-    "/sign-in",
-    validateBody(loginUserSchema),
-    controllerWrapper(usersControllersService.signInUser),
-);
+router.post("/sign-in", validateBody(loginUserSchema), usersControllersService.signInUser);
 
 router.post("/refresh", controllerWrapper(usersControllersService.refreshUser));
 

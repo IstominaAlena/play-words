@@ -6,10 +6,13 @@ import { messageKeys } from "@/constants/common";
 import { usersService } from "@/db/services/users-service";
 import { AppError } from "@/services/error-service";
 import { passwordService } from "@/services/password-service";
-import { AppRequest } from "@/types/common";
+import { AuthenticatedRequest } from "@/types/common";
 import { UpdateUser } from "@/types/users";
 
-export const updateCurrentUser = async (req: AppRequest<UpdateUserDto>, res: Response) => {
+export const updateCurrentUser = async (
+    req: AuthenticatedRequest<UpdateUserDto>,
+    res: Response,
+) => {
     const userId = req.user?.id;
 
     if (!userId) {
