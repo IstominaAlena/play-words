@@ -16,6 +16,7 @@ import { usersControllersService } from "../controllers/users/service";
 
 const router = Router();
 
+// auth flow
 router.post("/sign-up", validateBody(createUserSchema), usersControllersService.signUpUser);
 
 router.post("/sign-in", validateBody(loginUserSchema), usersControllersService.signInUser);
@@ -36,6 +37,7 @@ router.post(
     controllerWrapper(usersControllersService.resetUserPassword),
 );
 
+// protected routes
 router.get("/me", authValidation, controllerWrapper(usersControllersService.getCurrentUser));
 
 router.patch(

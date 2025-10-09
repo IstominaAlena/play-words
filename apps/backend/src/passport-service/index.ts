@@ -14,7 +14,7 @@ passportService.use(
             passwordField: "password",
             passReqToCallback: true,
         },
-        (req, username, password, done) => authService.signup(req, username, password, done),
+        authService.signup,
     ),
 );
 
@@ -26,7 +26,7 @@ passportService.use(
             passwordField: "password",
             passReqToCallback: false,
         },
-        (email, password, done) => authService.signin(email, password, done),
+        authService.signin,
     ),
 );
 
@@ -37,7 +37,7 @@ passportService.use(
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
             secretOrKey: JWT_SECRET,
         },
-        async (payload, done) => authService.validateUser(payload, done),
+        authService.validateUser,
     ),
 );
 
