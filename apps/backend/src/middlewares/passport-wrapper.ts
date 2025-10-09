@@ -1,8 +1,8 @@
 import { NextFunction, Response } from "express";
-import passportService from "passport-service";
 
 import { messageKeys } from "@/constants/common";
 import { AppError } from "@/services/error-service";
+import passportService from "@/services/passport-service";
 import { AppRequest, StrategyReturn } from "@/types/common";
 
 export const passportControllerWrapper = <

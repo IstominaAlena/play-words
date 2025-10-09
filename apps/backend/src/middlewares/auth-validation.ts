@@ -1,6 +1,6 @@
 import { NextFunction, Response } from "express";
-import { passportControllerWrapper } from "passport-service/passport-wrapper";
 
+import { passportControllerWrapper } from "@/middlewares/passport-wrapper";
 import { AppRequest } from "@/types/common";
 
 export const authValidation = async (req: AppRequest, res: Response, next: NextFunction) => {

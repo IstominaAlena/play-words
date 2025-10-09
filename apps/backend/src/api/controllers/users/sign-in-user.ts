@@ -1,9 +1,9 @@
 import { NextFunction, Response } from "express";
-import { passportControllerWrapper } from "passport-service/passport-wrapper";
 
 import { LoginUserDto } from "@repo/common/types/users";
 
 import { userTokensService } from "@/db/services/user-tokens-service";
+import { passportControllerWrapper } from "@/middlewares/passport-wrapper";
 import { tokenService } from "@/services/token-service";
 import { AppRequest } from "@/types/common";
 

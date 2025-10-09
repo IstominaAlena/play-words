@@ -3,12 +3,12 @@ import cors from "cors";
 import express, { Application } from "express";
 import helmet from "helmet";
 import morgan from "morgan";
-import passportService from "passport-service";
 
 import userRoutes from "@/api/routes/users";
 import { errorHandler } from "@/middlewares/error-handler";
 import { healthCheck } from "@/middlewares/health-check";
 import { notFoundHandler } from "@/middlewares/not-found-handler";
+import passportService from "@/services/passport-service";
 
 const app: Application = express();
 
