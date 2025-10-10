@@ -11,15 +11,13 @@ export const signUpUser = async (
     res: Response,
     next: NextFunction,
 ) => {
-    const { newUser, refreshToken } = await passportControllerWrapper("signup", { session: false })(
-        req,
-        res,
-        next,
-    );
+    const { user, refreshToken } = await passportControllerWrapper("local-signup", {
+        session: false,
+    })(req, res, next);
 
-    const accessToken = tokenService.generateAccessToken(newUser.id, newUser.email);
+    const accessToken = tokenService.generateAccessToken(user.id, user.email);
 
-    tokenService.setRefreshTokenCookie(res, refreshToken);
+    tokenService.setRefreshTokenCookie(res, refreshToken!);
 
     res.status(201).json({ accessToken });
 };

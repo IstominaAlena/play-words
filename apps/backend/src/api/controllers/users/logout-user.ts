@@ -1,7 +1,7 @@
 import { Response } from "express";
 
 import { i18nService } from "@/config/i18n/service";
-import { userRefreshTokenService } from "@/db/services/user-refresh-token-service";
+import { userRefreshTokenService } from "@/db/services/users/user-refresh-token-service";
 import { tokenService } from "@/services/token-service";
 import { AppRequest } from "@/types/common";
 import { getLanguageFromRequest } from "@/utils/get-language-from-request";

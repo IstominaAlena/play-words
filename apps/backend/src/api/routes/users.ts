@@ -21,6 +21,10 @@ router.post("/sign-up", validateBody(createUserSchema), usersControllersService.
 
 router.post("/sign-in", validateBody(loginUserSchema), usersControllersService.signInUser);
 
+router.get("/google/auth", usersControllersService.initiateGoogleAuth);
+
+router.get("/google/callback", usersControllersService.googleAuthCallback);
+
 router.post("/refresh", controllerWrapper(usersControllersService.refreshUser));
 
 router.post("/logout", controllerWrapper(usersControllersService.logoutUser));

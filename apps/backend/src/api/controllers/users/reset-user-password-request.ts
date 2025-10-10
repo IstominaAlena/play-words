@@ -4,8 +4,8 @@ import { ResetUserPasswordRequest } from "@repo/common/types/users";
 
 import { i18nService } from "@/config/i18n/service";
 import { messageKeys } from "@/constants/common";
-import { userResetPasswordTokenService } from "@/db/services/user-reset-password-token-service";
-import { usersService } from "@/db/services/users-service";
+import { userResetPasswordTokenService } from "@/db/services/users/user-reset-password-token-service";
+import { usersService } from "@/db/services/users/users-service";
 import { AppError } from "@/services/error-service";
 import { tokenService } from "@/services/token-service";
 import { AppRequest } from "@/types/common";

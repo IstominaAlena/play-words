@@ -16,7 +16,6 @@ export const loginUserSchema = z.object({
 export const updateUserSchema = z.object({
     email: validationFields.email.optional(),
     username: validationFields.username.optional(),
-    password: validationFields.password.optional(),
 });
 
 export const resetUserPasswordRequestSchema = z.object({

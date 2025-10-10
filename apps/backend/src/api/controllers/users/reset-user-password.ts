@@ -3,8 +3,8 @@ import { Response } from "express";
 import { ResetUserPassword } from "@repo/common/types/users";
 
 import { messageKeys } from "@/constants/common";
-import { userResetPasswordTokenService } from "@/db/services/user-reset-password-token-service";
-import { usersService } from "@/db/services/users-service";
+import { userResetPasswordTokenService } from "@/db/services/users/user-reset-password-token-service";
+import { usersService } from "@/db/services/users/users-service";
 import { AppError } from "@/services/error-service";
 import { passwordService } from "@/services/password-service";
 import { AppRequest } from "@/types/common";
@@ -21,7 +21,7 @@ export const resetUserPassword = async (req: AppRequest<ResetUserPassword>, res:
 
     const newPasswordHash = await passwordService.hashPassword(newPassword);
 
-    await usersService.updateUser(tokenRecord.userId, { passwordHash: newPasswordHash });
+    // await usersService.updateUser(tokenRecord.userId, { passwordHash: newPasswordHash });
 
     await userResetPasswordTokenService.deleteResetPasswordToken(tokenRecord.id);
 

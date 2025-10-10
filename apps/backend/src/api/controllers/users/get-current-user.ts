@@ -1,7 +1,7 @@
 import { Response } from "express";
 
 import { messageKeys } from "@/constants/common";
-import { usersService } from "@/db/services/users-service";
+import { usersService } from "@/db/services/users/users-service";
 import { AppError } from "@/services/error-service";
 import { AuthenticatedRequest } from "@/types/common";
 

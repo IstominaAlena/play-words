@@ -35,8 +35,9 @@ export type AsyncController<TReq extends AppRequest = AppRequest, TResBody = any
 ) => Promise<any>;
 
 export type StrategyReturn = {
-    signin: User;
-    signup: { newUser: User; refreshToken: string };
+    "local-signup": { user: User; refreshToken: string };
+    "google-auth": { user: User; refreshToken: string };
+    "local-signin": { user: User };
     jwt: AuthUser;
 };
 
@@ -45,3 +46,17 @@ export type PassportDone<T> = (
     user?: false | T | undefined,
     options?: IVerifyOptions,
 ) => void;
+
+export interface AuthSignupProps {
+    email: string;
+    username: string;
+    provider: "local" | "google";
+    passwordHash?: string;
+    providerId?: string;
+}
+
+export interface GoogleProfile {
+    id: string;
+    displayName: string;
+    emails?: { value: string }[];
+}

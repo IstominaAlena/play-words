@@ -2,7 +2,7 @@ import { NextFunction, Response } from "express";
 
 import { LoginUserDto } from "@repo/common/types/users";
 
-import { userRefreshTokenService } from "@/db/services/user-refresh-token-service";
+import { userRefreshTokenService } from "@/db/services/users/user-refresh-token-service";
 import { passportControllerWrapper } from "@/middlewares/passport-wrapper";
 import { tokenService } from "@/services/token-service";
 import { AppRequest } from "@/types/common";
@@ -12,7 +12,11 @@ export const signInUser = async (
     res: Response,
     next: NextFunction,
 ) => {
-    const user = await passportControllerWrapper("signin", { session: false })(req, res, next);
+    const { user } = await passportControllerWrapper("local-signin", { session: false })(
+        req,
+        res,
+        next,
+    );
 
     const accessToken = tokenService.generateAccessToken(user.id, user.email);
 
