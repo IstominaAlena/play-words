@@ -2,7 +2,7 @@ import { eq } from "drizzle-orm";
 
 import { db } from "@/config/drizzle-orm/db";
 import { userCredentialsTable } from "@/db/schemas/user-schemas";
-import { CreateUserCredentials, UsersTable } from "@/types/users";
+import { CreateUserCredentials, UpdateUserCredentials, UsersTable } from "@/types/users";
 
 export class UserCredentialsService {
     private table = userCredentialsTable;
@@ -24,6 +24,10 @@ export class UserCredentialsService {
 
     async deleteUsersCredentials(id: UsersTable["id"]) {
         await db.delete(this.table).where(eq(this.table.id, id));
+    }
+
+    async updateUserCredentials(id: UsersTable["id"], data: UpdateUserCredentials) {
+        await db.update(this.table).set(data).where(eq(this.table.userId, id));
     }
 }
 

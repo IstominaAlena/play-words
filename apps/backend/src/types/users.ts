@@ -17,5 +17,8 @@ export type CreateUserCredentials = typeof userCredentialsTable.$inferInsert;
 export type CreateRefreshToken = typeof refreshTokensTable.$inferInsert;
 export type CreateResetPasswordToken = typeof resetPasswordTokensTable.$inferInsert;
 
+// update
+export type UpdateUserCredentials = Partial<CreateUserCredentials>;
+
 // test
 export type ValidateTokenTableType = typeof refreshTokensTable | typeof resetPasswordTokensTable;

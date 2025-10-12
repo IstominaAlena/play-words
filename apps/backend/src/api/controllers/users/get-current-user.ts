@@ -12,7 +12,7 @@ export const getCurrentUser = async (req: AuthenticatedRequest, res: Response) =
         throw new AppError(401, messageKeys.UNAUTHORIZED);
     }
 
-    const safeUser = await usersService.getSafeUserById(userId);
+    const safeUser = await usersService.getSafeUser(userId);
 
     if (!safeUser) {
         throw new AppError(404, messageKeys.NOT_FOUND);
