@@ -17,7 +17,7 @@ export const updateCurrentUser = async (
         throw new AppError(401, messageKeys.UNAUTHORIZED);
     }
 
-    const currentUser = await usersService.getSafeUserById(userId);
+    const currentUser = await usersService.getSafeUser(userId);
 
     if (!currentUser) {
         throw new AppError(404, messageKeys.NOT_FOUND);
@@ -35,6 +35,10 @@ export const updateCurrentUser = async (
     }
 
     const safeUser = await usersService.updateUser(currentUser.id, updateData);
+
+    if (!safeUser) {
+        throw new AppError(500, messageKeys.SOMETHING_WENT_WRONG);
+    }
 
     res.json({ user: safeUser });
 };

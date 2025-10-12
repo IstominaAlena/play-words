@@ -4,7 +4,7 @@ import { db } from "@/config/drizzle-orm/db";
 import { messageKeys } from "@/constants/common";
 import { usersTable } from "@/db/schemas/user-schemas";
 import { AppError } from "@/services/error-service";
-import { CreateUser } from "@/types/users";
+import { CreateUser, UpdateUser } from "@/types/users";
 import { UsersTable } from "@/types/users";
 
 export class UsersService {
@@ -58,6 +58,16 @@ export class UsersService {
 
     async deleteUserById(id: UsersTable["id"]) {
         await db.delete(this.table).where(eq(this.table.id, id));
+    }
+
+    async updateUser(id: UsersTable["id"], data: UpdateUser) {
+        const result = await db
+            .update(this.table)
+            .set(data)
+            .where(eq(this.table.id, id))
+            .returning(this.safeUserFields);
+
+        return result[0] ?? null;
     }
 }
 
