@@ -48,7 +48,7 @@ export const Footer: FC = () => {
                 <ul className="flex gap-6">{routing.locales.map(renderLocaleItem)}</ul>
             </div>
             <GradientLine className="absolute top-0 left-0" />
-            {isPending && <LoaderScreen isScreenProtection />}
+            {isPending && <LoaderScreen screenProtector />}
         </footer>
     );
 };

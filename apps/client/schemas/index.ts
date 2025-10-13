@@ -32,7 +32,6 @@ export const editCurrentUserSchema = z.object({
 // TODO: Get it from the backend side
 export const changePasswordSchema = z
     .object({
-        oldPassword: validationFields.password,
         newPassword: validationFields.password,
         confirmPassword: z.string().min(MIN_PASSWORD_LENGTH, "PASSWORD_MATCH"),
     })

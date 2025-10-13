@@ -45,6 +45,8 @@ const config: Config = {
       },
       animation: {
         "meteor-effect": "meteor 5s linear infinite",
+        "spin-smooth":
+          "spinSmooth 1.4s cubic-bezier(0.45, 0, 0.55, 1) infinite",
       },
       keyframes: {
         meteor: {
@@ -54,6 +56,10 @@ const config: Config = {
             transform: "rotate(215deg) translateX(-500px)",
             opacity: "0",
           },
+        },
+        spinSmooth: {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
         },
       },
     },

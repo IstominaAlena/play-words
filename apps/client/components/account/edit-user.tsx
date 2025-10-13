@@ -42,7 +42,7 @@ export const EditUser: FC<Props> = ({ className }) => {
     };
 
     return (
-        <div className="flex flex-col gap-6">
+        <div className={cn("flex flex-col gap-6", className)}>
             <Title>{t("account")}</Title>
 
             <Form<EditCurrentUserDto>
@@ -56,18 +56,19 @@ export const EditUser: FC<Props> = ({ className }) => {
                     <>
                         <FormInput
                             control={control}
-                            name="username"
-                            type="username"
-                            label={tForm("username")}
-                            placeholder={tForm("username_placeholder")}
-                            className="bg-secondary_dark"
-                        />
-                        <FormInput
-                            control={control}
                             name="email"
                             type="email"
                             label={tForm("email")}
                             placeholder={tForm("email_placeholder")}
+                            className="bg-secondary_dark"
+                            readOnly
+                        />
+                        <FormInput
+                            control={control}
+                            name="username"
+                            type="username"
+                            label={tForm("username")}
+                            placeholder={tForm("username_placeholder")}
                             className="bg-secondary_dark"
                         />
                     </>

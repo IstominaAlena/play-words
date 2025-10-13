@@ -33,7 +33,7 @@ const Button: FC<Props> = ({
             className={cn("", className)}
             isLoading={isLoading}
         >
-            {isLoading ? <Loader size="small" /> : children}
+            {isLoading ? <Loader /> : children}
         </HoverBorderGradient>
     </button>
 );

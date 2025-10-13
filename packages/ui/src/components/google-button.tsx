@@ -6,15 +6,20 @@ import { GoogleIcon } from "../icons/google";
 interface Props {
     text: string;
     url: string;
+    className?: string;
 }
 
-export const GoogleButton: FC<Props> = ({ text, url }) => {
+export const GoogleButton: FC<Props> = ({ text, url, className }) => {
     const onGoogleButtonClick = () => {
         window.location.href = url;
     };
 
     return (
-        <Button className="bg-secondary_dark gap-2" onClick={onGoogleButtonClick}>
+        <Button
+            className="bg-secondary_dark gap-2"
+            buttonClassName={className}
+            onClick={onGoogleButtonClick}
+        >
             <GoogleIcon width={24} height={24} />
             {text}
         </Button>
