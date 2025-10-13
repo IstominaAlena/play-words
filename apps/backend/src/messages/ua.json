@@ -1,0 +1,6 @@
+{
+    "USER_NOT_FOUND": "Користувача не знайдено",
+    "INTERNAL_SERVER_ERROR": "Внутрішня помилка сервера",
+    "NOT_FOUND": "Не знайдено",
+    "USER_ID_REQUIRED": "ID користувача обов'язкове"
+}

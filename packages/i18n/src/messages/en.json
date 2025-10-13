@@ -1,5 +1,56 @@
 {
+    "global": {
+        "something_wrong": "Something went wrong",
+        "cancel": "Cancel"
+    },
+    "navigation": {
+        "home": "Home",
+        "dictionary": "Dictionary",
+        "practice": "Practice",
+        "games": "Games",
+        "account": "Account"
+    },
+    "form": {
+        "submit": "Submit",
+        "username": "Username",
+        "username_placeholder": "John Doe",
+        "email": "Email",
+        "email_placeholder": "example@mail.com",
+        "password": "Password",
+        "old_password": "Old password",
+        "new_password": "New password",
+        "confirm_password": "Confirm password",
+        "show_password": "Show password",
+        "password_placeholder": "**********"
+    },
+    "form_error": {
+        "REQUIRED": "Field is required",
+        "SHORT_PASSWORD": "Password to short",
+        "PASSWORD_MATCH": "Passwords should match",
+        "INVALID_EMAIL": "Email should be in valid format"
+    },
+    "auth": {
+        "sign_in": "Sign in",
+        "sign_up": "Sign up",
+        "logout": "Log out",
+        "forgot_password": "Forgot your password?",
+        "forgot_password_subtitle": "Enter your email to receive a password reset link",
+        "logout_subtitle": "Are you sure you want to log out?",
+        "reset_password_title": "Almost there!",
+        "reset_password_subtitle": "Choose a new password for your account. Make sure it’s strong and easy for you to remember.",
+        "reset_password_success": "Your password was changed successfully"
+    },
     "home_page": {
-        "title": "Hello world!"
+        "title": "Let's play words!"
+    },
+    "account": {
+        "account": "Account",
+        "change_password": "Change password",
+        "security": "Security",
+        "enable_verification": "Enable OTP verification with Google Authenticator application",
+        "enable": "Enable",
+        "connect_accounts": "Connect other accounts",
+        "connect_google": "Connect Google to your account for quick access",
+        "connect": "Connect"
     }
 }

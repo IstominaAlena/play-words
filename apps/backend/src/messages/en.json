@@ -1,0 +1,17 @@
+{
+    "INTERNAL_SERVER_ERROR": "Internal server error",
+    "NOT_FOUND": "Not found",
+    "SOMETHING_WENT_WRONG": "Something went wrong",
+    "BAD_REQUEST": "No fields to update",
+    "ALREADY_EXISTS": "Already exists",
+    "VALIDATION_FAILED": "Validation failed",
+    "REQUIRED": "Field is required",
+    "INVALID_EMAIL": "Invalid email format",
+    "SHORT_PASSWORD": "Password to short",
+    "INVALID_CREDENTIALS": "Invalid credentials",
+    "UNAUTHORIZED": "Unauthorized",
+    "LOGOUT_SUCCESS": "Logged out successfully",
+    "RESET_LINK_SENT": "If the email exists, reset link has been sent",
+    "INVALID_TOKEN": "Invalid or expired token",
+    "SIGN_UP_FAILED": "Sign up process failed"
+}
