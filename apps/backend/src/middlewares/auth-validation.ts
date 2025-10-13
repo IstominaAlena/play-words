@@ -1,27 +1,13 @@
 import { NextFunction, Response } from "express";
 
-import { messageKeys } from "@/constants/common";
-import { AppError } from "@/services/error-service";
-import { tokenService } from "@/services/token-service";
+import { passportControllerWrapper } from "@/middlewares/passport-wrapper";
 import { AppRequest } from "@/types/common";
 
-export const authValidation = (req: AppRequest, res: Response, next: NextFunction) => {
+export const authValidation = async (req: AppRequest, res: Response, next: NextFunction) => {
     try {
-        const authHeader = req.headers["authorization"];
+        const user = await passportControllerWrapper("jwt", { session: false })(req, res, next);
 
-        if (!authHeader || !authHeader.startsWith("Bearer ")) {
-            throw new AppError(401, messageKeys.UNAUTHORIZED);
-        }
-
-        const token = authHeader.split(" ")[1];
-
-        const payload = tokenService.verifyAccessToken(token);
-
-        req.user = {
-            id: payload.id,
-            email: payload.email,
-        };
-
+        req.user = user;
         next();
     } catch (error: unknown) {
         next(error);

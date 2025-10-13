@@ -1,37 +1,23 @@
-import { Response } from "express";
+import { NextFunction, Response } from "express";
 
 import { CreateUserDto } from "@repo/common/types/users";
 
-import { messageKeys } from "@/constants/common";
-import { usersService } from "@/db/services/users-service";
-import { AppError } from "@/services/error-service";
-import { passwordService } from "@/services/password-service";
+import { passportControllerWrapper } from "@/middlewares/passport-wrapper";
 import { tokenService } from "@/services/token-service";
 import { AppRequest } from "@/types/common";
 
-export const signUpUser = async (req: AppRequest<CreateUserDto>, res: Response) => {
-    const { email: rawEmail, username: rawUsername, password } = req.body;
+export const signUpUser = async (
+    req: AppRequest<CreateUserDto>,
+    res: Response,
+    next: NextFunction,
+) => {
+    const { user, refreshToken } = await passportControllerWrapper("local-signup", {
+        session: false,
+    })(req, res, next);
 
-    const email = String(rawEmail).trim().toLowerCase();
-    const username = rawUsername.trim();
+    const accessToken = tokenService.generateAccessToken(user.id, user.email);
 
-    const existingUser = await usersService.getUserByEmail(email);
+    tokenService.setRefreshTokenCookie(res, refreshToken!);
 
-    if (existingUser?.id) {
-        throw new AppError(409, messageKeys.ALREADY_EXISTS);
-    }
-
-    const passwordHash = await passwordService.hashPassword(password);
-
-    const { newUser, refreshToken } = await usersService.createUser({
-        email,
-        username,
-        passwordHash,
-    });
-
-    const accessToken = tokenService.generateAccessToken(newUser.id, newUser.email);
-
-    tokenService.setRefreshTokenCookie(res, refreshToken);
-
-    res.json({ accessToken });
+    res.status(201).json({ accessToken });
 };

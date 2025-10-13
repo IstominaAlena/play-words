@@ -1,4 +1,6 @@
 import { getCurrentUser } from "./get-current-user";
+import { googleAuthCallback } from "./google-auth-callback";
+import { initiateGoogleAuth } from "./initiate-google-auth";
 import { logoutUser } from "./logout-user";
 import { refreshUser } from "./refresh-user";
 import { resetUserPassword } from "./reset-user-password";
@@ -16,4 +18,6 @@ export const usersControllersService = {
     updateCurrentUser,
     resetUserPasswordRequest,
     resetUserPassword,
+    initiateGoogleAuth,
+    googleAuthCallback,
 };

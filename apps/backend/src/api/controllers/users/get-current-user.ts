@@ -1,18 +1,18 @@
 import { Response } from "express";
 
 import { messageKeys } from "@/constants/common";
-import { usersService } from "@/db/services/users-service";
+import { usersService } from "@/db/services/users/users-service";
 import { AppError } from "@/services/error-service";
-import { AppRequest } from "@/types/common";
+import { AuthenticatedRequest } from "@/types/common";
 
-export const getCurrentUser = async (req: AppRequest, res: Response) => {
+export const getCurrentUser = async (req: AuthenticatedRequest, res: Response) => {
     const userId = req.user?.id;
 
     if (!userId) {
         throw new AppError(401, messageKeys.UNAUTHORIZED);
     }
 
-    const safeUser = await usersService.getSafeUserById(userId);
+    const safeUser = await usersService.getSafeUser(userId);
 
     if (!safeUser) {
         throw new AppError(404, messageKeys.NOT_FOUND);

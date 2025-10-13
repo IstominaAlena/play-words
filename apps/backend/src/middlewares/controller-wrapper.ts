@@ -1,15 +1,15 @@
-import { NextFunction, Response } from "express";
+import { NextFunction, RequestHandler, Response } from "express";
 
 import { AppRequest, AsyncController } from "@/types/common";
 
-export const controllerWrapper = <TBody = object, TResBody = any>(
-    controller: AsyncController<TBody>,
-) => {
-    return async (req: AppRequest<TBody>, res: Response, next: NextFunction) => {
+export const controllerWrapper = <TReq extends AppRequest = AppRequest, TResBody = any>(
+    controller: AsyncController<TReq, TResBody>,
+): RequestHandler => {
+    return (async (req: AppRequest, res: Response, next: NextFunction) => {
         try {
-            await controller(req, res, next);
+            await controller(req as TReq, res, next);
         } catch (error: unknown) {
             next(error);
         }
-    };
+    }) as RequestHandler;
 };

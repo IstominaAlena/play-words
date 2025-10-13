@@ -1,8 +1,6 @@
-import { config } from "dotenv";
+import "@/config/load-env";
 
 import app from "../app";
-
-config({ path: ".env" });
 
 const PORT = process.env.PORT || 5000;
 

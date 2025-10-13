@@ -16,17 +16,14 @@ import { usersControllersService } from "../controllers/users/service";
 
 const router = Router();
 
-router.post(
-    "/sign-up",
-    validateBody(createUserSchema),
-    controllerWrapper(usersControllersService.signUpUser),
-);
+// auth flow
+router.post("/sign-up", validateBody(createUserSchema), usersControllersService.signUpUser);
 
-router.post(
-    "/sign-in",
-    validateBody(loginUserSchema),
-    controllerWrapper(usersControllersService.signInUser),
-);
+router.post("/sign-in", validateBody(loginUserSchema), usersControllersService.signInUser);
+
+router.get("/google/auth", usersControllersService.initiateGoogleAuth);
+
+router.get("/google/callback", usersControllersService.googleAuthCallback);
 
 router.post("/refresh", controllerWrapper(usersControllersService.refreshUser));
 
@@ -44,6 +41,7 @@ router.post(
     controllerWrapper(usersControllersService.resetUserPassword),
 );
 
+// protected routes
 router.get("/me", authValidation, controllerWrapper(usersControllersService.getCurrentUser));
 
 router.patch(

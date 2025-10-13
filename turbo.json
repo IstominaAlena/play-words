@@ -19,7 +19,10 @@
         "PORT",
         "JWT_SECRET",
         "NODE_ENV",
-        "API_URL"
+        "API_URL",
+        "GOOGLE_CLIENT_ID",
+        "GOOGLE_CLIENT_SECRET",
+        "BASE_API_URL"
       ]
     },
     "lint": {
