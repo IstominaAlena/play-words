@@ -1,12 +1,13 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { SubmitHandler } from "react-hook-form";
 
 import { Form } from "@repo/ui/components/form";
 import { FormInput } from "@repo/ui/components/form-input";
-import { Checkbox } from "@repo/ui/core/checkbox";
+import { FormPasswordInput } from "@repo/ui/components/form-password-input";
+import { GoogleButton } from "@repo/ui/components/google-button";
 import { showToast } from "@repo/ui/core/sonner";
 import { Title } from "@repo/ui/core/typography";
 
@@ -29,11 +30,7 @@ export const SignUpModal: FC<Props> = ({ closeModal }) => {
     const t = useTranslations("auth");
     const tForm = useTranslations("form");
 
-    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
     const { mutateAsync: signUp, isPending } = useSignUp();
-
-    const togglePassword = () => setIsPasswordVisible((state) => !state);
 
     const onSubmit: SubmitHandler<SignUpUser> = async (formData) => {
         try {
@@ -46,7 +43,7 @@ export const SignUpModal: FC<Props> = ({ closeModal }) => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center gap-4">
+        <div className="flex flex-col items-center justify-center gap-6">
             <Title>{t("sign_up")}</Title>
 
             <Form<SignUpUser>
@@ -72,31 +69,26 @@ export const SignUpModal: FC<Props> = ({ closeModal }) => {
                             placeholder={tForm("email_placeholder")}
                             className="bg-secondary_dark"
                         />
-                        <FormInput
+                        <FormPasswordInput
                             control={control}
                             name="password"
-                            type={isPasswordVisible ? "text" : "password"}
                             label={tForm("password")}
-                            placeholder={tForm("password_placeholder")}
                             className="bg-secondary_dark"
                         />
-                        <FormInput
+                        <FormPasswordInput
                             control={control}
                             name="confirmPassword"
-                            type={isPasswordVisible ? "text" : "password"}
                             label={tForm("confirm_password")}
-                            placeholder={tForm("password_placeholder")}
                             className="bg-secondary_dark"
                         />
-                        <Checkbox
-                            checked={isPasswordVisible}
-                            onCheckedChange={togglePassword}
-                            containerClassName="my-1"
-                        >
-                            {tForm("show_password")}
-                        </Checkbox>
                     </>
                 )}
+            />
+            <div className="bg-horizontal_neutral_gradient h-px w-full" />
+
+            <GoogleButton
+                text={t("sign_up")}
+                url={`${process.env.NEXT_PUBLIC_API_URL}/users/google/auth`}
             />
         </div>
     );

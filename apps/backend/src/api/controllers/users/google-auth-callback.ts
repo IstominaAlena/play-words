@@ -1,6 +1,6 @@
 import { NextFunction, Response } from "express";
 
-import { messageKeys } from "@/constants/common";
+import { BASE_CLIENT_URL, messageKeys } from "@/constants/common";
 import { passportControllerWrapper } from "@/middlewares/passport-wrapper";
 import { AppError } from "@/services/error-service";
 import { tokenService } from "@/services/token-service";
@@ -17,7 +17,7 @@ export const googleAuthCallback = async (req: AppRequest, res: Response, next: N
         const accessToken = tokenService.generateAccessToken(user.id, user.email);
         tokenService.setRefreshTokenCookie(res, refreshToken);
 
-        res.status(200).json({ accessToken, user });
+        res.redirect(`${BASE_CLIENT_URL}/auth/success?token=${accessToken}`);
     } catch (err) {
         next(err);
     }

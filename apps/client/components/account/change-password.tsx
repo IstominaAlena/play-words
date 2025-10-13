@@ -1,12 +1,12 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { SubmitHandler } from "react-hook-form";
 
+import { cn } from "@repo/ui/class-names";
 import { Form } from "@repo/ui/components/form";
-import { FormInput } from "@repo/ui/components/form-input";
-import { Checkbox } from "@repo/ui/core/checkbox";
+import { FormPasswordInput } from "@repo/ui/components/form-password-input";
 import { showToast } from "@repo/ui/core/sonner";
 import { Title } from "@repo/ui/core/typography";
 
@@ -18,7 +18,6 @@ interface Props {
 }
 
 const defaultValues = {
-    oldPassword: "",
     newPassword: "",
     confirmPassword: "",
 };
@@ -26,10 +25,6 @@ const defaultValues = {
 export const ChangePassword: FC<Props> = ({ className }) => {
     const t = useTranslations("account");
     const tForm = useTranslations("form");
-
-    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
-    const togglePassword = () => setIsPasswordVisible((state) => !state);
 
     const onSubmit: SubmitHandler<ChangePasswordDto> = async (formData) => {
         try {
@@ -40,7 +35,7 @@ export const ChangePassword: FC<Props> = ({ className }) => {
     };
 
     return (
-        <div className="flex flex-col gap-6">
+        <div className={cn("flex flex-col gap-6", className)}>
             <Title>{t("change_password")}</Title>
             <Form<ChangePasswordDto>
                 defaultValues={defaultValues}
@@ -50,37 +45,18 @@ export const ChangePassword: FC<Props> = ({ className }) => {
                 // isLoading={isPending}
                 render={({ control }) => (
                     <>
-                        <FormInput
-                            control={control}
-                            name="oldPassword"
-                            type={isPasswordVisible ? "text" : "password"}
-                            label={tForm("old_password")}
-                            placeholder={tForm("password_placeholder")}
-                            className="bg-secondary_dark"
-                        />
-                        <FormInput
+                        <FormPasswordInput
                             control={control}
                             name="newPassword"
-                            type={isPasswordVisible ? "text" : "password"}
                             label={tForm("new_password")}
-                            placeholder={tForm("password_placeholder")}
                             className="bg-secondary_dark"
                         />
-                        <FormInput
+                        <FormPasswordInput
                             control={control}
                             name="confirmPassword"
-                            type={isPasswordVisible ? "text" : "password"}
                             label={tForm("confirm_password")}
-                            placeholder={tForm("password_placeholder")}
                             className="bg-secondary_dark"
                         />
-                        <Checkbox
-                            checked={isPasswordVisible}
-                            onCheckedChange={togglePassword}
-                            containerClassName="my-1"
-                        >
-                            {tForm("show_password")}
-                        </Checkbox>
                     </>
                 )}
             />
