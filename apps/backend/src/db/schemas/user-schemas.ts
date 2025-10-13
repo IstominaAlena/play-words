@@ -1,6 +1,6 @@
-import { boolean, integer, pgEnum, pgTable, serial, timestamp, varchar } from "drizzle-orm/pg-core";
+import { boolean, integer, pgTable, serial, timestamp, varchar } from "drizzle-orm/pg-core";
 
-export const authProvider = pgEnum("provider", ["local", "google"]);
+import { authProvider } from "./types";
 
 export const usersTable = pgTable("users", {
     id: serial("id").notNull().primaryKey(),
@@ -16,7 +16,6 @@ export const userCredentialsTable = pgTable("user_credentials", {
     userId: integer("user_id")
         .notNull()
         .references(() => usersTable.id, { onDelete: "cascade" }),
-
     provider: authProvider().notNull(),
     passwordHash: varchar("password_hash", { length: 255 }),
     providerId: varchar("provider_id", { length: 255 }).unique(),

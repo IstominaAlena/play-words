@@ -1,3 +1,5 @@
+import { CreateUserDto } from "@repo/common/types/users";
+
 import { messageKeys } from "@/constants/common";
 import { userCredentialsService } from "@/db/services/users/user-credentials-table";
 import { userRefreshTokenService } from "@/db/services/users/user-refresh-token-service";
@@ -12,7 +14,6 @@ import {
     PassportDone,
     StrategyReturn,
 } from "@/types/common";
-import { CreateUser } from "@/types/users";
 
 import { tokenService } from "./token-service";
 
@@ -51,7 +52,7 @@ export class AuthService {
     }
 
     async signupLocal(
-        req: AppRequest<CreateUser>,
+        req: AppRequest<CreateUserDto>,
         email: string,
         password: string,
         done: PassportDone<StrategyReturn["local-signup"]>,
