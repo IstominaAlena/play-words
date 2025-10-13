@@ -10,7 +10,7 @@ export const HomePage: FC = () => {
     const t = useTranslations("home_page");
 
     return (
-        <section className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden">
+        <section className="relative flex h-full w-full flex-1 flex-col items-center justify-center overflow-hidden">
             <div className="absolute top-px left-1/2 h-40 w-[60rem] -translate-x-1/2">
                 {/* Gradients */}
                 <div className="via-accent_dark absolute inset-x-0 top-0 h-[2px] w-full bg-gradient-to-r from-transparent to-transparent blur-sm" />

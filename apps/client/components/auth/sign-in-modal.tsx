@@ -6,6 +6,7 @@ import { SubmitHandler } from "react-hook-form";
 
 import { Form } from "@repo/ui/components/form";
 import { FormInput } from "@repo/ui/components/form-input";
+import { GoogleButton } from "@repo/ui/components/google-button";
 import { Checkbox } from "@repo/ui/core/checkbox";
 import { showToast } from "@repo/ui/core/sonner";
 import { Title } from "@repo/ui/core/typography";
@@ -47,7 +48,7 @@ export const SignInModal: FC<Props> = ({ closeModal }) => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center gap-4">
+        <div className="flex flex-col items-center justify-center gap-6">
             <Title>{t("sign_in")}</Title>
             <Form<LoginUserDto>
                 defaultValues={defaultValues}
@@ -86,6 +87,12 @@ export const SignInModal: FC<Props> = ({ closeModal }) => {
                         </div>
                     </>
                 )}
+            />
+            <div className="bg-horizontal_neutral_gradient h-px w-full" />
+
+            <GoogleButton
+                text={t("sign_in")}
+                url={`${process.env.NEXT_PUBLIC_API_URL}/users/google/auth`}
             />
         </div>
     );

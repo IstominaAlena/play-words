@@ -113,7 +113,11 @@ export class AuthService {
 
                 const safeUser = await usersService.getSafeUser(existingUser.id);
 
-                return { user: safeUser, refreshToken: token };
+                if (!safeUser) {
+                    throw new AppError(401, messageKeys.UNAUTHORIZED);
+                }
+
+                return done(null, { user: safeUser, refreshToken: token });
             }
 
             const result = await this.signup({

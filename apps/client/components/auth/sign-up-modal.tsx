@@ -6,9 +6,12 @@ import { SubmitHandler } from "react-hook-form";
 
 import { Form } from "@repo/ui/components/form";
 import { FormInput } from "@repo/ui/components/form-input";
+import { GoogleButton } from "@repo/ui/components/google-button";
+import { Button } from "@repo/ui/core/button";
 import { Checkbox } from "@repo/ui/core/checkbox";
 import { showToast } from "@repo/ui/core/sonner";
 import { Title } from "@repo/ui/core/typography";
+import { GoogleIcon } from "@repo/ui/icons/google";
 
 import { useSignUp } from "@/api/auth/mutations";
 import { signUpUserSchema } from "@/schemas/index";
@@ -46,7 +49,7 @@ export const SignUpModal: FC<Props> = ({ closeModal }) => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center gap-4">
+        <div className="flex flex-col items-center justify-center gap-6">
             <Title>{t("sign_up")}</Title>
 
             <Form<SignUpUser>
@@ -97,6 +100,12 @@ export const SignUpModal: FC<Props> = ({ closeModal }) => {
                         </Checkbox>
                     </>
                 )}
+            />
+            <div className="bg-horizontal_neutral_gradient h-px w-full" />
+
+            <GoogleButton
+                text={t("sign_up")}
+                url={`${process.env.NEXT_PUBLIC_API_URL}/users/google/auth`}
             />
         </div>
     );

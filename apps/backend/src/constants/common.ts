@@ -11,6 +11,7 @@ export const RESET_PASSWORD_TOKEN_TTL_TIME = 30;
 export const JWT_SECRET = process.env.JWT_SECRET || "superSecret_key";
 
 export const BASE_API_URL = process.env.BASE_API_URL ?? "";
+export const BASE_CLIENT_URL = process.env.BASE_CLIENT_URL ?? "";
 
 export const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID ?? "";
 
