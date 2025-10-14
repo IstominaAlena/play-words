@@ -1,5 +1,3 @@
-import { CreateUserDto } from "@repo/common/types/users";
-
 import { messageKeys } from "@/constants/common";
 import { userCredentialsService } from "@/db/services/users/user-credentials-service";
 import { userRefreshTokenService } from "@/db/services/users/user-refresh-token-service";
@@ -12,6 +10,7 @@ import {
     AuthSignupProps,
     AuthUser,
     GoogleProfile,
+    LocalSignupDto,
     PassportDone,
     StrategyReturn,
 } from "@/types/common";
@@ -39,7 +38,8 @@ export class AuthService {
 
         const settingsId = await userSettingService.createUserSettings({
             userId: newUser.id,
-            isGoogleConnected: provider === "google",
+            google: provider === "google",
+            password: !!passwordHash,
         });
 
         if (!settingsId) {
@@ -63,7 +63,7 @@ export class AuthService {
     }
 
     async signupLocal(
-        req: AppRequest<CreateUserDto>,
+        req: AppRequest<LocalSignupDto>,
         email: string,
         password: string,
         done: PassportDone<StrategyReturn["local-signup"]>,

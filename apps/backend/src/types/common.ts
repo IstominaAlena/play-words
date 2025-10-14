@@ -60,3 +60,23 @@ export interface GoogleProfile {
     displayName: string;
     emails?: { value: string }[];
 }
+
+export interface ResetPasswordRequest {
+    email: string;
+}
+
+export interface ResetPassword {
+    token: string;
+    password: string;
+}
+
+export interface LocalSigninDto {
+    email: string;
+    password: string;
+}
+
+export interface LocalSignupDto {
+    email: string;
+    username: string;
+    password: string;
+}

@@ -1,15 +1,13 @@
 import { Response } from "express";
 
-import { ResetUserPassword } from "@repo/common/types/users";
-
 import { messageKeys } from "@/constants/common";
 import { userCredentialsService } from "@/db/services/users/user-credentials-service";
 import { userResetPasswordTokenService } from "@/db/services/users/user-reset-password-token-service";
 import { AppError } from "@/services/error-service";
 import { passwordService } from "@/services/password-service";
-import { AppRequest } from "@/types/common";
+import { AppRequest, ResetPassword } from "@/types/common";
 
-export const resetUserPassword = async (req: AppRequest<ResetUserPassword>, res: Response) => {
+export const resetUserPassword = async (req: AppRequest<ResetPassword>, res: Response) => {
     const { token: rawResetPasswordToken, password: newPassword } = req.body;
 
     const tokenRecord =

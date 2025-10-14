@@ -1,13 +1,11 @@
 import { NextFunction, Response } from "express";
 
-import { CreateUserDto } from "@repo/common/types/users";
-
 import { passportControllerWrapper } from "@/middlewares/passport-wrapper";
 import { tokenService } from "@/services/token-service";
-import { AppRequest } from "@/types/common";
+import { AppRequest, LocalSignupDto } from "@/types/common";
 
 export const signUpUser = async (
-    req: AppRequest<CreateUserDto>,
+    req: AppRequest<LocalSignupDto>,
     res: Response,
     next: NextFunction,
 ) => {

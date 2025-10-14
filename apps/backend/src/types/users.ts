@@ -25,5 +25,5 @@ export type UpdateUser = Partial<CreateUser>;
 export type UpdateUserCredentials = Partial<CreateUserCredentials>;
 export type UpdateUserSettings = Partial<CreateUserSettings>;
 
-// other
+// tokens
 export type ValidateTokenTableType = typeof refreshTokensTable | typeof resetPasswordTokensTable;
