@@ -6,9 +6,11 @@ import { messageKeys } from "@/constants/common";
 import { usersService } from "@/db/services/users/users-service";
 import { AppError } from "@/services/error-service";
 import { AuthenticatedRequest } from "@/types/common";
-import { UpdateUser } from "@/types/users";
 
-export const updateCurrentUser = async (req: AuthenticatedRequest<UpdateUser>, res: Response) => {
+export const updateCurrentUser = async (
+    req: AuthenticatedRequest<UpdateUserDto>,
+    res: Response,
+) => {
     const userId = req.user?.id;
 
     if (!userId) {
@@ -21,11 +23,10 @@ export const updateCurrentUser = async (req: AuthenticatedRequest<UpdateUser>, r
         throw new AppError(404, messageKeys.NOT_FOUND);
     }
 
-    const { email: rawEmail, username: rawUsername } = req.body;
+    const { username: rawUsername } = req.body;
 
     const updateData: UpdateUserDto = {};
 
-    if (rawEmail) updateData.email = rawEmail.trim().toLowerCase();
     if (rawUsername) updateData.username = rawUsername.trim();
 
     if (Object.keys(updateData).length === 0) {

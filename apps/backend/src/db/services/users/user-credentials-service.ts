@@ -23,7 +23,13 @@ export class UserCredentialsService {
     }
 
     async updateUserCredentials(id: UsersTable["id"], data: UpdateUserCredentials) {
-        await db.update(this.table).set(data).where(eq(this.table.userId, id));
+        const result = await db
+            .update(this.table)
+            .set(data)
+            .where(eq(this.table.userId, id))
+            .returning({ id: this.table.id });
+
+        return result[0]?.id ?? null;
     }
 }
 

@@ -4,7 +4,7 @@ import { IVerifyOptions } from "passport-local";
 import { User } from "@repo/common/types/users";
 
 import defaultLang from "../messages/en.json";
-import { UsersTable } from "./users";
+import { UserSettingsTable, UsersTable } from "./users";
 
 export type Messages = typeof defaultLang;
 
@@ -39,6 +39,7 @@ export type StrategyReturn = {
     "google-auth": { user: User; refreshToken: string };
     "local-signin": { user: User };
     jwt: AuthUser;
+    "connect-google": { settings: UserSettingsTable };
 };
 
 export type PassportDone<T> = (
@@ -79,4 +80,12 @@ export interface LocalSignupDto {
     email: string;
     username: string;
     password: string;
+}
+
+export interface ChangePassword {
+    password: string;
+}
+
+export interface UpdateUserDto {
+    username: string;
 }

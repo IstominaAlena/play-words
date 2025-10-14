@@ -23,7 +23,12 @@ export class UserSettingService {
     }
 
     async updateUserSettings(id: UsersTable["id"], data: UpdateUserSettings) {
-        await db.update(this.table).set(data).where(eq(this.table.userId, id));
+        const result = await db
+            .update(this.table)
+            .set(data)
+            .where(eq(this.table.userId, id))
+            .returning({ id: this.table.id });
+        return result[0]?.id ?? null;
     }
 }
 

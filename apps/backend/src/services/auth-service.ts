@@ -9,6 +9,7 @@ import {
     AppRequest,
     AuthSignupProps,
     AuthUser,
+    AuthenticatedRequest,
     GoogleProfile,
     LocalSignupDto,
     PassportDone,
@@ -93,6 +94,41 @@ export class AuthService {
         }
     }
 
+    async signinLocal(
+        email: string,
+        password: string,
+        done: PassportDone<StrategyReturn["local-signin"]>,
+    ) {
+        try {
+            const normalizedEmail = email.trim().toLowerCase();
+
+            const user = await usersService.getUserByEmail(normalizedEmail);
+
+            if (!user) {
+                throw new AppError(401, messageKeys.UNAUTHORIZED);
+            }
+
+            const userCredentials = await userCredentialsService.getCredentialsByUserId(user.id);
+
+            if (!userCredentials || !userCredentials.passwordHash) {
+                throw new AppError(401, messageKeys.UNAUTHORIZED);
+            }
+
+            const isPasswordValid = await passwordService.comparePassword(
+                password,
+                userCredentials.passwordHash,
+            );
+
+            if (!isPasswordValid) {
+                throw new AppError(401, messageKeys.UNAUTHORIZED);
+            }
+
+            return done(null, { user });
+        } catch (err) {
+            done(err);
+        }
+    }
+
     async googleAuth(
         _accessToken: string,
         _refreshToken: string,
@@ -144,38 +180,52 @@ export class AuthService {
         }
     }
 
-    async signinLocal(
-        email: string,
-        password: string,
-        done: PassportDone<StrategyReturn["local-signin"]>,
+    async connectGoogleAccount(
+        req: AppRequest,
+        _accessToken: string,
+        _refreshToken: string,
+        profile: GoogleProfile,
+        done: PassportDone<StrategyReturn["connect-google"]>,
     ) {
         try {
-            const normalizedEmail = email.trim().toLowerCase();
+            const authReq = req as AuthenticatedRequest;
+            const user = authReq.user;
 
-            const user = await usersService.getUserByEmail(normalizedEmail);
+            const email = profile.emails?.[0]?.value;
+            const username = profile.displayName;
+            const providerId = profile.id;
 
-            if (!user) {
-                throw new AppError(401, messageKeys.UNAUTHORIZED);
+            if (!email || !username || !providerId) {
+                throw new AppError(409, messageKeys.BAD_REQUEST);
             }
 
-            const userCredentials = await userCredentialsService.getCredentialsByUserId(user.id);
+            const credentialsId = await userCredentialsService.createUserCredentials({
+                userId: user.id,
+                provider: "google",
+                providerId,
+            });
 
-            if (!userCredentials || !userCredentials.passwordHash) {
-                throw new AppError(401, messageKeys.UNAUTHORIZED);
+            if (!credentialsId) {
+                throw new AppError(500, messageKeys.SOMETHING_WENT_WRONG);
             }
 
-            const isPasswordValid = await passwordService.comparePassword(
-                password,
-                userCredentials.passwordHash,
-            );
+            const usersSettingsId = await userSettingService.updateUserSettings(user.id, {
+                google: true,
+            });
 
-            if (!isPasswordValid) {
-                throw new AppError(401, messageKeys.UNAUTHORIZED);
+            if (!usersSettingsId) {
+                throw new AppError(500, messageKeys.SOMETHING_WENT_WRONG);
             }
 
-            return done(null, { user });
+            const settings = await userSettingService.getSettingsByUserId(user.id);
+
+            if (!settings) {
+                throw new AppError(500, messageKeys.SOMETHING_WENT_WRONG);
+            }
+
+            return done(null, { settings });
         } catch (err) {
-            done(err);
+            return done(err);
         }
     }
 
