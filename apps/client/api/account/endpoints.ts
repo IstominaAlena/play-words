@@ -1,8 +1,14 @@
 import { api } from "@repo/api-config/api-config";
-import { User } from "@repo/common/types/users";
+import { Settings, UserResponse } from "@repo/common/types/users";
 
-export const getCurrentUser = async (): Promise<User> => {
-    const { data } = await api.get<{ user: User }>("/users/me");
+export const getCurrentUser = async (): Promise<UserResponse> => {
+    const { data } = await api.get<UserResponse>("/users/me");
 
-    return data.user;
+    return data;
+};
+
+export const disconnectGoogleAccount = async (): Promise<Settings> => {
+    const { data } = await api.post<{ settings: Settings }>("/users/google/disconnect");
+
+    return data.settings;
 };

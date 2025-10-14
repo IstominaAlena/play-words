@@ -23,11 +23,10 @@ export const updateCurrentUser = async (
         throw new AppError(404, messageKeys.NOT_FOUND);
     }
 
-    const { email: rawEmail, username: rawUsername } = req.body;
+    const { username: rawUsername } = req.body;
 
     const updateData: UpdateUserDto = {};
 
-    if (rawEmail) updateData.email = rawEmail.trim().toLowerCase();
     if (rawUsername) updateData.username = rawUsername.trim();
 
     if (Object.keys(updateData).length === 0) {

@@ -6,12 +6,9 @@ import { SubmitHandler } from "react-hook-form";
 
 import { Form } from "@repo/ui/components/form";
 import { FormInput } from "@repo/ui/components/form-input";
-import { GlowingContainer } from "@repo/ui/core/glowing-container";
-import { Meteors } from "@repo/ui/core/meteors";
 import { showToast } from "@repo/ui/core/sonner";
 import { Text, Title } from "@repo/ui/core/typography";
 
-import useWindowDimensions from "@repo/common/hooks/use-window-dimensions.ts";
 import { resetUserPasswordRequestSchema } from "@repo/common/schemas/users";
 import { ResetUserPasswordRequest } from "@repo/common/types/users";
 
@@ -24,8 +21,6 @@ const defaultValues = {
 export const ResetPasswordRequestPage: FC = () => {
     const t = useTranslations("auth");
     const tForm = useTranslations("form");
-
-    const { isMd } = useWindowDimensions();
 
     const { mutateAsync: resetPasswordRequest, isPending } = useResetPasswordRequest();
 

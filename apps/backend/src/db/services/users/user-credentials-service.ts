@@ -1,0 +1,68 @@
+import { and, eq } from "drizzle-orm";
+
+import { db } from "@/config/drizzle-orm/db";
+import { userCredentialsTable } from "@/db/schemas/user-schemas";
+import {
+    CreateUserCredentials,
+    UpdateUserCredentials,
+    UserCredentialsTable,
+    UsersTable,
+} from "@/types/users";
+
+export class UserCredentialsService {
+    private table = userCredentialsTable;
+
+    async createUserCredentials(data: CreateUserCredentials) {
+        const result = await db.insert(this.table).values(data).returning({ id: this.table.id });
+        return result[0]?.id ?? null;
+    }
+
+    async getCredentialsByUserId(id: UsersTable["id"]) {
+        const result = await db.select().from(this.table).where(eq(this.table.userId, id)).limit(1);
+
+        return result[0] ?? null;
+    }
+
+    async getCredentialsByProviderId(id: UserCredentialsTable["providerId"]) {
+        if (!id) {
+            return null;
+        }
+
+        const result = await db
+            .select()
+            .from(this.table)
+            .where(eq(this.table.providerId, id))
+            .limit(1);
+
+        return result[0] ?? null;
+    }
+
+    async getCredentialsByUserIdAndProvider(
+        id: UsersTable["id"],
+        provider: UserCredentialsTable["provider"],
+    ) {
+        const result = await db
+            .select()
+            .from(this.table)
+            .where(and(eq(this.table.userId, id), eq(this.table.provider, provider)))
+            .limit(1);
+
+        return result[0] ?? null;
+    }
+
+    async deleteUsersCredentials(id: UserCredentialsTable["id"]) {
+        await db.delete(this.table).where(eq(this.table.id, id));
+    }
+
+    async updateUserCredentials(id: UsersTable["id"], data: UpdateUserCredentials) {
+        const result = await db
+            .update(this.table)
+            .set(data)
+            .where(eq(this.table.userId, id))
+            .returning({ id: this.table.id });
+
+        return result[0]?.id ?? null;
+    }
+}
+
+export const userCredentialsService = new UserCredentialsService();

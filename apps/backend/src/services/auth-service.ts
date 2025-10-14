@@ -1,8 +1,7 @@
-import { CreateUserDto } from "@repo/common/types/users";
-
 import { messageKeys } from "@/constants/common";
-import { userCredentialsService } from "@/db/services/users/user-credentials-table";
+import { userCredentialsService } from "@/db/services/users/user-credentials-service";
 import { userRefreshTokenService } from "@/db/services/users/user-refresh-token-service";
+import { userSettingService } from "@/db/services/users/user-settings-service";
 import { usersService } from "@/db/services/users/users-service";
 import { AppError } from "@/services/error-service";
 import { passwordService } from "@/services/password-service";
@@ -10,7 +9,9 @@ import {
     AppRequest,
     AuthSignupProps,
     AuthUser,
+    AuthenticatedRequest,
     GoogleProfile,
+    LocalSignupDto,
     PassportDone,
     StrategyReturn,
 } from "@/types/common";
@@ -18,7 +19,7 @@ import {
 import { tokenService } from "./token-service";
 
 export class AuthService {
-    async signup({ email, username, provider, passwordHash, providerId }: AuthSignupProps) {
+    private async signup({ email, username, provider, passwordHash, providerId }: AuthSignupProps) {
         const newUser = await usersService.createUser({
             email,
             username,
@@ -32,6 +33,17 @@ export class AuthService {
         });
 
         if (!credentialsId) {
+            await usersService.deleteUserById(newUser.id);
+            throw new AppError(500, messageKeys.SOMETHING_WENT_WRONG);
+        }
+
+        const settings = await userSettingService.createUserSettings({
+            userId: newUser.id,
+            google: provider === "google",
+            password: !!passwordHash,
+        });
+
+        if (!settings) {
             await usersService.deleteUserById(newUser.id);
             throw new AppError(500, messageKeys.SOMETHING_WENT_WRONG);
         }
@@ -51,8 +63,40 @@ export class AuthService {
         return { user: newUser, refreshToken: token };
     }
 
+    private async handleExistingCredentials(providerId: string) {
+        const credentials = await userCredentialsService.getCredentialsByProviderId(providerId);
+        if (!credentials) return null;
+
+        const safeUser = await usersService.getSafeUser(credentials.userId);
+        if (!safeUser) throw new AppError(401, messageKeys.UNAUTHORIZED);
+
+        const { token, tokenHash } = tokenService.generateTokenPair();
+        await userRefreshTokenService.createRefreshToken({ userId: safeUser.id, tokenHash });
+
+        return { user: safeUser, refreshToken: token };
+    }
+
+    private async handleExistingUser(email: string, providerId: string) {
+        const user = await usersService.getUserByEmail(email);
+        if (!user) return null;
+
+        await userCredentialsService.createUserCredentials({
+            userId: user.id,
+            provider: "google",
+            providerId,
+        });
+
+        const safeUser = await usersService.getSafeUser(user.id);
+        if (!safeUser) throw new AppError(401, messageKeys.UNAUTHORIZED);
+
+        const { token, tokenHash } = tokenService.generateTokenPair();
+        await userRefreshTokenService.createRefreshToken({ userId: safeUser.id, tokenHash });
+
+        return { user: safeUser, refreshToken: token };
+    }
+
     async signupLocal(
-        req: AppRequest<CreateUserDto>,
+        req: AppRequest<LocalSignupDto>,
         email: string,
         password: string,
         done: PassportDone<StrategyReturn["local-signup"]>,
@@ -64,7 +108,7 @@ export class AuthService {
             const existingUser = await usersService.getUserByEmail(normalizedEmail);
 
             if (existingUser) {
-                return done(new AppError(409, messageKeys.SIGN_UP_FAILED));
+                throw new AppError(409, messageKeys.SIGN_UP_FAILED);
             }
 
             const passwordHash = await passwordService.hashPassword(password);
@@ -74,57 +118,6 @@ export class AuthService {
                 username,
                 passwordHash,
                 provider: "local",
-            });
-
-            return done(null, result);
-        } catch (err) {
-            return done(err);
-        }
-    }
-
-    async googleAuth(
-        _accessToken: string,
-        _refreshToken: string,
-        profile: GoogleProfile,
-        done: PassportDone<StrategyReturn["google-auth"]>,
-    ) {
-        try {
-            const email = profile.emails?.[0]?.value;
-            const username = profile.displayName;
-            const providerId = profile.id;
-
-            if (!email || !username || !providerId) {
-                throw new AppError(409, messageKeys.BAD_REQUEST);
-            }
-
-            const existingUser = await usersService.getUserByEmail(email);
-
-            if (existingUser) {
-                const { token, tokenHash } = tokenService.generateTokenPair();
-
-                const refreshTokenId = await userRefreshTokenService.createRefreshToken({
-                    userId: existingUser.id,
-                    tokenHash,
-                });
-
-                if (!refreshTokenId) {
-                    throw new AppError(500, messageKeys.SOMETHING_WENT_WRONG);
-                }
-
-                const safeUser = await usersService.getSafeUser(existingUser.id);
-
-                if (!safeUser) {
-                    throw new AppError(401, messageKeys.UNAUTHORIZED);
-                }
-
-                return done(null, { user: safeUser, refreshToken: token });
-            }
-
-            const result = await this.signup({
-                email,
-                username,
-                provider: "google",
-                providerId,
             });
 
             return done(null, result);
@@ -165,6 +158,87 @@ export class AuthService {
             return done(null, { user });
         } catch (err) {
             done(err);
+        }
+    }
+
+    async googleAuth(
+        _accessToken: string,
+        _refreshToken: string,
+        profile: GoogleProfile,
+        done: PassportDone<StrategyReturn["google-auth"]>,
+    ) {
+        try {
+            const email = profile.emails?.[0]?.value;
+            const username = profile.displayName;
+            const providerId = profile.id;
+
+            if (!email || !username || !providerId) {
+                throw new AppError(409, messageKeys.BAD_REQUEST);
+            }
+
+            const result = await this.handleExistingCredentials(providerId);
+            if (result) return done(null, result);
+
+            const connectedResult = await this.handleExistingUser(email, providerId);
+            if (connectedResult) return done(null, connectedResult);
+
+            const newUserResult = await this.signup({
+                email,
+                username,
+                provider: "google",
+                providerId,
+            });
+
+            return done(null, newUserResult);
+        } catch (err) {
+            return done(err);
+        }
+    }
+
+    async connectGoogleAccount(
+        req: AppRequest,
+        _accessToken: string,
+        _refreshToken: string,
+        profile: GoogleProfile,
+        done: PassportDone<StrategyReturn["connect-google"]>,
+    ) {
+        try {
+            const authReq = req as AuthenticatedRequest;
+            const user = authReq.user;
+
+            if (!user) {
+                throw new AppError(401, messageKeys.UNAUTHORIZED);
+            }
+
+            const email = profile.emails?.[0]?.value;
+            const username = profile.displayName;
+            const providerId = profile.id;
+
+            if (!email || !username || !providerId) {
+                throw new AppError(409, messageKeys.BAD_REQUEST);
+            }
+
+            const credentialsId = await userCredentialsService.createUserCredentials({
+                userId: user.id,
+                provider: "google",
+                providerId,
+            });
+
+            if (!credentialsId) {
+                throw new AppError(500, messageKeys.SOMETHING_WENT_WRONG);
+            }
+
+            const settings = await userSettingService.updateUserSettings(user.id, {
+                google: true,
+            });
+
+            if (!settings) {
+                throw new AppError(500, messageKeys.SOMETHING_WENT_WRONG);
+            }
+
+            return done(null, { settings });
+        } catch (err) {
+            return done(err);
         }
     }
 

@@ -1,14 +1,12 @@
 import { NextFunction, Response } from "express";
 
-import { LoginUserDto } from "@repo/common/types/users";
-
 import { userRefreshTokenService } from "@/db/services/users/user-refresh-token-service";
 import { passportControllerWrapper } from "@/middlewares/passport-wrapper";
 import { tokenService } from "@/services/token-service";
-import { AppRequest } from "@/types/common";
+import { AppRequest, LocalSigninDto } from "@/types/common";
 
 export const signInUser = async (
-    req: AppRequest<LoginUserDto>,
+    req: AppRequest<LocalSigninDto>,
     res: Response,
     next: NextFunction,
 ) => {
@@ -28,6 +26,7 @@ export const signInUser = async (
     });
 
     tokenService.setRefreshTokenCookie(res, token);
+    tokenService.setAccessTokenCookie(res, accessToken);
 
-    res.json({ accessToken });
+    res.status(204).end();
 };

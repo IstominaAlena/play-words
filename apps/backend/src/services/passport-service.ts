@@ -25,6 +25,18 @@ passportService.use(
 );
 
 passportService.use(
+    "local-signin",
+    new LocalStrategy(
+        {
+            usernameField: "email",
+            passwordField: "password",
+            passReqToCallback: false,
+        },
+        authService.signinLocal.bind(authService),
+    ),
+);
+
+passportService.use(
     "google-auth",
     new GoogleStrategy(
         {
@@ -39,14 +51,16 @@ passportService.use(
 );
 
 passportService.use(
-    "local-signin",
-    new LocalStrategy(
+    "connect-google",
+    new GoogleStrategy(
         {
-            usernameField: "email",
-            passwordField: "password",
-            passReqToCallback: false,
+            clientID: GOOGLE_CLIENT_ID,
+            clientSecret: GOOGLE_CLIENT_SECRET,
+            callbackURL: `${BASE_API_URL}/api/users/google/connect/callback`,
+            scope: ["profile", "email"],
+            passReqToCallback: true,
         },
-        authService.signinLocal.bind(authService),
+        authService.connectGoogleAccount.bind(authService),
     ),
 );
 

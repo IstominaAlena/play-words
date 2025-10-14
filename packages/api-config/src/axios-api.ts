@@ -1,60 +1,57 @@
 import axios from "axios";
 
-import { getAccessToken } from "@repo/common/config/client-storage";
-
 export const api = axios.create({
     baseURL: process.env.API_URL,
     withCredentials: true,
 });
 
+// --- Global handlers ---
 let isRefreshing = false;
-let refreshSubscribers: ((token: string) => void)[] = [];
+let refreshSubscribers: (() => void)[] = [];
 
 // Handlers that frontend will register
-let onRefreshToken: (() => Promise<string | null>) | null = null;
+let onRefresh: (() => Promise<void>) | null = null;
 let onUnauthorized: (() => void) | null = null;
 
+// Register handlers from frontend (called in _app or layout)
 export const setApiHandlers = (handlers: {
-    onRefreshToken?: () => Promise<string | null>;
+    onRefresh?: () => Promise<void>;
     onUnauthorized?: () => void;
 }) => {
-    onRefreshToken = handlers.onRefreshToken || null;
+    onRefresh = handlers.onRefresh || null;
     onUnauthorized = handlers.onUnauthorized || null;
 };
 
-// Helper to broadcast new token to all waiting requests
-const subscribeTokenRefresh = (cb: (token: string) => void) => {
-    refreshSubscribers.push(cb);
-};
+// Subscribe for pending requests while refreshing
+const subscribeRefresh = (cb: () => void) => refreshSubscribers.push(cb);
 
-const onTokenRefreshed = (token: string) => {
-    refreshSubscribers.forEach((cb) => cb(token));
+// Notify all subscribers when refresh is done
+const onRefreshed = () => {
+    refreshSubscribers.forEach((cb) => cb());
     refreshSubscribers = [];
 };
 
-// Request interceptor
-api.interceptors.request.use((config) => {
-    const token = getAccessToken();
-    if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-});
+// --- Request interceptor ---
+api.interceptors.request.use(
+    (config) => {
+        // No Authorization header needed: cookies are sent automatically
+        return config;
+    },
+    (error) => Promise.reject(error),
+);
 
-// Response interceptor
+// --- Response interceptor ---
 api.interceptors.response.use(
     (response) => response,
     async (error) => {
         const { response, config } = error;
 
+        // Only handle 401 and avoid infinite loop
         if (response?.status === 401 && !config._retry && !config.url?.includes("/users/refresh")) {
             if (isRefreshing) {
-                // Wait for refresh
+                // Wait for the refresh to finish
                 return new Promise((resolve) => {
-                    subscribeTokenRefresh((token) => {
-                        config.headers.Authorization = `Bearer ${token}`;
-                        resolve(api(config));
-                    });
+                    subscribeRefresh(() => resolve(api(config)));
                 });
             }
 
@@ -62,18 +59,14 @@ api.interceptors.response.use(
             isRefreshing = true;
 
             try {
-                if (!onRefreshToken) throw new Error("No refresh handler registered");
+                if (!onRefresh) throw new Error("No refresh handler registered");
 
-                const newToken = await onRefreshToken();
+                await onRefresh(); // backend refresh using cookies
+                onRefreshed();
 
-                if (newToken) {
-                    onTokenRefreshed(newToken);
-                    config.headers.Authorization = `Bearer ${newToken}`;
-                    return api(config);
-                } else {
-                    throw new Error("Token refresh failed");
-                }
+                return api(config); // retry original request
             } catch {
+                // Refresh failed → log out
                 onUnauthorized?.();
             } finally {
                 isRefreshing = false;

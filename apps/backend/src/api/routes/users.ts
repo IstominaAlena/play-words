@@ -1,6 +1,7 @@
 import { Router } from "express";
 
 import {
+    changePasswordSchema,
     createUserSchema,
     loginUserSchema,
     resetUserPasswordRequestSchema,
@@ -23,7 +24,7 @@ router.post("/sign-in", validateBody(loginUserSchema), usersControllersService.s
 
 router.get("/google/auth", usersControllersService.initiateGoogleAuth);
 
-router.get("/google/callback", usersControllersService.googleAuthCallback);
+router.get("/google/callback", controllerWrapper(usersControllersService.googleAuthCallback));
 
 router.post("/refresh", controllerWrapper(usersControllersService.refreshUser));
 
@@ -49,6 +50,27 @@ router.patch(
     authValidation,
     validateBody(updateUserSchema),
     controllerWrapper(usersControllersService.updateCurrentUser),
+);
+
+router.patch(
+    "/change-password",
+    authValidation,
+    validateBody(changePasswordSchema),
+    controllerWrapper(usersControllersService.changePassword),
+);
+
+router.get("/google/connect", authValidation, usersControllersService.initiateGoogleConnect);
+
+router.post(
+    "/google/disconnect",
+    authValidation,
+    controllerWrapper(usersControllersService.disconnectGoogleAccount),
+);
+
+router.get(
+    "/google/connect/callback",
+    authValidation,
+    controllerWrapper(usersControllersService.googleConnectCallback),
 );
 
 export default router;
