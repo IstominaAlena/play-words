@@ -37,5 +37,7 @@ export const resetUserPasswordRequest = async (
         tokenHash,
     });
 
-    res.json({ redirectUrl: `/reset-password?token=${token}` });
+    tokenService.setResetPasswordTokenCookie(res, token);
+
+    res.json({ redirectUrl: "/reset-password" });
 };

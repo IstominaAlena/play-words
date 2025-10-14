@@ -56,7 +56,7 @@ passportService.use(
         {
             clientID: GOOGLE_CLIENT_ID,
             clientSecret: GOOGLE_CLIENT_SECRET,
-            callbackURL: `${BASE_API_URL}/api/users/google/callback`,
+            callbackURL: `${BASE_API_URL}/api/users/google/connect/callback`,
             scope: ["profile", "email"],
             passReqToCallback: true,
         },

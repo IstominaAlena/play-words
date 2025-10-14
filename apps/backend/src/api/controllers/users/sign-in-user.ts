@@ -26,6 +26,7 @@ export const signInUser = async (
     });
 
     tokenService.setRefreshTokenCookie(res, token);
+    tokenService.setAccessTokenCookie(res, accessToken);
 
-    res.json({ accessToken });
+    res.status(204).end();
 };

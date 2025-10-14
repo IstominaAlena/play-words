@@ -5,13 +5,16 @@ import { userCredentialsService } from "@/db/services/users/user-credentials-ser
 import { userResetPasswordTokenService } from "@/db/services/users/user-reset-password-token-service";
 import { AppError } from "@/services/error-service";
 import { passwordService } from "@/services/password-service";
+import { tokenService } from "@/services/token-service";
 import { AppRequest, ResetPassword } from "@/types/common";
 
 export const resetUserPassword = async (req: AppRequest<ResetPassword>, res: Response) => {
-    const { token: rawResetPasswordToken, password: newPassword } = req.body;
+    const { password: newPassword } = req.body;
+
+    const { reset_password_token } = req.cookies;
 
     const tokenRecord =
-        await userResetPasswordTokenService.validateResetPasswordToken(rawResetPasswordToken);
+        await userResetPasswordTokenService.validateResetPasswordToken(reset_password_token);
 
     if (!tokenRecord) {
         throw new AppError(400, messageKeys.INVALID_TOKEN);
@@ -23,5 +26,7 @@ export const resetUserPassword = async (req: AppRequest<ResetPassword>, res: Res
 
     await userCredentialsService.updateUserCredentials(tokenRecord.userId, { passwordHash });
 
-    res.json({ success: true });
+    tokenService.setResetPasswordTokenCookie(res, "", 0);
+
+    res.status(204).end();
 };

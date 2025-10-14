@@ -13,5 +13,6 @@
     "LOGOUT_SUCCESS": "Logged out successfully",
     "RESET_LINK_SENT": "If the email exists, reset link has been sent",
     "INVALID_TOKEN": "Invalid or expired token",
-    "SIGN_UP_FAILED": "Sign up process failed"
+    "SIGN_UP_FAILED": "Sign up process failed",
+    "CREATE_PASSWORD_TO_DISCONNECT": "To disconnect your Google account, please set a password for your account first."
 }

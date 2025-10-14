@@ -23,7 +23,6 @@ export const resetUserPasswordRequestSchema = z.object({
 });
 
 export const resetUserPasswordSchema = z.object({
-    token: z.string().min(1, "REQUIRED"),
     password: validationFields.password,
 });
 

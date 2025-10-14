@@ -33,5 +33,5 @@ export const changePassword = async (req: AuthenticatedRequest<ChangePassword>, 
         throw new AppError(500, messageKeys.SOMETHING_WENT_WRONG);
     }
 
-    res.json({ success: true });
+    res.status(204).end();
 };

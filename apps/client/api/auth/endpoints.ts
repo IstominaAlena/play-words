@@ -6,26 +6,20 @@ import {
     ResetUserPasswordRequest,
 } from "@repo/common/types/users";
 
-export const signUp = async (dto: CreateUserDto): Promise<string> => {
-    const { data } = await api.post<{ accessToken: string }>("/users/sign-up", dto);
-
-    return data.accessToken;
+export const signUp = async (dto: CreateUserDto): Promise<void> => {
+    await api.post("/users/sign-up", dto);
 };
 
-export const signIn = async (dto: LoginUserDto): Promise<string> => {
-    const { data } = await api.post<{ accessToken: string }>("/users/sign-in", dto);
-
-    return data.accessToken;
+export const signIn = async (dto: LoginUserDto): Promise<void> => {
+    await api.post("/users/sign-in", dto);
 };
 
 export const logout = async () => {
     await api.post("/users/logout");
 };
 
-export const refresh = async (): Promise<string> => {
-    const { data } = await api.post<{ accessToken: string }>("/users/refresh");
-
-    return data.accessToken;
+export const refresh = async (): Promise<void> => {
+    await api.post("/users/refresh");
 };
 
 export const resetPasswordRequest = async (dto: ResetUserPasswordRequest): Promise<string> => {

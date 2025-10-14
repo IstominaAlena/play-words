@@ -16,6 +16,7 @@ export const signUpUser = async (
     const accessToken = tokenService.generateAccessToken(user.id, user.email);
 
     tokenService.setRefreshTokenCookie(res, refreshToken!);
+    tokenService.setAccessTokenCookie(res, accessToken);
 
-    res.status(201).json({ accessToken });
+    res.status(201).end();
 };

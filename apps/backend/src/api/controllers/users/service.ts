@@ -21,9 +21,11 @@ export const usersControllersService = {
     updateCurrentUser,
     resetUserPasswordRequest,
     resetUserPassword,
+    changePassword,
+
+    // google
     initiateGoogleAuth,
     googleAuthCallback,
-    changePassword,
     initiateGoogleConnect,
     googleConnectCallback,
 };

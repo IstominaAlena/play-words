@@ -1,7 +1,6 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useSearchParams } from "next/navigation";
 import { FC, useState } from "react";
 import { SubmitHandler } from "react-hook-form";
 
@@ -24,10 +23,6 @@ export const ResetPasswordPage: FC = () => {
     const t = useTranslations("auth");
     const tForm = useTranslations("form");
 
-    const searchParams = useSearchParams();
-
-    const token = searchParams.get("token") ?? "";
-
     const { mutateAsync: resetPassword, isPending } = useResetPassword();
 
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -36,7 +31,6 @@ export const ResetPasswordPage: FC = () => {
 
     const onSubmit: SubmitHandler<ResetPasswordDto> = async (formData) => {
         const dto = {
-            token,
             password: formData.password,
         };
 

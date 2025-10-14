@@ -18,6 +18,18 @@ export interface User {
     username: string;
 }
 
+export interface Settings {
+    password: boolean;
+    google: boolean;
+    otp: boolean;
+    verified: boolean;
+}
+
+export interface UserResponse {
+    user: User;
+    settings: Settings;
+}
+
 export type CreateUserDto = z.infer<typeof createUserSchema>;
 
 export type UpdateUserDto = z.infer<typeof updateUserSchema>;

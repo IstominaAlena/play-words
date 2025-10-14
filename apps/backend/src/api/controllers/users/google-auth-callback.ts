@@ -7,18 +7,16 @@ import { tokenService } from "@/services/token-service";
 import { AppRequest } from "@/types/common";
 
 export const googleAuthCallback = async (req: AppRequest, res: Response, next: NextFunction) => {
-    try {
-        const { user, refreshToken } = await passportControllerWrapper("google-auth", {
-            session: false,
-        })(req, res, next);
+    const { user, refreshToken } = await passportControllerWrapper("google-auth", {
+        session: false,
+    })(req, res, next);
 
-        if (!user || !refreshToken) throw new AppError(401, messageKeys.UNAUTHORIZED);
+    if (!user || !refreshToken) throw new AppError(401, messageKeys.UNAUTHORIZED);
 
-        const accessToken = tokenService.generateAccessToken(user.id, user.email);
-        tokenService.setRefreshTokenCookie(res, refreshToken);
+    const accessToken = tokenService.generateAccessToken(user.id, user.email);
 
-        res.redirect(`${BASE_CLIENT_URL}/auth/success?token=${accessToken}`);
-    } catch (err) {
-        next(err);
-    }
+    tokenService.setRefreshTokenCookie(res, refreshToken);
+    tokenService.setAccessTokenCookie(res, accessToken);
+
+    res.redirect(`${BASE_CLIENT_URL}/auth/success`);
 };

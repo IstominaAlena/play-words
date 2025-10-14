@@ -2,7 +2,12 @@ import { eq } from "drizzle-orm";
 
 import { db } from "@/config/drizzle-orm/db";
 import { userCredentialsTable } from "@/db/schemas/user-schemas";
-import { CreateUserCredentials, UpdateUserCredentials, UsersTable } from "@/types/users";
+import {
+    CreateUserCredentials,
+    UpdateUserCredentials,
+    UserCredentialsTable,
+    UsersTable,
+} from "@/types/users";
 
 export class UserCredentialsService {
     private table = userCredentialsTable;
@@ -14,6 +19,20 @@ export class UserCredentialsService {
 
     async getCredentialsByUserId(id: UsersTable["id"]) {
         const result = await db.select().from(this.table).where(eq(this.table.userId, id)).limit(1);
+
+        return result[0] ?? null;
+    }
+
+    async getCredentialsByProviderId(id: UserCredentialsTable["providerId"]) {
+        if (!id) {
+            return null;
+        }
+
+        const result = await db
+            .select()
+            .from(this.table)
+            .where(eq(this.table.providerId, id))
+            .limit(1);
 
         return result[0] ?? null;
     }

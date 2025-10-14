@@ -51,6 +51,7 @@
         "enable": "Enable",
         "connect_accounts": "Connect other accounts",
         "connect_google": "Connect Google to your account for quick access",
-        "connect": "Connect"
+        "connect": "Connect",
+        "disconnect": "Disconnect"
     }
 }

@@ -12,7 +12,6 @@ import {
 import { authValidation } from "@/middlewares/auth-validation";
 import { validateBody } from "@/middlewares/body-validation";
 import { controllerWrapper } from "@/middlewares/controller-wrapper";
-import passportService from "@/services/passport-service";
 
 import { usersControllersService } from "../controllers/users/service";
 
@@ -25,7 +24,7 @@ router.post("/sign-in", validateBody(loginUserSchema), usersControllersService.s
 
 router.get("/google/auth", usersControllersService.initiateGoogleAuth);
 
-router.get("/google/callback", usersControllersService.googleAuthCallback);
+router.get("/google/callback", controllerWrapper(usersControllersService.googleAuthCallback));
 
 router.post("/refresh", controllerWrapper(usersControllersService.refreshUser));
 
@@ -65,7 +64,7 @@ router.get("/google/connect", authValidation, usersControllersService.initiateGo
 router.get(
     "/google/connect/callback",
     authValidation,
-    usersControllersService.googleConnectCallback,
+    controllerWrapper(usersControllersService.googleConnectCallback),
 );
 
 export default router;

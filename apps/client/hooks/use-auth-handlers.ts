@@ -2,47 +2,29 @@ import { queryClient, setApiHandlers } from "@repo/api-config/api-config";
 import { useUserStore } from "@repo/common/stores/user-store";
 import { useRouter } from "@repo/i18n/config/navigation";
 
-import { useGetCurrentUser } from "@/api/account/mutations";
 import { refresh } from "@/api/auth/endpoints";
 import { Routes } from "@/enums/routes";
 
 export const useAuthHandlers = () => {
     const router = useRouter();
-
-    const { clearUser, clearToken, saveToken } = useUserStore();
-
-    const { mutateAsync: getCurrentUser } = useGetCurrentUser();
+    const { clearUser, clearSettings } = useUserStore();
 
     const handleRefresh = async () => {
-        try {
-            const data = await refresh();
-            if (data) {
-                saveToken(data);
-
-                await getCurrentUser();
-
-                return data;
-            }
-
-            return null;
-        } catch {
-            return null;
-        }
+        await refresh();
     };
 
     const handleLogout = () => {
         clearUser();
-        clearToken();
+        clearSettings();
         queryClient.cancelQueries();
         queryClient.removeQueries();
         router.replace(Routes.HOME);
     };
 
-    // Register the handlers globally (called once in _app or layout)
     setApiHandlers({
-        onRefreshToken: handleRefresh,
+        onRefresh: handleRefresh,
         onUnauthorized: handleLogout,
     });
 
-    return { handleLogout, handleRefresh };
+    return { handleLogout };
 };

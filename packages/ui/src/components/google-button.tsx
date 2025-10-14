@@ -5,13 +5,18 @@ import { GoogleIcon } from "../icons/google";
 
 interface Props {
     text: string;
-    url: string;
+    url?: string;
+    onClick?: () => void;
     className?: string;
 }
 
-export const GoogleButton: FC<Props> = ({ text, url, className }) => {
+export const GoogleButton: FC<Props> = ({ text, url, onClick, className }) => {
     const onGoogleButtonClick = () => {
-        window.location.href = url;
+        if (url) {
+            window.location.href = url;
+            return;
+        }
+        onClick?.();
     };
 
     return (

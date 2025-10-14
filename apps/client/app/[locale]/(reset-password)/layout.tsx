@@ -10,7 +10,7 @@ import useWindowDimensions from "@repo/common/hooks/use-window-dimensions.ts";
 const ResetPasswordLayout: FC<PropsWithChildren> = ({ children }) => {
     const { isMd } = useWindowDimensions();
     return (
-        <section className="relative flex h-full items-center justify-center overflow-hidden">
+        <section className="relative flex flex-1 items-center justify-center overflow-hidden">
             <Meteors number={10} containerWidth={isMd ? 800 : 2500} />
             <GlowingContainer
                 containerClassName="rounded-lg max-w-[30rem] md:max-w-[calc(100%-1rem)] mx-auto"

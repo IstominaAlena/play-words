@@ -19,7 +19,7 @@ import {
 import { tokenService } from "./token-service";
 
 export class AuthService {
-    async signup({ email, username, provider, passwordHash, providerId }: AuthSignupProps) {
+    private async signup({ email, username, provider, passwordHash, providerId }: AuthSignupProps) {
         const newUser = await usersService.createUser({
             email,
             username,
@@ -63,6 +63,38 @@ export class AuthService {
         return { user: newUser, refreshToken: token };
     }
 
+    private async handleExistingCredentials(providerId: string) {
+        const credentials = await userCredentialsService.getCredentialsByProviderId(providerId);
+        if (!credentials) return null;
+
+        const safeUser = await usersService.getSafeUser(credentials.userId);
+        if (!safeUser) throw new AppError(401, messageKeys.UNAUTHORIZED);
+
+        const { token, tokenHash } = tokenService.generateTokenPair();
+        await userRefreshTokenService.createRefreshToken({ userId: safeUser.id, tokenHash });
+
+        return { user: safeUser, refreshToken: token };
+    }
+
+    private async handleExistingUser(email: string, providerId: string) {
+        const user = await usersService.getUserByEmail(email);
+        if (!user) return null;
+
+        await userCredentialsService.createUserCredentials({
+            userId: user.id,
+            provider: "google",
+            providerId,
+        });
+
+        const safeUser = await usersService.getSafeUser(user.id);
+        if (!safeUser) throw new AppError(401, messageKeys.UNAUTHORIZED);
+
+        const { token, tokenHash } = tokenService.generateTokenPair();
+        await userRefreshTokenService.createRefreshToken({ userId: safeUser.id, tokenHash });
+
+        return { user: safeUser, refreshToken: token };
+    }
+
     async signupLocal(
         req: AppRequest<LocalSignupDto>,
         email: string,
@@ -76,7 +108,7 @@ export class AuthService {
             const existingUser = await usersService.getUserByEmail(normalizedEmail);
 
             if (existingUser) {
-                return done(new AppError(409, messageKeys.SIGN_UP_FAILED));
+                throw new AppError(409, messageKeys.SIGN_UP_FAILED);
             }
 
             const passwordHash = await passwordService.hashPassword(password);
@@ -144,37 +176,20 @@ export class AuthService {
                 throw new AppError(409, messageKeys.BAD_REQUEST);
             }
 
-            const existingUser = await usersService.getUserByEmail(email);
+            const result = await this.handleExistingCredentials(providerId);
+            if (result) return done(null, result);
 
-            if (existingUser) {
-                const { token, tokenHash } = tokenService.generateTokenPair();
+            const connectedResult = await this.handleExistingUser(email, providerId);
+            if (connectedResult) return done(null, connectedResult);
 
-                const refreshTokenId = await userRefreshTokenService.createRefreshToken({
-                    userId: existingUser.id,
-                    tokenHash,
-                });
-
-                if (!refreshTokenId) {
-                    throw new AppError(500, messageKeys.SOMETHING_WENT_WRONG);
-                }
-
-                const safeUser = await usersService.getSafeUser(existingUser.id);
-
-                if (!safeUser) {
-                    throw new AppError(401, messageKeys.UNAUTHORIZED);
-                }
-
-                return done(null, { user: safeUser, refreshToken: token });
-            }
-
-            const result = await this.signup({
+            const newUserResult = await this.signup({
                 email,
                 username,
                 provider: "google",
                 providerId,
             });
 
-            return done(null, result);
+            return done(null, newUserResult);
         } catch (err) {
             return done(err);
         }
@@ -190,6 +205,10 @@ export class AuthService {
         try {
             const authReq = req as AuthenticatedRequest;
             const user = authReq.user;
+
+            if (!user) {
+                throw new AppError(401, messageKeys.UNAUTHORIZED);
+            }
 
             const email = profile.emails?.[0]?.value;
             const username = profile.displayName;

@@ -1,16 +1,10 @@
 import { Response } from "express";
 
-import { i18nService } from "@/config/i18n/service";
 import { userRefreshTokenService } from "@/db/services/users/user-refresh-token-service";
 import { tokenService } from "@/services/token-service";
 import { AppRequest } from "@/types/common";
-import { getLanguageFromRequest } from "@/utils/get-language-from-request";
 
 export const logoutUser = async (req: AppRequest, res: Response) => {
-    const lang = getLanguageFromRequest(req);
-
-    const messages = i18nService.getMessages(lang);
-
     const rawCookiesRefreshToken = req.cookies.refresh_token;
 
     if (rawCookiesRefreshToken) {
@@ -22,7 +16,8 @@ export const logoutUser = async (req: AppRequest, res: Response) => {
         }
     }
 
-    tokenService.setRefreshTokenCookie(res, "");
+    tokenService.setRefreshTokenCookie(res, "", 0);
+    tokenService.setAccessTokenCookie(res, "", 0);
 
-    res.json({ message: messages.LOGOUT_SUCCESS });
+    res.status(204).end();
 };

@@ -13,28 +13,19 @@ import {
 import { useRouter } from "@repo/i18n/config/navigation";
 
 import { Routes } from "@/enums/routes";
+import { useAuthHandlers } from "@/hooks/use-auth-handlers";
 
 import { useGetCurrentUser } from "../account/mutations";
 import { logout, resetPassword, resetPasswordRequest, signIn, signUp } from "./endpoints";
 
 export const useSignUp = () => {
-    const t = useTranslations("global");
-
-    const { saveToken } = useUserStore();
-
     const { mutateAsync: getCurrentUser } = useGetCurrentUser();
 
-    return useApiMutation<string, CreateUserDto>({
+    return useApiMutation<void, CreateUserDto>({
         retry: false,
         mutationFn: signUp,
         mutationKey: ["sign-up"],
-        onSuccess: async (data) => {
-            if (!data) {
-                throw new Error(t("something_wrong"));
-            }
-
-            saveToken(data);
-
+        onSuccess: async () => {
             await getCurrentUser();
         },
     });
@@ -43,40 +34,26 @@ export const useSignUp = () => {
 export const useSignIn = () => {
     const t = useTranslations("global");
 
-    const { saveToken } = useUserStore();
-
     const { mutateAsync: getCurrentUser } = useGetCurrentUser();
 
-    return useApiMutation<string, LoginUserDto>({
+    return useApiMutation<void, LoginUserDto>({
         retry: false,
         mutationFn: signIn,
         mutationKey: ["sign-in"],
-        onSuccess: async (data) => {
-            if (!data) {
-                throw new Error(t("something_wrong"));
-            }
-
-            saveToken(data);
-
+        onSuccess: async () => {
             await getCurrentUser();
         },
     });
 };
 
 export const useLogout = () => {
-    const router = useRouter();
-
-    const { clearUser, clearToken } = useUserStore();
+    const { handleLogout } = useAuthHandlers();
 
     return useApiMutation<void, void>({
         retry: false,
         mutationFn: logout,
         mutationKey: ["logout"],
-        onSuccess: () => {
-            clearUser();
-            clearToken();
-            router.replace(Routes.HOME);
-        },
+        onSuccess: handleLogout,
     });
 };
 
@@ -108,12 +85,6 @@ export const useResetPassword = () => {
         retry: false,
         mutationFn: resetPassword,
         mutationKey: ["reset-password"],
-        onSuccess: (data) => {
-            if (!data) {
-                throw new Error(t("something_wrong"));
-            }
-
-            router.push(Routes.HOME);
-        },
+        onSuccess: () => router.push(Routes.HOME),
     });
 };
