@@ -8,7 +8,7 @@ import { CreateUser, UpdateUser } from "@/types/users";
 import { UsersTable } from "@/types/users";
 
 export class UsersService {
-    private safeUserFields = {
+    private safeFields = {
         id: usersTable.id,
         email: usersTable.email,
         username: usersTable.username,
@@ -30,7 +30,7 @@ export class UsersService {
     }
 
     async createUser(data: CreateUser) {
-        const [newUser] = await db.insert(this.table).values(data).returning(this.safeUserFields);
+        const [newUser] = await db.insert(this.table).values(data).returning(this.safeFields);
 
         if (!newUser?.id) {
             throw new AppError(500, messageKeys.SOMETHING_WENT_WRONG);
@@ -48,7 +48,7 @@ export class UsersService {
 
     async getSafeUser(id: UsersTable["id"]) {
         const result = await db
-            .select(this.safeUserFields)
+            .select(this.safeFields)
             .from(this.table)
             .where(eq(this.table.id, id))
             .limit(1);
@@ -65,7 +65,7 @@ export class UsersService {
             .update(this.table)
             .set(data)
             .where(eq(this.table.id, id))
-            .returning(this.safeUserFields);
+            .returning(this.safeFields);
 
         return result[0] ?? null;
     }

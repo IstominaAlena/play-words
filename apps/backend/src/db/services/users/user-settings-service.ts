@@ -7,13 +7,24 @@ import { CreateUserSettings, UpdateUserSettings, UsersTable } from "@/types/user
 export class UserSettingService {
     private table = userSettingsTable;
 
+    private safeFields = {
+        verified: this.table.verified,
+        google: this.table.google,
+        password: this.table.password,
+        otp: this.table.otp,
+    };
+
     async createUserSettings(data: CreateUserSettings) {
-        const result = await db.insert(this.table).values(data).returning({ id: this.table.id });
-        return result[0]?.id ?? null;
+        const result = await db.insert(this.table).values(data).returning(this.safeFields);
+        return result[0] ?? null;
     }
 
     async getSettingsByUserId(id: UsersTable["id"]) {
-        const result = await db.select().from(this.table).where(eq(this.table.userId, id)).limit(1);
+        const result = await db
+            .select(this.safeFields)
+            .from(this.table)
+            .where(eq(this.table.userId, id))
+            .limit(1);
 
         return result[0] ?? null;
     }
@@ -27,8 +38,8 @@ export class UserSettingService {
             .update(this.table)
             .set(data)
             .where(eq(this.table.userId, id))
-            .returning({ id: this.table.id });
-        return result[0]?.id ?? null;
+            .returning(this.safeFields);
+        return result[0] ?? null;
     }
 }
 

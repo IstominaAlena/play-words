@@ -37,13 +37,13 @@ export class AuthService {
             throw new AppError(500, messageKeys.SOMETHING_WENT_WRONG);
         }
 
-        const settingsId = await userSettingService.createUserSettings({
+        const settings = await userSettingService.createUserSettings({
             userId: newUser.id,
             google: provider === "google",
             password: !!passwordHash,
         });
 
-        if (!settingsId) {
+        if (!settings) {
             await usersService.deleteUserById(newUser.id);
             throw new AppError(500, messageKeys.SOMETHING_WENT_WRONG);
         }
@@ -209,15 +209,9 @@ export class AuthService {
                 throw new AppError(500, messageKeys.SOMETHING_WENT_WRONG);
             }
 
-            const usersSettingsId = await userSettingService.updateUserSettings(user.id, {
+            const settings = await userSettingService.updateUserSettings(user.id, {
                 google: true,
             });
-
-            if (!usersSettingsId) {
-                throw new AppError(500, messageKeys.SOMETHING_WENT_WRONG);
-            }
-
-            const settings = await userSettingService.getSettingsByUserId(user.id);
 
             if (!settings) {
                 throw new AppError(500, messageKeys.SOMETHING_WENT_WRONG);
