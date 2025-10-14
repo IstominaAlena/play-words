@@ -1,4 +1,5 @@
 import { changePassword } from "./change-password";
+import { disconnectGoogleAccount } from "./disconnect-google-account";
 import { getCurrentUser } from "./get-current-user";
 import { googleAuthCallback } from "./google-auth-callback";
 import { googleConnectCallback } from "./google-connect-callback";
@@ -22,6 +23,7 @@ export const usersControllersService = {
     resetUserPasswordRequest,
     resetUserPassword,
     changePassword,
+    disconnectGoogleAccount,
 
     // google
     initiateGoogleAuth,

@@ -61,6 +61,12 @@ router.patch(
 
 router.get("/google/connect", authValidation, usersControllersService.initiateGoogleConnect);
 
+router.post(
+    "/google/disconnect",
+    authValidation,
+    controllerWrapper(usersControllersService.disconnectGoogleAccount),
+);
+
 router.get(
     "/google/connect/callback",
     authValidation,

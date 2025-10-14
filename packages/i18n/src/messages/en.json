@@ -52,6 +52,7 @@
         "connect_accounts": "Connect other accounts",
         "connect_google": "Connect Google to your account for quick access",
         "connect": "Connect",
-        "disconnect": "Disconnect"
+        "disconnect": "Disconnect",
+        "disconnected": "Your Google account was disconnected successfully"
     }
 }

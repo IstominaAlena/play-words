@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 
 import { db } from "@/config/drizzle-orm/db";
 import { userCredentialsTable } from "@/db/schemas/user-schemas";
@@ -37,7 +37,20 @@ export class UserCredentialsService {
         return result[0] ?? null;
     }
 
-    async deleteUsersCredentials(id: UsersTable["id"]) {
+    async getCredentialsByUserIdAndProvider(
+        id: UsersTable["id"],
+        provider: UserCredentialsTable["provider"],
+    ) {
+        const result = await db
+            .select()
+            .from(this.table)
+            .where(and(eq(this.table.userId, id), eq(this.table.provider, provider)))
+            .limit(1);
+
+        return result[0] ?? null;
+    }
+
+    async deleteUsersCredentials(id: UserCredentialsTable["id"]) {
         await db.delete(this.table).where(eq(this.table.id, id));
     }
 
