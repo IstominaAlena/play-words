@@ -13,11 +13,7 @@ export class UserCredentialsService {
     }
 
     async getCredentialsByUserId(id: UsersTable["id"]) {
-        const result = await db
-            .select()
-            .from(this.table)
-            .where(eq(userCredentialsTable.userId, id))
-            .limit(1);
+        const result = await db.select().from(this.table).where(eq(this.table.userId, id)).limit(1);
 
         return result[0] ?? null;
     }

@@ -3,7 +3,7 @@ import { Response } from "express";
 import { ResetUserPassword } from "@repo/common/types/users";
 
 import { messageKeys } from "@/constants/common";
-import { userCredentialsService } from "@/db/services/users/user-credentials-table";
+import { userCredentialsService } from "@/db/services/users/user-credentials-service";
 import { userResetPasswordTokenService } from "@/db/services/users/user-reset-password-token-service";
 import { AppError } from "@/services/error-service";
 import { passwordService } from "@/services/password-service";

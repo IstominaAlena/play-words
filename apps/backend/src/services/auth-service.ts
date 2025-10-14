@@ -1,8 +1,9 @@
 import { CreateUserDto } from "@repo/common/types/users";
 
 import { messageKeys } from "@/constants/common";
-import { userCredentialsService } from "@/db/services/users/user-credentials-table";
+import { userCredentialsService } from "@/db/services/users/user-credentials-service";
 import { userRefreshTokenService } from "@/db/services/users/user-refresh-token-service";
+import { userSettingService } from "@/db/services/users/user-settings-service";
 import { usersService } from "@/db/services/users/users-service";
 import { AppError } from "@/services/error-service";
 import { passwordService } from "@/services/password-service";
@@ -32,6 +33,16 @@ export class AuthService {
         });
 
         if (!credentialsId) {
+            await usersService.deleteUserById(newUser.id);
+            throw new AppError(500, messageKeys.SOMETHING_WENT_WRONG);
+        }
+
+        const settingsId = await userSettingService.createUserSettings({
+            userId: newUser.id,
+            isGoogleConnected: provider === "google",
+        });
+
+        if (!settingsId) {
             await usersService.deleteUserById(newUser.id);
             throw new AppError(500, messageKeys.SOMETHING_WENT_WRONG);
         }
