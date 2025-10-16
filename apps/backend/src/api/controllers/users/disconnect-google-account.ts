@@ -13,25 +13,27 @@ export const disconnectGoogleAccount = async (req: AuthenticatedRequest, res: Re
         throw new AppError(401, messageKeys.UNAUTHORIZED);
     }
 
-    const localCredentials = await userCredentialsService.getCredentialsByUserIdAndProvider(
-        userId,
-        "local",
-    );
+    const credentials = await userCredentialsService.getCredentialsByUserId(userId);
 
-    if (!localCredentials || !localCredentials.passwordHash) {
+    if (!credentials) {
+        throw new AppError(404, messageKeys.CREDENTIALS_NOT_FOUND);
+    }
+
+    if (!credentials.googleProviderId) {
+        throw new AppError(400, messageKeys.GOOGLE_NOT_CONNECTED);
+    }
+
+    if (!credentials.passwordHash) {
         throw new AppError(400, messageKeys.CREATE_PASSWORD_TO_DISCONNECT);
     }
 
-    const googleCredentials = await userCredentialsService.getCredentialsByUserIdAndProvider(
-        userId,
-        "google",
-    );
+    const credentialsId = await userCredentialsService.updateUserCredentials(userId, {
+        googleProviderId: null,
+    });
 
-    if (!googleCredentials) {
-        throw new AppError(409, messageKeys.GOOGLE_NOT_CONNECTED);
+    if (!credentialsId) {
+        throw new AppError(500, messageKeys.SOMETHING_WENT_WRONG);
     }
-
-    await userCredentialsService.deleteUsersCredentials(googleCredentials.id);
 
     const updatedSettings = await userSettingService.updateUserSettings(userId, {
         google: false,

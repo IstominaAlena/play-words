@@ -19,7 +19,13 @@ import {
 import { tokenService } from "./token-service";
 
 export class AuthService {
-    private async signup({ email, username, provider, passwordHash, providerId }: AuthSignupProps) {
+    private async signup({
+        email,
+        username,
+        provider,
+        passwordHash,
+        googleProviderId,
+    }: AuthSignupProps) {
         const newUser = await usersService.createUser({
             email,
             username,
@@ -29,11 +35,12 @@ export class AuthService {
             userId: newUser.id,
             provider,
             passwordHash,
-            providerId,
+            googleProviderId,
         });
 
         if (!credentialsId) {
             await usersService.deleteUserById(newUser.id);
+
             throw new AppError(500, messageKeys.SOMETHING_WENT_WRONG);
         }
 
@@ -45,6 +52,7 @@ export class AuthService {
 
         if (!settings) {
             await usersService.deleteUserById(newUser.id);
+
             throw new AppError(500, messageKeys.SOMETHING_WENT_WRONG);
         }
 
@@ -57,6 +65,7 @@ export class AuthService {
 
         if (!refreshTokenId) {
             await usersService.deleteUserById(newUser.id);
+
             throw new AppError(500, messageKeys.SOMETHING_WENT_WRONG);
         }
 
@@ -64,32 +73,39 @@ export class AuthService {
     }
 
     private async handleExistingCredentials(providerId: string) {
-        const credentials = await userCredentialsService.getCredentialsByProviderId(providerId);
+        const credentials =
+            await userCredentialsService.getCredentialsByGoogleProviderId(providerId);
+
         if (!credentials) return null;
 
         const safeUser = await usersService.getSafeUser(credentials.userId);
+
         if (!safeUser) throw new AppError(401, messageKeys.UNAUTHORIZED);
 
         const { token, tokenHash } = tokenService.generateTokenPair();
+
         await userRefreshTokenService.createRefreshToken({ userId: safeUser.id, tokenHash });
 
         return { user: safeUser, refreshToken: token };
     }
 
-    private async handleExistingUser(email: string, providerId: string) {
+    private async handleExistingUser(email: string, googleProviderId: string) {
         const user = await usersService.getUserByEmail(email);
+
         if (!user) return null;
 
         await userCredentialsService.createUserCredentials({
             userId: user.id,
             provider: "google",
-            providerId,
+            googleProviderId,
         });
 
         const safeUser = await usersService.getSafeUser(user.id);
+
         if (!safeUser) throw new AppError(401, messageKeys.UNAUTHORIZED);
 
         const { token, tokenHash } = tokenService.generateTokenPair();
+
         await userRefreshTokenService.createRefreshToken({ userId: safeUser.id, tokenHash });
 
         return { user: safeUser, refreshToken: token };
@@ -170,23 +186,23 @@ export class AuthService {
         try {
             const email = profile.emails?.[0]?.value;
             const username = profile.displayName;
-            const providerId = profile.id;
+            const googleProviderId = profile.id;
 
-            if (!email || !username || !providerId) {
+            if (!email || !username || !googleProviderId) {
                 throw new AppError(409, messageKeys.BAD_REQUEST);
             }
 
-            const result = await this.handleExistingCredentials(providerId);
+            const result = await this.handleExistingCredentials(googleProviderId);
             if (result) return done(null, result);
 
-            const connectedResult = await this.handleExistingUser(email, providerId);
+            const connectedResult = await this.handleExistingUser(email, googleProviderId);
             if (connectedResult) return done(null, connectedResult);
 
             const newUserResult = await this.signup({
                 email,
                 username,
                 provider: "google",
-                providerId,
+                googleProviderId,
             });
 
             return done(null, newUserResult);
@@ -212,16 +228,14 @@ export class AuthService {
 
             const email = profile.emails?.[0]?.value;
             const username = profile.displayName;
-            const providerId = profile.id;
+            const googleProviderId = profile.id;
 
-            if (!email || !username || !providerId) {
+            if (!email || !username || !googleProviderId) {
                 throw new AppError(409, messageKeys.BAD_REQUEST);
             }
 
-            const credentialsId = await userCredentialsService.createUserCredentials({
-                userId: user.id,
-                provider: "google",
-                providerId,
+            const credentialsId = await userCredentialsService.updateUserCredentials(user.id, {
+                googleProviderId,
             });
 
             if (!credentialsId) {

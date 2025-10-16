@@ -23,7 +23,7 @@ export class UserCredentialsService {
         return result[0] ?? null;
     }
 
-    async getCredentialsByProviderId(id: UserCredentialsTable["providerId"]) {
+    async getCredentialsByGoogleProviderId(id: UserCredentialsTable["googleProviderId"]) {
         if (!id) {
             return null;
         }
@@ -31,20 +31,7 @@ export class UserCredentialsService {
         const result = await db
             .select()
             .from(this.table)
-            .where(eq(this.table.providerId, id))
-            .limit(1);
-
-        return result[0] ?? null;
-    }
-
-    async getCredentialsByUserIdAndProvider(
-        id: UsersTable["id"],
-        provider: UserCredentialsTable["provider"],
-    ) {
-        const result = await db
-            .select()
-            .from(this.table)
-            .where(and(eq(this.table.userId, id), eq(this.table.provider, provider)))
+            .where(eq(this.table.googleProviderId, id))
             .limit(1);
 
         return result[0] ?? null;
