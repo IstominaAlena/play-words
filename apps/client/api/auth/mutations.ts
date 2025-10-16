@@ -16,7 +16,14 @@ import { Routes } from "@/enums/routes";
 import { useAuthHandlers } from "@/hooks/use-auth-handlers";
 
 import { useGetCurrentUser } from "../account/mutations";
-import { logout, resetPassword, resetPasswordRequest, signIn, signUp } from "./endpoints";
+import {
+    changePassword,
+    logout,
+    resetPassword,
+    resetPasswordRequest,
+    signIn,
+    signUp,
+} from "./endpoints";
 
 export const useSignUp = () => {
     const { mutateAsync: getCurrentUser } = useGetCurrentUser();
@@ -79,12 +86,18 @@ export const useResetPasswordRequest = () => {
 export const useResetPassword = () => {
     const router = useRouter();
 
-    const t = useTranslations("global");
-
-    return useApiMutation<boolean, ResetUserPassword>({
+    return useApiMutation<void, ResetUserPassword>({
         retry: false,
         mutationFn: resetPassword,
         mutationKey: ["reset-password"],
         onSuccess: () => router.push(Routes.HOME),
+    });
+};
+
+export const useChangePassword = () => {
+    return useApiMutation<void, ResetUserPassword>({
+        retry: false,
+        mutationFn: changePassword,
+        mutationKey: ["change-password"],
     });
 };

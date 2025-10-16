@@ -28,8 +28,10 @@ export const resetPasswordRequest = async (dto: ResetUserPasswordRequest): Promi
     return data.redirectUrl;
 };
 
-export const resetPassword = async (dto: ResetUserPassword): Promise<boolean> => {
-    const { data } = await api.post<{ success: boolean }>("/users/reset-password", dto);
+export const resetPassword = async (dto: ResetUserPassword): Promise<void> => {
+    await api.post("/users/reset-password", dto);
+};
 
-    return data.success;
+export const changePassword = async (dto: ResetUserPassword): Promise<void> => {
+    await api.patch("/users/change-password", dto);
 };
