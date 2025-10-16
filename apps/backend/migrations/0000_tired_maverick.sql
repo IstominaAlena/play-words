@@ -22,10 +22,10 @@ CREATE TABLE "user_credentials" (
 	"user_id" integer NOT NULL,
 	"provider" "provider" NOT NULL,
 	"password_hash" varchar(255),
-	"provider_id" varchar(255),
+	"google_provider_id" varchar(255),
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
-	CONSTRAINT "user_credentials_provider_id_unique" UNIQUE("provider_id")
+	CONSTRAINT "user_credentials_google_provider_id_unique" UNIQUE("google_provider_id")
 );
 --> statement-breakpoint
 CREATE TABLE "user_settings" (

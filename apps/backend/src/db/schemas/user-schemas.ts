@@ -17,7 +17,7 @@ export const userCredentialsTable = pgTable("user_credentials", {
         .references(() => usersTable.id, { onDelete: "cascade" }),
     provider: authProvider().notNull(),
     passwordHash: varchar("password_hash", { length: 255 }),
-    providerId: varchar("provider_id", { length: 255 }).unique(),
+    googleProviderId: varchar("google_provider_id", { length: 255 }).unique(),
     createdAt: timestamp("created_at", { mode: "string" }).notNull().defaultNow(),
     updatedAt: timestamp("updated_at", { mode: "string" }).notNull().defaultNow(),
 });

@@ -55,7 +55,7 @@ export interface AuthSignupProps {
     username: string;
     provider: "local" | "google";
     passwordHash?: string;
-    providerId?: string;
+    googleProviderId?: string;
 }
 
 export interface GoogleProfile {
