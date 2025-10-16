@@ -10,6 +10,7 @@ import { FormPasswordInput } from "@repo/ui/components/form-password-input";
 import { showToast } from "@repo/ui/core/sonner";
 import { Title } from "@repo/ui/core/typography";
 
+import { useChangePassword } from "@/api/auth/mutations";
 import { changePasswordSchema } from "@/schemas/index";
 import { ChangePasswordDto } from "@/types/index";
 
@@ -26,9 +27,16 @@ export const ChangePassword: FC<Props> = ({ className }) => {
     const t = useTranslations("account");
     const tForm = useTranslations("form");
 
+    const { mutateAsync: resetPassword, isPending } = useChangePassword();
+
     const onSubmit: SubmitHandler<ChangePasswordDto> = async (formData) => {
+        const dto = {
+            password: formData.newPassword,
+        };
+
         try {
-            // await signUp(formData);
+            await resetPassword(dto);
+            showToast.success("SUCCESS");
         } catch (error: any) {
             showToast.error(error.message);
         }
@@ -42,7 +50,7 @@ export const ChangePassword: FC<Props> = ({ className }) => {
                 schema={changePasswordSchema}
                 onSubmit={onSubmit}
                 submitButtonClassName="max-w-[12rem] self-end"
-                // isLoading={isPending}
+                isLoading={isPending}
                 render={({ control }) => (
                     <>
                         <FormPasswordInput
