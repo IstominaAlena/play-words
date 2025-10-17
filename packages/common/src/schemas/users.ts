@@ -13,6 +13,11 @@ export const loginUserSchema = z.object({
     password: validationFields.password,
 });
 
+export const verifyOtpSchema = z.object({
+    email: validationFields.email,
+    code: validationFields.code,
+});
+
 export const updateUserSchema = z.object({
     // email: validationFields.email.optional(),
     username: validationFields.username.optional(),

@@ -1,5 +1,7 @@
 import { changePassword } from "./account/change-password";
+import { disableOtp } from "./account/disable-otp";
 import { disconnectGoogleAccount } from "./account/disconnect-google-account";
+import { enableOtp } from "./account/enable-otp";
 import { getCurrentUser } from "./account/get-current-user";
 import { googleConnectCallback } from "./account/google-connect-callback";
 import { initiateGoogleConnect } from "./account/initiate-google-connect";
@@ -12,22 +14,27 @@ import { resetUserPassword } from "./auth/reset-user-password";
 import { resetUserPasswordRequest } from "./auth/reset-user-password-request";
 import { signInUser } from "./auth/sign-in-user";
 import { signUpUser } from "./auth/sign-up-user";
+import { verifyUserOtp } from "./auth/verify-user-otp";
 
 export const usersControllersService = {
+    // auth
     signUpUser,
     signInUser,
     refreshUser,
     logoutUser,
-    getCurrentUser,
-    updateCurrentUser,
     resetUserPasswordRequest,
     resetUserPassword,
-    changePassword,
-    disconnectGoogleAccount,
-
-    // google
     initiateGoogleAuth,
     googleAuthCallback,
+    verifyUserOtp,
+
+    // account
+    getCurrentUser,
+    updateCurrentUser,
+    changePassword,
+    disconnectGoogleAccount,
     initiateGoogleConnect,
     googleConnectCallback,
+    enableOtp,
+    disableOtp,
 };

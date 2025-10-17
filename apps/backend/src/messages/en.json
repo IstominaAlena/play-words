@@ -16,5 +16,7 @@
     "SIGN_UP_FAILED": "Sign up process failed",
     "CREATE_PASSWORD_TO_DISCONNECT": "To disconnect your Google account, please set a password for your account first.",
     "GOOGLE_NOT_CONNECTED": "Google account was not connected",
-    "CREDENTIALS_NOT_FOUND": "Credentials not found"
+    "CREDENTIALS_NOT_FOUND": "Credentials not found",
+    "OTP_NOT_ENABLED": "OTP not enabled",
+    "INVALID_OTP": "Invalid OTP"
 }

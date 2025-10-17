@@ -1,5 +1,5 @@
 {
-  "id": "d59a641b-34b7-470b-948d-28cec85ee29a",
+  "id": "0a5da248-e19e-4dd7-8957-c4b5c30bb207",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -159,6 +159,12 @@
         },
         "password_hash": {
           "name": "password_hash",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "otp_secret": {
+          "name": "otp_secret",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": false

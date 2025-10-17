@@ -7,6 +7,7 @@ import {
     resetUserPasswordRequestSchema,
     resetUserPasswordSchema,
     updateUserSchema,
+    verifyOtpSchema,
 } from "@repo/common/schemas/users";
 
 import { authValidation } from "@/middlewares/auth-validation";
@@ -17,10 +18,12 @@ import { usersControllersService } from "../controllers/users/service";
 
 const router = Router();
 
-// auth flow
+// auth
 router.post("/sign-up", validateBody(createUserSchema), usersControllersService.signUpUser);
 
 router.post("/sign-in", validateBody(loginUserSchema), usersControllersService.signInUser);
+
+router.post("/verify-otp", validateBody(verifyOtpSchema), usersControllersService.verifyUserOtp);
 
 router.get("/google/auth", usersControllersService.initiateGoogleAuth);
 
@@ -42,7 +45,7 @@ router.post(
     controllerWrapper(usersControllersService.resetUserPassword),
 );
 
-// protected routes
+// account
 router.get("/me", authValidation, controllerWrapper(usersControllersService.getCurrentUser));
 
 router.patch(
@@ -61,7 +64,7 @@ router.patch(
 
 router.get("/google/connect", authValidation, usersControllersService.initiateGoogleConnect);
 
-router.post(
+router.patch(
     "/google/disconnect",
     authValidation,
     controllerWrapper(usersControllersService.disconnectGoogleAccount),
@@ -72,5 +75,9 @@ router.get(
     authValidation,
     controllerWrapper(usersControllersService.googleConnectCallback),
 );
+
+router.patch("/otp/enable", authValidation, controllerWrapper(usersControllersService.enableOtp));
+
+router.patch("/otp/disable", authValidation, controllerWrapper(usersControllersService.disableOtp));
 
 export default router;
