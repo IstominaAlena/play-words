@@ -1,7 +1,10 @@
 import { NextFunction, Response } from "express";
 
+import { messageKeys } from "@/constants/common";
+import { userCredentialsService } from "@/db/services/users/user-credentials-service";
 import { userRefreshTokenService } from "@/db/services/users/user-refresh-token-service";
 import { passportControllerWrapper } from "@/middlewares/passport-wrapper";
+import { AppError } from "@/services/error-service";
 import { tokenService } from "@/services/token-service";
 import { AppRequest, LocalSigninDto } from "@/types/common";
 
@@ -16,6 +19,16 @@ export const signInUser = async (
         next,
     );
 
+    const credentials = await userCredentialsService.getCredentialsByUserId(user.id);
+
+    if (!credentials) {
+        throw new AppError(401, messageKeys.UNAUTHORIZED);
+    }
+
+    if (credentials.otpSecret) {
+        return res.status(200).json({ otp: true, email: user.email });
+    }
+
     const accessToken = tokenService.generateAccessToken(user.id, user.email);
 
     const { token, tokenHash } = tokenService.generateTokenPair();
@@ -28,5 +41,5 @@ export const signInUser = async (
     tokenService.setRefreshTokenCookie(res, token);
     tokenService.setAccessTokenCookie(res, accessToken);
 
-    res.status(204).end();
+    res.status(200).json({ otp: false });
 };

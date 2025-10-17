@@ -4,7 +4,7 @@ import { IVerifyOptions } from "passport-local";
 import { User } from "@repo/common/types/users";
 
 import defaultLang from "../messages/en.json";
-import { CreateUserSettings, UserSettingsTable, UsersTable } from "./users";
+import { UserSettingsTable, UsersTable } from "./users";
 
 export type Messages = typeof defaultLang;
 
@@ -90,4 +90,9 @@ export interface ChangePassword {
 
 export interface UpdateUserDto {
     username: string;
+}
+
+export interface VerifyOtpDto {
+    email: string;
+    code: string;
 }

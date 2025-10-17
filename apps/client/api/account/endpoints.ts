@@ -8,7 +8,7 @@ export const getCurrentUser = async (): Promise<UserResponse> => {
 };
 
 export const disconnectGoogleAccount = async (): Promise<Settings> => {
-    const { data } = await api.post<{ settings: Settings }>("/users/google/disconnect");
+    const { data } = await api.patch<{ settings: Settings }>("/users/google/disconnect");
 
     return data.settings;
 };
