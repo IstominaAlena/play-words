@@ -4,7 +4,7 @@ import { messageKeys } from "@/constants/common";
 import { userCredentialsService } from "@/db/services/users/user-credentials-service";
 import { userResetPasswordTokenService } from "@/db/services/users/user-reset-password-token-service";
 import { AppError } from "@/services/error-service";
-import { passwordService } from "@/services/password-service";
+import { hashService } from "@/services/hash-service";
 import { tokenService } from "@/services/token-service";
 import { AppRequest, ResetPassword } from "@/types/common";
 
@@ -22,7 +22,7 @@ export const resetUserPassword = async (req: AppRequest<ResetPassword>, res: Res
 
     await userResetPasswordTokenService.deleteResetPasswordToken(tokenRecord.id);
 
-    const passwordHash = await passwordService.hashPassword(newPassword);
+    const passwordHash = await hashService.hash(newPassword);
 
     await userCredentialsService.updateUserCredentials(tokenRecord.userId, { passwordHash });
 

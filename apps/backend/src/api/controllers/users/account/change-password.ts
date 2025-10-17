@@ -4,7 +4,7 @@ import { messageKeys } from "@/constants/common";
 import { userCredentialsService } from "@/db/services/users/user-credentials-service";
 import { userSettingService } from "@/db/services/users/user-settings-service";
 import { AppError } from "@/services/error-service";
-import { passwordService } from "@/services/password-service";
+import { hashService } from "@/services/hash-service";
 import { AuthenticatedRequest, ChangePassword } from "@/types/common";
 
 export const changePassword = async (req: AuthenticatedRequest<ChangePassword>, res: Response) => {
@@ -15,7 +15,7 @@ export const changePassword = async (req: AuthenticatedRequest<ChangePassword>, 
         throw new AppError(401, messageKeys.UNAUTHORIZED);
     }
 
-    const passwordHash = await passwordService.hashPassword(newPassword);
+    const passwordHash = await hashService.hash(newPassword);
 
     const credentialsId = await userCredentialsService.updateUserCredentials(userId, {
         passwordHash,

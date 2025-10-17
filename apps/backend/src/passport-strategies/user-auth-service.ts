@@ -4,7 +4,7 @@ import { userRefreshTokenService } from "@/db/services/users/user-refresh-token-
 import { userSettingService } from "@/db/services/users/user-settings-service";
 import { usersService } from "@/db/services/users/users-service";
 import { AppError } from "@/services/error-service";
-import { passwordService } from "@/services/password-service";
+import { hashService } from "@/services/hash-service";
 import {
     AppRequest,
     AuthSignupProps,
@@ -127,7 +127,7 @@ export class AuthService {
                 throw new AppError(409, messageKeys.SIGN_UP_FAILED);
             }
 
-            const passwordHash = await passwordService.hashPassword(password);
+            const passwordHash = await hashService.hash(password);
 
             const result = await this.signup({
                 email: normalizedEmail,
@@ -162,7 +162,7 @@ export class AuthService {
                 throw new AppError(401, messageKeys.UNAUTHORIZED);
             }
 
-            const isPasswordValid = await passwordService.comparePassword(
+            const isPasswordValid = await hashService.compareHash(
                 password,
                 userCredentials.passwordHash,
             );
