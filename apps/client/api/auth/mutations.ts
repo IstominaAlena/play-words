@@ -3,12 +3,11 @@
 import { useTranslations } from "next-intl";
 
 import { useApiMutation } from "@repo/api-config/api-config";
-import { useUserStore } from "@repo/common/stores/user-store";
 import {
     CreateUserDto,
     LoginUserDto,
-    ResetUserPassword,
     ResetUserPasswordRequest,
+    UserPasswordDto,
 } from "@repo/common/types/users";
 import { useRouter } from "@repo/i18n/config/navigation";
 
@@ -16,14 +15,7 @@ import { Routes } from "@/enums/routes";
 import { useAuthHandlers } from "@/hooks/use-auth-handlers";
 
 import { useGetCurrentUser } from "../account/mutations";
-import {
-    changePassword,
-    logout,
-    resetPassword,
-    resetPasswordRequest,
-    signIn,
-    signUp,
-} from "./endpoints";
+import { logout, resetPassword, resetPasswordRequest, signIn, signUp } from "./endpoints";
 
 export const useSignUp = () => {
     const { mutateAsync: getCurrentUser } = useGetCurrentUser();
@@ -86,18 +78,10 @@ export const useResetPasswordRequest = () => {
 export const useResetPassword = () => {
     const router = useRouter();
 
-    return useApiMutation<void, ResetUserPassword>({
+    return useApiMutation<void, UserPasswordDto>({
         retry: false,
         mutationFn: resetPassword,
         mutationKey: ["reset-password"],
         onSuccess: () => router.push(Routes.HOME),
-    });
-};
-
-export const useChangePassword = () => {
-    return useApiMutation<void, ResetUserPassword>({
-        retry: false,
-        mutationFn: changePassword,
-        mutationKey: ["change-password"],
     });
 };

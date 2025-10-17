@@ -38,4 +38,4 @@ export type LoginUserDto = z.infer<typeof loginUserSchema>;
 
 export type ResetUserPasswordRequest = z.infer<typeof resetUserPasswordRequestSchema>;
 
-export type ResetUserPassword = z.infer<typeof resetUserPasswordSchema>;
+export type UserPasswordDto = z.infer<typeof resetUserPasswordSchema>;

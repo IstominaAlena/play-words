@@ -3,12 +3,12 @@ import cors from "cors";
 import express, { Application } from "express";
 import helmet from "helmet";
 import morgan from "morgan";
+import passportStrategy from "passport-strategies/user-passport-strategies";
 
 import userRoutes from "@/api/routes/users";
 import { errorHandler } from "@/middlewares/error-handler";
 import { healthCheck } from "@/middlewares/health-check";
 import { notFoundHandler } from "@/middlewares/not-found-handler";
-import passportService from "@/services/passport-service";
 
 const app: Application = express();
 
@@ -31,7 +31,7 @@ app.use(morgan("dev"));
 // Parse cookies from requests
 app.use(cookieParser());
 
-app.use(passportService.initialize());
+app.use(passportStrategy.initialize());
 
 app.use("/api/users", userRoutes);
 

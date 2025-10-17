@@ -1,4 +1,4 @@
-import * as passportService from "passport";
+import * as passportStrategy from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { ExtractJwt, Strategy as JwtStrategy } from "passport-jwt";
 import { Strategy as LocalStrategy } from "passport-local";
@@ -10,9 +10,9 @@ import {
     JWT_SECRET,
 } from "@/constants/common";
 
-import { authService } from "./auth-service";
+import { authService } from "./user-auth-service";
 
-passportService.use(
+passportStrategy.use(
     "local-signup",
     new LocalStrategy(
         {
@@ -24,7 +24,7 @@ passportService.use(
     ),
 );
 
-passportService.use(
+passportStrategy.use(
     "local-signin",
     new LocalStrategy(
         {
@@ -36,7 +36,7 @@ passportService.use(
     ),
 );
 
-passportService.use(
+passportStrategy.use(
     "google-auth",
     new GoogleStrategy(
         {
@@ -50,7 +50,7 @@ passportService.use(
     ),
 );
 
-passportService.use(
+passportStrategy.use(
     "connect-google",
     new GoogleStrategy(
         {
@@ -64,7 +64,7 @@ passportService.use(
     ),
 );
 
-passportService.use(
+passportStrategy.use(
     "jwt",
     new JwtStrategy(
         {
@@ -75,4 +75,4 @@ passportService.use(
     ),
 );
 
-export default passportService;
+export default passportStrategy;

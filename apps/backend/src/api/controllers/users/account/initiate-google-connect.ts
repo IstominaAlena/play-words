@@ -1,9 +1,8 @@
 import { RequestHandler } from "express";
-
-import passportService from "@/services/passport-service";
+import passportStrategy from "passport-strategies/user-passport-strategies";
 
 export const initiateGoogleConnect: RequestHandler = (req, res, next) => {
-    passportService.authenticate("connect-google", {
+    passportStrategy.authenticate("connect-google", {
         scope: ["profile", "email"],
         session: false,
     })(req, res, next);

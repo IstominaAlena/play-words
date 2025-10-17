@@ -4,9 +4,9 @@ import { useTranslations } from "next-intl";
 
 import { useApiMutation } from "@repo/api-config/api-config";
 import { useUserStore } from "@repo/common/stores/user-store";
-import { Settings, UserResponse } from "@repo/common/types/users";
+import { Settings, UserPasswordDto, UserResponse } from "@repo/common/types/users";
 
-import { disconnectGoogleAccount, getCurrentUser } from "./endpoints";
+import { changePassword, disconnectGoogleAccount, getCurrentUser } from "./endpoints";
 
 export const useGetCurrentUser = () => {
     const t = useTranslations("global");
@@ -42,5 +42,13 @@ export const useDisconnectGoogleAccount = () => {
             }
             saveSettings(data);
         },
+    });
+};
+
+export const useChangePassword = () => {
+    return useApiMutation<void, UserPasswordDto>({
+        retry: false,
+        mutationFn: changePassword,
+        mutationKey: ["change-password"],
     });
 };

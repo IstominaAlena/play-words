@@ -2,8 +2,8 @@ import { api } from "@repo/api-config/api-config";
 import {
     CreateUserDto,
     LoginUserDto,
-    ResetUserPassword,
     ResetUserPasswordRequest,
+    UserPasswordDto,
 } from "@repo/common/types/users";
 
 export const signUp = async (dto: CreateUserDto): Promise<void> => {
@@ -28,10 +28,6 @@ export const resetPasswordRequest = async (dto: ResetUserPasswordRequest): Promi
     return data.redirectUrl;
 };
 
-export const resetPassword = async (dto: ResetUserPassword): Promise<void> => {
+export const resetPassword = async (dto: UserPasswordDto): Promise<void> => {
     await api.post("/users/reset-password", dto);
-};
-
-export const changePassword = async (dto: ResetUserPassword): Promise<void> => {
-    await api.patch("/users/change-password", dto);
 };

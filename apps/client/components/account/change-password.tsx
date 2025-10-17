@@ -10,7 +10,7 @@ import { FormPasswordInput } from "@repo/ui/components/form-password-input";
 import { showToast } from "@repo/ui/core/sonner";
 import { Title } from "@repo/ui/core/typography";
 
-import { useChangePassword } from "@/api/auth/mutations";
+import { useChangePassword } from "@/api/account/mutations";
 import { changePasswordSchema } from "@/schemas/index";
 import { ChangePasswordDto } from "@/types/index";
 
@@ -36,6 +36,7 @@ export const ChangePassword: FC<Props> = ({ className }) => {
 
         try {
             await resetPassword(dto);
+            // TODO: Create user friendly message
             showToast.success("SUCCESS");
         } catch (error: any) {
             showToast.error(error.message);

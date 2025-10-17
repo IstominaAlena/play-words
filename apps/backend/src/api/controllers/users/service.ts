@@ -1,17 +1,17 @@
-import { changePassword } from "./change-password";
-import { disconnectGoogleAccount } from "./disconnect-google-account";
-import { getCurrentUser } from "./get-current-user";
-import { googleAuthCallback } from "./google-auth-callback";
-import { googleConnectCallback } from "./google-connect-callback";
-import { initiateGoogleAuth } from "./initiate-google-auth";
-import { initiateGoogleConnect } from "./initiate-google-connect";
-import { logoutUser } from "./logout-user";
-import { refreshUser } from "./refresh-user";
-import { resetUserPassword } from "./reset-user-password";
-import { resetUserPasswordRequest } from "./reset-user-password-request";
-import { signInUser } from "./sign-in-user";
-import { signUpUser } from "./sign-up-user";
-import { updateCurrentUser } from "./update-current-user";
+import { changePassword } from "./account/change-password";
+import { disconnectGoogleAccount } from "./account/disconnect-google-account";
+import { getCurrentUser } from "./account/get-current-user";
+import { googleConnectCallback } from "./account/google-connect-callback";
+import { initiateGoogleConnect } from "./account/initiate-google-connect";
+import { updateCurrentUser } from "./account/update-current-user";
+import { googleAuthCallback } from "./auth/google-auth-callback";
+import { initiateGoogleAuth } from "./auth/initiate-google-auth";
+import { logoutUser } from "./auth/logout-user";
+import { refreshUser } from "./auth/refresh-user";
+import { resetUserPassword } from "./auth/reset-user-password";
+import { resetUserPasswordRequest } from "./auth/reset-user-password-request";
+import { signInUser } from "./auth/sign-in-user";
+import { signUpUser } from "./auth/sign-up-user";
 
 export const usersControllersService = {
     signUpUser,

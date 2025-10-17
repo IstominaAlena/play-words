@@ -16,7 +16,7 @@ import {
     StrategyReturn,
 } from "@/types/common";
 
-import { tokenService } from "./token-service";
+import { tokenService } from "../services/token-service";
 
 export class AuthService {
     private async signup({
