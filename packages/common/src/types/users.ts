@@ -30,6 +30,21 @@ export interface UserResponse {
     settings: Settings;
 }
 
+export interface EnableOtpResponse {
+    otpAuthUrl: string;
+    settings: Settings;
+}
+
+export interface LoginUserResponse {
+    otp: boolean;
+    email?: string;
+}
+
+export interface VerifyOtpDto {
+    code: string;
+    email: string;
+}
+
 export type CreateUserDto = z.infer<typeof createUserSchema>;
 
 export type UpdateUserDto = z.infer<typeof updateUserSchema>;

@@ -22,7 +22,8 @@ export const AuthBar: FC<Props> = ({ openModal, className, isDropdownItem, close
 
     const onSignupButtonClick = () => openModal(<SignUpModal closeModal={closeModal} />);
 
-    const onSignInButtonClick = () => openModal(<SignInModal closeModal={closeModal} />);
+    const onSignInButtonClick = () =>
+        openModal(<SignInModal closeModal={closeModal} openModal={openModal} />);
 
     if (isDropdownItem) {
         return (

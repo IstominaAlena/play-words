@@ -38,7 +38,9 @@
         "logout_subtitle": "Are you sure you want to log out?",
         "reset_password_title": "Almost there!",
         "reset_password_subtitle": "Choose a new password for your account. Make sure it’s strong and easy for you to remember.",
-        "reset_password_success": "Your password was changed successfully"
+        "reset_password_success": "Your password was changed successfully",
+        "verify_otp_title": "Enter Your Verification Code",
+        "verify_otp_description": "Please enter the 6-digit code from your Google Authenticator app to complete login and secure your account."
     },
     "home_page": {
         "title": "Let's play words!"
@@ -49,10 +51,15 @@
         "security": "Security",
         "enable_verification": "Enable OTP verification with Google Authenticator application",
         "enable": "Enable",
+        "disable": "Disable",
+        "otp_disabled": "Your OTP is disabled successfully",
+        "otp_enabled": "Your OTP is enabled successfully",
         "connect_accounts": "Connect other accounts",
         "connect_google": "Connect Google to your account for quick access",
         "connect": "Connect",
         "disconnect": "Disconnect",
-        "disconnected": "Your Google account was disconnected successfully"
+        "disconnected": "Your Google account was disconnected successfully",
+        "authenticator_title": "Activate Google Authenticator",
+        "authenticator_description": "Use your Google Authenticator app to scan the QR code and secure your account with a verification code at login."
     }
 }
