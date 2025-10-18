@@ -31,8 +31,6 @@ export const useSignUp = () => {
 };
 
 export const useSignIn = () => {
-    const t = useTranslations("global");
-
     const { mutateAsync: getCurrentUser } = useGetCurrentUser();
 
     return useApiMutation<void, LoginUserDto>({
