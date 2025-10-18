@@ -47,6 +47,7 @@ const config: Config = {
         "meteor-effect": "meteor 5s linear infinite",
         "spin-smooth":
           "spinSmooth 1.4s cubic-bezier(0.45, 0, 0.55, 1) infinite",
+        "caret-blink": "caret-blink 1.2s step-end infinite",
       },
       keyframes: {
         meteor: {
@@ -60,6 +61,10 @@ const config: Config = {
         spinSmooth: {
           "0%": { transform: "rotate(0deg)" },
           "100%": { transform: "rotate(360deg)" },
+        },
+        "caret-blink": {
+          "0%, 70%, 100%": { opacity: "1" },
+          "20%, 50%": { opacity: "0" },
         },
       },
     },

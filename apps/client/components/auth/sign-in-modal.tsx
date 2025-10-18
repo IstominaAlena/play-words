@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import { SubmitHandler } from "react-hook-form";
 
 import { Form } from "@repo/ui/components/form";
@@ -18,16 +18,19 @@ import { Link } from "@repo/i18n/config/navigation";
 import { useSignIn } from "@/api/auth/mutations";
 import { SecondaryRoutes } from "@/enums/routes";
 
+import { OtpModal } from "./otp-modal";
+
 const defaultValues = {
     email: "",
     password: "",
 };
 
 interface Props {
+    openModal: (content: ReactNode) => void;
     closeModal: () => void;
 }
 
-export const SignInModal: FC<Props> = ({ closeModal }) => {
+export const SignInModal: FC<Props> = ({ openModal, closeModal }) => {
     const t = useTranslations("auth");
     const tForm = useTranslations("form");
 
@@ -35,10 +38,13 @@ export const SignInModal: FC<Props> = ({ closeModal }) => {
 
     const onSubmit: SubmitHandler<LoginUserDto> = async (formData) => {
         try {
-            await signIn(formData);
+            const data = await signIn(formData);
+
+            if (data.otp) {
+                openModal(<OtpModal closeModal={closeModal} email={data.email ?? ""} />);
+            }
         } catch (error: any) {
             showToast.error(error.message);
-        } finally {
             closeModal();
         }
     };

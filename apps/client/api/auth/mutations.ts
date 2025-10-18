@@ -6,8 +6,10 @@ import { useApiMutation } from "@repo/api-config/api-config";
 import {
     CreateUserDto,
     LoginUserDto,
+    LoginUserResponse,
     ResetUserPasswordRequest,
     UserPasswordDto,
+    VerifyOtpDto,
 } from "@repo/common/types/users";
 import { useRouter } from "@repo/i18n/config/navigation";
 
@@ -15,7 +17,14 @@ import { Routes } from "@/enums/routes";
 import { useAuthHandlers } from "@/hooks/use-auth-handlers";
 
 import { useGetCurrentUser } from "../account/mutations";
-import { logout, resetPassword, resetPasswordRequest, signIn, signUp } from "./endpoints";
+import {
+    logout,
+    resetPassword,
+    resetPasswordRequest,
+    signIn,
+    signUp,
+    verifyOtp,
+} from "./endpoints";
 
 export const useSignUp = () => {
     const { mutateAsync: getCurrentUser } = useGetCurrentUser();
@@ -33,10 +42,25 @@ export const useSignUp = () => {
 export const useSignIn = () => {
     const { mutateAsync: getCurrentUser } = useGetCurrentUser();
 
-    return useApiMutation<void, LoginUserDto>({
+    return useApiMutation<LoginUserResponse, LoginUserDto>({
         retry: false,
         mutationFn: signIn,
         mutationKey: ["sign-in"],
+        onSuccess: async (data) => {
+            if (!data?.otp) {
+                await getCurrentUser();
+            }
+        },
+    });
+};
+
+export const useVerifyOtp = () => {
+    const { mutateAsync: getCurrentUser } = useGetCurrentUser();
+
+    return useApiMutation<void, VerifyOtpDto>({
+        retry: false,
+        mutationFn: verifyOtp,
+        mutationKey: ["verify-otp"],
         onSuccess: async () => {
             await getCurrentUser();
         },

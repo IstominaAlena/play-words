@@ -2,16 +2,23 @@ import { api } from "@repo/api-config/api-config";
 import {
     CreateUserDto,
     LoginUserDto,
+    LoginUserResponse,
     ResetUserPasswordRequest,
     UserPasswordDto,
+    VerifyOtpDto,
 } from "@repo/common/types/users";
 
 export const signUp = async (dto: CreateUserDto): Promise<void> => {
     await api.post("/users/sign-up", dto);
 };
 
-export const signIn = async (dto: LoginUserDto): Promise<void> => {
-    await api.post("/users/sign-in", dto);
+export const signIn = async (dto: LoginUserDto): Promise<LoginUserResponse> => {
+    const { data } = await api.post<LoginUserResponse>("/users/sign-in", dto);
+    return data;
+};
+
+export const verifyOtp = async (dto: VerifyOtpDto): Promise<void> => {
+    await api.post("/users/verify-otp", dto);
 };
 
 export const logout = async () => {
