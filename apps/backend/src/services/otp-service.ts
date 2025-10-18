@@ -1,9 +1,9 @@
 import speakeasy from "speakeasy";
 
 export class OtpService {
-    async generateSecret(id: string | number) {
+    async generateSecret(email: string | number) {
         return speakeasy.generateSecret({
-            name: `PlayWords:${id}`,
+            name: `PlayWords:${email}`,
             length: 32,
         });
     }

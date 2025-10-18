@@ -9,12 +9,13 @@ import { AuthenticatedRequest } from "@/types/common";
 
 export const enableOtp = async (req: AuthenticatedRequest, res: Response) => {
     const userId = req.user?.id;
+    const email = req.user.email;
 
-    if (!userId) {
+    if (!userId || !email) {
         throw new AppError(401, messageKeys.UNAUTHORIZED);
     }
 
-    const secret = await otpService.generateSecret(userId);
+    const secret = await otpService.generateSecret(email);
 
     if (!secret.otpauth_url || !secret.base32) {
         throw new AppError(500, messageKeys.SOMETHING_WENT_WRONG);

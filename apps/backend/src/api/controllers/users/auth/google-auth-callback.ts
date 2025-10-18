@@ -21,7 +21,7 @@ export const googleAuthCallback = async (req: AppRequest, res: Response, next: N
     }
 
     if (credentials.otpSecret) {
-        // return res.status(200).json({ otp: true, email: user.email });
+        res.redirect(`${BASE_CLIENT_URL}?otp=true&email=${encodeURIComponent(user.email)}`);
     }
 
     const accessToken = tokenService.generateAccessToken(user.id, user.email);
