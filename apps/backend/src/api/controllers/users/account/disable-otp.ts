@@ -3,7 +3,7 @@ import { Response } from "express";
 import { messageKeys } from "@/constants/common";
 import { userCredentialsService } from "@/db/services/users/user-credentials-service";
 import { userRefreshTokenService } from "@/db/services/users/user-refresh-token-service";
-import { userSettingService } from "@/db/services/users/user-settings-service";
+import { userSettingsService } from "@/db/services/users/user-settings-service";
 import { AppError } from "@/services/error-service";
 import { tokenService } from "@/services/token-service";
 import { AuthenticatedRequest } from "@/types/common";
@@ -23,7 +23,7 @@ export const disableOtp = async (req: AuthenticatedRequest, res: Response) => {
         throw new AppError(500, messageKeys.SOMETHING_WENT_WRONG);
     }
 
-    const settings = await userSettingService.updateUserSettings(userId, { otp: false });
+    const settings = await userSettingsService.updateUserSettings(userId, { otp: false });
 
     if (!settings) {
         throw new AppError(500, messageKeys.SOMETHING_WENT_WRONG);
@@ -38,5 +38,5 @@ export const disableOtp = async (req: AuthenticatedRequest, res: Response) => {
 
     tokenService.setRefreshTokenCookie(res, token);
 
-    return res.status(200).json({ settings });
+    return res.status(204).end();
 };

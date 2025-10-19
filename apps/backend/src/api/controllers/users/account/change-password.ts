@@ -2,7 +2,7 @@ import { Response } from "express";
 
 import { messageKeys } from "@/constants/common";
 import { userCredentialsService } from "@/db/services/users/user-credentials-service";
-import { userSettingService } from "@/db/services/users/user-settings-service";
+import { userSettingsService } from "@/db/services/users/user-settings-service";
 import { AppError } from "@/services/error-service";
 import { hashService } from "@/services/hash-service";
 import { AuthenticatedRequest, ChangePassword } from "@/types/common";
@@ -25,7 +25,7 @@ export const changePassword = async (req: AuthenticatedRequest<ChangePassword>, 
         throw new AppError(500, messageKeys.SOMETHING_WENT_WRONG);
     }
 
-    const settingsId = await userSettingService.updateUserSettings(userId, {
+    const settingsId = await userSettingsService.updateUserSettings(userId, {
         password: !!credentialsId,
     });
 

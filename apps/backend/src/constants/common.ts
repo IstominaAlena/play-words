@@ -4,6 +4,8 @@ import defaultLang from "../messages/en.json";
 
 export const ACCESS_TOKEN_EXP = "15m";
 
+export const DELETE_USER_REMAINING_PERIOD = 30;
+
 export const REFRESH_TOKEN_TTL_DAYS = 30;
 
 export const RESET_PASSWORD_TOKEN_TTL_TIME = 30;

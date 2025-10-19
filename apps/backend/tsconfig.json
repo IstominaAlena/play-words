@@ -15,7 +15,8 @@
             "@/types/*": ["types/*"],
             "@/utils/*": ["utils/*"],
             "@/constants/*": ["constants/*"],
-            "@/services/*": ["services/*"]
+            "@/services/*": ["services/*"],
+            "@/crons/*": ["crons/*"]
         }
     },
     "include": ["**/*.ts", "**/*.tsx", "next-env.d.ts", "next.config.js", ".next/types/**/*.ts"],

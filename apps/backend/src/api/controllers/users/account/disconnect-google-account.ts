@@ -2,7 +2,7 @@ import { Response } from "express";
 
 import { messageKeys } from "@/constants/common";
 import { userCredentialsService } from "@/db/services/users/user-credentials-service";
-import { userSettingService } from "@/db/services/users/user-settings-service";
+import { userSettingsService } from "@/db/services/users/user-settings-service";
 import { AppError } from "@/services/error-service";
 import { AuthenticatedRequest } from "@/types/common";
 
@@ -35,7 +35,7 @@ export const disconnectGoogleAccount = async (req: AuthenticatedRequest, res: Re
         throw new AppError(500, messageKeys.SOMETHING_WENT_WRONG);
     }
 
-    const updatedSettings = await userSettingService.updateUserSettings(userId, {
+    const updatedSettings = await userSettingsService.updateUserSettings(userId, {
         google: false,
     });
 
@@ -43,5 +43,5 @@ export const disconnectGoogleAccount = async (req: AuthenticatedRequest, res: Re
         throw new AppError(500, messageKeys.SOMETHING_WENT_WRONG);
     }
 
-    res.json({ settings: updatedSettings });
+    res.status(204).end();
 };

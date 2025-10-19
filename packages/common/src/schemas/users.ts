@@ -19,7 +19,7 @@ export const verifyOtpSchema = z.object({
 });
 
 export const updateUserSchema = z.object({
-    // email: validationFields.email.optional(),
+    email: validationFields.email.optional(),
     username: validationFields.username.optional(),
 });
 

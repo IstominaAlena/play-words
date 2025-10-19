@@ -18,5 +18,6 @@
     "GOOGLE_NOT_CONNECTED": "Google account was not connected",
     "CREDENTIALS_NOT_FOUND": "Credentials not found",
     "OTP_NOT_ENABLED": "OTP not enabled",
-    "INVALID_OTP": "Invalid OTP"
+    "INVALID_OTP": "Invalid OTP",
+    "CREATE_PASSWORD_TO_CHANGE_EMAIL": "Please create a password before changing your email."
 }

@@ -1,4 +1,4 @@
-import { and, eq } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 
 import { db } from "@/config/drizzle-orm/db";
 import { userCredentialsTable } from "@/db/schemas/user-schemas";
@@ -44,7 +44,7 @@ export class UserCredentialsService {
     async updateUserCredentials(id: UsersTable["id"], data: UpdateUserCredentials) {
         const result = await db
             .update(this.table)
-            .set(data)
+            .set({ ...data, updatedAt: new Date().toISOString() })
             .where(eq(this.table.userId, id))
             .returning({ id: this.table.id });
 

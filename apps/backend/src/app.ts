@@ -6,6 +6,7 @@ import morgan from "morgan";
 import passportStrategy from "passport-strategies/user-passport-strategies";
 
 import userRoutes from "@/api/routes/users";
+import "@/crons/hard-delete-user-by-request";
 import { errorHandler } from "@/middlewares/error-handler";
 import { healthCheck } from "@/middlewares/health-check";
 import { notFoundHandler } from "@/middlewares/not-found-handler";

@@ -1,7 +1,7 @@
 import { Response } from "express";
 
 import { i18nService } from "@/config/i18n/service";
-import { messageKeys } from "@/constants/common";
+import { BASE_CLIENT_URL, messageKeys } from "@/constants/common";
 import { userResetPasswordTokenService } from "@/db/services/users/user-reset-password-token-service";
 import { usersService } from "@/db/services/users/users-service";
 import { AppError } from "@/services/error-service";
@@ -39,5 +39,5 @@ export const resetUserPasswordRequest = async (
 
     tokenService.setResetPasswordTokenCookie(res, token);
 
-    res.json({ redirectUrl: "/reset-password" });
+    res.redirect(`${BASE_CLIENT_URL}/reset-password`);
 };

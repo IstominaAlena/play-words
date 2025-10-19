@@ -1,7 +1,7 @@
 import { messageKeys } from "@/constants/common";
 import { userCredentialsService } from "@/db/services/users/user-credentials-service";
 import { userRefreshTokenService } from "@/db/services/users/user-refresh-token-service";
-import { userSettingService } from "@/db/services/users/user-settings-service";
+import { userSettingsService } from "@/db/services/users/user-settings-service";
 import { usersService } from "@/db/services/users/users-service";
 import { AppError } from "@/services/error-service";
 import { hashService } from "@/services/hash-service";
@@ -44,7 +44,7 @@ export class AuthService {
             throw new AppError(500, messageKeys.SOMETHING_WENT_WRONG);
         }
 
-        const settings = await userSettingService.createUserSettings({
+        const settings = await userSettingsService.createUserSettings({
             userId: newUser.id,
             google: provider === "google",
             password: !!passwordHash,
@@ -242,7 +242,7 @@ export class AuthService {
                 throw new AppError(500, messageKeys.SOMETHING_WENT_WRONG);
             }
 
-            const settings = await userSettingService.updateUserSettings(user.id, {
+            const settings = await userSettingsService.updateUserSettings(user.id, {
                 google: true,
             });
 

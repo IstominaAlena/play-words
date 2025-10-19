@@ -8,6 +8,7 @@ export const usersTable = pgTable("users", {
     username: varchar("username", { length: 255 }).notNull(),
     createdAt: timestamp("created_at", { mode: "string" }).notNull().defaultNow(),
     updatedAt: timestamp("updated_at", { mode: "string" }).notNull().defaultNow(),
+    deletionDate: timestamp("deletion_date", { mode: "string" }),
 });
 
 export const userCredentialsTable = pgTable("user_credentials", {

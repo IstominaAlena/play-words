@@ -36,11 +36,11 @@ export class UserSettingService {
     async updateUserSettings(id: UsersTable["id"], data: UpdateUserSettings) {
         const result = await db
             .update(this.table)
-            .set(data)
+            .set({ ...data, updatedAt: new Date().toISOString() })
             .where(eq(this.table.userId, id))
             .returning(this.safeFields);
         return result[0] ?? null;
     }
 }
 
-export const userSettingService = new UserSettingService();
+export const userSettingsService = new UserSettingService();

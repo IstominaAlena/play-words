@@ -1,10 +1,12 @@
 import { changePassword } from "./account/change-password";
+import { deleteUser } from "./account/delete-user";
 import { disableOtp } from "./account/disable-otp";
 import { disconnectGoogleAccount } from "./account/disconnect-google-account";
 import { enableOtp } from "./account/enable-otp";
 import { getCurrentUser } from "./account/get-current-user";
 import { googleConnectCallback } from "./account/google-connect-callback";
 import { initiateGoogleConnect } from "./account/initiate-google-connect";
+import { restoreUser } from "./account/restore-user";
 import { updateCurrentUser } from "./account/update-current-user";
 import { googleAuthCallback } from "./auth/google-auth-callback";
 import { initiateGoogleAuth } from "./auth/initiate-google-auth";
@@ -37,4 +39,6 @@ export const usersControllersService = {
     googleConnectCallback,
     enableOtp,
     disableOtp,
+    deleteUser,
+    restoreUser,
 };

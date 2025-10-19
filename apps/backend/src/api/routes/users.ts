@@ -80,4 +80,8 @@ router.patch("/otp/enable", authValidation, controllerWrapper(usersControllersSe
 
 router.patch("/otp/disable", authValidation, controllerWrapper(usersControllersService.disableOtp));
 
+router.patch("/me/delete", authValidation, controllerWrapper(usersControllersService.deleteUser));
+
+router.patch("/me/restore", authValidation, controllerWrapper(usersControllersService.restoreUser));
+
 export default router;

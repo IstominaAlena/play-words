@@ -2,7 +2,7 @@ import { Response } from "express";
 
 import { messageKeys } from "@/constants/common";
 import { userCredentialsService } from "@/db/services/users/user-credentials-service";
-import { userSettingService } from "@/db/services/users/user-settings-service";
+import { userSettingsService } from "@/db/services/users/user-settings-service";
 import { AppError } from "@/services/error-service";
 import { otpService } from "@/services/otp-service";
 import { AuthenticatedRequest } from "@/types/common";
@@ -29,11 +29,5 @@ export const enableOtp = async (req: AuthenticatedRequest, res: Response) => {
         throw new AppError(500, messageKeys.SOMETHING_WENT_WRONG);
     }
 
-    const settings = await userSettingService.updateUserSettings(userId, { otp: true });
-
-    if (!settings) {
-        throw new AppError(500, messageKeys.SOMETHING_WENT_WRONG);
-    }
-
-    return res.status(200).json({ otpAuthUrl: secret.otpauth_url, settings });
+    return res.status(200).json({ otpAuthUrl: secret.otpauth_url, secret: secret.base32 });
 };
