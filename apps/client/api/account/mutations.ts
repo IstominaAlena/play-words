@@ -39,19 +39,14 @@ export const useGetCurrentUser = () => {
 };
 
 export const useDisconnectGoogleAccount = () => {
-    const t = useTranslations("global");
+    const { mutateAsync: getCurrentUser } = useGetCurrentUser();
 
-    const { saveSettings } = useUserStore();
-
-    return useApiMutation<Settings, void>({
+    return useApiMutation<void, void>({
         retry: false,
         mutationFn: disconnectGoogleAccount,
         mutationKey: ["disconnect-google-account"],
-        onSuccess: (data) => {
-            if (!data) {
-                throw new Error(t("something_wrong"));
-            }
-            saveSettings(data);
+        onSuccess: async () => {
+            await getCurrentUser();
         },
     });
 };

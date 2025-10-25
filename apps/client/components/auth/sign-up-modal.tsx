@@ -33,8 +33,14 @@ export const SignUpModal: FC<Props> = ({ closeModal }) => {
     const { mutateAsync: signUp, isPending } = useSignUp();
 
     const onSubmit: SubmitHandler<SignUpUser> = async (formData) => {
+        const dto = {
+            email: formData.email,
+            username: formData.username,
+            password: formData.password,
+        };
+
         try {
-            await signUp(formData);
+            await signUp(dto);
         } catch (error: any) {
             showToast.error(error.message);
         } finally {

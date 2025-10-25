@@ -32,7 +32,6 @@ export interface UserResponse {
 
 export interface EnableOtpResponse {
     otpAuthUrl: string;
-    settings: Settings;
 }
 
 export interface LoginUserResponse {

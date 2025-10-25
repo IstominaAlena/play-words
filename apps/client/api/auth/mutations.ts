@@ -92,7 +92,9 @@ export const useResetPasswordRequest = () => {
                 throw new Error(t("something_wrong"));
             }
 
-            router.push(data);
+            console.log("==========>>>", { data });
+
+            // router.push(data);
         },
     });
 };

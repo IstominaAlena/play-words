@@ -39,7 +39,7 @@ export class AuthService {
         });
 
         if (!credentialsId) {
-            await usersService.deleteUserById(newUser.id);
+            await usersService.deleteUser(newUser.id);
 
             throw new AppError(500, messageKeys.SOMETHING_WENT_WRONG);
         }
@@ -51,7 +51,7 @@ export class AuthService {
         });
 
         if (!settings) {
-            await usersService.deleteUserById(newUser.id);
+            await usersService.deleteUser(newUser.id);
 
             throw new AppError(500, messageKeys.SOMETHING_WENT_WRONG);
         }
@@ -64,7 +64,7 @@ export class AuthService {
         });
 
         if (!refreshTokenId) {
-            await usersService.deleteUserById(newUser.id);
+            await usersService.deleteUser(newUser.id);
 
             throw new AppError(500, messageKeys.SOMETHING_WENT_WRONG);
         }

@@ -27,7 +27,7 @@ export const resetUserPasswordRequest = async (
     const user = await usersService.getUserByEmail(email);
 
     if (!user) {
-        return res.json({ message: messages.RESET_LINK_SENT });
+        return res.status(200).json({ message: messages.RESET_LINK_SENT });
     }
 
     const { token, tokenHash } = tokenService.generateTokenPair();
@@ -39,5 +39,5 @@ export const resetUserPasswordRequest = async (
 
     tokenService.setResetPasswordTokenCookie(res, token);
 
-    res.redirect(`${BASE_CLIENT_URL}/reset-password`);
+    return res.status(200).json({ redirectUrl: `${BASE_CLIENT_URL}/${lang}/reset-password` });
 };

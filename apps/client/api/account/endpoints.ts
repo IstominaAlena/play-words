@@ -1,10 +1,5 @@
 import { api } from "@repo/api-config/api-config";
-import {
-    EnableOtpResponse,
-    Settings,
-    UserPasswordDto,
-    UserResponse,
-} from "@repo/common/types/users";
+import { EnableOtpResponse, UserPasswordDto, UserResponse } from "@repo/common/types/users";
 
 export const getCurrentUser = async (): Promise<UserResponse> => {
     const { data } = await api.get<UserResponse>("/users/me");
@@ -12,10 +7,8 @@ export const getCurrentUser = async (): Promise<UserResponse> => {
     return data;
 };
 
-export const disconnectGoogleAccount = async (): Promise<Settings> => {
-    const { data } = await api.patch<{ settings: Settings }>("/users/google/disconnect");
-
-    return data.settings;
+export const disconnectGoogleAccount = async (): Promise<void> => {
+    await api.patch("/users/google/disconnect");
 };
 
 export const changePassword = async (dto: UserPasswordDto): Promise<void> => {
@@ -24,10 +17,10 @@ export const changePassword = async (dto: UserPasswordDto): Promise<void> => {
 
 export const enableOtp = async (): Promise<EnableOtpResponse> => {
     const { data } = await api.patch<EnableOtpResponse>("users/otp/enable");
+
     return data;
 };
 
-export const disableOtp = async (): Promise<Settings> => {
-    const { data } = await api.patch<{ settings: Settings }>("users/otp/disable");
-    return data.settings;
+export const disableOtp = async (): Promise<void> => {
+    await api.patch("users/otp/disable");
 };

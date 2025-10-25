@@ -42,6 +42,8 @@ export const SignInModal: FC<Props> = ({ openModal, closeModal }) => {
 
             if (data.otp) {
                 openModal(<OtpModal closeModal={closeModal} email={data.email ?? ""} />);
+            } else {
+                closeModal();
             }
         } catch (error: any) {
             showToast.error(error.message);
