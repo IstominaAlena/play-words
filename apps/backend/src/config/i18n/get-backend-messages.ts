@@ -1,8 +1,9 @@
-import type { Messages } from "@/types/common";
 import fs from "fs";
 import path from "path";
 
 import { SupportedLanguages } from "@repo/common/enums/common";
+
+import type { Messages } from "@/types/common";
 
 export function getBackendMessages(lang: SupportedLanguages): Messages {
     const filePath = path.join(process.cwd(), "src/messages", `${lang}.json`);

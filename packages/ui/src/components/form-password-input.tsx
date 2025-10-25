@@ -423,6 +423,56 @@ import { FormInput } from "./form-input";
 // import { useTranslations } from "next-intl";
 // import { useState } from "react";
 // import { Control, FieldValues, Path } from "react-hook-form";
+// import { CloseEyeIcon } from "../icons/close-eye";
+// import { OpenEyeIcon } from "../icons/open-eye";
+// import { FormInput } from "./form-input";
+// interface Props<T extends FieldValues> {
+//     control: Control<T>;
+//     name: Path<T>;
+//     label?: string;
+//     className?: string;
+//     labelClassName?: string;
+//     errorClassName?: string;
+//     containerClassName?: string;
+// }
+// export const FormPasswordInput = <T extends FieldValues>({
+//     control,
+//     name,
+//     label,
+//     className,
+//     labelClassName,
+//     errorClassName,
+// }: Props<T>) => {
+//     const tForm = useTranslations("form");
+//     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+//     const togglePassword = () => setIsPasswordVisible((state) => !state);
+//     const Icon = isPasswordVisible ? CloseEyeIcon : OpenEyeIcon;
+//     return (
+//         <div className="relative w-full">
+//             <FormInput
+//                 control={control}
+//                 name={name}
+//                 type={isPasswordVisible ? "text" : "password"}
+//                 label={label}
+//                 placeholder={tForm("password_placeholder")}
+//                 className={className}
+//                 labelClassName={labelClassName}
+//                 errorClassName={errorClassName}
+//             />
+//             <Icon
+//                 width={20}
+//                 height={20}
+//                 className="text-neutral hover:text-secondary_light absolute end-4 bottom-2.5 z-10 cursor-pointer"
+//                 onClick={togglePassword}
+//             />
+//         </div>
+//     );
+// };
+// "use client";
+
+// import { useTranslations } from "next-intl";
+// import { useState } from "react";
+// import { Control, FieldValues, Path } from "react-hook-form";
 
 // import { CloseEyeIcon } from "../icons/close-eye";
 // import { OpenEyeIcon } from "../icons/open-eye";
