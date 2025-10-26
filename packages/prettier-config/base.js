@@ -9,6 +9,7 @@ export const prettierConfig = {
   semi: true,
   printWidth: 100,
   tabWidth: 4,
+  endOfLine: "lf",
   importOrderSeparation: true,
   importOrderSortSpecifiers: true,
   importOrder: [
