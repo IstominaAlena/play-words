@@ -48,7 +48,8 @@
     "typescript": "^5.9.2"
   },
   "scripts": {
-    "dev": "nodemon",
+    "dev": "nodemon --watch src/config/server.ts",
+    "build": "tsc",
     "dev:db": "tsx src/index.ts",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",

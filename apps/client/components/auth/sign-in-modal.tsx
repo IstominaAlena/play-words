@@ -11,8 +11,8 @@ import { GoogleButton } from "@repo/ui/components/google-button";
 import { showToast } from "@repo/ui/core/sonner";
 import { Title } from "@repo/ui/core/typography";
 
-import { loginUserSchema } from "@repo/common/schemas/users";
-import { LoginUserDto } from "@repo/common/types/users";
+import { loginSchema } from "@repo/common/schemas/account";
+import { LoginDto } from "@repo/common/types/account";
 import { Link } from "@repo/i18n/config/navigation";
 
 import { useSignIn } from "@/api/auth/mutations";
@@ -36,7 +36,7 @@ export const SignInModal: FC<Props> = ({ openModal, closeModal }) => {
 
     const { mutateAsync: signIn, isPending } = useSignIn();
 
-    const onSubmit: SubmitHandler<LoginUserDto> = async (formData) => {
+    const onSubmit: SubmitHandler<LoginDto> = async (formData) => {
         try {
             const data = await signIn(formData);
 
@@ -54,9 +54,9 @@ export const SignInModal: FC<Props> = ({ openModal, closeModal }) => {
     return (
         <div className="flex flex-col items-center justify-center gap-6">
             <Title>{t("sign_in")}</Title>
-            <Form<LoginUserDto>
+            <Form<LoginDto>
                 defaultValues={defaultValues}
-                schema={loginUserSchema}
+                schema={loginSchema}
                 onSubmit={onSubmit}
                 isLoading={isPending}
                 render={({ control }) => (

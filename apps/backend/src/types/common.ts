@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { IVerifyOptions } from "passport-local";
 
-import { User } from "@repo/common/types/users";
+import { Account } from "@repo/common/types/account";
 
 import defaultLang from "../messages/en.json";
 import { UserSettingsTable, UsersTable } from "./users";
@@ -35,9 +35,9 @@ export type AsyncController<TReq extends AppRequest = AppRequest, TResBody = any
 ) => Promise<any>;
 
 export type StrategyReturn = {
-    "local-signup": { user: User; refreshToken: string };
-    "google-auth": { user: User; refreshToken: string };
-    "local-signin": { user: User };
+    "local-signup": { user: Account; refreshToken: string };
+    "google-auth": { user: Account; refreshToken: string };
+    "local-signin": { user: Account };
     jwt: AuthUser;
     "connect-google": {
         settings: Pick<UserSettingsTable, "verified" | "google" | "otp" | "password">;
@@ -64,35 +64,7 @@ export interface GoogleProfile {
     emails?: { value: string }[];
 }
 
-export interface ResetPasswordRequest {
-    email: string;
-}
-
 export interface ResetPassword {
     token: string;
     password: string;
-}
-
-export interface LocalSigninDto {
-    email: string;
-    password: string;
-}
-
-export interface LocalSignupDto {
-    email: string;
-    username: string;
-    password: string;
-}
-
-export interface ChangePassword {
-    password: string;
-}
-
-export interface UpdateUserDto {
-    username: string;
-}
-
-export interface VerifyOtpDto {
-    email: string;
-    code: string;
 }

@@ -1,11 +1,13 @@
 import { Response } from "express";
 
+import { ChangePassword } from "@repo/common/types/account";
+
 import { messageKeys } from "@/constants/common";
 import { userCredentialsService } from "@/db/services/users/user-credentials-service";
 import { userSettingsService } from "@/db/services/users/user-settings-service";
 import { AppError } from "@/services/error-service";
 import { hashService } from "@/services/hash-service";
-import { AuthenticatedRequest, ChangePassword } from "@/types/common";
+import { AuthenticatedRequest } from "@/types/common";
 
 export const changePassword = async (req: AuthenticatedRequest<ChangePassword>, res: Response) => {
     const { password: newPassword } = req.body;

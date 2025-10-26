@@ -1,18 +1,16 @@
 import { NextFunction, Response } from "express";
 
+import { LoginDto } from "@repo/common/types/account";
+
 import { messageKeys } from "@/constants/common";
 import { userCredentialsService } from "@/db/services/users/user-credentials-service";
 import { userRefreshTokenService } from "@/db/services/users/user-refresh-token-service";
 import { passportControllerWrapper } from "@/middlewares/passport-wrapper";
 import { AppError } from "@/services/error-service";
 import { tokenService } from "@/services/token-service";
-import { AppRequest, LocalSigninDto } from "@/types/common";
+import { AppRequest } from "@/types/common";
 
-export const signInUser = async (
-    req: AppRequest<LocalSigninDto>,
-    res: Response,
-    next: NextFunction,
-) => {
+export const signInUser = async (req: AppRequest<LoginDto>, res: Response, next: NextFunction) => {
     const { user } = await passportControllerWrapper("local-signin", { session: false })(
         req,
         res,

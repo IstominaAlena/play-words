@@ -1,19 +1,19 @@
 import { api } from "@repo/api-config/api-config";
 import {
-    CreateUserDto,
-    LoginUserDto,
-    LoginUserResponse,
-    ResetUserPasswordRequest,
-    UserPasswordDto,
+    CreateAccountDto,
+    LoginDto,
+    LoginResponse,
+    ResetPasswordDto,
+    ResetPasswordRequest,
     VerifyOtpDto,
-} from "@repo/common/types/users";
+} from "@repo/common/types/account";
 
-export const signUp = async (dto: CreateUserDto): Promise<void> => {
+export const signUp = async (dto: CreateAccountDto): Promise<void> => {
     await api.post("/users/sign-up", dto);
 };
 
-export const signIn = async (dto: LoginUserDto): Promise<LoginUserResponse> => {
-    const { data } = await api.post<LoginUserResponse>("/users/sign-in", dto);
+export const signIn = async (dto: LoginDto): Promise<LoginResponse> => {
+    const { data } = await api.post<LoginResponse>("/users/sign-in", dto);
     return data;
 };
 
@@ -29,12 +29,12 @@ export const refresh = async (): Promise<void> => {
     await api.post("/users/refresh");
 };
 
-export const resetPasswordRequest = async (dto: ResetUserPasswordRequest): Promise<string> => {
-    const { data } = await api.post<{ redirectUrl: string }>("/users/reset-password-request", dto);
+export const resetPasswordRequest = async (dto: ResetPasswordRequest): Promise<boolean> => {
+    const { data } = await api.post<{ success: boolean }>("/users/reset-password-request", dto);
 
-    return data.redirectUrl;
+    return data.success;
 };
 
-export const resetPassword = async (dto: UserPasswordDto): Promise<void> => {
+export const resetPassword = async (dto: ResetPasswordDto): Promise<void> => {
     await api.post("/users/reset-password", dto);
 };

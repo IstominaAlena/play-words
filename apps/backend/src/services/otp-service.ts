@@ -4,7 +4,8 @@ export class OtpService {
     async generateSecret(email: string | number) {
         return speakeasy.generateSecret({
             name: `PlayWords:${email}`,
-            length: 32,
+            issuer: "PlayWords",
+            length: 20,
         });
     }
 
@@ -14,6 +15,12 @@ export class OtpService {
             encoding: "base32",
             token,
         });
+    }
+
+    generateOtpAuthUrl(email: string, base32: string) {
+        const label = encodeURIComponent(`PlayWords:${email}`);
+
+        return `otpauth://totp/${label}?secret=${base32}`;
     }
 }
 

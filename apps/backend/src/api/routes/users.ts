@@ -2,13 +2,13 @@ import { Router } from "express";
 
 import {
     changePasswordSchema,
-    createUserSchema,
-    loginUserSchema,
-    resetUserPasswordRequestSchema,
-    resetUserPasswordSchema,
-    updateUserSchema,
+    createAccountSchema,
+    loginSchema,
+    resetPasswordRequestSchema,
+    resetPasswordSchema,
+    updateAccountSchema,
     verifyOtpSchema,
-} from "@repo/common/schemas/users";
+} from "@repo/common/schemas/account";
 
 import { authValidation } from "@/middlewares/auth-validation";
 import { validateBody } from "@/middlewares/body-validation";
@@ -19,9 +19,9 @@ import { usersControllersService } from "../controllers/users/service";
 const router = Router();
 
 // auth
-router.post("/sign-up", validateBody(createUserSchema), usersControllersService.signUpUser);
+router.post("/sign-up", validateBody(createAccountSchema), usersControllersService.signUpUser);
 
-router.post("/sign-in", validateBody(loginUserSchema), usersControllersService.signInUser);
+router.post("/sign-in", validateBody(loginSchema), usersControllersService.signInUser);
 
 router.post("/verify-otp", validateBody(verifyOtpSchema), usersControllersService.verifyUserOtp);
 
@@ -35,13 +35,13 @@ router.post("/logout", controllerWrapper(usersControllersService.logoutUser));
 
 router.post(
     "/reset-password-request",
-    validateBody(resetUserPasswordRequestSchema),
+    validateBody(resetPasswordRequestSchema),
     controllerWrapper(usersControllersService.resetUserPasswordRequest),
 );
 
 router.post(
     "/reset-password",
-    validateBody(resetUserPasswordSchema),
+    validateBody(resetPasswordSchema),
     controllerWrapper(usersControllersService.resetUserPassword),
 );
 
@@ -51,7 +51,7 @@ router.get("/me", authValidation, controllerWrapper(usersControllersService.getC
 router.patch(
     "/me",
     authValidation,
-    validateBody(updateUserSchema),
+    validateBody(updateAccountSchema),
     controllerWrapper(usersControllersService.updateCurrentUser),
 );
 
@@ -79,6 +79,8 @@ router.get(
 router.patch("/otp/enable", authValidation, controllerWrapper(usersControllersService.enableOtp));
 
 router.patch("/otp/disable", authValidation, controllerWrapper(usersControllersService.disableOtp));
+
+router.get("/otp", authValidation, controllerWrapper(usersControllersService.getOtpSettings));
 
 router.patch("/me/delete", authValidation, controllerWrapper(usersControllersService.deleteUser));
 

@@ -35,5 +35,5 @@ export const enableOtp = async (req: AuthenticatedRequest, res: Response) => {
         throw new AppError(500, messageKeys.SOMETHING_WENT_WRONG);
     }
 
-    return res.status(200).json({ otpAuthUrl: secret.otpauth_url });
+    return res.status(200).json({ otpAuthUrl: secret.otpauth_url, secret: secret.base32 });
 };

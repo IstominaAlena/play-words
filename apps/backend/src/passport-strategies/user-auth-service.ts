@@ -1,3 +1,5 @@
+import { CreateAccountDto } from "@repo/common/types/account";
+
 import { messageKeys } from "@/constants/common";
 import { userCredentialsService } from "@/db/services/users/user-credentials-service";
 import { userRefreshTokenService } from "@/db/services/users/user-refresh-token-service";
@@ -11,7 +13,6 @@ import {
     AuthUser,
     AuthenticatedRequest,
     GoogleProfile,
-    LocalSignupDto,
     PassportDone,
     StrategyReturn,
 } from "@/types/common";
@@ -112,7 +113,7 @@ export class AuthService {
     }
 
     async signupLocal(
-        req: AppRequest<LocalSignupDto>,
+        req: AppRequest<CreateAccountDto>,
         email: string,
         password: string,
         done: PassportDone<StrategyReturn["local-signup"]>,

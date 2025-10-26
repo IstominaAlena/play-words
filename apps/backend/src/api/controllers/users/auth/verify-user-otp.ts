@@ -1,5 +1,7 @@
 import { Response } from "express";
 
+import { VerifyOtpDto } from "@repo/common/types/account";
+
 import { messageKeys } from "@/constants/common";
 import { userCredentialsService } from "@/db/services/users/user-credentials-service";
 import { userRefreshTokenService } from "@/db/services/users/user-refresh-token-service";
@@ -7,7 +9,7 @@ import { usersService } from "@/db/services/users/users-service";
 import { AppError } from "@/services/error-service";
 import { otpService } from "@/services/otp-service";
 import { tokenService } from "@/services/token-service";
-import { AppRequest, VerifyOtpDto } from "@/types/common";
+import { AppRequest } from "@/types/common";
 
 export const verifyUserOtp = async (req: AppRequest<VerifyOtpDto>, res: Response) => {
     const { email, code } = req.body;

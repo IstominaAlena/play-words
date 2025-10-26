@@ -10,9 +10,10 @@ import { FormPasswordInput } from "@repo/ui/components/form-password-input";
 import { showToast } from "@repo/ui/core/sonner";
 import { Title } from "@repo/ui/core/typography";
 
+import { changePasswordSchema } from "@repo/common/schemas/account";
+import { ChangePasswordDto } from "@repo/common/types/account";
+
 import { useChangePassword } from "@/api/account/mutations";
-import { changePasswordSchema } from "@/schemas/index";
-import { ChangePasswordDto } from "@/types/index";
 
 interface Props {
     className?: string;
@@ -31,7 +32,7 @@ export const ChangePassword: FC<Props> = ({ className }) => {
 
     const onSubmit: SubmitHandler<ChangePasswordDto> = async (formData) => {
         const dto = {
-            password: formData.newPassword,
+            password: formData.password,
         };
 
         try {
@@ -56,7 +57,7 @@ export const ChangePassword: FC<Props> = ({ className }) => {
                     <>
                         <FormPasswordInput
                             control={control}
-                            name="newPassword"
+                            name="password"
                             label={tForm("new_password")}
                             className="bg-secondary_dark"
                         />

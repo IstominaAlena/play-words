@@ -4,6 +4,7 @@ import { disableOtp } from "./account/disable-otp";
 import { disconnectGoogleAccount } from "./account/disconnect-google-account";
 import { enableOtp } from "./account/enable-otp";
 import { getCurrentUser } from "./account/get-current-user";
+import { getOtpSettings } from "./account/get-otp-settings";
 import { googleConnectCallback } from "./account/google-connect-callback";
 import { initiateGoogleConnect } from "./account/initiate-google-connect";
 import { restoreUser } from "./account/restore-user";
@@ -39,6 +40,7 @@ export const usersControllersService = {
     googleConnectCallback,
     enableOtp,
     disableOtp,
+    getOtpSettings,
     deleteUser,
     restoreUser,
 };

@@ -5,11 +5,11 @@ import { useTranslations } from "next-intl";
 import { useApiMutation } from "@repo/api-config/api-config";
 import { useUserStore } from "@repo/common/stores/user-store";
 import {
-    EnableOtpResponse,
-    Settings,
-    UserPasswordDto,
-    UserResponse,
-} from "@repo/common/types/users";
+    AccountResponse,
+    OtpResponse,
+    ResetPasswordDto,
+    UpdateAccountDto,
+} from "@repo/common/types/account";
 
 import {
     changePassword,
@@ -17,6 +17,8 @@ import {
     disconnectGoogleAccount,
     enableOtp,
     getCurrentUser,
+    getOtpSettings,
+    updateCurrentUser,
 } from "./endpoints";
 
 export const useGetCurrentUser = () => {
@@ -24,7 +26,7 @@ export const useGetCurrentUser = () => {
 
     const { saveUser, saveSettings } = useUserStore();
 
-    return useApiMutation<UserResponse, void>({
+    return useApiMutation<AccountResponse, void>({
         retry: false,
         mutationFn: getCurrentUser,
         mutationKey: ["current-user"],
@@ -34,6 +36,19 @@ export const useGetCurrentUser = () => {
             }
             saveUser(data.user);
             saveSettings(data.settings);
+        },
+    });
+};
+
+export const useUpdateCurrentUser = () => {
+    const { mutateAsync: getCurrentUser } = useGetCurrentUser();
+
+    return useApiMutation<void, UpdateAccountDto>({
+        retry: false,
+        mutationFn: updateCurrentUser,
+        mutationKey: ["update-user"],
+        onSuccess: async () => {
+            await getCurrentUser();
         },
     });
 };
@@ -52,7 +67,7 @@ export const useDisconnectGoogleAccount = () => {
 };
 
 export const useChangePassword = () => {
-    return useApiMutation<void, UserPasswordDto>({
+    return useApiMutation<void, ResetPasswordDto>({
         retry: false,
         mutationFn: changePassword,
         mutationKey: ["change-password"],
@@ -60,30 +75,33 @@ export const useChangePassword = () => {
 };
 
 export const useToggleOtp = () => {
-    const t = useTranslations("global");
+    const { mutateAsync: getCurrentUser } = useGetCurrentUser();
 
-    const { saveSettings } = useUserStore();
-
-    const handleSuccess = (settings?: Settings) => {
-        if (!settings) {
-            throw new Error(t("something_wrong"));
-        }
-        saveSettings(settings);
-    };
-
-    const enable = useApiMutation<EnableOtpResponse, void>({
+    const enable = useApiMutation<OtpResponse, void>({
         retry: false,
         mutationFn: enableOtp,
         mutationKey: ["enable-otp"],
-        onSuccess: (data) => handleSuccess(data?.settings),
+        onSuccess: async () => {
+            await getCurrentUser();
+        },
     });
 
-    const disable = useApiMutation<Settings, void>({
+    const disable = useApiMutation<void, void>({
         retry: false,
         mutationFn: disableOtp,
         mutationKey: ["disable-otp"],
-        onSuccess: (data) => handleSuccess(data),
+        onSuccess: async () => {
+            await getCurrentUser();
+        },
     });
 
     return { enable, disable };
+};
+
+export const useGetOtpSettings = () => {
+    return useApiMutation<OtpResponse, void>({
+        retry: false,
+        mutationFn: getOtpSettings,
+        mutationKey: ["otp-settings"],
+    });
 };

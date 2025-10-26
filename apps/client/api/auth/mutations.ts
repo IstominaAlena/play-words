@@ -4,16 +4,16 @@ import { useTranslations } from "next-intl";
 
 import { useApiMutation } from "@repo/api-config/api-config";
 import {
-    CreateUserDto,
-    LoginUserDto,
-    LoginUserResponse,
-    ResetUserPasswordRequest,
-    UserPasswordDto,
+    CreateAccountDto,
+    LoginDto,
+    LoginResponse,
+    ResetPasswordDto,
+    ResetPasswordRequest,
     VerifyOtpDto,
-} from "@repo/common/types/users";
+} from "@repo/common/types/account";
 import { useRouter } from "@repo/i18n/config/navigation";
 
-import { Routes } from "@/enums/routes";
+import { Routes, SecondaryRoutes } from "@/enums/routes";
 import { useAuthHandlers } from "@/hooks/use-auth-handlers";
 
 import { useGetCurrentUser } from "../account/mutations";
@@ -29,7 +29,7 @@ import {
 export const useSignUp = () => {
     const { mutateAsync: getCurrentUser } = useGetCurrentUser();
 
-    return useApiMutation<void, CreateUserDto>({
+    return useApiMutation<void, CreateAccountDto>({
         retry: false,
         mutationFn: signUp,
         mutationKey: ["sign-up"],
@@ -42,7 +42,7 @@ export const useSignUp = () => {
 export const useSignIn = () => {
     const { mutateAsync: getCurrentUser } = useGetCurrentUser();
 
-    return useApiMutation<LoginUserResponse, LoginUserDto>({
+    return useApiMutation<LoginResponse, LoginDto>({
         retry: false,
         mutationFn: signIn,
         mutationKey: ["sign-in"],
@@ -83,7 +83,7 @@ export const useResetPasswordRequest = () => {
 
     const t = useTranslations("global");
 
-    return useApiMutation<string, ResetUserPasswordRequest>({
+    return useApiMutation<boolean, ResetPasswordRequest>({
         retry: false,
         mutationFn: resetPasswordRequest,
         mutationKey: ["reset-password-request"],
@@ -92,9 +92,7 @@ export const useResetPasswordRequest = () => {
                 throw new Error(t("something_wrong"));
             }
 
-            console.log("==========>>>", { data });
-
-            // router.push(data);
+            router.push(SecondaryRoutes.RESET_PASSWORD);
         },
     });
 };
@@ -102,7 +100,7 @@ export const useResetPasswordRequest = () => {
 export const useResetPassword = () => {
     const router = useRouter();
 
-    return useApiMutation<void, UserPasswordDto>({
+    return useApiMutation<void, ResetPasswordDto>({
         retry: false,
         mutationFn: resetPassword,
         mutationKey: ["reset-password"],

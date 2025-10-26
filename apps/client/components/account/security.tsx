@@ -11,9 +11,9 @@ import { Text, Title } from "@repo/ui/core/typography";
 import { useModal } from "@repo/common/hooks/use-modal.tsx";
 import { useUserStore } from "@repo/common/stores/user-store";
 
-import { useToggleOtp } from "@/api/account/mutations";
+import { useGetOtpSettings, useToggleOtp } from "@/api/account/mutations";
 
-import { EnableOtpModal } from "./enable-otp-modal";
+import { OtpModal } from "./otp-modal";
 
 interface Props {
     className?: string;
@@ -28,9 +28,11 @@ export const Security: FC<Props> = ({ className }) => {
 
     const { enable, disable } = useToggleOtp();
 
+    const { mutateAsync: getOtp, isPending } = useGetOtpSettings();
+
     const isEnabled = settings?.otp;
 
-    const onButtonClick = async () => {
+    const onEnableButtonClick = async () => {
         try {
             if (isEnabled) {
                 await disable.mutateAsync();
@@ -38,7 +40,19 @@ export const Security: FC<Props> = ({ className }) => {
             } else {
                 const data = await enable.mutateAsync();
                 showToast.success(t("otp_enabled"));
-                openModal(<EnableOtpModal url={data.otpAuthUrl} />);
+                openModal(<OtpModal url={data.otpAuthUrl} secret={data.secret} />);
+            }
+        } catch (error: any) {
+            showToast.error(error.message);
+        }
+    };
+
+    const onGenerateQrButtonClick = async () => {
+        try {
+            const data = await getOtp();
+
+            if (data.otpAuthUrl && data.secret) {
+                openModal(<OtpModal url={data.otpAuthUrl} secret={data.secret} />);
             }
         } catch (error: any) {
             showToast.error(error.message);
@@ -55,11 +69,22 @@ export const Security: FC<Props> = ({ className }) => {
                         type="button"
                         className="bg-secondary_dark"
                         buttonClassName="w-[12rem] ml-auto"
-                        onClick={onButtonClick}
+                        onClick={onEnableButtonClick}
                         isLoading={enable.isPending || disable.isPending}
                     >
                         {t(isEnabled ? "disable" : "enable")}
                     </Button>
+                    {isEnabled && (
+                        <Button
+                            type="button"
+                            className="bg-secondary_dark"
+                            buttonClassName="w-[12rem] ml-auto"
+                            onClick={onGenerateQrButtonClick}
+                            isLoading={isPending}
+                        >
+                            {t("generate_qr")}
+                        </Button>
+                    )}
                 </div>
             </div>
 

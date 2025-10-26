@@ -10,10 +10,11 @@ import { FormInput } from "@repo/ui/components/form-input";
 import { showToast } from "@repo/ui/core/sonner";
 import { Title } from "@repo/ui/core/typography";
 
+import { updateAccountSchema } from "@repo/common/schemas/account";
 import { useUserStore } from "@repo/common/stores/user-store";
+import { UpdateAccountDto } from "@repo/common/types/account";
 
-import { editCurrentUserSchema } from "@/schemas/index";
-import { EditCurrentUserDto } from "@/types/index";
+import { useUpdateCurrentUser } from "@/api/account/mutations";
 
 interface Props {
     className?: string;
@@ -25,6 +26,8 @@ export const EditUser: FC<Props> = ({ className }) => {
 
     const { user } = useUserStore();
 
+    const { mutateAsync: updateUser, isPending } = useUpdateCurrentUser();
+
     const defaultValues = useMemo(
         () => ({
             username: user?.username ?? "",
@@ -33,9 +36,10 @@ export const EditUser: FC<Props> = ({ className }) => {
         [user?.email, user?.username],
     );
 
-    const onSubmit: SubmitHandler<EditCurrentUserDto> = async (formData) => {
+    const onSubmit: SubmitHandler<UpdateAccountDto> = async (formData) => {
         try {
-            // await signUp(formData);
+            await updateUser(formData);
+            showToast.success("SUCCESS");
         } catch (error: any) {
             showToast.error(error.message);
         }
@@ -45,13 +49,13 @@ export const EditUser: FC<Props> = ({ className }) => {
         <div className={cn("flex flex-col gap-6", className)}>
             <Title>{t("account")}</Title>
 
-            <Form<EditCurrentUserDto>
+            <Form<UpdateAccountDto>
                 key={user?.id || "empty"}
                 defaultValues={defaultValues}
-                schema={editCurrentUserSchema}
+                schema={updateAccountSchema}
                 onSubmit={onSubmit}
                 submitButtonClassName=" max-w-[12rem] self-end"
-                // isLoading={isPending}
+                isLoading={isPending}
                 render={({ control }) => (
                     <>
                         <FormInput
@@ -61,7 +65,6 @@ export const EditUser: FC<Props> = ({ className }) => {
                             label={tForm("email")}
                             placeholder={tForm("email_placeholder")}
                             className="bg-secondary_dark"
-                            readOnly
                         />
                         <FormInput
                             control={control}

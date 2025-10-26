@@ -1,12 +1,12 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-import { Settings, User } from "../types/users";
+import { Account, Settings } from "../types/account";
 
 interface UserState {
-    user: User | null;
+    user: Account | null;
     settings: Settings | null;
-    saveUser: (user: User) => void;
+    saveUser: (user: Account) => void;
     clearUser: () => void;
     saveSettings: (settings: Settings) => void;
     clearSettings: () => void;

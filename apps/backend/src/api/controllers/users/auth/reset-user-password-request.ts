@@ -1,12 +1,14 @@
 import { Response } from "express";
 
+import { ResetPasswordRequest } from "@repo/common/types/account";
+
 import { i18nService } from "@/config/i18n/service";
-import { BASE_CLIENT_URL, messageKeys } from "@/constants/common";
+import { messageKeys } from "@/constants/common";
 import { userResetPasswordTokenService } from "@/db/services/users/user-reset-password-token-service";
 import { usersService } from "@/db/services/users/users-service";
 import { AppError } from "@/services/error-service";
 import { tokenService } from "@/services/token-service";
-import { AppRequest, ResetPasswordRequest } from "@/types/common";
+import { AppRequest } from "@/types/common";
 import { getLanguageFromRequest } from "@/utils/get-language-from-request";
 
 export const resetUserPasswordRequest = async (
@@ -39,5 +41,5 @@ export const resetUserPasswordRequest = async (
 
     tokenService.setResetPasswordTokenCookie(res, token);
 
-    return res.status(200).json({ redirectUrl: `${BASE_CLIENT_URL}/${lang}/reset-password` });
+    return res.status(200).json({ success: true });
 };
