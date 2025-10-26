@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { FC, useState } from "react";
 
-import { Button, SecondaryButton } from "@repo/ui/core/button";
+import { Button } from "@repo/ui/core/button";
 import { InputOTP } from "@repo/ui/core/input-otp";
 import { showToast } from "@repo/ui/core/sonner";
 import { Text, Title } from "@repo/ui/core/typography";
@@ -46,6 +46,7 @@ export const OtpModal: FC<Props> = ({ email, closeModal }) => {
             <div className="xs:flex-col flex w-full items-center gap-4">
                 <Button
                     type="button"
+                    variant="SUCCESS"
                     isLoading={isPending}
                     onClick={onSubmitButtonClick}
                     className="bg-secondary_dark"
@@ -53,9 +54,9 @@ export const OtpModal: FC<Props> = ({ email, closeModal }) => {
                 >
                     {tForm("submit")}
                 </Button>
-                <SecondaryButton className="bg-secondary_dark" onClick={closeModal}>
+                <Button className="bg-secondary_dark" onClick={closeModal}>
                     {tGlobal("cancel")}
-                </SecondaryButton>
+                </Button>
             </div>
         </div>
     );

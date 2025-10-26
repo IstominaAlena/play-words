@@ -23,6 +23,8 @@ export const ConnectOtherAccounts: FC<Props> = ({ className }) => {
 
     const { mutateAsync: disconnectGoogleAccount, isPending } = useDisconnectGoogleAccount();
 
+    const isGoogleConnected = settings?.google;
+
     const onDisconnectButtonClick = async () => {
         try {
             await disconnectGoogleAccount();
@@ -36,17 +38,18 @@ export const ConnectOtherAccounts: FC<Props> = ({ className }) => {
         <div className={cn("flex flex-col gap-6", className)}>
             <Title>{t("connect_accounts")}</Title>
             <div className="flex flex-wrap items-center justify-between gap-6">
-                <Text className="min-w-[12rem] flex-1">{t("connect_google")}</Text>
+                <Text className="min-w-default flex-1">{t("connect_google")}</Text>
                 <GoogleButton
                     isLoading={isPending}
-                    text={t(settings?.google ? "disconnect" : "connect")}
+                    text={t(isGoogleConnected ? "disconnect" : "connect")}
+                    variant={isGoogleConnected ? "ERROR" : "SUCCESS"}
                     url={
-                        settings?.google
+                        isGoogleConnected
                             ? null
                             : `${process.env.NEXT_PUBLIC_API_URL}/users/google/connect`
                     }
-                    onClick={settings?.google ? onDisconnectButtonClick : undefined}
-                    className="ml-auto w-[12rem] sm:w-full"
+                    onClick={isGoogleConnected ? onDisconnectButtonClick : undefined}
+                    className="w-default! ml-auto"
                 />
             </div>
         </div>

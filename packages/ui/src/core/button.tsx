@@ -1,7 +1,8 @@
 import { ComponentProps, FC, ReactNode } from "react";
 
+import { Variant } from "@repo/common/types/common";
+
 import { cn } from "../utils/class-names";
-import { GlowingContainer } from "./glowing-container";
 import { HoverBorderGradient } from "./hover-border-gradient";
 import { Loader } from "./loader";
 
@@ -9,6 +10,7 @@ interface Props extends ComponentProps<"button"> {
     children?: ReactNode;
     isLoading?: boolean;
     buttonClassName?: string;
+    variant?: Variant;
 }
 
 const Button: FC<Props> = ({
@@ -18,34 +20,24 @@ const Button: FC<Props> = ({
     disabled,
     onClick,
     isLoading,
+    variant,
 }) => (
     <button
         onClick={onClick}
         disabled={disabled}
         className={cn(
-            "w-full disabled:pointer-events-none disabled:opacity-50",
+            "w-full outline-none disabled:pointer-events-none disabled:opacity-50",
             isLoading && "pointer-events-none",
             buttonClassName,
         )}
     >
         <HoverBorderGradient
             containerClassName="rounded-full w-full"
-            className={cn("", className)}
-            isLoading={isLoading}
+            className={className}
+            variant={variant}
         >
             {isLoading ? <Loader /> : children}
         </HoverBorderGradient>
-    </button>
-);
-
-const SecondaryButton: FC<ComponentProps<"button">> = ({ children, className, ...props }) => (
-    <button
-        {...props}
-        className={cn(
-            "group h-min w-full cursor-pointer disabled:pointer-events-none disabled:opacity-50",
-        )}
-    >
-        <GlowingContainer contentClassName={className}>{children}</GlowingContainer>
     </button>
 );
 
@@ -61,4 +53,4 @@ const GhostButton: FC<ComponentProps<"button">> = ({ children, className, ...pro
     </button>
 );
 
-export { Button, SecondaryButton, GhostButton };
+export { Button, GhostButton };

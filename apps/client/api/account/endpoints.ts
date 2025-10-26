@@ -25,17 +25,17 @@ export const changePassword = async (dto: ResetPasswordDto): Promise<void> => {
 };
 
 export const enableOtp = async (): Promise<OtpResponse> => {
-    const { data } = await api.patch<OtpResponse>("users/otp/enable");
+    const { data } = await api.patch<OtpResponse>("/users/otp/enable");
 
     return data;
 };
 
 export const disableOtp = async (): Promise<void> => {
-    await api.patch("users/otp/disable");
+    await api.patch("/users/otp/disable");
 };
 
 export const getOtpSettings = async (): Promise<OtpResponse> => {
-    const { data } = await api.get<OtpResponse>("users/otp");
+    const { data } = await api.get<OtpResponse>("/users/otp");
 
     return data;
 };

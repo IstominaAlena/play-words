@@ -64,11 +64,12 @@ export const Security: FC<Props> = ({ className }) => {
             <div className={cn("flex flex-col gap-6", className)}>
                 <Title>{t("security")}</Title>
                 <div className="flex flex-wrap items-center justify-between gap-6">
-                    <Text className="min-w-[12rem] flex-1">{t("enable_verification")}</Text>
+                    <Text className="min-w-default flex-1">{t("enable_verification")}</Text>
                     <Button
                         type="button"
+                        variant={isEnabled ? "ERROR" : "SUCCESS"}
                         className="bg-secondary_dark"
-                        buttonClassName="w-[12rem] ml-auto"
+                        buttonClassName="w-default! ml-auto"
                         onClick={onEnableButtonClick}
                         isLoading={enable.isPending || disable.isPending}
                     >
@@ -78,7 +79,7 @@ export const Security: FC<Props> = ({ className }) => {
                         <Button
                             type="button"
                             className="bg-secondary_dark"
-                            buttonClassName="w-[12rem] ml-auto"
+                            buttonClassName="w-default! ml-auto"
                             onClick={onGenerateQrButtonClick}
                             isLoading={isPending}
                         >

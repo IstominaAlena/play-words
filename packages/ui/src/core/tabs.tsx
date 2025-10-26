@@ -28,7 +28,7 @@ const TabsList: FC<ComponentProps<typeof TabsPrimitive.List>> = ({ className, ..
 const TabsTrigger: FC<ComponentProps<typeof TabsPrimitive.Trigger>> = ({ className, ...props }) => (
     <TabsPrimitive.Trigger
         data-slot="tabs-trigger"
-        className={cn("group h-10 w-[12rem]", className)}
+        className={cn("group w-default h-10", className)}
         {...props}
     />
 );

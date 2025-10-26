@@ -2,7 +2,9 @@
     "global": {
         "something_wrong": "Something went wrong",
         "cancel": "Cancel",
-        "or": "or"
+        "or": "or",
+        "success": "Success",
+        "error": "Error"
     },
     "navigation": {
         "home": "Home",
@@ -63,6 +65,7 @@
         "authenticator_title": "Activate Google Authenticator",
         "authenticator_description": "Use your Google Authenticator app to scan the QR code and secure your account with a verification code at login.",
         "otp_enter_manually": "Enter your code manually",
-        "generate_qr": "Generate QR-code"
+        "generate_qr": "Generate QR-code",
+        "updated_successfully": "Your account updated successfully"
     }
 }

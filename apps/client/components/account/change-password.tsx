@@ -51,7 +51,7 @@ export const ChangePassword: FC<Props> = ({ className }) => {
                 defaultValues={defaultValues}
                 schema={changePasswordSchema}
                 onSubmit={onSubmit}
-                submitButtonClassName="max-w-[12rem] self-end"
+                submitButtonClassName="max-w-default self-end"
                 isLoading={isPending}
                 render={({ control }) => (
                     <>

@@ -30,6 +30,8 @@ const config: Config = {
         neutral: "#707070", // rgba(112, 112, 112, 1)
         error_light: "#E60A0C", // rgba(230, 10, 12, 1)
         error_dark: "#800516", // rgba(128, 5, 22, 1)
+        warn_light: "#FCF936", // rgba(252, 249, 54, 1)
+        warn_dark: "#BF9003", // rgba(191, 144, 3, 1)
       },
       backgroundImage: {
         accent_dark_gradient:
@@ -66,6 +68,9 @@ const config: Config = {
           "0%, 70%, 100%": { opacity: "1" },
           "20%, 50%": { opacity: "0" },
         },
+      },
+      spacing: {
+        default: "12rem",
       },
     },
   },

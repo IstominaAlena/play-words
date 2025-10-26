@@ -5,3 +5,5 @@ export interface NavLink {
     path: string;
     icon: FC<SVGProps<SVGSVGElement>>;
 }
+
+export type Variant = "SUCCESS" | "ERROR" | "WARN" | "NEUTRAL";

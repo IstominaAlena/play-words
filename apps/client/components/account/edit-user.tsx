@@ -39,7 +39,7 @@ export const EditUser: FC<Props> = ({ className }) => {
     const onSubmit: SubmitHandler<UpdateAccountDto> = async (formData) => {
         try {
             await updateUser(formData);
-            showToast.success("SUCCESS");
+            showToast.success(t("updated_successfully"));
         } catch (error: any) {
             showToast.error(error.message);
         }
@@ -54,7 +54,7 @@ export const EditUser: FC<Props> = ({ className }) => {
                 defaultValues={defaultValues}
                 schema={updateAccountSchema}
                 onSubmit={onSubmit}
-                submitButtonClassName=" max-w-[12rem] self-end"
+                submitButtonClassName=" max-w-default self-end"
                 isLoading={isPending}
                 render={({ control }) => (
                     <>

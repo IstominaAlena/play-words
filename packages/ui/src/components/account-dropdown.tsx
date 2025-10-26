@@ -19,15 +19,16 @@ interface Props {
     className?: string;
 }
 
-export const UserDropdown: FC<Props> = ({ name, accountPath, onLogout, className }) => {
+export const AccountDropdown: FC<Props> = ({ name, accountPath, onLogout, className }) => {
     const t = useTranslations("auth");
     const tNav = useTranslations("navigation");
 
     const trigger = useMemo(
         () => (
             <HoverBorderGradient
-                containerClassName="max-w-[12rem] w-full md:max-w-11"
+                containerClassName="max-w-default w-full md:max-w-11"
                 className="text-secondary_light group-hover:text-primary_light flex items-center gap-2"
+                variant="SUCCESS"
             >
                 <AccountIcon width={16} height={16} className="text-inherit" />
                 <Text className="text-inherit md:hidden">{name}</Text>
@@ -37,27 +38,25 @@ export const UserDropdown: FC<Props> = ({ name, accountPath, onLogout, className
     );
 
     const accountLink = (
-        <DropdownMenuItem className="group">
-            <Link
-                key="0"
-                href={accountPath}
-                className={cn(
-                    "text-secondary_light group-hover:text-accent_dark flex items-center gap-2 px-4 py-2 transition-all duration-300",
-                )}
-            >
-                <AccountIcon className="text-inherit" width={16} height={16} />
-                <Text className="text-inherit">{tNav("account")}</Text>
-            </Link>
-        </DropdownMenuItem>
+        <Link
+            key="0"
+            href={accountPath}
+            className={cn(
+                "text-secondary_light group hover:text-accent_dark flex items-center gap-2 px-4 py-2 transition-all duration-300",
+            )}
+        >
+            <AccountIcon className="text-inherit" width={16} height={16} />
+            <Text className="text-inherit">{tNav("account")}</Text>
+        </Link>
     );
 
     const logoutButton = (
-        <DropdownMenuItem onClick={onLogout} className="group">
+        <div onClick={onLogout} className="group">
             <div className="text-secondary_light group-hover:text-error_dark flex cursor-pointer items-center gap-2 px-4 py-2 transition-all duration-300">
                 <LogoutIcon className="text-inherit" width={16} height={16} />
                 <Text className="text-inherit">{t("logout")}</Text>
             </div>
-        </DropdownMenuItem>
+        </div>
     );
 
     const content = [accountLink, logoutButton];

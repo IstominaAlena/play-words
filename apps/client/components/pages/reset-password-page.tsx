@@ -53,7 +53,7 @@ export const ResetPasswordPage: FC = () => {
                         <FormPasswordInput
                             control={control}
                             name="password"
-                            label={tForm("password")}
+                            label={tForm("new_password")}
                             className="bg-secondary_dark"
                         />
 

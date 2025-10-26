@@ -4,7 +4,6 @@ import { FC } from "react";
 
 import { MobileMenu } from "@repo/ui/components/mobile-menu";
 import { NavBar } from "@repo/ui/components/nav-bar";
-import { UserDropdown } from "@repo/ui/components/user-dropdown";
 import { GradientLine } from "@repo/ui/core/gradient-line";
 import { Logo } from "@repo/ui/core/logo";
 
@@ -12,17 +11,15 @@ import { useModal } from "@repo/common/hooks/use-modal.tsx";
 import { useUserStore } from "@repo/common/stores/user-store";
 
 import { navLinks } from "@/constants/index";
-import { Routes, SecondaryRoutes } from "@/enums/routes";
+import { Routes } from "@/enums/routes";
 
 import { AuthBar } from "../auth/auth-bar";
-import { LogoutModal } from "../auth/logout-modal";
+import { HeaderAuth } from "../auth/header-auth";
 
 export const Header: FC = () => {
     const { Modal, openModal, closeModal } = useModal();
 
     const { user } = useUserStore();
-
-    const onLogout = () => openModal(<LogoutModal closeModal={closeModal} />);
 
     return (
         <>
@@ -35,19 +32,7 @@ export const Header: FC = () => {
                         <NavBar links={navLinks} className="lg:hidden" />
                     </div>
                     <div className="flex h-full w-full flex-1 items-center justify-end gap-2">
-                        {user ? (
-                            <UserDropdown
-                                name={user.username}
-                                accountPath={SecondaryRoutes.ACCOUNT}
-                                onLogout={onLogout}
-                            />
-                        ) : (
-                            <AuthBar
-                                className="md:hidden"
-                                openModal={openModal}
-                                closeModal={closeModal}
-                            />
-                        )}
+                        <HeaderAuth user={user} openModal={openModal} closeModal={closeModal} />
                         <MobileMenu links={navLinks} className="hidden lg:block">
                             {!user && (
                                 <AuthBar

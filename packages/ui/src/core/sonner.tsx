@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import { FC } from "react";
 import { Toaster as Sonner, ToasterProps, toast } from "sonner";
@@ -34,6 +35,8 @@ interface ToastProps {
 }
 
 const Toast: FC<ToastProps> = ({ message, isError }) => {
+    const t = useTranslations("global");
+
     const Icon = isError ? ErrorIcon : SuccessIcon;
     return (
         <div
@@ -44,13 +47,18 @@ const Toast: FC<ToastProps> = ({ message, isError }) => {
         >
             <div
                 className={cn(
-                    "bg-primary_dark text-primary_light relative z-10 flex h-full w-full items-start gap-3 rounded-[inherit] p-4 text-sm capitalize",
+                    "bg-primary_dark text-primary_light relative z-10 flex h-full w-full items-start gap-3 rounded-[inherit] p-4 text-sm",
                 )}
             >
                 <Icon />
                 <div className="flex flex-col gap-1">
-                    <Text className={cn(isError ? "text-error_light" : "text-accent_light")}>
-                        {isError ? "Error" : "Success"}
+                    <Text
+                        className={cn(
+                            "capitalize",
+                            isError ? "text-error_light" : "text-accent_light",
+                        )}
+                    >
+                        {t(isError ? "error" : "success")}
                     </Text>
                     {message}
                 </div>
