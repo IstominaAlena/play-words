@@ -13,11 +13,13 @@ import {
 
 import {
     changePassword,
+    deleteCurrentUser,
     disableOtp,
     disconnectGoogleAccount,
     enableOtp,
     getCurrentUser,
     getOtpSettings,
+    restoreCurrentUser,
     updateCurrentUser,
 } from "./endpoints";
 
@@ -104,4 +106,28 @@ export const useGetOtpSettings = () => {
         mutationFn: getOtpSettings,
         mutationKey: ["otp-settings"],
     });
+};
+
+export const useManageAccountState = () => {
+    const { mutateAsync: getCurrentUser } = useGetCurrentUser();
+
+    const deleteUser = useApiMutation<void, void>({
+        retry: false,
+        mutationFn: deleteCurrentUser,
+        mutationKey: ["delete-current-user"],
+        onSuccess: async () => {
+            await getCurrentUser();
+        },
+    });
+
+    const restoreUser = useApiMutation<void, void>({
+        retry: false,
+        mutationFn: restoreCurrentUser,
+        mutationKey: ["restore-current-user"],
+        onSuccess: async () => {
+            await getCurrentUser();
+        },
+    });
+
+    return { deleteUser, restoreUser };
 };

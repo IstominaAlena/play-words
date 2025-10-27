@@ -1,20 +1,23 @@
 import { and, eq, isNull, lte, not } from "drizzle-orm";
 
+import { DELETE_USER_REMAINING_PERIOD } from "@repo/common/constants/common";
+
 import { db } from "@/config/drizzle-orm/db";
-import { DELETE_USER_REMAINING_PERIOD, messageKeys } from "@/constants/common";
+import { messageKeys } from "@/constants/common";
 import { usersTable } from "@/db/schemas/user-schemas";
 import { AppError } from "@/services/error-service";
 import { CreateUser, UpdateUser } from "@/types/users";
 import { UsersTable } from "@/types/users";
 
 export class UsersService {
-    private safeFields = {
-        id: usersTable.id,
-        email: usersTable.email,
-        username: usersTable.username,
-    };
-
     private table = usersTable;
+
+    private safeFields = {
+        id: this.table.id,
+        email: this.table.email,
+        username: this.table.username,
+        deletionDate: this.table.deletionDate,
+    };
 
     async createUser(data: CreateUser) {
         const [newUser] = await db.insert(this.table).values(data).returning(this.safeFields);
