@@ -54,7 +54,9 @@ export const ManageAccountStateConsentModal: FC<Props> = ({ closeModal, deletion
             <Title>{t("manage_account_modal_title")}</Title>
             <div>
                 <Text className="text-center">{t("manage_account_modal_description")}</Text>
-                <Text className="text-center">{t("manage_account_modal_text")}</Text>
+                {!deletionDate && (
+                    <Text className="text-center">{t("manage_account_modal_text")}</Text>
+                )}
             </div>
 
             <Input className="bg-secondary_dark" value={value} onChange={onInputChange} />
