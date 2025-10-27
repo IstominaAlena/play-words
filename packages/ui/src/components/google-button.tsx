@@ -1,5 +1,7 @@
 import { FC } from "react";
 
+import { Variant } from "@repo/common/types/common";
+
 import { Button } from "../core/button";
 import { GoogleIcon } from "../icons/google";
 
@@ -9,13 +11,13 @@ interface Props {
     onClick?: () => void;
     className?: string;
     isLoading?: boolean;
+    variant?: Variant;
 }
 
-export const GoogleButton: FC<Props> = ({ text, url, onClick, className, isLoading }) => {
+export const GoogleButton: FC<Props> = ({ text, url, onClick, className, isLoading, variant }) => {
     const onGoogleButtonClick = () => {
         if (url) {
             window.location.href = url;
-            return;
         }
         onClick?.();
     };
@@ -26,6 +28,7 @@ export const GoogleButton: FC<Props> = ({ text, url, onClick, className, isLoadi
             buttonClassName={className}
             onClick={onGoogleButtonClick}
             isLoading={isLoading}
+            variant={variant}
         >
             <GoogleIcon width={24} height={24} />
             {text}

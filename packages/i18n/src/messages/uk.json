@@ -1,12 +1,70 @@
 {
+    "global": {
+        "something_wrong": "Ой! Щось пішло не так.",
+        "cancel": "Скасувати",
+        "or": "або",
+        "success": "Успіх",
+        "error": "Помилка"
+    },
     "navigation": {
         "home": "Головна",
         "dictionary": "Словник",
         "practice": "Практика",
-        "games": "Ігри"
+        "games": "Ігри",
+        "account": "Обліковий запис"
+    },
+    "form": {
+        "submit": "Відправити",
+        "username": "Ім'я користувача",
+        "username_placeholder": "John Doe",
+        "email": "Електронна пошта",
+        "email_placeholder": "example@mail.com",
+        "password": "Пароль",
+        "old_password": "Старий пароль",
+        "new_password": "Новий пароль",
+        "confirm_password": "Підтвердьте пароль",
+        "show_password": "Показати пароль",
+        "password_placeholder": "**********"
+    },
+    "form_error": {
+        "REQUIRED": "Це поле обов'язкове",
+        "SHORT_PASSWORD": "Пароль занадто короткий",
+        "PASSWORD_MATCH": "Паролі повинні збігатися",
+        "INVALID_EMAIL": "Введіть дійсну електронну пошту"
     },
     "auth": {
         "sign_in": "Увійти",
-        "sign_up": "Зареєструватися"
+        "sign_up": "Зареєструватися",
+        "logout": "Вийти",
+        "forgot_password": "Забули пароль?",
+        "forgot_password_subtitle": "Введіть вашу електронну пошту, щоб отримати посилання для скидання пароля",
+        "logout_subtitle": "Ви впевнені, що хочете вийти?",
+        "reset_password_title": "Майже готово!",
+        "reset_password_subtitle": "Встановіть новий пароль для вашого облікового запису. Зробіть його надійним і легким для запам'ятовування.",
+        "reset_password_success": "Пароль успішно змінено!",
+        "verify_otp_title": "Введіть код підтвердження",
+        "verify_otp_description": "Введіть 6-значний код з додатку Google Authenticator, щоб завершити вхід і захистити ваш обліковий запис."
+    },
+    "account": {
+        "account": "Обліковий запис",
+        "change_password": "Змінити пароль",
+        "security": "Безпека",
+        "enable_verification": "Увімкнути OTP через Google Authenticator",
+        "enable": "Увімкнути",
+        "disable": "Вимкнути",
+        "otp_disabled": "OTP успішно вимкнено",
+        "otp_enabled": "OTP успішно увімкнено",
+        "connect_accounts": "Підключити інші акаунти",
+        "connect_google": "Підключити Google для швидкого доступу",
+        "connect": "Підключити",
+        "disconnect": "Відключити",
+        "disconnected": "Google акаунт успішно відключено",
+        "authenticator_title": "Активувати Google Authenticator",
+        "authenticator_description": "Скануйте QR-код у додатку Google Authenticator, щоб захистити свій обліковий запис кодом підтвердження при вході.",
+        "otp_enter_manually": "Ввести код вручну",
+        "generate_qr": "Згенерувати QR-код",
+        "updated_successfully": "Обліковий запис успішно оновлено",
+        "disable_otp_title": "Вимкнути OTP",
+        "disable_otp_description": "Ви впевнені, що хочете вимкнути OTP?"
     }
 }

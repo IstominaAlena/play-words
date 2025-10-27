@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 
+import { LoaderScreen } from "@repo/ui/components/loader-screen";
 import { showToast } from "@repo/ui/core/sonner";
 
 import { useRouter } from "@repo/i18n/config/navigation";
@@ -21,14 +22,16 @@ const AuthSuccessPage = () => {
             } catch (error: any) {
                 showToast.error(error.message);
             } finally {
-                router.push(Routes.HOME);
+                const path = localStorage.getItem("path") ?? Routes.HOME;
+                localStorage.removeItem("path");
+                router.push(path);
             }
         };
 
         handleAuth();
     }, [router, getCurrentUser]);
 
-    return null;
+    return <LoaderScreen />;
 };
 
 export default AuthSuccessPage;

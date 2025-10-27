@@ -1,64 +1,39 @@
 "use client";
 
-import { motion } from "motion/react";
-import { FC, PropsWithChildren, useEffect, useState } from "react";
+import { FC, HTMLAttributes, PropsWithChildren } from "react";
+
+import { Variant } from "@repo/common/types/common";
 
 import { cn } from "../utils/class-names";
-
-type Direction = "TOP" | "LEFT" | "BOTTOM" | "RIGHT";
 
 interface Props {
     as?: React.ElementType;
     containerClassName?: string;
     className?: string;
-    duration?: number;
-    clockwise?: boolean;
-    isLoading?: boolean;
+    variant?: Variant;
 }
 
-export const HoverBorderGradient: FC<
-    PropsWithChildren<Props & React.HTMLAttributes<HTMLElement>>
-> = ({
+const colorMap = {
+    SUCCESS:
+        "radial-gradient(20.7% 50% at 50% 100%, rgba(6, 214, 160, 1) 0%, rgba(16, 79, 85, 1) 100%)",
+    ERROR: "radial-gradient(20.7% 50% at 50% 100%, rgba(230, 10, 12, 1) 0%, rgba(128, 5, 22, 1) 100%)",
+    WARN: "radial-gradient(20.7% 50% at 50% 100%, rgba(252, 249, 54, 1) 0%, rgba(191, 144, 3, 1) 100%)",
+    NEUTRAL:
+        "radial-gradient(20.7% 50% at 50% 100%, rgba(235, 235, 235, 1) 0%, rgba(112, 112, 112, 1) 100%)",
+};
+
+export const HoverBorderGradient: FC<PropsWithChildren<Props & HTMLAttributes<HTMLElement>>> = ({
     children,
     containerClassName,
     className,
     as: Tag = "div",
-    duration = 1,
-    clockwise = true,
-    isLoading,
+    variant = "NEUTRAL",
     ...props
 }) => {
-    const [direction, setDirection] = useState<Direction>("BOTTOM");
-
-    const rotateDirection = (currentDirection: Direction): Direction => {
-        const directions: Direction[] = ["TOP", "LEFT", "BOTTOM", "RIGHT"];
-        const currentIndex = directions.indexOf(currentDirection);
-        const nextIndex = clockwise
-            ? (currentIndex - 1 + directions.length) % directions.length
-            : (currentIndex + 1) % directions.length;
-        return directions[nextIndex] || "LEFT";
-    };
-
-    const movingMap: Record<Direction, string> = {
-        TOP: "radial-gradient(20.7% 50% at 50% 0%, rgba(6, 214, 160, 1) 0%, rgba(16, 79, 85, 1) 100%)",
-        LEFT: "radial-gradient(16.6% 43.1% at 0% 50%, rgba(6, 214, 160, 1) 0%, rgba(16, 79, 85, 1) 100%)",
-        BOTTOM: "radial-gradient(20.7% 50% at 50% 100%, rgba(6, 214, 160, 1) 0%, rgba(16, 79, 85, 1) 100%)",
-        RIGHT: "radial-gradient(16.2% 41.199999999999996% at 100% 50%, rgba(6, 214, 160, 1) 0%, rgba(16, 79, 85, 1) 100%)",
-    };
-
-    useEffect(() => {
-        if (isLoading) {
-            const interval = setInterval(() => {
-                setDirection((prevState) => rotateDirection(prevState));
-            }, duration * 1000);
-            return () => clearInterval(interval);
-        }
-    }, [isLoading]);
-
     return (
         <Tag
             className={cn(
-                "group relative flex h-min w-fit flex-col flex-nowrap content-center items-center justify-center overflow-visible rounded-full border decoration-clone p-px transition duration-500",
+                "group relative flex h-min w-fit flex-col flex-nowrap content-center items-center justify-center overflow-visible rounded-full decoration-clone p-px transition duration-500",
                 containerClassName,
             )}
             {...props}
@@ -71,15 +46,11 @@ export const HoverBorderGradient: FC<
             >
                 {children}
             </div>
-            <motion.div
+            <div
                 className={cn(
                     "absolute inset-0 z-0 h-full w-full flex-none overflow-hidden rounded-[inherit] blur-[2px] transition-all duration-300 group-hover:blur-xs",
                 )}
-                initial={{ background: movingMap[direction] }}
-                animate={{
-                    background: movingMap[direction],
-                }}
-                transition={{ ease: "linear", duration: duration ?? 1 }}
+                style={{ background: colorMap[variant] }}
             />
         </Tag>
     );
