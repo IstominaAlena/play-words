@@ -4,7 +4,8 @@
         "cancel": "Скасувати",
         "or": "або",
         "success": "Успіх",
-        "error": "Помилка"
+        "error": "Помилка",
+        "request_sent": "Ваш запит було успішно надіслано"
     },
     "navigation": {
         "home": "Головна",
@@ -65,6 +66,14 @@
         "generate_qr": "Згенерувати QR-код",
         "updated_successfully": "Обліковий запис успішно оновлено",
         "disable_otp_title": "Вимкнути OTP",
-        "disable_otp_description": "Ви впевнені, що хочете вимкнути OTP?"
+        "disable_otp_description": "Ви впевнені, що хочете вимкнути OTP верифікацію?",
+        "delete_account": "Видалити цей обліковий запис",
+        "delete_account_description": "Ваш обліковий запис буде видалено через <accent>днів</accent>",
+        "delete": "Видалити",
+        "restore": "Відновити",
+        "manage_account_modal_title": "Ви впевнені?",
+        "manage_account_modal_description": "Будь ласка, введіть свою електронну адресу, щоб продовжити.",
+        "manage_account_modal_text": "Після завершення цього періоду зміни буде неможливо скасувати.",
+        "consent_failed": "Введена електронна адреса не збігається з вашою."
     }
 }

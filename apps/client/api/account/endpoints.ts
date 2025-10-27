@@ -16,6 +16,14 @@ export const updateCurrentUser = async (dto: UpdateAccountDto): Promise<void> =>
     await api.patch("/users/me", dto);
 };
 
+export const deleteCurrentUser = async (): Promise<void> => {
+    await api.patch("/users/me/delete");
+};
+
+export const restoreCurrentUser = async (): Promise<void> => {
+    await api.patch("/users/me/restore");
+};
+
 export const disconnectGoogleAccount = async (): Promise<void> => {
     await api.patch("/users/google/disconnect");
 };

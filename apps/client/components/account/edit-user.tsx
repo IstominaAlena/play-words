@@ -16,6 +16,8 @@ import { UpdateAccountDto } from "@repo/common/types/account";
 
 import { useUpdateCurrentUser } from "@/api/account/mutations";
 
+import { ManageAccountState } from "./manage-account-state";
+
 interface Props {
     className?: string;
 }
@@ -46,36 +48,42 @@ export const EditUser: FC<Props> = ({ className }) => {
     };
 
     return (
-        <div className={cn("flex flex-col gap-6", className)}>
-            <Title>{t("account")}</Title>
+        <div className={cn("flex flex-col justify-between gap-6", className)}>
+            <div className="flex flex-col gap-6">
+                <Title>{t("account")}</Title>
 
-            <Form<UpdateAccountDto>
-                key={user?.id || "empty"}
-                defaultValues={defaultValues}
-                schema={updateAccountSchema}
-                onSubmit={onSubmit}
-                submitButtonClassName=" max-w-default self-end"
-                isLoading={isPending}
-                render={({ control }) => (
-                    <>
-                        <FormInput
-                            control={control}
-                            name="email"
-                            type="email"
-                            label={tForm("email")}
-                            placeholder={tForm("email_placeholder")}
-                            className="bg-secondary_dark"
-                        />
-                        <FormInput
-                            control={control}
-                            name="username"
-                            type="username"
-                            label={tForm("username")}
-                            placeholder={tForm("username_placeholder")}
-                            className="bg-secondary_dark"
-                        />
-                    </>
-                )}
+                <Form<UpdateAccountDto>
+                    key={user?.id || "empty"}
+                    defaultValues={defaultValues}
+                    schema={updateAccountSchema}
+                    onSubmit={onSubmit}
+                    submitButtonClassName=" max-w-default self-end"
+                    isLoading={isPending}
+                    render={({ control }) => (
+                        <>
+                            <FormInput
+                                control={control}
+                                name="email"
+                                type="email"
+                                label={tForm("email")}
+                                placeholder={tForm("email_placeholder")}
+                                className="bg-secondary_dark"
+                            />
+                            <FormInput
+                                control={control}
+                                name="username"
+                                type="username"
+                                label={tForm("username")}
+                                placeholder={tForm("username_placeholder")}
+                                className="bg-secondary_dark"
+                            />
+                        </>
+                    )}
+                />
+            </div>
+            <ManageAccountState
+                deletionDate={user?.deletionDate ?? null}
+                email={user?.email ?? null}
             />
         </div>
     );
