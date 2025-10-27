@@ -55,6 +55,10 @@ router.patch(
     controllerWrapper(usersControllersService.updateCurrentUser),
 );
 
+router.patch("/me/delete", authValidation, controllerWrapper(usersControllersService.deleteUser));
+
+router.patch("/me/restore", authValidation, controllerWrapper(usersControllersService.restoreUser));
+
 router.patch(
     "/change-password",
     authValidation,
@@ -77,9 +81,5 @@ router.patch("/otp/enable", authValidation, controllerWrapper(usersControllersSe
 router.patch("/otp/disable", authValidation, controllerWrapper(usersControllersService.disableOtp));
 
 router.get("/otp", authValidation, controllerWrapper(usersControllersService.getOtpSettings));
-
-router.patch("/me/delete", authValidation, controllerWrapper(usersControllersService.deleteUser));
-
-router.patch("/me/restore", authValidation, controllerWrapper(usersControllersService.restoreUser));
 
 export default router;

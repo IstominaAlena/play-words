@@ -19,6 +19,7 @@ export interface Account {
     id: number;
     email: string;
     username: string;
+    deletionDate: string | null;
 }
 
 export interface Settings {
