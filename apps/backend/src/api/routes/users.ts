@@ -70,11 +70,7 @@ router.patch(
     controllerWrapper(usersControllersService.disconnectGoogleAccount),
 );
 
-router.get(
-    "/google/connect/callback",
-    authValidation,
-    controllerWrapper(usersControllersService.googleConnectCallback),
-);
+router.get("/google/connect/callback", usersControllersService.googleConnectCallback);
 
 router.patch("/otp/enable", authValidation, controllerWrapper(usersControllersService.enableOtp));
 

@@ -72,6 +72,9 @@ const config: Config = {
       spacing: {
         default: "12rem",
       },
+      fontSize: {
+        xxs: "10px",
+      },
     },
   },
   plugins: [],

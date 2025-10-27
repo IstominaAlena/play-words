@@ -13,7 +13,8 @@ import { useUserStore } from "@repo/common/stores/user-store";
 
 import { useGetOtpSettings, useToggleOtp } from "@/api/account/mutations";
 
-import { OtpModal } from "./otp-modal";
+import { DisableOtpModal } from "./disable-otp-modal";
+import { OtpModalSettings } from "./otp-modal-settings";
 
 interface Props {
     className?: string;
@@ -24,9 +25,9 @@ export const Security: FC<Props> = ({ className }) => {
 
     const { settings } = useUserStore();
 
-    const { Modal, openModal } = useModal();
+    const { Modal, openModal, closeModal } = useModal();
 
-    const { enable, disable } = useToggleOtp();
+    const { enable } = useToggleOtp();
 
     const { mutateAsync: getOtp, isPending } = useGetOtpSettings();
 
@@ -35,12 +36,11 @@ export const Security: FC<Props> = ({ className }) => {
     const onEnableButtonClick = async () => {
         try {
             if (isEnabled) {
-                await disable.mutateAsync();
-                showToast.success(t("otp_disabled"));
+                openModal(<DisableOtpModal closeModal={closeModal} />);
             } else {
                 const data = await enable.mutateAsync();
                 showToast.success(t("otp_enabled"));
-                openModal(<OtpModal url={data.otpAuthUrl} secret={data.secret} />);
+                openModal(<OtpModalSettings url={data.otpAuthUrl} secret={data.secret} />);
             }
         } catch (error: any) {
             showToast.error(error.message);
@@ -52,7 +52,7 @@ export const Security: FC<Props> = ({ className }) => {
             const data = await getOtp();
 
             if (data.otpAuthUrl && data.secret) {
-                openModal(<OtpModal url={data.otpAuthUrl} secret={data.secret} />);
+                openModal(<OtpModalSettings url={data.otpAuthUrl} secret={data.secret} />);
             }
         } catch (error: any) {
             showToast.error(error.message);
@@ -63,29 +63,29 @@ export const Security: FC<Props> = ({ className }) => {
         <>
             <div className={cn("flex flex-col gap-6", className)}>
                 <Title>{t("security")}</Title>
-                <div className="flex flex-wrap items-center justify-between gap-6">
+                <div className="xs:flex-col flex justify-between gap-6">
                     <Text className="min-w-default flex-1">{t("enable_verification")}</Text>
-                    <Button
-                        type="button"
-                        variant={isEnabled ? "ERROR" : "SUCCESS"}
-                        className="bg-secondary_dark"
-                        buttonClassName="w-default! ml-auto"
-                        onClick={onEnableButtonClick}
-                        isLoading={enable.isPending || disable.isPending}
-                    >
-                        {t(isEnabled ? "disable" : "enable")}
-                    </Button>
-                    {isEnabled && (
+                    <div className="w-default xs:w-full ml-auto flex flex-wrap justify-center gap-4">
                         <Button
                             type="button"
+                            variant={isEnabled ? "ERROR" : "SUCCESS"}
                             className="bg-secondary_dark"
-                            buttonClassName="w-default! ml-auto"
-                            onClick={onGenerateQrButtonClick}
-                            isLoading={isPending}
+                            onClick={onEnableButtonClick}
+                            isLoading={enable.isPending}
                         >
-                            {t("generate_qr")}
+                            {t(isEnabled ? "disable" : "enable")}
                         </Button>
-                    )}
+                        {isEnabled && (
+                            <Button
+                                type="button"
+                                className="bg-secondary_dark"
+                                onClick={onGenerateQrButtonClick}
+                                isLoading={isPending}
+                            >
+                                {t("generate_qr")}
+                            </Button>
+                        )}
+                    </div>
                 </div>
             </div>
 

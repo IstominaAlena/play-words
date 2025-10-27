@@ -11,6 +11,7 @@ import { Text, Title } from "@repo/ui/core/typography";
 import { useUserStore } from "@repo/common/stores/user-store";
 
 import { useDisconnectGoogleAccount } from "@/api/account/mutations";
+import { SecondaryRoutes } from "@/enums/routes";
 
 interface Props {
     className?: string;
@@ -34,6 +35,10 @@ export const ConnectOtherAccounts: FC<Props> = ({ className }) => {
         }
     };
 
+    const onConnectButtonClick = () => {
+        localStorage.setItem("path", SecondaryRoutes.ACCOUNT);
+    };
+
     return (
         <div className={cn("flex flex-col gap-6", className)}>
             <Title>{t("connect_accounts")}</Title>
@@ -48,7 +53,7 @@ export const ConnectOtherAccounts: FC<Props> = ({ className }) => {
                             ? null
                             : `${process.env.NEXT_PUBLIC_API_URL}/users/google/connect`
                     }
-                    onClick={isGoogleConnected ? onDisconnectButtonClick : undefined}
+                    onClick={isGoogleConnected ? onDisconnectButtonClick : onConnectButtonClick}
                     className="w-default! ml-auto"
                 />
             </div>

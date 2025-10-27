@@ -27,6 +27,7 @@ const defaultValues = {
 export const ChangePassword: FC<Props> = ({ className }) => {
     const t = useTranslations("account");
     const tForm = useTranslations("form");
+    const tAuth = useTranslations("auth");
 
     const { mutateAsync: resetPassword, isPending } = useChangePassword();
 
@@ -37,8 +38,7 @@ export const ChangePassword: FC<Props> = ({ className }) => {
 
         try {
             await resetPassword(dto);
-            // TODO: Create user friendly message
-            showToast.success("SUCCESS");
+            showToast.success(tAuth("reset_password_success"));
         } catch (error: any) {
             showToast.error(error.message);
         }

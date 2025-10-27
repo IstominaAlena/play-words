@@ -18,7 +18,6 @@ export const GoogleButton: FC<Props> = ({ text, url, onClick, className, isLoadi
     const onGoogleButtonClick = () => {
         if (url) {
             window.location.href = url;
-            return;
         }
         onClick?.();
     };

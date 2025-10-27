@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
+import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
@@ -33,11 +34,13 @@ const RootLayout = async ({ children, params }: Props) => {
         notFound();
     }
 
+    const messages = await getMessages({ locale });
+
     return (
         <html lang={locale} className="scroll-smooth">
             <body className="bg-primary_dark w-ful flex min-h-[100dvh] flex-col">
                 <QueryProvider>
-                    <NextIntlClientProvider>
+                    <NextIntlClientProvider locale={locale} messages={messages}>
                         <Suspense fallback={<LoaderScreen />}>
                             <AppInitializer />
                             <MainLayout>{children}</MainLayout>

@@ -235,6 +235,13 @@ export class AuthService {
                 throw new AppError(409, messageKeys.BAD_REQUEST);
             }
 
+            const existingCredentials =
+                await userCredentialsService.getCredentialsByGoogleProviderId(googleProviderId);
+
+            if (existingCredentials && existingCredentials.userId !== user.id) {
+                throw new AppError(409, messageKeys.ALREADY_EXISTS);
+            }
+
             const credentialsId = await userCredentialsService.updateUserCredentials(user.id, {
                 googleProviderId,
             });
