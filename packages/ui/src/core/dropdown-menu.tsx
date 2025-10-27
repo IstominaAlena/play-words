@@ -65,7 +65,7 @@ export const DropdownMenu: FC<DropdownMenuProps> = ({
     itemClassName,
 }) => {
     const renderContentItem = (content: JSX.Element, index: number) => (
-        <DropdownMenuItem key={index} className={itemClassName}>
+        <DropdownMenuItem key={index} className={itemClassName} asChild>
             {content}
         </DropdownMenuItem>
     );

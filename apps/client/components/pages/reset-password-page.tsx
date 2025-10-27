@@ -1,19 +1,18 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useSearchParams } from "next/navigation";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { SubmitHandler } from "react-hook-form";
 
 import { Form } from "@repo/ui/components/form";
-import { FormInput } from "@repo/ui/components/form-input";
-import { Checkbox } from "@repo/ui/core/checkbox";
+import { FormPasswordInput } from "@repo/ui/components/form-password-input";
 import { showToast } from "@repo/ui/core/sonner";
 import { Text, Title } from "@repo/ui/core/typography";
 
+import { changePasswordDtoSchema } from "@repo/common/schemas/account";
+import { ChangePasswordDto } from "@repo/common/types/account";
+
 import { useResetPassword } from "@/api/auth/mutations";
-import { resetUserPasswordDtoSchema } from "@/schemas/index";
-import { ResetPasswordDto } from "@/types/index";
 
 const defaultValues = {
     password: "",
@@ -24,19 +23,10 @@ export const ResetPasswordPage: FC = () => {
     const t = useTranslations("auth");
     const tForm = useTranslations("form");
 
-    const searchParams = useSearchParams();
-
-    const token = searchParams.get("token") ?? "";
-
     const { mutateAsync: resetPassword, isPending } = useResetPassword();
 
-    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
-    const togglePassword = () => setIsPasswordVisible((state) => !state);
-
-    const onSubmit: SubmitHandler<ResetPasswordDto> = async (formData) => {
+    const onSubmit: SubmitHandler<ChangePasswordDto> = async (formData) => {
         const dto = {
-            token,
             password: formData.password,
         };
 
@@ -53,36 +43,26 @@ export const ResetPasswordPage: FC = () => {
             <Title>{t("reset_password_title")}</Title>
             <Text className="text-center">{t("reset_password_subtitle")}</Text>
 
-            <Form<ResetPasswordDto>
+            <Form<ChangePasswordDto>
                 defaultValues={defaultValues}
-                schema={resetUserPasswordDtoSchema}
+                schema={changePasswordDtoSchema}
                 onSubmit={onSubmit}
                 isLoading={isPending}
                 render={({ control }) => (
                     <>
-                        <FormInput
+                        <FormPasswordInput
                             control={control}
                             name="password"
-                            type={isPasswordVisible ? "text" : "password"}
-                            label={tForm("password")}
-                            placeholder={tForm("password_placeholder")}
+                            label={tForm("new_password")}
                             className="bg-secondary_dark"
                         />
-                        <FormInput
+
+                        <FormPasswordInput
                             control={control}
                             name="confirmPassword"
-                            type={isPasswordVisible ? "text" : "password"}
                             label={tForm("confirm_password")}
-                            placeholder={tForm("password_placeholder")}
                             className="bg-secondary_dark"
                         />
-                        <Checkbox
-                            checked={isPasswordVisible}
-                            onCheckedChange={togglePassword}
-                            containerClassName="my-1"
-                        >
-                            {tForm("show_password")}
-                        </Checkbox>
                     </>
                 )}
             />

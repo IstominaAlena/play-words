@@ -18,7 +18,7 @@ const TabsList: FC<ComponentProps<typeof TabsPrimitive.List>> = ({ className, ..
     <TabsPrimitive.List
         data-slot="tabs-list"
         className={cn(
-            "flex h-fit w-fit flex-col items-center justify-center gap-4 md:flex-row",
+            "max-w-default flex h-fit w-full flex-col items-center justify-center gap-4 md:max-w-full md:flex-row",
             className,
         )}
         {...props}
@@ -28,7 +28,7 @@ const TabsList: FC<ComponentProps<typeof TabsPrimitive.List>> = ({ className, ..
 const TabsTrigger: FC<ComponentProps<typeof TabsPrimitive.Trigger>> = ({ className, ...props }) => (
     <TabsPrimitive.Trigger
         data-slot="tabs-trigger"
-        className={cn("group h-10 w-[12rem]", className)}
+        className={cn("group h-10 w-full", className)}
         {...props}
     />
 );
@@ -62,7 +62,7 @@ export const Tabs: FC<Props> = ({
     tabClassName,
 }) => {
     const renderTabTrigger = ({ name }: Tab) => (
-        <TabsTrigger value={name} className={tabClassName} key={name}>
+        <TabsTrigger value={name} className={cn("flex-1", tabClassName)} key={name}>
             <GlowingContainer
                 containerClassName="rounded-lg"
                 glowClassName="group-data-[state=active]:bg-accent_dark"
@@ -83,9 +83,7 @@ export const Tabs: FC<Props> = ({
 
     return (
         <CoreTabs defaultValue={defaultTab} className={className}>
-            <div className="w-fit overflow-x-auto md:w-full md:pb-2">
-                <TabsList className={listClassName}>{tabs.map(renderTabTrigger)}</TabsList>
-            </div>
+            <TabsList className={listClassName}>{tabs.map(renderTabTrigger)}</TabsList>
 
             {tabs.map(renderTabItem)}
         </CoreTabs>

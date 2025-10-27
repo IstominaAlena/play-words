@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
-import { ReactNode, useEffect } from "react";
+import { ReactNode } from "react";
 import { DefaultValues, FieldValues, SubmitHandler, UseFormReturn, useForm } from "react-hook-form";
 
 import { Button } from "../core/button";
@@ -45,7 +45,8 @@ export const Form = <T extends FieldValues>({
             <div className={cn("flex flex-col gap-4", containerClassName)}>{render(methods)}</div>
             <Button
                 type="submit"
-                disabled={!methods.formState.isValid || !methods.formState.isDirty}
+                variant="SUCCESS"
+                disabled={!methods.formState.isValid}
                 isLoading={isLoading}
                 buttonClassName={submitButtonClassName}
                 className="bg-secondary_dark"

@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import { SubmitHandler } from "react-hook-form";
 
 import { Form } from "@repo/ui/components/form";
@@ -11,12 +11,14 @@ import { GoogleButton } from "@repo/ui/components/google-button";
 import { showToast } from "@repo/ui/core/sonner";
 import { Title } from "@repo/ui/core/typography";
 
-import { loginUserSchema } from "@repo/common/schemas/users";
-import { LoginUserDto } from "@repo/common/types/users";
+import { loginSchema } from "@repo/common/schemas/account";
+import { LoginDto } from "@repo/common/types/account";
 import { Link } from "@repo/i18n/config/navigation";
 
 import { useSignIn } from "@/api/auth/mutations";
 import { SecondaryRoutes } from "@/enums/routes";
+
+import { OtpModal } from "./otp-modal";
 
 const defaultValues = {
     email: "",
@@ -24,21 +26,27 @@ const defaultValues = {
 };
 
 interface Props {
+    openModal: (content: ReactNode) => void;
     closeModal: () => void;
 }
 
-export const SignInModal: FC<Props> = ({ closeModal }) => {
+export const SignInModal: FC<Props> = ({ openModal, closeModal }) => {
     const t = useTranslations("auth");
     const tForm = useTranslations("form");
 
     const { mutateAsync: signIn, isPending } = useSignIn();
 
-    const onSubmit: SubmitHandler<LoginUserDto> = async (formData) => {
+    const onSubmit: SubmitHandler<LoginDto> = async (formData) => {
         try {
-            await signIn(formData);
+            const data = await signIn(formData);
+
+            if (data.otp) {
+                openModal(<OtpModal closeModal={closeModal} email={data.email ?? ""} />);
+            } else {
+                closeModal();
+            }
         } catch (error: any) {
             showToast.error(error.message);
-        } finally {
             closeModal();
         }
     };
@@ -46,9 +54,9 @@ export const SignInModal: FC<Props> = ({ closeModal }) => {
     return (
         <div className="flex flex-col items-center justify-center gap-6">
             <Title>{t("sign_in")}</Title>
-            <Form<LoginUserDto>
+            <Form<LoginDto>
                 defaultValues={defaultValues}
-                schema={loginUserSchema}
+                schema={loginSchema}
                 onSubmit={onSubmit}
                 isLoading={isPending}
                 render={({ control }) => (
@@ -70,7 +78,7 @@ export const SignInModal: FC<Props> = ({ closeModal }) => {
                         <Link
                             href={SecondaryRoutes.FORGOT_PASSWORD}
                             onClick={closeModal}
-                            className="text-neutral text-xs hover:underline"
+                            className="text-neutral self-end text-xs hover:underline"
                         >
                             {t("forgot_password")}
                         </Link>

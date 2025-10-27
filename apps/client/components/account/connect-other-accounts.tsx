@@ -5,7 +5,13 @@ import { FC } from "react";
 
 import { cn } from "@repo/ui/class-names";
 import { GoogleButton } from "@repo/ui/components/google-button";
+import { showToast } from "@repo/ui/core/sonner";
 import { Text, Title } from "@repo/ui/core/typography";
+
+import { useUserStore } from "@repo/common/stores/user-store";
+
+import { useDisconnectGoogleAccount } from "@/api/account/mutations";
+import { SecondaryRoutes } from "@/enums/routes";
 
 interface Props {
     className?: string;
@@ -14,12 +20,42 @@ interface Props {
 export const ConnectOtherAccounts: FC<Props> = ({ className }) => {
     const t = useTranslations("account");
 
+    const { settings } = useUserStore();
+
+    const { mutateAsync: disconnectGoogleAccount, isPending } = useDisconnectGoogleAccount();
+
+    const isGoogleConnected = settings?.google;
+
+    const onDisconnectButtonClick = async () => {
+        try {
+            await disconnectGoogleAccount();
+            showToast.success(t("disconnected"));
+        } catch (error: any) {
+            showToast.error(error.message);
+        }
+    };
+
+    const onConnectButtonClick = () => {
+        localStorage.setItem("path", SecondaryRoutes.ACCOUNT);
+    };
+
     return (
         <div className={cn("flex flex-col gap-6", className)}>
             <Title>{t("connect_accounts")}</Title>
             <div className="flex flex-wrap items-center justify-between gap-6">
-                <Text className="min-w-[12rem] flex-1">{t("connect_google")}</Text>
-                <GoogleButton text={t("connect")} url="" className="ml-auto w-[12rem] sm:w-full" />
+                <Text className="min-w-default flex-1">{t("connect_google")}</Text>
+                <GoogleButton
+                    isLoading={isPending}
+                    text={t(isGoogleConnected ? "disconnect" : "connect")}
+                    variant={isGoogleConnected ? "ERROR" : "SUCCESS"}
+                    url={
+                        isGoogleConnected
+                            ? null
+                            : `${process.env.NEXT_PUBLIC_API_URL}/users/google/connect`
+                    }
+                    onClick={isGoogleConnected ? onDisconnectButtonClick : onConnectButtonClick}
+                    className="w-default! ml-auto"
+                />
             </div>
         </div>
     );

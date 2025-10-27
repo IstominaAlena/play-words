@@ -1,7 +1,10 @@
 {
     "global": {
-        "something_wrong": "Something went wrong",
-        "cancel": "Cancel"
+        "something_wrong": "Oops! Something went wrong.",
+        "cancel": "Cancel",
+        "or": "or",
+        "success": "Success",
+        "error": "Error"
     },
     "navigation": {
         "home": "Home",
@@ -24,33 +27,44 @@
         "password_placeholder": "**********"
     },
     "form_error": {
-        "REQUIRED": "Field is required",
-        "SHORT_PASSWORD": "Password to short",
-        "PASSWORD_MATCH": "Passwords should match",
-        "INVALID_EMAIL": "Email should be in valid format"
+        "REQUIRED": "This field is required",
+        "SHORT_PASSWORD": "Password is too short",
+        "PASSWORD_MATCH": "Passwords must match",
+        "INVALID_EMAIL": "Please enter a valid email"
     },
     "auth": {
-        "sign_in": "Sign in",
-        "sign_up": "Sign up",
-        "logout": "Log out",
+        "sign_in": "Sign In",
+        "sign_up": "Sign Up",
+        "logout": "Log Out",
         "forgot_password": "Forgot your password?",
-        "forgot_password_subtitle": "Enter your email to receive a password reset link",
+        "forgot_password_subtitle": "Enter your email to get a password reset link",
         "logout_subtitle": "Are you sure you want to log out?",
-        "reset_password_title": "Almost there!",
-        "reset_password_subtitle": "Choose a new password for your account. Make sure it’s strong and easy for you to remember.",
-        "reset_password_success": "Your password was changed successfully"
-    },
-    "home_page": {
-        "title": "Let's play words!"
+        "reset_password_title": "Almost done!",
+        "reset_password_subtitle": "Set a new password for your account. Make it strong and easy to remember.",
+        "reset_password_success": "Your password has been changed successfully!",
+        "verify_otp_title": "Enter Verification Code",
+        "verify_otp_description": "Enter the 6-digit code from your Google Authenticator app to complete login and secure your account."
     },
     "account": {
         "account": "Account",
-        "change_password": "Change password",
+        "change_password": "Change Password",
         "security": "Security",
-        "enable_verification": "Enable OTP verification with Google Authenticator application",
+        "enable_verification": "Enable OTP verification with the Google Authenticator app",
         "enable": "Enable",
+        "disable": "Disable",
+        "otp_disabled": "OTP has been disabled successfully",
+        "otp_enabled": "OTP has been enabled successfully",
         "connect_accounts": "Connect other accounts",
-        "connect_google": "Connect Google to your account for quick access",
-        "connect": "Connect"
+        "connect_google": "Connect Google for quick access",
+        "connect": "Connect",
+        "disconnect": "Disconnect",
+        "disconnected": "Google account disconnected successfully",
+        "authenticator_title": "Activate Google Authenticator",
+        "authenticator_description": "Scan the QR code with your Google Authenticator app to secure your account with a verification code at login.",
+        "otp_enter_manually": "Enter code manually",
+        "generate_qr": "Generate QR code",
+        "updated_successfully": "Account updated successfully",
+        "disable_otp_title": "Disable OTP",
+        "disable_otp_description": "Are you sure you want to disable OTP verification?"
     }
 }

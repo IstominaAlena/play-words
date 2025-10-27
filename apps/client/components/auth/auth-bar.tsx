@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { FC, ReactNode } from "react";
 
 import { cn } from "@repo/ui/class-names";
-import { Button, SecondaryButton } from "@repo/ui/core/button";
+import { Button } from "@repo/ui/core/button";
 import { DropdownMenuItem } from "@repo/ui/core/dropdown-menu";
 
 import { SignInModal } from "./sign-in-modal";
@@ -22,18 +22,23 @@ export const AuthBar: FC<Props> = ({ openModal, className, isDropdownItem, close
 
     const onSignupButtonClick = () => openModal(<SignUpModal closeModal={closeModal} />);
 
-    const onSignInButtonClick = () => openModal(<SignInModal closeModal={closeModal} />);
+    const onSignInButtonClick = () =>
+        openModal(<SignInModal closeModal={closeModal} openModal={openModal} />);
 
     if (isDropdownItem) {
         return (
             <div className={cn("flex-col gap-2 px-4 py-4", className)}>
                 <DropdownMenuItem>
-                    <SecondaryButton onClick={onSignupButtonClick} className="md:bg-secondary_dark">
+                    <Button onClick={onSignupButtonClick} className="md:bg-secondary_dark">
                         {t("sign_up")}
-                    </SecondaryButton>
+                    </Button>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                    <Button onClick={onSignInButtonClick} className="md:bg-secondary_dark">
+                    <Button
+                        variant="SUCCESS"
+                        onClick={onSignInButtonClick}
+                        className="md:bg-secondary_dark"
+                    >
                         {t("sign_in")}
                     </Button>
                 </DropdownMenuItem>
@@ -45,11 +50,15 @@ export const AuthBar: FC<Props> = ({ openModal, className, isDropdownItem, close
         <div
             className={cn("flex w-full items-center gap-4 md:flex-col md:p-4 lg:gap-2", className)}
         >
-            <SecondaryButton onClick={onSignupButtonClick} className="md:bg-secondary_dark">
+            <Button onClick={onSignupButtonClick} className="md:bg-secondary_dark">
                 {t("sign_up")}
-            </SecondaryButton>
+            </Button>
 
-            <Button onClick={onSignInButtonClick} className="md:bg-secondary_dark">
+            <Button
+                variant="SUCCESS"
+                onClick={onSignInButtonClick}
+                className="md:bg-secondary_dark"
+            >
                 {t("sign_in")}
             </Button>
         </div>

@@ -2,10 +2,10 @@
 
 import { QueryClient, QueryClientProvider, useMutation, useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { FC, PropsWithChildren, useEffect, useState } from "react";
+import { FC, PropsWithChildren, useEffect } from "react";
 
 import { useLoaderStore } from "@repo/common/stores/loader-store";
-import { ErrorResponse } from "@repo/common/types/users";
+import { ErrorResponse } from "@repo/common/types/account";
 
 import { ApiMutationProps, ApiQueryProps } from "./types";
 

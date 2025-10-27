@@ -11,9 +11,10 @@ import { GoogleButton } from "@repo/ui/components/google-button";
 import { showToast } from "@repo/ui/core/sonner";
 import { Title } from "@repo/ui/core/typography";
 
+import { signUpDtoSchema } from "@repo/common/schemas/account";
+import { SignUpDto } from "@repo/common/types/account";
+
 import { useSignUp } from "@/api/auth/mutations";
-import { signUpUserSchema } from "@/schemas/index";
-import { SignUpUser } from "@/types/index";
 
 const defaultValues = {
     username: "",
@@ -32,9 +33,15 @@ export const SignUpModal: FC<Props> = ({ closeModal }) => {
 
     const { mutateAsync: signUp, isPending } = useSignUp();
 
-    const onSubmit: SubmitHandler<SignUpUser> = async (formData) => {
+    const onSubmit: SubmitHandler<SignUpDto> = async (formData) => {
+        const dto = {
+            email: formData.email,
+            username: formData.username,
+            password: formData.password,
+        };
+
         try {
-            await signUp(formData);
+            await signUp(dto);
         } catch (error: any) {
             showToast.error(error.message);
         } finally {
@@ -46,9 +53,9 @@ export const SignUpModal: FC<Props> = ({ closeModal }) => {
         <div className="flex flex-col items-center justify-center gap-6">
             <Title>{t("sign_up")}</Title>
 
-            <Form<SignUpUser>
+            <Form<SignUpDto>
                 defaultValues={defaultValues}
-                schema={signUpUserSchema}
+                schema={signUpDtoSchema}
                 onSubmit={onSubmit}
                 isLoading={isPending}
                 render={({ control }) => (

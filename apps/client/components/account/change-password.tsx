@@ -10,8 +10,10 @@ import { FormPasswordInput } from "@repo/ui/components/form-password-input";
 import { showToast } from "@repo/ui/core/sonner";
 import { Title } from "@repo/ui/core/typography";
 
-import { changePasswordSchema } from "@/schemas/index";
-import { ChangePasswordDto } from "@/types/index";
+import { changePasswordSchema } from "@repo/common/schemas/account";
+import { ChangePasswordDto } from "@repo/common/types/account";
+
+import { useChangePassword } from "@/api/account/mutations";
 
 interface Props {
     className?: string;
@@ -25,10 +27,18 @@ const defaultValues = {
 export const ChangePassword: FC<Props> = ({ className }) => {
     const t = useTranslations("account");
     const tForm = useTranslations("form");
+    const tAuth = useTranslations("auth");
+
+    const { mutateAsync: resetPassword, isPending } = useChangePassword();
 
     const onSubmit: SubmitHandler<ChangePasswordDto> = async (formData) => {
+        const dto = {
+            password: formData.password,
+        };
+
         try {
-            // await signUp(formData);
+            await resetPassword(dto);
+            showToast.success(tAuth("reset_password_success"));
         } catch (error: any) {
             showToast.error(error.message);
         }
@@ -41,13 +51,13 @@ export const ChangePassword: FC<Props> = ({ className }) => {
                 defaultValues={defaultValues}
                 schema={changePasswordSchema}
                 onSubmit={onSubmit}
-                submitButtonClassName="max-w-[12rem] self-end"
-                // isLoading={isPending}
+                submitButtonClassName="max-w-default self-end"
+                isLoading={isPending}
                 render={({ control }) => (
                     <>
                         <FormPasswordInput
                             control={control}
-                            name="newPassword"
+                            name="password"
                             label={tForm("new_password")}
                             className="bg-secondary_dark"
                         />

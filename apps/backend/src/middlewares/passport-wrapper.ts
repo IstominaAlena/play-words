@@ -1,8 +1,8 @@
 import { NextFunction, Response } from "express";
+import passportStrategy from "passport-strategies/user-passport-strategies";
 
 import { messageKeys } from "@/constants/common";
 import { AppError } from "@/services/error-service";
-import passportService from "@/services/passport-service";
 import { AppRequest, StrategyReturn } from "@/types/common";
 
 export const passportControllerWrapper = <
@@ -18,7 +18,7 @@ export const passportControllerWrapper = <
         next: NextFunction,
     ): Promise<StrategyReturn[TStrategy]> => {
         return new Promise<StrategyReturn[TStrategy]>((resolve, reject) => {
-            passportService.authenticate(
+            passportStrategy.authenticate(
                 strategy,
                 options || {},
                 (

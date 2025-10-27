@@ -17,12 +17,7 @@ export const GlowingContainer: FC<Props> = ({
     glowClassName,
 }) => {
     return (
-        <div
-            className={cn(
-                "group relative h-min w-full cursor-pointer rounded-full p-px",
-                containerClassName,
-            )}
-        >
+        <div className={cn("group relative h-min w-full rounded-full p-px", containerClassName)}>
             <div
                 className={cn(
                     "bg-primary_dark text-primary_light relative z-10 h-full w-full rounded-[inherit] px-5 py-2 text-sm",

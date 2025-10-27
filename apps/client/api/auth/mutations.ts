@@ -3,80 +3,78 @@
 import { useTranslations } from "next-intl";
 
 import { useApiMutation } from "@repo/api-config/api-config";
-import { useUserStore } from "@repo/common/stores/user-store";
 import {
-    CreateUserDto,
-    LoginUserDto,
-    ResetUserPassword,
-    ResetUserPasswordRequest,
-} from "@repo/common/types/users";
+    CreateAccountDto,
+    LoginDto,
+    LoginResponse,
+    ResetPasswordDto,
+    ResetPasswordRequest,
+    VerifyOtpDto,
+} from "@repo/common/types/account";
 import { useRouter } from "@repo/i18n/config/navigation";
 
-import { Routes } from "@/enums/routes";
+import { Routes, SecondaryRoutes } from "@/enums/routes";
+import { useAuthHandlers } from "@/hooks/use-auth-handlers";
 
 import { useGetCurrentUser } from "../account/mutations";
-import { logout, resetPassword, resetPasswordRequest, signIn, signUp } from "./endpoints";
+import {
+    logout,
+    resetPassword,
+    resetPasswordRequest,
+    signIn,
+    signUp,
+    verifyOtp,
+} from "./endpoints";
 
 export const useSignUp = () => {
-    const t = useTranslations("global");
-
-    const { saveToken } = useUserStore();
-
     const { mutateAsync: getCurrentUser } = useGetCurrentUser();
 
-    return useApiMutation<string, CreateUserDto>({
+    return useApiMutation<void, CreateAccountDto>({
         retry: false,
         mutationFn: signUp,
         mutationKey: ["sign-up"],
-        onSuccess: async (data) => {
-            if (!data) {
-                throw new Error(t("something_wrong"));
-            }
-
-            saveToken(data);
-
+        onSuccess: async () => {
             await getCurrentUser();
         },
     });
 };
 
 export const useSignIn = () => {
-    const t = useTranslations("global");
-
-    const { saveToken } = useUserStore();
-
     const { mutateAsync: getCurrentUser } = useGetCurrentUser();
 
-    return useApiMutation<string, LoginUserDto>({
+    return useApiMutation<LoginResponse, LoginDto>({
         retry: false,
         mutationFn: signIn,
         mutationKey: ["sign-in"],
         onSuccess: async (data) => {
-            if (!data) {
-                throw new Error(t("something_wrong"));
+            if (!data?.otp) {
+                await getCurrentUser();
             }
+        },
+    });
+};
 
-            saveToken(data);
+export const useVerifyOtp = () => {
+    const { mutateAsync: getCurrentUser } = useGetCurrentUser();
 
+    return useApiMutation<void, VerifyOtpDto>({
+        retry: false,
+        mutationFn: verifyOtp,
+        mutationKey: ["verify-otp"],
+        onSuccess: async () => {
             await getCurrentUser();
         },
     });
 };
 
 export const useLogout = () => {
-    const router = useRouter();
-
-    const { clearUser, clearToken } = useUserStore();
+    const { handleLogout } = useAuthHandlers();
 
     return useApiMutation<void, void>({
         retry: false,
         mutationFn: logout,
         mutationKey: ["logout"],
-        onSuccess: () => {
-            clearUser();
-            clearToken();
-            router.replace(Routes.HOME);
-        },
+        onSuccess: handleLogout,
     });
 };
 
@@ -85,7 +83,7 @@ export const useResetPasswordRequest = () => {
 
     const t = useTranslations("global");
 
-    return useApiMutation<string, ResetUserPasswordRequest>({
+    return useApiMutation<boolean, ResetPasswordRequest>({
         retry: false,
         mutationFn: resetPasswordRequest,
         mutationKey: ["reset-password-request"],
@@ -94,7 +92,7 @@ export const useResetPasswordRequest = () => {
                 throw new Error(t("something_wrong"));
             }
 
-            router.push(data);
+            router.push(SecondaryRoutes.RESET_PASSWORD);
         },
     });
 };
@@ -102,18 +100,10 @@ export const useResetPasswordRequest = () => {
 export const useResetPassword = () => {
     const router = useRouter();
 
-    const t = useTranslations("global");
-
-    return useApiMutation<boolean, ResetUserPassword>({
+    return useApiMutation<void, ResetPasswordDto>({
         retry: false,
         mutationFn: resetPassword,
         mutationKey: ["reset-password"],
-        onSuccess: (data) => {
-            if (!data) {
-                throw new Error(t("something_wrong"));
-            }
-
-            router.push(Routes.HOME);
-        },
+        onSuccess: () => router.push(Routes.HOME),
     });
 };

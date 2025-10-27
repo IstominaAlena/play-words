@@ -6,9 +6,9 @@ export const usersTable = pgTable("users", {
     id: serial("id").notNull().primaryKey(),
     email: varchar("email", { length: 255 }).notNull().unique(),
     username: varchar("username", { length: 255 }).notNull(),
-    isVerified: boolean("is_verified").notNull().default(true),
     createdAt: timestamp("created_at", { mode: "string" }).notNull().defaultNow(),
     updatedAt: timestamp("updated_at", { mode: "string" }).notNull().defaultNow(),
+    deletionDate: timestamp("deletion_date", { mode: "string" }),
 });
 
 export const userCredentialsTable = pgTable("user_credentials", {
@@ -18,7 +18,23 @@ export const userCredentialsTable = pgTable("user_credentials", {
         .references(() => usersTable.id, { onDelete: "cascade" }),
     provider: authProvider().notNull(),
     passwordHash: varchar("password_hash", { length: 255 }),
-    providerId: varchar("provider_id", { length: 255 }).unique(),
+    otpSecret: varchar("otp_secret", { length: 255 }),
+    googleProviderId: varchar("google_provider_id", { length: 255 }).unique(),
+    createdAt: timestamp("created_at", { mode: "string" }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { mode: "string" }).notNull().defaultNow(),
+});
+
+export const userSettingsTable = pgTable("user_settings", {
+    id: serial("id").notNull().primaryKey(),
+    userId: integer("user_id")
+        .notNull()
+        .references(() => usersTable.id, { onDelete: "cascade" }),
+    verified: boolean("verified").notNull().default(true),
+    google: boolean("google").notNull().default(false),
+    otp: boolean("otp").notNull().default(false),
+    password: boolean("password").notNull().default(false),
+    createdAt: timestamp("created_at", { mode: "string" }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { mode: "string" }).notNull().defaultNow(),
 });
 
 export const refreshTokensTable = pgTable("refresh_tokens", {

@@ -1,33 +1,26 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-import { deleteAccessToken, saveAccessToken } from "../config/client-storage";
-import { User } from "../types/users";
+import { Account, Settings } from "../types/account";
 
 interface UserState {
-    user: User | null;
-    accessToken: string | null;
-    saveUser: (user: User) => void;
+    user: Account | null;
+    settings: Settings | null;
+    saveUser: (user: Account) => void;
     clearUser: () => void;
-    saveToken: (token: string) => void;
-    clearToken: () => void;
+    saveSettings: (settings: Settings) => void;
+    clearSettings: () => void;
 }
 
 export const useUserStore = create<UserState>()(
     persist(
         (set) => ({
             user: null,
-            accessToken: "",
+            settings: null,
             saveUser: (user) => set({ user }),
             clearUser: () => set({ user: null }),
-            saveToken: (token) => {
-                set({ accessToken: token });
-                saveAccessToken(token);
-            },
-            clearToken: () => {
-                set({ accessToken: null });
-                deleteAccessToken();
-            },
+            saveSettings: (settings) => set({ settings }),
+            clearSettings: () => set({ settings: null }),
         }),
         { name: "user" },
     ),

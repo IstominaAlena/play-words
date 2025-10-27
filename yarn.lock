@@ -1809,6 +1809,13 @@
     "@types/node" "*"
     "@types/send" "<1"
 
+"@types/speakeasy@^2.0.10":
+  version "2.0.10"
+  resolved "https://registry.yarnpkg.com/@types/speakeasy/-/speakeasy-2.0.10.tgz#a1f0e474696abd165e544478b9b02549778fa4e2"
+  integrity sha512-QVRlDW5r4yl7p7xkNIbAIC/JtyOcClDIIdKfuG7PWdDT1MmyhtXSANsildohy0K+Lmvf/9RUtLbNLMacvrVwxA==
+  dependencies:
+    "@types/node" "*"
+
 "@typescript-eslint/eslint-plugin@8.45.0":
   version "8.45.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-8.45.0.tgz#9f251d4e85ec5089e7cccb09257ce93dbf0d7744"
@@ -2092,6 +2099,11 @@ balanced-match@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.2.tgz#e83e3a7e3f300b34cb9d87f615fa0cbf357690ee"
   integrity sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==
+
+base32.js@0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/base32.js/-/base32.js-0.0.1.tgz#d045736a57b1f6c139f0c7df42518a84e91bb2ba"
+  integrity sha512-EGHIRiegFa62/SsA1J+Xs2tIzludPdzM064N9wjbiEgHnGnJ1V0WEpA4pEwCYT5nDvZk3ubf0shqaCS7k6xeUQ==
 
 base64url@3.x.x:
   version "3.0.1"
@@ -3285,6 +3297,11 @@ inherits@2.0.4:
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.4.tgz#0fa2c64f932917c3433a0ded55363aae37416b7c"
   integrity sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==
 
+input-otp@^1.4.2:
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/input-otp/-/input-otp-1.4.2.tgz#f4d3d587d0f641729e55029b3b8c4870847f4f07"
+  integrity sha512-l3jWwYNvrEa6NTCt7BECfCm48GvwuZzkoeG3gBL2w4CHeOXW3eKFmf9UNYkNfYc3mxMrthMnxjIE07MT0zLBQA==
+
 internal-slot@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/internal-slot/-/internal-slot-1.1.0.tgz#1eac91762947d2f7056bc838d93e13b2e9604961"
@@ -3944,6 +3961,11 @@ node-addon-api@^8.5.0:
   resolved "https://registry.yarnpkg.com/node-addon-api/-/node-addon-api-8.5.0.tgz#c91b2d7682fa457d2e1c388150f0dff9aafb8f3f"
   integrity sha512-/bRZty2mXUIFY/xU5HLvveNHlswNJej+RnxBjOMkidWfwZzgTbPG1E3K5TOxRLOR+5hX7bSofy8yf1hZevMS8A==
 
+node-cron@^4.2.1:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/node-cron/-/node-cron-4.2.1.tgz#6979be4aee4702f06322d21220df8de252c8e265"
+  integrity sha512-lgimEHPE/QDgFlywTd8yTR61ptugX3Qer29efeyWw2rv259HtGBNn1vZVmp8lB9uo9wC0t/AT4iGqXxia+CJFg==
+
 node-gyp-build@^4.8.4:
   version "4.8.4"
   resolved "https://registry.yarnpkg.com/node-gyp-build/-/node-gyp-build-4.8.4.tgz#8a70ee85464ae52327772a90d66c6077a900cfc8"
@@ -4307,6 +4329,11 @@ punycode@^2.1.0:
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.3.1.tgz#027422e2faec0b25e1549c3e1bd8309b9133b6e5"
   integrity sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==
 
+qr.js@0.0.0:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/qr.js/-/qr.js-0.0.0.tgz#cace86386f59a0db8050fa90d9b6b0e88a1e364f"
+  integrity sha512-c4iYnWb+k2E+vYpRimHqSu575b1/wKl4XFeJGpFmrJQz5I88v9aY2czh7s0w36srfCM1sXgC/xpoJz5dJfq+OQ==
+
 qs@^6.14.0:
   version "6.14.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.14.0.tgz#c63fa40680d2c5c941412a0e899c89af60c0a930"
@@ -4350,6 +4377,14 @@ react-is@^16.13.1:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
+
+react-qr-code@^2.0.18:
+  version "2.0.18"
+  resolved "https://registry.yarnpkg.com/react-qr-code/-/react-qr-code-2.0.18.tgz#237de8fbab537885d6b2b10f4fd5318b371e3b17"
+  integrity sha512-v1Jqz7urLMhkO6jkgJuBYhnqvXagzceg3qJUWayuCK/c6LTIonpWbwxR1f1APGd4xrW/QcQEovNrAojbUz65Tg==
+  dependencies:
+    prop-types "^15.8.1"
+    qr.js "0.0.0"
 
 react-remove-scroll-bar@^2.3.7:
   version "2.3.8"
@@ -4692,6 +4727,13 @@ source-map@^0.6.0:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
   integrity sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==
+
+speakeasy@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/speakeasy/-/speakeasy-2.0.0.tgz#85c91a071b09a5cb8642590d983566165f57613a"
+  integrity sha512-lW2A2s5LKi8rwu77ewisuUOtlCydF/hmQSOJjpTqTj1gZLkNgTaYnyvfxy2WBr4T/h+9c4g8HIITfj83OkFQFw==
+  dependencies:
+    base32.js "0.0.1"
 
 statuses@2.0.1:
   version "2.0.1"

@@ -6,14 +6,11 @@ import { SubmitHandler } from "react-hook-form";
 
 import { Form } from "@repo/ui/components/form";
 import { FormInput } from "@repo/ui/components/form-input";
-import { GlowingContainer } from "@repo/ui/core/glowing-container";
-import { Meteors } from "@repo/ui/core/meteors";
 import { showToast } from "@repo/ui/core/sonner";
 import { Text, Title } from "@repo/ui/core/typography";
 
-import useWindowDimensions from "@repo/common/hooks/use-window-dimensions.ts";
-import { resetUserPasswordRequestSchema } from "@repo/common/schemas/users";
-import { ResetUserPasswordRequest } from "@repo/common/types/users";
+import { resetPasswordRequestSchema } from "@repo/common/schemas/account";
+import { ResetPasswordRequest } from "@repo/common/types/account";
 
 import { useResetPasswordRequest } from "@/api/auth/mutations";
 
@@ -25,11 +22,9 @@ export const ResetPasswordRequestPage: FC = () => {
     const t = useTranslations("auth");
     const tForm = useTranslations("form");
 
-    const { isMd } = useWindowDimensions();
-
     const { mutateAsync: resetPasswordRequest, isPending } = useResetPasswordRequest();
 
-    const onSubmit: SubmitHandler<ResetUserPasswordRequest> = async (formData) => {
+    const onSubmit: SubmitHandler<ResetPasswordRequest> = async (formData) => {
         try {
             await resetPasswordRequest(formData);
         } catch (error: any) {
@@ -41,9 +36,9 @@ export const ResetPasswordRequestPage: FC = () => {
             <Title>{t("forgot_password")}</Title>
             <Text>{t("forgot_password_subtitle")}</Text>
 
-            <Form<ResetUserPasswordRequest>
+            <Form<ResetPasswordRequest>
                 defaultValues={defaultValues}
-                schema={resetUserPasswordRequestSchema}
+                schema={resetPasswordRequestSchema}
                 onSubmit={onSubmit}
                 isLoading={isPending}
                 render={({ control }) => (

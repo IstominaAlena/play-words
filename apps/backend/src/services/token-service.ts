@@ -71,15 +71,33 @@ export class TokenService {
         return tokenRecord;
     }
 
-    setRefreshTokenCookie(res: Response, refreshToken: string) {
+    setRefreshTokenCookie(res: Response, refreshToken: string, maxAge?: number) {
         // HttpOnly secure cookie for refresh token
 
         res.cookie("refresh_token", refreshToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             sameSite: "lax",
-            maxAge: REFRESH_TOKEN_TTL_DAYS * 24 * 60 * 60 * 1000,
+            maxAge: maxAge ?? REFRESH_TOKEN_TTL_DAYS * 24 * 60 * 60 * 1000,
             path: "/api/users/refresh",
+        });
+    }
+
+    setAccessTokenCookie(res: Response, accessToken: string, maxAge?: number) {
+        res.cookie("access_token", accessToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "lax",
+            maxAge: maxAge ?? 15 * 60 * 1000,
+        });
+    }
+
+    setResetPasswordTokenCookie(res: Response, resetPasswordToken: string, maxAge?: number) {
+        res.cookie("reset_password_token", resetPasswordToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "lax",
+            maxAge: maxAge ?? 30 * 60 * 1000,
         });
     }
 }
