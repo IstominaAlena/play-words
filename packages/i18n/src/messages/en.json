@@ -5,7 +5,8 @@
         "or": "or",
         "success": "Success",
         "error": "Error",
-        "request_sent": "Your request has been sent successfully"
+        "request_sent": "Your request has been sent successfully",
+        "under_construction": "The page is under construction."
     },
     "navigation": {
         "home": "Home",
