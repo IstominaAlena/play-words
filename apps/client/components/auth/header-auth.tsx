@@ -7,7 +7,7 @@ import { Skeleton } from "@repo/ui/core/skeleton";
 
 import { Account } from "@repo/common/types/account";
 
-import { SecondaryRoutes } from "@/enums/routes";
+import { ProtectedRoutes } from "@/enums/routes";
 
 import { AuthBar } from "./auth-bar";
 import { LogoutModal } from "./logout-modal";
@@ -34,7 +34,7 @@ export const HeaderAuth: FC<Props> = ({ user, openModal, closeModal }) => {
     return user ? (
         <AccountDropdown
             name={user.username}
-            accountPath={SecondaryRoutes.ACCOUNT}
+            accountPath={ProtectedRoutes.ACCOUNT}
             onLogout={onLogout}
         />
     ) : (

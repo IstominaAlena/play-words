@@ -11,7 +11,7 @@ import { Text, Title } from "@repo/ui/core/typography";
 import { useUserStore } from "@repo/common/stores/user-store";
 
 import { useDisconnectGoogleAccount } from "@/api/account/mutations";
-import { SecondaryRoutes } from "@/enums/routes";
+import { ProtectedRoutes } from "@/enums/routes";
 
 interface Props {
     className?: string;
@@ -36,7 +36,7 @@ export const ConnectOtherAccounts: FC<Props> = ({ className }) => {
     };
 
     const onConnectButtonClick = () => {
-        localStorage.setItem("path", SecondaryRoutes.ACCOUNT);
+        localStorage.setItem("path", ProtectedRoutes.ACCOUNT);
     };
 
     return (
