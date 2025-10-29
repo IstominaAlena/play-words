@@ -6,7 +6,8 @@
         "success": "Успіх",
         "error": "Помилка",
         "request_sent": "Ваш запит було успішно надіслано",
-        "under_construction": "Сторінка перебуває в процесі розробки."
+        "under_construction": "Сторінка перебуває в процесі розробки.",
+        "empty_content": "Схоже, тут поки порожньо"
     },
     "navigation": {
         "home": "Головна",
@@ -26,7 +27,8 @@
         "new_password": "Новий пароль",
         "confirm_password": "Підтвердьте пароль",
         "show_password": "Показати пароль",
-        "password_placeholder": "**********"
+        "password_placeholder": "**********",
+        "search": "Пошук"
     },
     "form_error": {
         "REQUIRED": "Це поле обов'язкове",

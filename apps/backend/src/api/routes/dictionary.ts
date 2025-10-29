@@ -10,21 +10,17 @@ import { dictionaryControllersService } from "../controllers/dictionary/service"
 
 const router = Router();
 
-router.get(
-    "/dictionary",
-    authValidation,
-    controllerWrapper(dictionaryControllersService.getDictionary),
-);
+router.get("/", authValidation, controllerWrapper(dictionaryControllersService.getDictionary));
 
 router.post(
-    "/dictionary/add",
+    "/add",
     authValidation,
     validateBody(createWordSchema),
     controllerWrapper(dictionaryControllersService.addWord),
 );
 
 router.delete(
-    "/dictionary/delete",
+    "/delete",
     authValidation,
     controllerWrapper(dictionaryControllersService.deleteWord),
 );

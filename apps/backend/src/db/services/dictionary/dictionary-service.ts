@@ -1,5 +1,7 @@
 import { and, eq, inArray, sql } from "drizzle-orm";
 
+import { DEFAULT_ITEMS_PER_PAGE } from "@repo/common/constants/common";
+
 import { db } from "@/config/drizzle-orm/db";
 import {
     definitionsTable,
@@ -59,7 +61,11 @@ export class DictionaryService {
             .where(and(eq(this.table.userId, userId), eq(this.table.wordId, wordId)));
     }
 
-    async getDictionary(userId: DictionaryTable["userId"], limit = 10, offset = 1) {
+    async getDictionary(
+        userId: DictionaryTable["userId"],
+        limit = DEFAULT_ITEMS_PER_PAGE,
+        offset = 0,
+    ) {
         const dictionaryRows = await db
             .select({ wordId: dictionaryTable.wordId })
             .from(this.table)
@@ -70,7 +76,7 @@ export class DictionaryService {
         const wordIds = Array.from(new Set(dictionaryRows.map((r) => r.wordId)));
 
         if (wordIds.length === 0) {
-            return { data: [], total: 0, limit, offset };
+            return { data: [], total: 0, pages: 0 };
         }
 
         const countResult = await db
@@ -79,6 +85,10 @@ export class DictionaryService {
             .where(eq(this.table.userId, userId));
 
         const total = Number(countResult[0]?.count ?? 0);
+
+        const pages = Math.ceil(total / limit);
+
+        const page = offset + 1;
 
         const words = await db
             .select({ id: wordsTable.id, word: wordsTable.value })
@@ -114,7 +124,7 @@ export class DictionaryService {
                 .map((t) => ({ value: t.value, id: t.id })),
         }));
 
-        return { data, total, limit, offset };
+        return { data, total, pages, page };
     }
 }
 

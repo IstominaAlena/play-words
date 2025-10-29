@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 
-import { UnderConstructionPage } from "@/components/pages/under-construction-page";
+import { DictionaryPage } from "@/components/pages/dictionary-page";
 
 export const metadata: Metadata = {
     title: "Dictionary",
@@ -8,6 +8,6 @@ export const metadata: Metadata = {
     keywords: "",
 };
 
-const Dictionary = () => <UnderConstructionPage />;
+const Dictionary = () => <DictionaryPage />;
 
 export default Dictionary;

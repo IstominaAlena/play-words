@@ -1,13 +1,21 @@
 "use client";
 
-import { QueryClient, QueryClientProvider, useMutation, useQuery } from "@tanstack/react-query";
+import {
+    InfiniteData,
+    QueryClient,
+    QueryClientProvider,
+    QueryKey,
+    useInfiniteQuery,
+    useMutation,
+    useQuery,
+} from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { FC, PropsWithChildren, useEffect } from "react";
 
 import { useLoaderStore } from "@repo/common/stores/loader-store";
 import { ErrorResponse } from "@repo/common/types/account";
 
-import { ApiMutationProps, ApiQueryProps } from "./types";
+import { ApiInfiniteQueryProps, ApiMutationProps, ApiQueryProps } from "./types";
 
 export const queryClient = new QueryClient({
     defaultOptions: {
@@ -47,9 +55,8 @@ export const useApiQuery = <TData,>({
         } else {
             stopLoader();
         }
-        return () => {
-            stopLoader();
-        };
+
+        return () => stopLoader();
     }, [query.isLoading, startLoader, stopLoader]);
 
     return query;
@@ -94,4 +101,36 @@ export const useApiMutation = <TData, TVariable>({
     });
 
     return mutation;
+};
+
+export const useApiInfiniteQuery = <TData, TQueryKey extends QueryKey = QueryKey>({
+    queryFn,
+    queryKey,
+    retry = false,
+    enabled = true,
+    initialPageParam = 1,
+    getNextPageParam,
+}: ApiInfiniteQueryProps<TData, TQueryKey>) => {
+    const { startLoader, stopLoader } = useLoaderStore();
+
+    const query = useInfiniteQuery<TData, AxiosError, InfiniteData<TData>, TQueryKey, number>({
+        queryFn,
+        queryKey,
+        retry,
+        enabled,
+        initialPageParam,
+        getNextPageParam,
+    });
+
+    useEffect(() => {
+        if (query.isLoading) {
+            startLoader();
+        } else {
+            stopLoader();
+        }
+
+        return () => stopLoader();
+    }, [query.isLoading, startLoader, stopLoader]);
+
+    return query;
 };
