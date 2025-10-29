@@ -20,10 +20,10 @@ export type CreateUserSettings = typeof userSettingsTable.$inferInsert;
 export type CreateRefreshToken = typeof refreshTokensTable.$inferInsert;
 export type CreateResetPasswordToken = typeof resetPasswordTokensTable.$inferInsert;
 
-// update
+// Update
 export type UpdateUser = Partial<CreateUser>;
 export type UpdateUserCredentials = Partial<CreateUserCredentials>;
 export type UpdateUserSettings = Partial<CreateUserSettings>;
 
-// tokens
+// Tokens
 export type ValidateTokenTableType = typeof refreshTokensTable | typeof resetPasswordTokensTable;

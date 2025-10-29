@@ -1,0 +1,1 @@
+ALTER TABLE "definitions" ADD CONSTRAINT "definition_unique" UNIQUE("word_id","definition");
