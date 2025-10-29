@@ -11,12 +11,12 @@ export class WordsService {
         const existingWord = await this.getWordByValue(data.value);
 
         if (existingWord) {
-            return existingWord;
+            return existingWord.id;
         }
 
         const [newWord] = await db.insert(this.table).values(data).returning();
 
-        return newWord;
+        return newWord?.id ?? null;
     }
 
     async getWordById(id: WordsTable["id"]) {

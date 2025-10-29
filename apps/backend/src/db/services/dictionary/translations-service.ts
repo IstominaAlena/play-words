@@ -11,12 +11,12 @@ export class TranslationsService {
         const existingTranslation = await this.getTranslationByValue(data.wordId, data.value);
 
         if (existingTranslation) {
-            return existingTranslation;
+            return existingTranslation.id;
         }
 
         const [newTranslation] = await db.insert(this.table).values(data).returning();
 
-        return newTranslation;
+        return newTranslation?.id ?? null;
     }
 
     async getTranslationById(id: TranslationsTable["id"]) {

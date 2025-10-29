@@ -11,12 +11,12 @@ export class DefinitionsService {
         const existingDefinition = await this.getDefinitionByValue(data.wordId, data.value);
 
         if (existingDefinition) {
-            return existingDefinition;
+            return existingDefinition.id;
         }
 
         const [newDefinition] = await db.insert(this.table).values(data).returning();
 
-        return newDefinition;
+        return newDefinition?.id ?? null;
     }
 
     async getDefinitionById(id: DefinitionsTable["id"]) {
