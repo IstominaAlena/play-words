@@ -86,20 +86,32 @@ export class DictionaryService {
             .where(inArray(wordsTable.id, wordIds));
 
         const definitions = await db
-            .select({ wordId: definitionsTable.wordId, value: definitionsTable.value })
+            .select({
+                wordId: definitionsTable.wordId,
+                id: definitionsTable.id,
+                value: definitionsTable.value,
+            })
             .from(definitionsTable)
             .where(inArray(definitionsTable.wordId, wordIds));
 
         const translations = await db
-            .select({ wordId: translationsTable.wordId, value: translationsTable.value })
+            .select({
+                wordId: translationsTable.wordId,
+                id: translationsTable.id,
+                value: translationsTable.value,
+            })
             .from(translationsTable)
             .where(inArray(translationsTable.wordId, wordIds));
 
         const data = words.map((w) => ({
             id: w.id,
             word: w.word,
-            definitions: definitions.filter((d) => d.wordId === w.id).map((d) => d.value),
-            translations: translations.filter((t) => t.wordId === w.id).map((t) => t.value),
+            definitions: definitions
+                .filter((d) => d.wordId === w.id)
+                .map((d) => ({ value: d.value, id: d.id })),
+            translations: translations
+                .filter((t) => t.wordId === w.id)
+                .map((t) => ({ value: t.value, id: t.id })),
         }));
 
         return { data, total, limit, offset };
