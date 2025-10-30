@@ -28,7 +28,11 @@
         "confirm_password": "Confirm password",
         "show_password": "Show password",
         "password_placeholder": "**********",
-        "search": "Search"
+        "search": "Search",
+        "word": "Word",
+        "word_placeholder": "Apple",
+        "translations": "Translations",
+        "definitions": "Definitions"
     },
     "form_error": {
         "REQUIRED": "This field is required",

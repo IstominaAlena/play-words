@@ -28,7 +28,11 @@
         "confirm_password": "Підтвердьте пароль",
         "show_password": "Показати пароль",
         "password_placeholder": "**********",
-        "search": "Пошук"
+        "search": "Пошук",
+        "word": "Слово",
+        "word_placeholder": "Яблуко",
+        "translations": "Переклади",
+        "definitions": "Визначення"
     },
     "form_error": {
         "REQUIRED": "Це поле обов'язкове",
@@ -78,5 +82,8 @@
         "manage_account_modal_description": "Будь ласка, введіть свою електронну адресу, щоб продовжити.",
         "manage_account_modal_text": "Після завершення цього періоду зміни буде неможливо скасувати.",
         "consent_failed": "Введена електронна адреса не збігається з вашою."
+    },
+    "dictionary": {
+        "add_word": "Додати слово"
     }
 }

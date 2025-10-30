@@ -1,32 +1,19 @@
 "use client";
 
-import { FC, useMemo } from "react";
+import { FC } from "react";
 
 import { EmptyContent } from "@repo/ui/components/empty-content";
 
-import { DEFAULT_ITEMS_PER_PAGE } from "@repo/common/constants/common";
+import { Word } from "@repo/common/types/dictionary";
 
-import { useDictionary } from "@/api/dictionary/queries";
+interface Props {
+    dictionary: Word[];
+}
 
-export const DictionaryTable: FC = () => {
-    const {
-        data: dictionaryData,
-        fetchNextPage,
-        fetchPreviousPage,
-    } = useDictionary(DEFAULT_ITEMS_PER_PAGE);
-
-    const dictionaryPages = useMemo(() => dictionaryData?.pages ?? [], [dictionaryData]);
-
-    const dictionary = useMemo(
-        () => dictionaryPages.map((page) => page.data).flat(),
-        [dictionaryPages],
+export const DictionaryTable: FC<Props> = ({ dictionary }) => {
+    return (
+        <div className="bg-secondary_dark/80 relative container flex w-full flex-1 flex-col rounded-lg p-6 md:p-4">
+            {dictionary.length === 0 ? <EmptyContent /> : <div></div>}
+        </div>
     );
-
-    console.log("==========>>>", { dictionary });
-
-    if (dictionary.length === 0) {
-        return <EmptyContent />;
-    }
-
-    return <>Dictionary</>;
 };
