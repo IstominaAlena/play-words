@@ -12,31 +12,24 @@ import { Text, Title } from "@repo/ui/core/typography";
 import { DeleteIcon } from "@repo/ui/icons/delete";
 import { EditIcon } from "@repo/ui/icons/edit";
 
-import { DictionaryItem } from "@repo/common/types/dictionary";
+import { DictionaryItem, Word } from "@repo/common/types/dictionary";
 
 import { useDeleteWord } from "@/api/dictionary/mutations";
 
+import { WordModal } from "./word-modal";
+
 interface Props {
-    id: number;
-    word: string;
-    translations: DictionaryItem[];
-    definitions: DictionaryItem[];
+    data: Word;
     isPreview?: boolean;
     openModal: (content: ReactNode) => void;
     closeModal: () => void;
 }
 
-export const DictionaryCard: FC<Props> = ({
-    id,
-    word,
-    translations,
-    definitions,
-    isPreview,
-    openModal,
-    closeModal,
-}) => {
+export const DictionaryCard: FC<Props> = ({ data, isPreview, openModal, closeModal }) => {
     const t = useTranslations("dictionary");
     const tGlobal = useTranslations("global");
+
+    const { wordId, word, translations, definitions } = data;
 
     const displayedTranslations = isPreview ? translations.slice(0, 5) : translations;
     const translationsAmount = translations.length > 5 ? translations.length - 5 : 0;
@@ -48,7 +41,7 @@ export const DictionaryCard: FC<Props> = ({
 
     const onConfirmButtonClick = async () => {
         try {
-            await deleteWord(id);
+            await deleteWord(wordId);
         } catch (error: any) {
             showToast.error(error.message);
         } finally {
@@ -83,6 +76,7 @@ export const DictionaryCard: FC<Props> = ({
 
     const onEditButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
+        openModal(<WordModal closeModal={closeModal} data={data} />);
     };
 
     const onDeleteButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
@@ -102,23 +96,21 @@ export const DictionaryCard: FC<Props> = ({
         () => (
             <div
                 className={cn(
-                    "flex items-center",
-                    isPreview && "opacity-0 duration-300 group-hover:opacity-100",
+                    "flex items-center gap-4",
+                    isPreview && "opacity-0 group-hover:opacity-100",
                 )}
             >
-                <GhostButton onClick={onEditButtonClick} className="p-2">
-                    <EditIcon
-                        className="text-accent_dark hover:text-accent_light cursor-pointer duration-300"
-                        width={16}
-                        height={16}
-                    />
+                <GhostButton
+                    onClick={onEditButtonClick}
+                    className="text-accent_dark hover:text-accent_light py-2 duration-300"
+                >
+                    <EditIcon width={16} height={16} />
                 </GhostButton>
-                <GhostButton onClick={onDeleteButtonClick} className="p-2">
-                    <DeleteIcon
-                        className="text-error_dark hover:text-error_light cursor-pointer duration-300"
-                        width={16}
-                        height={16}
-                    />
+                <GhostButton
+                    onClick={onDeleteButtonClick}
+                    className="text-error_dark hover:text-error_light py-2 duration-300"
+                >
+                    <DeleteIcon width={16} height={16} />
                 </GhostButton>
             </div>
         ),

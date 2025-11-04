@@ -14,6 +14,11 @@ export interface Word {
     translations: DictionaryItem[];
 }
 
+export interface WordInfo {
+    definitions: string[];
+    translations: string[];
+}
+
 export interface Dictionary {
     data: Word[];
     total: number;

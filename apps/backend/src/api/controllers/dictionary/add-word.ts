@@ -23,7 +23,7 @@ export const addWord = async (req: AuthenticatedRequest<CreateWordDto>, res: Res
         throw new AppError(400, messageKeys.BAD_REQUEST);
     }
 
-    const wordId = await wordsService.createWord({ value: word });
+    const wordId = await wordsService.createWord({ value: word.toLowerCase() });
 
     if (!wordId) {
         throw new AppError(500, messageKeys.SOMETHING_WENT_WRONG);
@@ -32,7 +32,10 @@ export const addWord = async (req: AuthenticatedRequest<CreateWordDto>, res: Res
     const definitionsIds = (
         await Promise.all(
             definitions.map(async (definition) => {
-                const id = await definitionsService.createDefinition({ wordId, value: definition });
+                const id = await definitionsService.createDefinition({
+                    wordId,
+                    value: definition.toLowerCase(),
+                });
 
                 if (!id) {
                     throw new AppError(500, messageKeys.FAILED_TO_CREATE, undefined, {
@@ -50,7 +53,7 @@ export const addWord = async (req: AuthenticatedRequest<CreateWordDto>, res: Res
             translations.map(async (translation) => {
                 const id = await translationsService.createTranslation({
                     wordId,
-                    value: translation,
+                    value: translation.toLowerCase(),
                 });
 
                 if (!id) {

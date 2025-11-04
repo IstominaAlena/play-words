@@ -21,16 +21,7 @@ export const DictionaryList: FC<Props> = ({ dictionary, isLoading }) => {
 
     const onCardClick = useCallback(
         (item: Word) => () =>
-            openModal(
-                <DictionaryCard
-                    id={item.wordId}
-                    word={item.word}
-                    translations={item.translations}
-                    definitions={item.definitions}
-                    openModal={openModal}
-                    closeModal={closeModal}
-                />,
-            ),
+            openModal(<DictionaryCard data={item} openModal={openModal} closeModal={closeModal} />),
         [closeModal, openModal],
     );
 
@@ -38,10 +29,7 @@ export const DictionaryList: FC<Props> = ({ dictionary, isLoading }) => {
         (item: Word) => (
             <li key={item.wordId} onClick={onCardClick(item)}>
                 <DictionaryCard
-                    id={item.wordId}
-                    word={item.word}
-                    translations={item.translations}
-                    definitions={item.definitions}
+                    data={item}
                     isPreview
                     openModal={openModal}
                     closeModal={closeModal}

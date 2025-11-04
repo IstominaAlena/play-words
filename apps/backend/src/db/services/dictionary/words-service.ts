@@ -1,14 +1,14 @@
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 
 import { db } from "@/config/drizzle-orm/db";
-import { wordsTable } from "@/db/schemas/dictionary-schemas";
+import { definitionsTable, translationsTable, wordsTable } from "@/db/schemas/dictionary-schemas";
 import { CreateWord, UpdateWord, WordsTable } from "@/types/dictionary";
 
 export class WordsService {
     private table = wordsTable;
 
     async createWord(data: CreateWord) {
-        const existingWord = await this.getWordByValue(data.value);
+        const existingWord = await this.getRawWordByValue(data.value);
 
         if (existingWord) {
             return existingWord.id;
@@ -25,11 +25,30 @@ export class WordsService {
         return result[0] ?? null;
     }
 
-    async getWordByValue(value: WordsTable["value"]) {
+    async getRawWordByValue(value: WordsTable["value"]) {
         const result = await db
             .select()
             .from(this.table)
             .where(eq(this.table.value, value))
+            .limit(1);
+
+        return result[0] ?? null;
+    }
+
+    async getWordByValue(value: WordsTable["value"]) {
+        const result = await db
+            .select({
+                definitions: sql<string[]>`
+                            json_agg(distinct ${definitionsTable.value})
+                        `.as("definitions"),
+                translations: sql<string[]>`
+                            json_agg(distinct ${translationsTable.value})
+                        `.as("translations"),
+            })
+            .from(this.table)
+            .where(eq(this.table.value, value.toLowerCase()))
+            .leftJoin(definitionsTable, eq(this.table.id, definitionsTable.wordId))
+            .leftJoin(translationsTable, eq(this.table.id, translationsTable.wordId))
             .limit(1);
 
         return result[0] ?? null;

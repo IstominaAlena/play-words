@@ -32,7 +32,8 @@
         "word": "Слово",
         "word_placeholder": "Яблуко",
         "translations": "Переклади",
-        "definitions": "Визначення"
+        "definitions": "Визначення",
+        "tips": "Підказки ({number})"
     },
     "form_error": {
         "REQUIRED": "Це поле обов'язкове",

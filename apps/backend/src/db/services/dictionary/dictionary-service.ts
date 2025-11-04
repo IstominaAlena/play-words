@@ -87,8 +87,20 @@ export class DictionaryService {
             .from(this.table)
             .where(eq(this.table.userId, userId))
             .leftJoin(wordsTable, eq(this.table.wordId, wordsTable.id))
-            .leftJoin(definitionsTable, eq(this.table.wordId, definitionsTable.wordId))
-            .leftJoin(translationsTable, eq(this.table.wordId, translationsTable.wordId))
+            .leftJoin(
+                definitionsTable,
+                and(
+                    eq(this.table.wordId, definitionsTable.wordId),
+                    eq(this.table.definitionId, definitionsTable.id),
+                ),
+            )
+            .leftJoin(
+                translationsTable,
+                and(
+                    eq(this.table.wordId, translationsTable.wordId),
+                    eq(this.table.translationId, translationsTable.id),
+                ),
+            )
             .groupBy(this.table.wordId, wordsTable.value)
             .orderBy(asc(wordsTable.value))
             .limit(pageSize)

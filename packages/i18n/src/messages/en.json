@@ -34,7 +34,8 @@
         "word": "Word",
         "word_placeholder": "Apple",
         "translations": "Translations",
-        "definitions": "Definitions"
+        "definitions": "Definitions",
+        "tips": "Tips ({number})"
     },
     "form_error": {
         "REQUIRED": "This field is required",

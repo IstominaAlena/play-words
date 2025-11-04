@@ -25,4 +25,6 @@ router.delete(
     controllerWrapper(dictionaryControllersService.deleteWord),
 );
 
+router.post("/word", authValidation, controllerWrapper(dictionaryControllersService.getWordInfo));
+
 export default router;

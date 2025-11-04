@@ -5,6 +5,7 @@ import { X } from "lucide-react";
 import { ComponentProps, FC, useState } from "react";
 
 import { cn } from "../utils/class-names";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./accordion";
 import { GlowingContainer } from "./glowing-container";
 
 const CoreTagsInput: FC<ComponentProps<typeof TagsInputPrimitive.Root>> = ({
@@ -43,9 +44,14 @@ const TagsInputInput: FC<ComponentProps<typeof TagsInputPrimitive.Input>> = ({
     />
 );
 
-const TagsInputItem: FC<ComponentProps<typeof TagsInputPrimitive.Item>> = ({
+interface TagsInputItemProps extends ComponentProps<typeof TagsInputPrimitive.Item> {
+    isRemovable?: boolean;
+}
+
+const TagsInputItem: FC<TagsInputItemProps> = ({
     className,
     children,
+    isRemovable = true,
     ...props
 }) => (
     <TagsInputPrimitive.Item
@@ -57,11 +63,58 @@ const TagsInputItem: FC<ComponentProps<typeof TagsInputPrimitive.Item>> = ({
         {...props}
     >
         <TagsInputPrimitive.ItemText className="">{children}</TagsInputPrimitive.ItemText>
-        <TagsInputPrimitive.ItemDelete className="ring-offset-background size-4 shrink-0 rounded-sm opacity-70 transition-opacity hover:opacity-100">
-            <X className="size-3.5" />
-        </TagsInputPrimitive.ItemDelete>
+        {isRemovable && (
+            <TagsInputPrimitive.ItemDelete className="ring-offset-background size-4 shrink-0 rounded-sm opacity-70 transition-opacity hover:opacity-100">
+                <X className="size-3.5" />
+            </TagsInputPrimitive.ItemDelete>
+        )}
     </TagsInputPrimitive.Item>
 );
+
+interface TagsListProps {
+    values: string[];
+    triggerText: string;
+    itemClassName?: string;
+    isRemovable?: boolean;
+    onValueClick?: (value: string) => void;
+    isDisabled?: boolean;
+}
+
+export const TagsList: FC<TagsListProps> = ({
+    values,
+    triggerText,
+    itemClassName,
+    isRemovable = false,
+    onValueClick,
+    isDisabled,
+}) => {
+    const handleValue = (value: string) => () => onValueClick?.(value);
+
+    const renderItem = (value: string) => (
+        <TagsInputItem
+            key={value}
+            value={value}
+            className={cn("hover:border-secondary-light cursor-pointer", itemClassName)}
+            isRemovable={isRemovable}
+            onClick={handleValue(value)}
+        >
+            {value}
+        </TagsInputItem>
+    );
+
+    return (
+        <Accordion type="single" collapsible disabled={isDisabled}>
+            <AccordionItem value="item-1">
+                <AccordionTrigger>{triggerText}</AccordionTrigger>
+                <AccordionContent>
+                    <CoreTagsInput>
+                        <TagsInputList>{values.map(renderItem)}</TagsInputList>
+                    </CoreTagsInput>
+                </AccordionContent>
+            </AccordionItem>
+        </Accordion>
+    );
+};
 
 interface Props {
     placeholder?: string;
