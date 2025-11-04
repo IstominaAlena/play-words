@@ -61,6 +61,7 @@ export const DictionaryPage: FC = () => {
                         hasPreviousPage={hasPrevPage}
                         fetchNextPage={fetchNextPage}
                         fetchPreviousPage={fetchPrevPage}
+                        isLoading={isPending}
                     />
                 </div>
             </div>

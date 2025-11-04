@@ -5,6 +5,8 @@ import { FC } from "react";
 
 import { cn } from "@repo/ui/class-names";
 
+import { Skeleton } from "./skeleton";
+
 interface InfinitePaginationProps {
     currentPage: number;
     totalPages: number;
@@ -12,6 +14,7 @@ interface InfinitePaginationProps {
     hasPreviousPage: boolean;
     fetchNextPage: () => void;
     fetchPreviousPage: () => void;
+    isLoading?: boolean;
 }
 
 export const Pagination: FC<InfinitePaginationProps> = ({
@@ -21,6 +24,7 @@ export const Pagination: FC<InfinitePaginationProps> = ({
     hasPreviousPage,
     fetchNextPage,
     fetchPreviousPage,
+    isLoading,
 }) => {
     return (
         <div className="mt-6 flex items-center justify-center gap-2">
@@ -40,9 +44,13 @@ export const Pagination: FC<InfinitePaginationProps> = ({
                 />
             </button>
 
-            <span className="text-neutral px-3 py-1.5 text-lg font-medium">
-                {currentPage}/{totalPages}
-            </span>
+            {isLoading ? (
+                <Skeleton className="h-6 w-10" />
+            ) : (
+                <span className="text-neutral px-3 py-1.5 text-lg font-medium">
+                    {currentPage}/{totalPages}
+                </span>
+            )}
 
             <button
                 onClick={fetchNextPage}

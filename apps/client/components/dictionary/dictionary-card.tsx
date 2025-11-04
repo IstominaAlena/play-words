@@ -102,18 +102,18 @@ export const DictionaryCard: FC<Props> = ({
         () => (
             <div
                 className={cn(
-                    "flex items-center gap-3",
+                    "flex items-center",
                     isPreview && "opacity-0 duration-300 group-hover:opacity-100",
                 )}
             >
-                <GhostButton onClick={onEditButtonClick}>
+                <GhostButton onClick={onEditButtonClick} className="p-2">
                     <EditIcon
                         className="text-accent_dark hover:text-accent_light cursor-pointer duration-300"
                         width={16}
                         height={16}
                     />
                 </GhostButton>
-                <GhostButton onClick={onDeleteButtonClick}>
+                <GhostButton onClick={onDeleteButtonClick} className="p-2">
                     <DeleteIcon
                         className="text-error_dark hover:text-error_light cursor-pointer duration-300"
                         width={16}
