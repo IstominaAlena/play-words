@@ -17,9 +17,13 @@ export const getDictionary = async (
         throw new AppError(401, messageKeys.UNAUTHORIZED);
     }
 
-    const { limit, offset } = req.query;
+    const { pageSize, page } = req.query;
 
-    const dictionary = await dictionaryService.getDictionary(userId, limit, offset);
+    const dictionary = await dictionaryService.getDictionary(
+        userId,
+        Number(pageSize),
+        Number(page),
+    );
 
     return res.status(200).json(dictionary);
 };

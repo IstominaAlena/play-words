@@ -1,4 +1,5 @@
-import { and, eq, inArray, sql } from "drizzle-orm";
+import { and, asc, eq, sql } from "drizzle-orm";
+import { count } from "drizzle-orm";
 
 import { DEFAULT_ITEMS_PER_PAGE } from "@repo/common/constants/common";
 
@@ -63,66 +64,44 @@ export class DictionaryService {
 
     async getDictionary(
         userId: DictionaryTable["userId"],
-        limit = DEFAULT_ITEMS_PER_PAGE,
-        offset = 0,
+        pageSize: number = DEFAULT_ITEMS_PER_PAGE,
+        page: number = 1,
     ) {
-        const dictionaryRows = await db
-            .select({ wordId: dictionaryTable.wordId })
+        const data = await db
+            .select({
+                wordId: dictionaryTable.wordId,
+                word: wordsTable.value,
+                definitions: sql<{ id: number; value: string }[]>`
+                json_agg(distinct jsonb_build_object(
+                    'id', ${definitionsTable.id},
+                    'value', ${definitionsTable.value}
+                ))
+            `.as("definitions"),
+                translations: sql<{ id: number; value: string }[]>`
+                json_agg(distinct jsonb_build_object(
+                    'id', ${translationsTable.id},
+                    'value', ${translationsTable.value}
+                ))
+            `.as("translations"),
+            })
             .from(this.table)
             .where(eq(this.table.userId, userId))
-            .limit(limit)
-            .offset(offset);
+            .leftJoin(wordsTable, eq(this.table.wordId, wordsTable.id))
+            .leftJoin(definitionsTable, eq(this.table.wordId, definitionsTable.wordId))
+            .leftJoin(translationsTable, eq(this.table.wordId, translationsTable.wordId))
+            .groupBy(this.table.wordId, wordsTable.value)
+            .orderBy(asc(wordsTable.value))
+            .limit(pageSize)
+            .offset((page - 1) * pageSize);
 
-        const wordIds = Array.from(new Set(dictionaryRows.map((r) => r.wordId)));
+        const [countRows] = await db
+            .select({ total: count(sql`distinct ${dictionaryTable.wordId}`) })
+            .from(dictionaryTable)
+            .where(eq(dictionaryTable.userId, userId));
 
-        if (wordIds.length === 0) {
-            return { data: [], total: 0, pages: 0 };
-        }
+        const total = countRows?.total ?? 0;
 
-        const countResult = await db
-            .select({ count: sql<number>`count(*)` })
-            .from(this.table)
-            .where(eq(this.table.userId, userId));
-
-        const total = Number(countResult[0]?.count ?? 0);
-
-        const pages = Math.ceil(total / limit);
-
-        const page = offset + 1;
-
-        const words = await db
-            .select({ id: wordsTable.id, word: wordsTable.value })
-            .from(wordsTable)
-            .where(inArray(wordsTable.id, wordIds));
-
-        const definitions = await db
-            .select({
-                wordId: definitionsTable.wordId,
-                id: definitionsTable.id,
-                value: definitionsTable.value,
-            })
-            .from(definitionsTable)
-            .where(inArray(definitionsTable.wordId, wordIds));
-
-        const translations = await db
-            .select({
-                wordId: translationsTable.wordId,
-                id: translationsTable.id,
-                value: translationsTable.value,
-            })
-            .from(translationsTable)
-            .where(inArray(translationsTable.wordId, wordIds));
-
-        const data = words.map((w) => ({
-            id: w.id,
-            word: w.word,
-            definitions: definitions
-                .filter((d) => d.wordId === w.id)
-                .map((d) => ({ value: d.value, id: d.id })),
-            translations: translations
-                .filter((t) => t.wordId === w.id)
-                .map((t) => ({ value: t.value, id: t.id })),
-        }));
+        const pages = Math.ceil(total / pageSize);
 
         return { data, total, pages, page };
     }

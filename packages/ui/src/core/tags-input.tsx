@@ -88,10 +88,16 @@ export const TagsInput: FC<Props> = ({
             value={values}
             onValueChange={onValueChange}
             editable={editable}
-            addOnPaste
             onBlur={onBlur}
             onFocus={onFocus}
         >
+            <TagsInputList>
+                {values.map((value) => (
+                    <TagsInputItem key={value} value={value}>
+                        {value}
+                    </TagsInputItem>
+                ))}
+            </TagsInputList>
             <GlowingContainer
                 containerClassName="disabled:pointer-events-none disabled:opacity-50"
                 contentClassName={cn("p-0", isFocused && "border-accent_dark", className)}
@@ -101,14 +107,7 @@ export const TagsInput: FC<Props> = ({
                     isError && "bg-error_gradient border-error_dark",
                 )}
             >
-                <TagsInputList>
-                    {values.map((value) => (
-                        <TagsInputItem key={value} value={value}>
-                            {value}
-                        </TagsInputItem>
-                    ))}
-                    {editable && <TagsInputInput placeholder={placeholder} />}
-                </TagsInputList>
+                {editable && <TagsInputInput placeholder={placeholder} />}
             </GlowingContainer>
         </CoreTagsInput>
     );

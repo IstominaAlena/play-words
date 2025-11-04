@@ -2,8 +2,8 @@ import { api } from "@repo/api-config/api-config";
 import { PaginationDto } from "@repo/common/types/api";
 import { CreateWordDto, Dictionary } from "@repo/common/types/dictionary";
 
-export const getDictionary = async ({ limit, offset }: PaginationDto): Promise<Dictionary> => {
-    const { data } = await api.get<Dictionary>(`/dictionary?limit=${limit}&offset=${offset}`);
+export const getDictionary = async ({ pageSize, page }: PaginationDto): Promise<Dictionary> => {
+    const { data } = await api.get<Dictionary>(`/dictionary?pageSize=${pageSize}&page=${page}`);
 
     return data;
 };

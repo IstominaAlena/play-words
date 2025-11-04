@@ -8,7 +8,7 @@ export interface DictionaryItem {
 }
 
 export interface Word {
-    id: number;
+    wordId: number;
     word: string;
     definitions: DictionaryItem[];
     translations: DictionaryItem[];

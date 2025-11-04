@@ -1,6 +1,6 @@
 export interface PaginationDto {
-    limit?: number;
-    offset?: number;
+    pageSize?: number;
+    page?: number;
 }
 
 export interface DeleteWordDto {

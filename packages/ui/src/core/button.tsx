@@ -45,7 +45,7 @@ const GhostButton: FC<ComponentProps<"button">> = ({ children, className, ...pro
     <button
         {...props}
         className={cn(
-            "text-secondary_light hover:text-primary_light cursor-pointer text-sm capitalize underline transition-all duration-300",
+            "text-secondary_light hover:text-primary_light cursor-pointer text-sm capitalize underline transition-all duration-300 outline-none",
             className,
         )}
     >
