@@ -36,11 +36,7 @@ export const DictionaryList: FC<Props> = ({ dictionary, isLoading }) => {
 
     const renderCard = useCallback(
         (item: Word) => (
-            <li
-                key={item.wordId}
-                className="w-full max-w-[calc(100%/5-20px)]"
-                onClick={onCardClick(item)}
-            >
+            <li key={item.wordId} onClick={onCardClick(item)}>
                 <DictionaryCard
                     id={item.wordId}
                     word={item.word}
@@ -58,12 +54,16 @@ export const DictionaryList: FC<Props> = ({ dictionary, isLoading }) => {
     const content = useMemo(() => {
         if (isLoading) {
             const arr = Array.from({ length: DEFAULT_ITEMS_PER_PAGE }, (_, i) => (
-                <li key={i} className="w-full max-w-[calc(100%/5-20px)]">
+                <li key={i} className="min-h-60">
                     <Skeleton />
                 </li>
             ));
 
-            return <ul className="flex w-full flex-1 flex-wrap justify-between gap-4">{arr}</ul>;
+            return (
+                <ul className="grid w-full grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-5">
+                    {arr}
+                </ul>
+            );
         }
 
         if (!isLoading && dictionary.length === 0) {
@@ -71,7 +71,9 @@ export const DictionaryList: FC<Props> = ({ dictionary, isLoading }) => {
         }
 
         return (
-            <ul className="flex flex-wrap justify-between gap-4">{dictionary.map(renderCard)}</ul>
+            <ul className="grid w-full grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-5">
+                {dictionary.map(renderCard)}
+            </ul>
         );
     }, [dictionary, isLoading, renderCard]);
 

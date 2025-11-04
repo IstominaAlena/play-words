@@ -4,15 +4,17 @@ import { useTranslations } from "next-intl";
 import { FC, MouseEvent, ReactNode, useCallback, useMemo } from "react";
 
 import { cn } from "@repo/ui/class-names";
+import { ConsentModal } from "@repo/ui/components/consent-modal";
 import { GhostButton } from "@repo/ui/core/button";
 import { HoverBorderGradient } from "@repo/ui/core/hover-border-gradient";
+import { showToast } from "@repo/ui/core/sonner";
 import { Text, Title } from "@repo/ui/core/typography";
 import { DeleteIcon } from "@repo/ui/icons/delete";
 import { EditIcon } from "@repo/ui/icons/edit";
 
 import { DictionaryItem } from "@repo/common/types/dictionary";
 
-import { DeleteWordConsentModal } from "./delete-word-consent-modal";
+import { useDeleteWord } from "@/api/dictionary/mutations";
 
 interface Props {
     id: number;
@@ -41,6 +43,18 @@ export const DictionaryCard: FC<Props> = ({
 
     const displayedDefinitions = isPreview ? definitions.slice(0, 1) : definitions;
     const definitionsAmount = definitions.length > 1 ? definitions.length - 1 : 0;
+
+    const { mutateAsync: deleteWord, isPending } = useDeleteWord();
+
+    const onConfirmButtonClick = async () => {
+        try {
+            await deleteWord(id);
+        } catch (error: any) {
+            showToast.error(error.message);
+        } finally {
+            closeModal();
+        }
+    };
 
     const renderListItem = ({ id, value }: DictionaryItem) => (
         <li key={id} className="relative normal-case after:content-[','] last:after:content-none">
@@ -73,7 +87,15 @@ export const DictionaryCard: FC<Props> = ({
 
     const onDeleteButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
-        openModal(<DeleteWordConsentModal closeModal={closeModal} id={id} />);
+        openModal(
+            <ConsentModal
+                title={t("delete_word")}
+                text={t("delete_word_subtitle")}
+                onCancel={closeModal}
+                onConfirm={onConfirmButtonClick}
+                isLoading={isPending}
+            />,
+        );
     };
 
     const buttons = useMemo(
