@@ -1,3 +1,5 @@
+"use client";
+
 import { ComponentProps, FC, ReactNode } from "react";
 
 import { Variant } from "@repo/common/types/common";

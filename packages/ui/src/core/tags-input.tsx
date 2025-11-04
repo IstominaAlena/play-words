@@ -1,6 +1,8 @@
+"use client";
+
 import * as TagsInputPrimitive from "@diceui/tags-input";
 import { X } from "lucide-react";
-import { ComponentProps, FC, FocusEventHandler, useState } from "react";
+import { ComponentProps, FC, useState } from "react";
 
 import { cn } from "../utils/class-names";
 import { GlowingContainer } from "./glowing-container";
