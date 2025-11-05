@@ -7,14 +7,18 @@ import { GlowingContainer } from "./glowing-container";
 
 interface Props extends ComponentProps<"input"> {
     isError?: boolean;
+    onInputBlur?: () => void;
 }
 
-export const Input: FC<Props> = ({ className, type, isError, ...props }) => {
+export const Input: FC<Props> = ({ className, type, isError, onInputBlur, ...props }) => {
     const [isFocused, setIsFocused] = useState(false);
 
     const onFocus = () => setIsFocused(true);
 
-    const onBlur = () => setIsFocused(false);
+    const onBlur = () => {
+        onInputBlur?.();
+        setIsFocused(false);
+    };
 
     return (
         <GlowingContainer

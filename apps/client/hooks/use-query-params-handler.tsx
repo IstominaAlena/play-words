@@ -23,7 +23,7 @@ export const useQueryParamsHandler = ({ openModal, closeModal }: UseQueryParamsH
 
     const isOtp = searchParams.get("otp") ?? false;
     const email = searchParams.get("email") ?? "";
-    const error = searchParams.get("error");
+    const error = searchParams.get("error") ?? "";
 
     useEffect(() => {
         if (isOtp) {

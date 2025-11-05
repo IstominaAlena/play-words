@@ -1,13 +1,11 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
-import { FC, useEffect } from "react";
+import { FC } from "react";
 
 import { MobileMenu } from "@repo/ui/components/mobile-menu";
 import { NavBar } from "@repo/ui/components/nav-bar";
 import { GradientLine } from "@repo/ui/core/gradient-line";
 import { Logo } from "@repo/ui/core/logo";
-import { showToast } from "@repo/ui/core/sonner";
 
 import { useModal } from "@repo/common/hooks/use-modal.tsx";
 import { useUserStore } from "@repo/common/stores/user-store";

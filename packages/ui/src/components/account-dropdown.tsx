@@ -5,7 +5,7 @@ import { FC, useMemo } from "react";
 
 import { Link } from "@repo/i18n/config/navigation";
 
-import { DropdownMenu, DropdownMenuItem } from "../core/dropdown-menu";
+import { DropdownMenu } from "../core/dropdown-menu";
 import { HoverBorderGradient } from "../core/hover-border-gradient";
 import { Text } from "../core/typography";
 import { AccountIcon } from "../icons/account";

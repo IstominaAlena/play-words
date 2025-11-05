@@ -32,6 +32,10 @@ export class AuthService {
             username,
         });
 
+        if (!newUser) {
+            throw new AppError(500, messageKeys.SOMETHING_WENT_WRONG);
+        }
+
         const credentialsId = await userCredentialsService.createUserCredentials({
             userId: newUser.id,
             provider,

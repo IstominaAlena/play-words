@@ -19,5 +19,6 @@
     "CREDENTIALS_NOT_FOUND": "Credentials could not be found.",
     "OTP_NOT_ENABLED": "OTP is not enabled for your account.",
     "INVALID_OTP": "The code you entered is invalid. Please try again.",
-    "CREATE_PASSWORD_TO_CHANGE_EMAIL": "Please set a password before changing your email."
+    "CREATE_PASSWORD_TO_CHANGE_EMAIL": "Please set a password before changing your email.",
+    "FAILED_TO_CREATE": "Failed to create {data}"
 }

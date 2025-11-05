@@ -18,6 +18,8 @@ interface FormInputProps<T extends FieldValues> {
     errorClassName?: string;
     containerClassName?: string;
     readOnly?: boolean;
+    onBlur?: () => void;
+    onInputChange?: () => void;
 }
 
 export const FormInput = <T extends FieldValues>({
@@ -31,6 +33,8 @@ export const FormInput = <T extends FieldValues>({
     errorClassName,
     containerClassName,
     readOnly,
+    onBlur,
+    onInputChange,
 }: FormInputProps<T>) => (
     <div className={cn("relative flex w-full flex-col gap-1", containerClassName)}>
         {label && <Label className={labelClassName}>{label}</Label>}
@@ -47,6 +51,11 @@ export const FormInput = <T extends FieldValues>({
                         className={className}
                         isError={!!error}
                         readOnly={readOnly}
+                        onInputBlur={onBlur}
+                        onChange={(e) => {
+                            field.onChange(e);
+                            onInputChange?.();
+                        }}
                     />
                     <ErrorMessage
                         message={error?.message}
