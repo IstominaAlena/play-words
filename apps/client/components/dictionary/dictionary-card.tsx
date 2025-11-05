@@ -12,7 +12,8 @@ import { Text, Title } from "@repo/ui/core/typography";
 import { DeleteIcon } from "@repo/ui/icons/delete";
 import { EditIcon } from "@repo/ui/icons/edit";
 
-import { DictionaryItem, Word } from "@repo/common/types/dictionary";
+import { useUserStore } from "@repo/common/stores/user-store";
+import { Word } from "@repo/common/types/dictionary";
 
 import { useDeleteWord } from "@/api/dictionary/mutations";
 
@@ -28,6 +29,8 @@ interface Props {
 export const DictionaryCard: FC<Props> = ({ data, isPreview, openModal, closeModal }) => {
     const t = useTranslations("dictionary");
     const tGlobal = useTranslations("global");
+
+    const { user } = useUserStore();
 
     const { wordId, word, translations, definitions } = data;
 
@@ -49,14 +52,17 @@ export const DictionaryCard: FC<Props> = ({ data, isPreview, openModal, closeMod
         }
     };
 
-    const renderListItem = ({ id, value }: DictionaryItem) => (
-        <li key={id} className="relative normal-case after:content-[','] last:after:content-none">
+    const renderListItem = (value: string) => (
+        <li
+            key={value}
+            className="relative normal-case after:content-[','] last:after:content-none"
+        >
             {value}
         </li>
     );
 
     const renderDetails = useCallback(
-        (label: string, amount: number, data: DictionaryItem[], className?: string) => (
+        (label: string, amount: number, data: string[], className?: string) => (
             <div className="flex flex-col gap-1">
                 <div className="flex items-center justify-between gap-4">
                     <Text>{t(label)}</Text>
@@ -126,7 +132,7 @@ export const DictionaryCard: FC<Props> = ({ data, isPreview, openModal, closeMod
             <div className="flex h-full w-full flex-col gap-3">
                 <div className="flex items-center justify-between gap-4">
                     <Title>{word}</Title>
-                    {buttons}
+                    {user && buttons}
                 </div>
                 {renderDetails("translations", translationsAmount, displayedTranslations)}
                 {renderDetails(

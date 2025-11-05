@@ -78,18 +78,12 @@ export class DictionaryService {
             .select({
                 wordId: dictionaryTable.wordId,
                 word: wordsTable.value,
-                definitions: sql<{ id: number; value: string }[]>`
-                json_agg(distinct jsonb_build_object(
-                    'id', ${definitionsTable.id},
-                    'value', ${definitionsTable.value}
-                ))
-            `.as("definitions"),
-                translations: sql<{ id: number; value: string }[]>`
-                json_agg(distinct jsonb_build_object(
-                    'id', ${translationsTable.id},
-                    'value', ${translationsTable.value}
-                ))
-            `.as("translations"),
+                definitions: sql<string[]>`
+                            json_agg(distinct ${definitionsTable.value})
+                        `.as("definitions"),
+                translations: sql<string[]>`
+                            json_agg(distinct ${translationsTable.value})
+                        `.as("translations"),
             })
             .from(this.table)
             .where(and(...baseWhere))

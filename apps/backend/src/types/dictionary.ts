@@ -1,5 +1,6 @@
 import {
     definitionsTable,
+    demoDictionaryTable,
     dictionaryTable,
     translationsTable,
     wordsTable,
@@ -10,14 +11,17 @@ export type WordsTable = typeof wordsTable.$inferSelect;
 export type DefinitionsTable = typeof definitionsTable.$inferSelect;
 export type TranslationsTable = typeof translationsTable.$inferSelect;
 export type DictionaryTable = typeof dictionaryTable.$inferSelect;
+export type DemoDictionaryTable = typeof demoDictionaryTable.$inferSelect;
 
 // Create types
 export type CreateWord = typeof wordsTable.$inferInsert;
 export type CreateDefinition = typeof definitionsTable.$inferInsert;
 export type CreateTranslation = typeof translationsTable.$inferInsert;
 export type CreateDictionaryRow = typeof dictionaryTable.$inferInsert;
+export type CreateDemoWord = typeof demoDictionaryTable.$inferInsert;
 
 // Update
 export type UpdateWord = Partial<CreateWord>;
 export type UpdateDefinition = Partial<CreateDefinition>;
 export type UpdateTranslation = Partial<CreateTranslation>;
+export type UpdateDemoWord = Partial<CreateDemoWord>;

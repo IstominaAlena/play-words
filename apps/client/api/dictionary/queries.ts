@@ -4,7 +4,7 @@ import { useApiQuery } from "@repo/api-config/api-config";
 import { useUserStore } from "@repo/common/stores/user-store";
 import { Dictionary, WordInfo } from "@repo/common/types/dictionary";
 
-import { getDictionary, getWordInfo } from "./endpoints";
+import { getDemoDictionary, getDictionary, getWordInfo } from "./endpoints";
 
 export const useDictionary = (pageSize: number, page: number, search: string) => {
     const { user } = useUserStore();
@@ -25,5 +25,16 @@ export const useWordInfo = (word: string) => {
         queryFn: () => getWordInfo(word),
         queryKey: ["word-info", word],
         enabled: !!user && !!word,
+    });
+};
+
+export const useDemoDictionary = () => {
+    const { user } = useUserStore();
+
+    return useApiQuery<Dictionary>({
+        retry: false,
+        queryFn: getDemoDictionary,
+        queryKey: ["demo-dictionary"],
+        enabled: !user,
     });
 };

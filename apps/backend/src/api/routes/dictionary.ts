@@ -34,4 +34,16 @@ router.delete(
 
 router.post("/word", authValidation, controllerWrapper(dictionaryControllersService.getWordInfo));
 
+// Demo-dictionary
+
+router.get("/demo", controllerWrapper(dictionaryControllersService.getDemoDictionary));
+
+router.post(
+    "/add-demo",
+    validateBody(createWordSchema),
+    controllerWrapper(dictionaryControllersService.addDemoWord),
+);
+
+router.delete("/delete-demo", controllerWrapper(dictionaryControllersService.deleteDemoWord));
+
 export default router;
