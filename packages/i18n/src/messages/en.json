@@ -85,7 +85,9 @@
         "manage_account_modal_title": "Are you sure?",
         "manage_account_modal_description": "Please enter your email to proceed.",
         "manage_account_modal_text": "After the remaining period, the changes will be irreversible.",
-        "consent_failed": "The email you entered doesn’t match your account."
+        "consent_failed": "The email you entered doesn’t match your account.",
+        "settings": "Settings",
+        "statistics": "Statistics"
     },
     "dictionary": {
         "add_word": "Add word",

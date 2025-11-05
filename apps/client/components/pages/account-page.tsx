@@ -7,6 +7,7 @@ import { GlowingStarsBackground } from "@repo/ui/core/glowing-starts";
 import { Tabs } from "@repo/ui/core/tabs";
 
 import { AccountTab, SecurityTab } from "../account/tabs-content";
+import { UnderConstructionPage } from "./under-construction-page";
 
 export const AccountPage: FC = () => {
     const t = useTranslations("account");
@@ -19,6 +20,14 @@ export const AccountPage: FC = () => {
         {
             name: t("security"),
             content: <SecurityTab />,
+        },
+        {
+            name: t("settings"),
+            content: <UnderConstructionPage />,
+        },
+        {
+            name: t("statistics"),
+            content: <UnderConstructionPage />,
         },
     ];
 
