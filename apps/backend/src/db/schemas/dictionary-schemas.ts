@@ -60,3 +60,12 @@ export const dictionaryTable = pgTable(
     },
     (t) => [unique("dictionary_unique").on(t.userId, t.wordId, t.definitionId, t.translationId)],
 );
+
+export const demoDictionaryTable = pgTable("demo_dictionary", {
+    wordId: serial("word_id").notNull().primaryKey(),
+    word: varchar("word", { length: 255 }).notNull().unique(),
+    translations: text("translations").array().notNull(),
+    definitions: text("definitions").array().notNull(),
+    createdAt: timestamp("created_at", { mode: "string" }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { mode: "string" }).notNull().defaultNow(),
+});
