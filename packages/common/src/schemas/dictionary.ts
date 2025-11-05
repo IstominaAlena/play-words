@@ -5,3 +5,8 @@ export const createWordSchema = z.object({
     translations: z.array(z.string().min(1, "REQUIRED")).min(1, "REQUIRED"),
     definitions: z.array(z.string().min(1, "REQUIRED")).min(1, "REQUIRED"),
 });
+
+export const editWordSchema = z.object({
+    translations: z.array(z.string().min(1, "REQUIRED")).min(1, "REQUIRED"),
+    definitions: z.array(z.string().min(1, "REQUIRED")).min(1, "REQUIRED"),
+});

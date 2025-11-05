@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { createWordSchema } from "@repo/common/schemas/dictionary";
+import { createWordSchema, editWordSchema } from "@repo/common/schemas/dictionary";
 
 import { authValidation } from "@/middlewares/auth-validation";
 import { validateBody } from "@/middlewares/body-validation";
@@ -17,6 +17,13 @@ router.post(
     authValidation,
     validateBody(createWordSchema),
     controllerWrapper(dictionaryControllersService.addWord),
+);
+
+router.patch(
+    "/edit",
+    authValidation,
+    validateBody(editWordSchema),
+    controllerWrapper(dictionaryControllersService.editWord),
 );
 
 router.delete(

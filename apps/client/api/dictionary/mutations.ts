@@ -1,15 +1,26 @@
 "use client";
 
 import { queryClient, useApiMutation } from "@repo/api-config/api-config";
-import { CreateWordDto } from "@repo/common/types/dictionary";
+import { CreateWordDto, EditWordDto } from "@repo/common/types/dictionary";
 
-import { addWord, deleteWord } from "./endpoints";
+import { addWord, deleteWord, editWord } from "./endpoints";
 
 export const useAddWord = () => {
     return useApiMutation<void, CreateWordDto>({
         retry: false,
         mutationFn: addWord,
         mutationKey: ["add-word"],
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["dictionary"], exact: false });
+        },
+    });
+};
+
+export const useEditWord = (wordId?: number) => {
+    return useApiMutation<void, EditWordDto>({
+        retry: false,
+        mutationFn: (dto) => editWord(dto, wordId),
+        mutationKey: ["edit-word", wordId],
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["dictionary"], exact: false });
         },

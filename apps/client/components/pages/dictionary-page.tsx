@@ -2,12 +2,11 @@
 
 import { ChangeEvent, FC, useMemo, useState } from "react";
 
-import { Meteors } from "@repo/ui/core/meteors";
+import { GlowingStarsBackground } from "@repo/ui/core/glowing-starts";
 import { Pagination } from "@repo/ui/core/pagination";
 
 import { DEBOUNCE_DELAY, DEFAULT_ITEMS_PER_PAGE } from "@repo/common/constants/common";
 import useDebounce from "@repo/common/hooks/use-debounce.ts";
-import useWindowDimensions from "@repo/common/hooks/use-window-dimensions.ts";
 
 import { useDictionary } from "@/api/dictionary/queries";
 
@@ -15,15 +14,17 @@ import { DictionaryBar } from "../dictionary/dictionary-bar";
 import { DictionaryList } from "../dictionary/dictionary-list";
 
 export const DictionaryPage: FC = () => {
-    const { isMd } = useWindowDimensions();
-
     const [search, setSearch] = useState("");
 
     const [page, setPage] = useState(1);
 
     const debouncedSearch = useDebounce(search, DEBOUNCE_DELAY);
 
-    const { data: dictionaryData, isPending } = useDictionary(DEFAULT_ITEMS_PER_PAGE, page);
+    const { data: dictionaryData, isPending } = useDictionary(
+        DEFAULT_ITEMS_PER_PAGE,
+        page,
+        debouncedSearch,
+    );
 
     const dictionary = useMemo(() => dictionaryData?.data ?? [], [dictionaryData?.data]);
     const totalPages = useMemo(() => dictionaryData?.pages ?? 0, [dictionaryData?.pages]);
@@ -47,7 +48,7 @@ export const DictionaryPage: FC = () => {
 
     return (
         <section className="relative flex flex-1 flex-col overflow-hidden py-10 md:py-6">
-            <Meteors number={10} containerWidth={isMd ? 800 : 2500} />
+            <GlowingStarsBackground />
 
             <div className="relative container flex w-full flex-1 flex-col gap-6 md:gap-4">
                 <DictionaryBar search={search} searchChange={searchChange} />

@@ -11,10 +11,10 @@ import { Loader } from "@repo/ui/core/loader";
 import { showToast } from "@repo/ui/core/sonner";
 import { Title } from "@repo/ui/core/typography";
 
-import { createWordSchema } from "@repo/common/schemas/dictionary";
-import { CreateWordDto, Word } from "@repo/common/types/dictionary";
+import { createWordSchema, editWordSchema } from "@repo/common/schemas/dictionary";
+import { CreateWordDto, EditWordDto, Word } from "@repo/common/types/dictionary";
 
-import { useAddWord } from "@/api/dictionary/mutations";
+import { useAddWord, useEditWord } from "@/api/dictionary/mutations";
 import { useWordInfo } from "@/api/dictionary/queries";
 
 interface Props {
@@ -36,11 +36,17 @@ export const WordModal: FC<Props> = ({ closeModal, data }) => {
 
     const { mutateAsync: addWord, isPending: addWordPending } = useAddWord();
 
+    const { mutateAsync: editWord, isPending: editWordPending } = useEditWord(data?.wordId);
+
     const { data: wordInfo, isPending: wordInfoPending } = useWordInfo(word);
 
-    const onSubmit: SubmitHandler<CreateWordDto> = async (formData) => {
+    const onSubmit: SubmitHandler<WordDto> = async (formData) => {
         try {
-            await addWord(formData);
+            if (!data) {
+                await addWord(formData as CreateWordDto);
+            } else {
+                await editWord(formData as EditWordDto);
+            }
         } catch (error: any) {
             showToast.error(error.message);
         } finally {
@@ -48,15 +54,19 @@ export const WordModal: FC<Props> = ({ closeModal, data }) => {
         }
     };
 
+    type WordDto = CreateWordDto | EditWordDto;
+
+    const schema = data ? editWordSchema : createWordSchema;
+
     return (
         <div className="flex flex-col items-center justify-center gap-6">
-            <Title>{t("add_word")}</Title>
+            <Title>{t(data ? "edit_word" : "add_word")}</Title>
 
-            <Form<CreateWordDto>
+            <Form<WordDto>
                 defaultValues={defaultValues}
-                schema={createWordSchema}
+                schema={schema}
                 onSubmit={onSubmit}
-                isLoading={addWordPending}
+                isLoading={addWordPending || editWordPending}
                 render={({ control, watch }) => {
                     const currentWord = watch("word");
 

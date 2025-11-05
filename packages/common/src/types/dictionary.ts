@@ -1,6 +1,6 @@
 import z from "zod";
 
-import { createWordSchema } from "../schemas/dictionary";
+import { createWordSchema, editWordSchema } from "../schemas/dictionary";
 
 export interface DictionaryItem {
     id: number;
@@ -27,3 +27,5 @@ export interface Dictionary {
 }
 
 export type CreateWordDto = z.infer<typeof createWordSchema>;
+
+export type EditWordDto = z.infer<typeof editWordSchema>;

@@ -1,4 +1,4 @@
-import { and, asc, eq, sql } from "drizzle-orm";
+import { and, asc, eq, ilike, sql } from "drizzle-orm";
 import { count } from "drizzle-orm";
 
 import { DEFAULT_ITEMS_PER_PAGE } from "@repo/common/constants/common";
@@ -66,7 +66,14 @@ export class DictionaryService {
         userId: DictionaryTable["userId"],
         pageSize: number = DEFAULT_ITEMS_PER_PAGE,
         page: number = 1,
+        search = "",
     ) {
+        const baseWhere = [eq(this.table.userId, userId)];
+
+        if (search) {
+            baseWhere.push(ilike(wordsTable.value, `%${search.trim()}%`));
+        }
+
         const data = await db
             .select({
                 wordId: dictionaryTable.wordId,
@@ -85,7 +92,7 @@ export class DictionaryService {
             `.as("translations"),
             })
             .from(this.table)
-            .where(eq(this.table.userId, userId))
+            .where(and(...baseWhere))
             .leftJoin(wordsTable, eq(this.table.wordId, wordsTable.id))
             .leftJoin(
                 definitionsTable,

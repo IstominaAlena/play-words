@@ -97,7 +97,7 @@ export const DictionaryCard: FC<Props> = ({ data, isPreview, openModal, closeMod
             <div
                 className={cn(
                     "flex items-center gap-4",
-                    isPreview && "opacity-0 group-hover:opacity-100",
+                    isPreview && "opacity-0 group-hover:opacity-100 md:opacity-100",
                 )}
             >
                 <GhostButton

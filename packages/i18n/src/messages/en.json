@@ -88,6 +88,7 @@
     },
     "dictionary": {
         "add_word": "Add word",
+        "edit_word": "Edit word",
         "word": "Word",
         "translations": "Translations",
         "definitions": "Definitions",

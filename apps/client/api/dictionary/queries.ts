@@ -6,13 +6,13 @@ import { Dictionary, WordInfo } from "@repo/common/types/dictionary";
 
 import { getDictionary, getWordInfo } from "./endpoints";
 
-export const useDictionary = (pageSize: number, page: number) => {
+export const useDictionary = (pageSize: number, page: number, search: string) => {
     const { user } = useUserStore();
 
     return useApiQuery<Dictionary>({
         retry: false,
-        queryFn: () => getDictionary({ pageSize, page }),
-        queryKey: ["dictionary", pageSize, page],
+        queryFn: () => getDictionary({ pageSize, page, search }),
+        queryKey: ["dictionary", pageSize, page, search],
         enabled: !!user,
     });
 };
