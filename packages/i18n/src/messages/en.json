@@ -94,6 +94,6 @@
         "translations": "Translations",
         "definitions": "Definitions",
         "delete_word": "Delete word",
-        "delete_word_subtitle": "Are you sure you want to delete this word from your dictionary?"
+        "delete_word_subtitle": "Are you sure you want to delete word {word} from your dictionary?"
     }
 }

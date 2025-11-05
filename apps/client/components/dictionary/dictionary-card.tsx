@@ -90,7 +90,7 @@ export const DictionaryCard: FC<Props> = ({ data, isPreview, openModal, closeMod
         openModal(
             <ConsentModal
                 title={t("delete_word")}
-                text={t("delete_word_subtitle")}
+                text={t("delete_word_subtitle", { word: data.word })}
                 onCancel={closeModal}
                 onConfirm={onConfirmButtonClick}
                 isLoading={isPending}
