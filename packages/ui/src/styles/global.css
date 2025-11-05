@@ -19,6 +19,35 @@ select:-webkit-autofill:focus {
     box-shadow: 0 0 0 1000px #1f1f1f inset;
 }
 
+@utility scrollbar {
+    &::-webkit-scrollbar {
+        @apply h-1 w-1 bg-transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+        @apply from-accent_dark via-accent_light to-accent_dark !h-7 rounded bg-gradient-to-b;
+    }
+    /* IE / Firefox stuff */
+    -ms-overflow-style: block;
+    scrollbar-width: 4px;
+}
+
+@utility no-scrollbar {
+    &::-webkit-scrollbar {
+        @apply !hidden;
+    }
+    -ms-overflow-style: none !important;
+    scrollbar-width: none !important;
+}
+
+@utility scroll-lock-override {
+    html body[data-scroll-locked],
+    html body[class*="scroll-locked"] {
+        overflow-y: auto !important;
+        pointer-events: auto !important;
+        margin-right: 0px !important;
+    }
+}
+
 .container {
     @apply mx-auto w-full max-w-406 px-6 md:px-4;
 }

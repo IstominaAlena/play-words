@@ -37,7 +37,7 @@ const RootLayout = async ({ children, params }: Props) => {
     const messages = await getMessages({ locale });
 
     return (
-        <html lang={locale} className="scroll-smooth">
+        <html lang={locale} className="scrollbar scroll-smooth">
             <body className="bg-primary_dark w-ful flex min-h-[100dvh] flex-col">
                 <QueryProvider>
                     <NextIntlClientProvider locale={locale} messages={messages}>

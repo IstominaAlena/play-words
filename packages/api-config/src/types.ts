@@ -16,3 +16,12 @@ export interface ApiMutationProps<TData = unknown, TVariables = void> {
     mutationKey?: MutationKey;
     retry?: boolean;
 }
+
+export interface ApiInfiniteQueryProps<TData = unknown, TQueryKey extends QueryKey = QueryKey> {
+    queryFn: (context: { pageParam: number; queryKey: TQueryKey }) => Promise<TData>;
+    queryKey: TQueryKey;
+    retry?: boolean;
+    enabled?: boolean;
+    initialPageParam?: number;
+    getNextPageParam: (lastPage: TData) => number | null;
+}

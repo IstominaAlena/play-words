@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import { FC } from "react";
 
 import { cn } from "@repo/ui/class-names";
+import { ConsentModal } from "@repo/ui/components/consent-modal";
 import { Button } from "@repo/ui/core/button";
 import { showToast } from "@repo/ui/core/sonner";
 import { Text, Title } from "@repo/ui/core/typography";
@@ -13,7 +14,6 @@ import { useUserStore } from "@repo/common/stores/user-store";
 
 import { useGetOtpSettings, useToggleOtp } from "@/api/account/mutations";
 
-import { DisableOtpModal } from "./disable-otp-modal";
 import { OtpModalSettings } from "./otp-modal-settings";
 
 interface Props {
@@ -27,16 +27,35 @@ export const Security: FC<Props> = ({ className }) => {
 
     const { Modal, openModal, closeModal } = useModal();
 
-    const { enable } = useToggleOtp();
+    const { enable, disable } = useToggleOtp();
 
     const { mutateAsync: getOtp, isPending } = useGetOtpSettings();
 
     const isEnabled = settings?.otp;
 
+    const onConfirmButtonClick = async () => {
+        try {
+            await disable.mutateAsync();
+            showToast.success(t("otp_disabled"));
+        } catch (error: any) {
+            showToast.error(error.message);
+        } finally {
+            closeModal();
+        }
+    };
+
     const onEnableButtonClick = async () => {
         try {
             if (isEnabled) {
-                openModal(<DisableOtpModal closeModal={closeModal} />);
+                openModal(
+                    <ConsentModal
+                        title={t("disable_otp_title")}
+                        text={t("disable_otp_description")}
+                        onCancel={closeModal}
+                        onConfirm={onConfirmButtonClick}
+                        isLoading={disable.isPending}
+                    />,
+                );
             } else {
                 const data = await enable.mutateAsync();
                 showToast.success(t("otp_enabled"));

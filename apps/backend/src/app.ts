@@ -5,6 +5,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import passportStrategy from "passport-strategies/user-passport-strategies";
 
+import dictionaryRoutes from "@/api/routes/dictionary";
 import userRoutes from "@/api/routes/users";
 import "@/crons/hard-delete-user-by-request";
 import { errorHandler } from "@/middlewares/error-handler";
@@ -35,6 +36,7 @@ app.use(cookieParser());
 app.use(passportStrategy.initialize());
 
 app.use("/api/users", userRoutes);
+app.use("/api/dictionary", dictionaryRoutes);
 
 app.get("/api/health", healthCheck);
 

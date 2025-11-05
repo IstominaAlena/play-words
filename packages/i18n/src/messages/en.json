@@ -6,7 +6,10 @@
         "success": "Success",
         "error": "Error",
         "request_sent": "Your request has been sent successfully",
-        "under_construction": "The page is under construction."
+        "under_construction": "The page is under construction.",
+        "empty_content": "Looks like it’s empty for now",
+        "more": "more",
+        "delete": "Delete"
     },
     "navigation": {
         "home": "Home",
@@ -26,7 +29,13 @@
         "new_password": "New password",
         "confirm_password": "Confirm password",
         "show_password": "Show password",
-        "password_placeholder": "**********"
+        "password_placeholder": "**********",
+        "search": "Search",
+        "word": "Word",
+        "word_placeholder": "Apple",
+        "translations": "Translations",
+        "definitions": "Definitions",
+        "tips": "Tips ({number})"
     },
     "form_error": {
         "REQUIRED": "This field is required",
@@ -76,5 +85,14 @@
         "manage_account_modal_description": "Please enter your email to proceed.",
         "manage_account_modal_text": "After the remaining period, the changes will be irreversible.",
         "consent_failed": "The email you entered doesn’t match your account."
+    },
+    "dictionary": {
+        "add_word": "Add word",
+        "edit_word": "Edit word",
+        "word": "Word",
+        "translations": "Translations",
+        "definitions": "Definitions",
+        "delete_word": "Delete word",
+        "delete_word_subtitle": "Are you sure you want to delete this word from your dictionary?"
     }
 }

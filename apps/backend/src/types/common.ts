@@ -26,7 +26,11 @@ export type AppRequest<TBody = object, TQuery = object, TParams = object> = Requ
     TQuery
 >;
 
-export type AuthenticatedRequest<TBody = object> = AppRequest<TBody> & { user: AuthUser };
+export type AuthenticatedRequest<TBody = object, TQuery = object, TParams = object> = AppRequest<
+    TBody,
+    TQuery,
+    TParams
+> & { user: AuthUser };
 
 export type AsyncController<TReq extends AppRequest = AppRequest, TResBody = any> = (
     req: TReq,

@@ -101,7 +101,7 @@ export const Dialog: FC<DialogDemoProps> = ({
 }) => {
     return (
         <CoreDialog open={isOpen} onOpenChange={onOpenChange}>
-            <DialogContent className={contentClassName}>
+            <DialogContent className={contentClassName} onOpenAutoFocus={(e) => e.preventDefault()}>
                 <DialogHeader className="hidden">
                     <DialogTitle></DialogTitle>
                     <DialogDescription></DialogDescription>
