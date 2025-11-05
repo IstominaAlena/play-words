@@ -10,8 +10,8 @@ export interface DictionaryItem {
 export interface Word {
     wordId: number;
     word: string;
-    definitions: DictionaryItem[];
-    translations: DictionaryItem[];
+    definitions: string[];
+    translations: string[];
 }
 
 export interface WordInfo {

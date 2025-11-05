@@ -32,3 +32,9 @@ export const getWordInfo = async (word: string): Promise<WordInfo> => {
     const { data } = await api.post<WordInfo>("/dictionary/word", { word });
     return data;
 };
+
+export const getDemoDictionary = async (): Promise<Dictionary> => {
+    const { data } = await api.get<Dictionary>("/dictionary/demo");
+
+    return data;
+};
