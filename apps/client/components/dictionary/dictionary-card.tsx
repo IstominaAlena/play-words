@@ -108,7 +108,7 @@ export const DictionaryCard: FC<Props> = ({ data, isPreview, openModal, closeMod
 
     const buttons = useMemo(
         () => (
-            <div className="flex items-center gap-1">
+            <div className={cn("flex items-center gap-1", isPreview && "justify-center")}>
                 {isPreview && (
                     <GhostButton
                         onClick={onViewButtonClick}
@@ -165,9 +165,8 @@ export const DictionaryCard: FC<Props> = ({ data, isPreview, openModal, closeMod
                         !isPreview ? "ml-4 list-disc" : "",
                     )}
                 </div>
-                <div className="flex flex-col gap-1">
-                    <Text>{t("actions")}</Text>
-
+                <div className={cn("flex flex-col gap-1", !isPreview && "ml-auto")}>
+                    {isPreview && <Text>{t("actions")}</Text>}
                     {buttons}
                 </div>
             </div>
