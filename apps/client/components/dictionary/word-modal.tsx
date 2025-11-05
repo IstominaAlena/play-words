@@ -80,7 +80,7 @@ export const WordModal: FC<Props> = ({ closeModal, data }) => {
                                     name="word"
                                     type="text"
                                     label={tForm("word")}
-                                    className="bg-secondary_dark"
+                                    className="bg-secondary_bg"
                                     onBlur={onInputBlur}
                                     readOnly={!!data}
                                 />
@@ -93,14 +93,14 @@ export const WordModal: FC<Props> = ({ closeModal, data }) => {
                                 control={control}
                                 name="translations"
                                 label={tForm("translations")}
-                                className="bg-secondary_dark"
+                                className="bg-secondary_bg"
                                 suggestedValues={wordInfo?.translations}
                             />
                             <FormTagsInput
                                 control={control}
                                 name="definitions"
                                 label={tForm("definitions")}
-                                className="bg-secondary_dark"
+                                className="bg-secondary_bg"
                                 suggestedValues={wordInfo?.definitions}
                             />
                         </>

@@ -30,7 +30,7 @@ const AccordionTrigger: FC<ComponentProps<typeof AccordionPrimitive.Trigger>> = 
         <AccordionPrimitive.Trigger
             data-slot="accordion-trigger"
             className={cn(
-                "text-secondary_light hover:text-primary_light flex flex-1 items-start justify-between gap-4 rounded-lg text-sm capitalize transition-all duration-300 outline-none disabled:pointer-events-none disabled:opacity-50 [&[data-state=open]>svg]:rotate-180",
+                "text-secondary_text hover:text-primary_text flex flex-1 items-start justify-between gap-4 rounded-lg text-sm capitalize transition-all duration-300 outline-none disabled:pointer-events-none disabled:opacity-50 [&[data-state=open]>svg]:rotate-180",
                 className,
             )}
             {...props}

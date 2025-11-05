@@ -15,11 +15,10 @@ interface Props {
 
 const colorMap = {
     SUCCESS:
-        "radial-gradient(20.7% 50% at 50% 100%, rgba(6, 214, 160, 1) 0%, rgba(16, 79, 85, 1) 100%)",
-    ERROR: "radial-gradient(20.7% 50% at 50% 100%, rgba(230, 10, 12, 1) 0%, rgba(128, 5, 22, 1) 100%)",
-    WARN: "radial-gradient(20.7% 50% at 50% 100%, rgba(252, 249, 54, 1) 0%, rgba(191, 144, 3, 1) 100%)",
-    NEUTRAL:
-        "radial-gradient(20.7% 50% at 50% 100%, rgba(235, 235, 235, 1) 0%, rgba(112, 112, 112, 1) 100%)",
+        "radial-gradient(20.7% 50% at 50% 100%, var(--accent_light) 0%, var(--accent_dark) 100%)",
+    ERROR: "radial-gradient(20.7% 50% at 50% 100%, var(--error_light) 0%, var(--error_dark) 100%)",
+    WARN: "radial-gradient(20.7% 50% at 50% 100%, var(--warn_light) 0%, var(--warn_dark) 100%)",
+    NEUTRAL: "radial-gradient(20.7% 50% at 50% 100%, var(--neutral-glow) 0%, var(--neutral) 100%)",
 };
 
 export const HoverBorderGradient: FC<PropsWithChildren<Props & HTMLAttributes<HTMLElement>>> = ({
@@ -40,7 +39,7 @@ export const HoverBorderGradient: FC<PropsWithChildren<Props & HTMLAttributes<HT
         >
             <div
                 className={cn(
-                    "bg-primary_dark text-primary_light z-10 flex min-h-10 w-full cursor-pointer items-center justify-center rounded-[inherit] px-5 py-2 text-sm capitalize",
+                    "bg-primary_bg text-primary_text z-10 flex min-h-10 w-full cursor-pointer items-center justify-center rounded-[inherit] px-5 py-2 text-sm capitalize",
                     className,
                 )}
             >

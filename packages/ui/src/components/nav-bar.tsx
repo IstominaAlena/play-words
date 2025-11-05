@@ -36,7 +36,7 @@ export const NavBar: FC<Props> = ({ links, className, linkClassName }) => {
     );
 
     return (
-        <ul className={cn("text-secondary_light flex h-full text-base font-medium", className)}>
+        <ul className={cn("text-secondary_text flex h-full text-base font-medium", className)}>
             {links.map(renderLinkItem)}
         </ul>
     );

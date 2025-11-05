@@ -27,7 +27,7 @@ export const AccountDropdown: FC<Props> = ({ name, accountPath, onLogout, classN
         () => (
             <HoverBorderGradient
                 containerClassName="max-w-default w-full md:max-w-11"
-                className="text-secondary_light group-hover:text-primary_light flex items-center gap-2"
+                className="text-secondary_text group-hover:text-primary_text flex items-center gap-2"
                 variant="SUCCESS"
             >
                 <AccountIcon width={16} height={16} className="text-inherit" />
@@ -42,7 +42,7 @@ export const AccountDropdown: FC<Props> = ({ name, accountPath, onLogout, classN
             key="0"
             href={accountPath}
             className={cn(
-                "text-secondary_light group hover:text-accent_dark flex items-center gap-2 px-4 py-2 transition-all duration-300",
+                "text-secondary_text group hover:text-accent_dark flex items-center gap-2 px-4 py-2 transition-all duration-300",
             )}
         >
             <AccountIcon className="text-inherit" width={16} height={16} />
@@ -52,7 +52,7 @@ export const AccountDropdown: FC<Props> = ({ name, accountPath, onLogout, classN
 
     const logoutButton = (
         <div onClick={onLogout} className="group">
-            <div className="text-secondary_light group-hover:text-error_dark flex cursor-pointer items-center gap-2 px-4 py-2 transition-all duration-300">
+            <div className="text-secondary_text group-hover:text-error_dark flex cursor-pointer items-center gap-2 px-4 py-2 transition-all duration-300">
                 <LogoutIcon className="text-inherit" width={16} height={16} />
                 <Text className="text-inherit">{t("logout")}</Text>
             </div>

@@ -66,7 +66,7 @@ export const SignUpModal: FC<Props> = ({ closeModal }) => {
                             type="text"
                             label={tForm("username")}
                             placeholder={tForm("username_placeholder")}
-                            className="bg-secondary_dark"
+                            className="bg-secondary_bg"
                         />
                         <FormInput
                             control={control}
@@ -74,19 +74,19 @@ export const SignUpModal: FC<Props> = ({ closeModal }) => {
                             type="email"
                             label={tForm("email")}
                             placeholder={tForm("email_placeholder")}
-                            className="bg-secondary_dark"
+                            className="bg-secondary_bg"
                         />
                         <FormPasswordInput
                             control={control}
                             name="password"
                             label={tForm("password")}
-                            className="bg-secondary_dark"
+                            className="bg-secondary_bg"
                         />
                         <FormPasswordInput
                             control={control}
                             name="confirmPassword"
                             label={tForm("confirm_password")}
-                            className="bg-secondary_dark"
+                            className="bg-secondary_bg"
                         />
                     </>
                 )}

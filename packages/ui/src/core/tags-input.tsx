@@ -57,7 +57,7 @@ const TagsInputItem: FC<TagsInputItemProps> = ({
     <TagsInputPrimitive.Item
         data-slot="tags-input-item"
         className={cn(
-            "data-editing:ring-ring [&[data-highlighted]:not([data-editing])]:bg-accent [&[data-highlighted]:not([data-editing])]:text-accent-foreground border-neutral text-primary_light inline-flex max-w-[calc(100%-8px)] items-center gap-1.5 rounded-lg border bg-transparent px-2.5 py-1 text-sm focus:outline-hidden data-disabled:cursor-not-allowed data-disabled:opacity-50 data-editable:select-none data-editing:bg-transparent data-editing:ring-1 [&:not([data-editing])]:pr-1.5",
+            "data-editing:ring-ring [&[data-highlighted]:not([data-editing])]:bg-accent [&[data-highlighted]:not([data-editing])]:text-accent-foreground border-neutral text-primary_text inline-flex max-w-[calc(100%-8px)] items-center gap-1.5 rounded-lg border bg-transparent px-2.5 py-1 text-sm focus:outline-hidden data-disabled:cursor-not-allowed data-disabled:opacity-50 data-editable:select-none data-editing:bg-transparent data-editing:ring-1 [&:not([data-editing])]:pr-1.5",
             className,
         )}
         {...props}
@@ -94,7 +94,7 @@ export const TagsList: FC<TagsListProps> = ({
         <TagsInputItem
             key={value}
             value={value}
-            className={cn("hover:border-secondary-light cursor-pointer", itemClassName)}
+            className={cn("hover:border-secondary_border cursor-pointer", itemClassName)}
             isRemovable={isRemovable}
             onClick={handleValue(value)}
         >

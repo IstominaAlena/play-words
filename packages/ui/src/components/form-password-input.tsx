@@ -66,7 +66,7 @@ export const FormPasswordInput = <T extends FieldValues>({
                 <Icon
                     width={20}
                     height={20}
-                    className="text-neutral hover:text-secondary_light absolute end-4 top-1/2 z-10 -translate-y-1/2 cursor-pointer"
+                    className="text-neutral hover:text-secondary_text absolute end-4 top-1/2 z-10 -translate-y-1/2 cursor-pointer"
                     onClick={togglePassword}
                 />
             </div>

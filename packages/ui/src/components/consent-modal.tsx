@@ -28,11 +28,11 @@ export const ConsentModal: FC<Props> = ({ title, text, onCancel, onConfirm, isLo
                     variant="ERROR"
                     isLoading={isLoading}
                     onClick={onConfirm}
-                    className="bg-secondary_dark"
+                    className="bg-secondary_bg"
                 >
                     {title}
                 </Button>
-                <Button className="bg-secondary_dark" onClick={onCancel}>
+                <Button className="bg-secondary_bg" onClick={onCancel}>
                     {tGlobal("cancel")}
                 </Button>
             </div>

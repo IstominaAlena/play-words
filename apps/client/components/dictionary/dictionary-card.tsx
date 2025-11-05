@@ -141,7 +141,7 @@ export const DictionaryCard: FC<Props> = ({ data, isPreview, openModal, closeMod
     return (
         <HoverBorderGradient
             containerClassName="rounded-lg w-full h-full"
-            className="bg-secondary_dark group h-full"
+            className="bg-secondary_bg group h-full"
             variant="SUCCESS"
         >
             <div

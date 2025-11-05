@@ -47,7 +47,7 @@ const Toast: FC<ToastProps> = ({ message, isError }) => {
         >
             <div
                 className={cn(
-                    "bg-primary_dark text-primary_light relative z-10 flex h-full w-full items-start gap-3 rounded-[inherit] p-4 text-sm",
+                    "bg-primary_bg text-primary_text relative z-10 flex h-full w-full items-start gap-3 rounded-[inherit] p-4 text-sm",
                 )}
             >
                 <Icon />

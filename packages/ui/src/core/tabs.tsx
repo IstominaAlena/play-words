@@ -36,7 +36,7 @@ const TabsTrigger: FC<ComponentProps<typeof TabsPrimitive.Trigger>> = ({ classNa
 const TabsContent: FC<ComponentProps<typeof TabsPrimitive.Content>> = ({ className, ...props }) => (
     <TabsPrimitive.Content
         data-slot="tabs-content"
-        className={cn("bg-secondary_dark/80 z-20 w-full flex-3 rounded-lg p-6", className)}
+        className={cn("bg-secondary_bg/80 z-20 w-full flex-3 rounded-lg p-6", className)}
         {...props}
     />
 );
@@ -66,7 +66,7 @@ export const Tabs: FC<Props> = ({
             <GlowingContainer
                 containerClassName="rounded-lg"
                 glowClassName="group-data-[state=active]:bg-accent_dark"
-                contentClassName="group-data-[state=active]:text-accent_light text-secondary_light"
+                contentClassName="group-data-[state=active]:text-accent_light text-secondary_text"
             >
                 {name}
             </GlowingContainer>

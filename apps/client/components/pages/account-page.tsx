@@ -6,7 +6,7 @@ import { FC } from "react";
 import { GlowingStarsBackground } from "@repo/ui/core/glowing-starts";
 import { Tabs } from "@repo/ui/core/tabs";
 
-import { AccountTab, SecurityTab } from "../account/tabs-content";
+import { AccountTab, SecurityTab, SettingsTab } from "../account/tabs-content";
 import { UnderConstructionPage } from "./under-construction-page";
 
 export const AccountPage: FC = () => {
@@ -23,7 +23,7 @@ export const AccountPage: FC = () => {
         },
         {
             name: t("settings"),
-            content: <UnderConstructionPage />,
+            content: <SettingsTab />,
         },
         {
             name: t("statistics"),

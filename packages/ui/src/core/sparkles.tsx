@@ -9,6 +9,11 @@ import { useEffect, useState } from "react";
 
 import { cn } from "../utils/class-names";
 
+export const getCSSVar = (name: string) => {
+    if (typeof window === "undefined") return undefined;
+    return getComputedStyle(document.documentElement).getPropertyValue(name)?.trim();
+};
+
 type ParticlesProps = {
     id?: string;
     className?: string;
@@ -24,6 +29,12 @@ type ParticlesProps = {
 export const SparklesCore: FC<ParticlesProps> = (props) => {
     const { id, className, background, minSize, maxSize, speed, particleColor, particleDensity } =
         props;
+
+    const accentLight = getCSSVar("--accent_light");
+    const accentDark = getCSSVar("--accent_dark") || "#104f55";
+    const ghost = getCSSVar("--ghost") || "rgba(235,235,235,0.15)";
+    const bg = background || getCSSVar("--primary-bg") || "#0a0a0a";
+
     const [init, setInit] = useState(false);
     useEffect(() => {
         initParticlesEngine(async (engine) => {
@@ -76,7 +87,7 @@ export const SparklesCore: FC<ParticlesProps> = (props) => {
                                     enable: false,
                                     mode: "repulse",
                                 },
-                                resize: true as any,
+                                resize: true,
                             },
                             modes: {
                                 push: {
@@ -118,7 +129,7 @@ export const SparklesCore: FC<ParticlesProps> = (props) => {
                                 },
                             },
                             color: {
-                                value: particleColor || "#ffffff",
+                                value: particleColor || accentLight,
                                 animation: {
                                     h: {
                                         count: 0,

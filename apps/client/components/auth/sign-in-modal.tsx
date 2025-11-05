@@ -67,13 +67,13 @@ export const SignInModal: FC<Props> = ({ openModal, closeModal }) => {
                             type="email"
                             label={tForm("email")}
                             placeholder={tForm("email_placeholder")}
-                            className="bg-secondary_dark"
+                            className="bg-secondary_bg"
                         />
                         <FormPasswordInput
                             control={control}
                             name="password"
                             label={tForm("password")}
-                            className="bg-secondary_dark"
+                            className="bg-secondary_bg"
                         />
                         <Link
                             href={SecondaryRoutes.FORGOT_PASSWORD}

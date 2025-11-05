@@ -34,7 +34,7 @@ export const Input: FC<Props> = ({ className, type, isError, onInputBlur, ...pro
                 type={type}
                 data-slot="input"
                 className={cn(
-                    "placeholder:text-neutral text-secondary_light caret-accent_light w-full rounded-[inherit] px-5 py-2 outline-none",
+                    "placeholder:text-neutral text-secondary_text caret-accent_light w-full rounded-[inherit] px-5 py-2 outline-none",
                     className,
                 )}
                 {...props}

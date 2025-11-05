@@ -49,7 +49,7 @@ export const Form = <T extends FieldValues>({
                 disabled={!methods.formState.isValid}
                 isLoading={isLoading}
                 buttonClassName={submitButtonClassName}
-                className="bg-secondary_dark"
+                className="bg-secondary_bg"
             >
                 {t("submit")}
             </Button>

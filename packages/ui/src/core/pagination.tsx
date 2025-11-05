@@ -33,9 +33,7 @@ export const Pagination: FC<InfinitePaginationProps> = ({
                 disabled={!hasPreviousPage}
                 className={cn(
                     "flex items-center gap-1 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors",
-                    !hasPreviousPage
-                        ? "cursor-not-allowed opacity-50"
-                        : "hover:bg-primary_light/10",
+                    !hasPreviousPage ? "cursor-not-allowed opacity-50" : "hover:bg-ghost",
                 )}
             >
                 <ChevronLeft
@@ -57,7 +55,7 @@ export const Pagination: FC<InfinitePaginationProps> = ({
                 disabled={!hasNextPage}
                 className={cn(
                     "flex items-center gap-1 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors",
-                    !hasNextPage ? "cursor-not-allowed opacity-50" : "hover:bg-primary_light/10",
+                    !hasNextPage ? "cursor-not-allowed opacity-50" : "hover:bg-ghost",
                 )}
             >
                 <ChevronRight

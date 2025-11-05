@@ -26,7 +26,7 @@ export const GoogleButton: FC<Props> = ({ text, url, onClick, className, isLoadi
 
     return (
         <Button
-            className="bg-secondary_dark gap-2"
+            className="bg-secondary_bg gap-2"
             buttonClassName={className}
             onClick={onGoogleButtonClick}
             isLoading={isLoading}

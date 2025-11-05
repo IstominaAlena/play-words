@@ -1,11 +1,9 @@
 "use client";
 
-import { useTranslations } from "next-intl";
 import { ChangeEvent, FC, useMemo, useState } from "react";
 
 import { GlowingStarsBackground } from "@repo/ui/core/glowing-starts";
 import { Pagination } from "@repo/ui/core/pagination";
-import { Title } from "@repo/ui/core/typography";
 
 import { DEBOUNCE_DELAY, DEFAULT_ITEMS_PER_PAGE } from "@repo/common/constants/common";
 import useDebounce from "@repo/common/hooks/use-debounce.ts";
@@ -13,13 +11,10 @@ import { useUserStore } from "@repo/common/stores/user-store";
 
 import { useDemoDictionary, useDictionary } from "@/api/dictionary/queries";
 
-import { DictionaryBar } from "../dictionary/dictionary-bar";
 import { DictionaryHeader } from "../dictionary/dictionary-header";
 import { DictionaryList } from "../dictionary/dictionary-list";
 
 export const DictionaryPage: FC = () => {
-    const tGlobal = useTranslations("global");
-
     const [search, setSearch] = useState("");
 
     const [page, setPage] = useState(1);
@@ -71,7 +66,7 @@ export const DictionaryPage: FC = () => {
             <div className="relative container flex w-full flex-1 flex-col gap-6 md:gap-4">
                 <DictionaryHeader showDemo={!user} search={search} searchChange={searchChange} />
 
-                <div className="bg-secondary_dark/80 relative container flex w-full flex-1 flex-col rounded-lg p-6 md:p-4">
+                <div className="bg-secondary_bg/80 relative container flex w-full flex-1 flex-col rounded-lg p-6 md:p-4">
                     <DictionaryList dictionary={dictionary} isLoading={isLoading} />
                     <Pagination
                         currentPage={page}
