@@ -107,9 +107,11 @@ export const TagsList: FC<TagsListProps> = ({
             <AccordionItem value="item-1">
                 <AccordionTrigger>{triggerText}</AccordionTrigger>
                 <AccordionContent>
-                    <CoreTagsInput>
-                        <TagsInputList>{values.map(renderItem)}</TagsInputList>
-                    </CoreTagsInput>
+                    {values && values.length > 0 && (
+                        <CoreTagsInput>
+                            <TagsInputList>{values.map(renderItem)}</TagsInputList>
+                        </CoreTagsInput>
+                    )}
                 </AccordionContent>
             </AccordionItem>
         </Accordion>

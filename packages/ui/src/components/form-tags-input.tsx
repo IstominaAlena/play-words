@@ -68,11 +68,13 @@ export const FormTagsInput = <T extends FieldValues>({
                                 />
                             </div>
                             <TagsList
-                                triggerText={tForm("tips", { number: suggestedValues.length ?? 0 })}
+                                triggerText={tForm("tips", {
+                                    number: suggestedValues?.length ?? 0,
+                                })}
                                 values={suggestedValues}
                                 itemClassName="text-neutral"
                                 onValueClick={handleClick}
-                                isDisabled={suggestedValues.length === 0}
+                                isDisabled={suggestedValues && suggestedValues.length === 0}
                             />
                         </div>
                     );
