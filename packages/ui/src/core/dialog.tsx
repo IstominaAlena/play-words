@@ -49,7 +49,7 @@ const DialogContent: FC<
                 {showCloseButton && (
                     <DialogPrimitive.Close
                         data-slot="dialog-close"
-                        className="text-secondary_light hover:text-primary_light absolute top-4 right-4 cursor-pointer"
+                        className="text-secondary_light hover:text-primary_light absolute top-4 right-4 z-10 cursor-pointer"
                     >
                         <XIcon width={16} height={16} />
                         <span className="sr-only">Close</span>

@@ -28,8 +28,8 @@ export const WordModal: FC<Props> = ({ closeModal, data }) => {
 
     const defaultValues = {
         word: data?.word ?? "",
-        translations: data?.translations.map((item) => item.value) ?? [],
-        definitions: data?.definitions.map((item) => item.value) ?? [],
+        translations: data?.translations ?? [],
+        definitions: data?.definitions ?? [],
     };
 
     const [word, setWord] = useState("");

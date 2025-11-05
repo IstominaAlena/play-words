@@ -14,6 +14,7 @@ import { useUserStore } from "@repo/common/stores/user-store";
 import { useDemoDictionary, useDictionary } from "@/api/dictionary/queries";
 
 import { DictionaryBar } from "../dictionary/dictionary-bar";
+import { DictionaryHeader } from "../dictionary/dictionary-header";
 import { DictionaryList } from "../dictionary/dictionary-list";
 
 export const DictionaryPage: FC = () => {
@@ -68,11 +69,7 @@ export const DictionaryPage: FC = () => {
             <GlowingStarsBackground />
 
             <div className="relative container flex w-full flex-1 flex-col gap-6 md:gap-4">
-                {user ? (
-                    <DictionaryBar search={search} searchChange={searchChange} />
-                ) : (
-                    <Title className="text-center">{tGlobal("demo_title")}</Title>
-                )}
+                <DictionaryHeader showDemo={!user} search={search} searchChange={searchChange} />
 
                 <div className="bg-secondary_dark/80 relative container flex w-full flex-1 flex-col rounded-lg p-6 md:p-4">
                     <DictionaryList dictionary={dictionary} isLoading={isLoading} />
