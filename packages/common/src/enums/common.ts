@@ -11,5 +11,8 @@ export enum Accent {
     GREEN = "green",
     ORANGE = "orange",
     PINK = "pink",
-    CYBER = "cyber",
+    PURPLE = "purple",
+    BLUE = "blue",
+    LIGHT = "light",
+    DARK = "dark",
 }

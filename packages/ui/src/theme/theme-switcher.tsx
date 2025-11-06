@@ -6,68 +6,96 @@ import { FC, useEffect, useState } from "react";
 
 import { Accent, Mode } from "@repo/common/enums/common";
 
+import { Skeleton } from "../core/skeleton";
 import { SliderToggle } from "../core/toggle";
 import { Text } from "../core/typography";
-import { MoonIcon } from "../icons/moon";
-import { SunIcon } from "../icons/sun";
-import { cn } from "../utils/class-names";
+import { getAdjustedAccent, modeIconOptions, renderGradientSwatch } from "./utils";
 
-const colorOptions = {
-    [Accent.GREEN]: "from-[var(--light-green)] to-[var(--dark-green)]",
-    [Accent.ORANGE]: "from-[var(--light-orange)] to-[var(--dark-orange)]",
-    [Accent.PINK]: "from-[var(--light-pink)] to-[var(--dark-pink)]",
-    [Accent.CYBER]: "from-[var(--light-cyber)] to-[var(--dark-cyber)]",
-};
+interface Props {
+    defaultTheme?: string;
+    saveTheme?: (theme: string) => void;
+    isLoading?: boolean;
+}
 
-const modeIconOptions = {
-    [Mode.DARK]: <MoonIcon width={18} height={18} />,
-    [Mode.LIGHT]: <SunIcon width={20} height={20} />,
-};
-
-const renderGradientSwatch = (color: Accent) => (
-    <div
-        className={cn(
-            "h-5 w-5 rounded-full bg-gradient-to-br",
-            colorOptions[color as keyof typeof colorOptions],
-        )}
-    />
-);
-
-export const ThemeSwitcher: FC = () => {
+export const ThemeSwitcher: FC<Props> = ({ defaultTheme, saveTheme, isLoading }) => {
     const t = useTranslations("global");
 
     const { resolvedTheme, setTheme } = useTheme();
 
-    const [defaultMode, defaultAccent] = resolvedTheme?.split("-") ?? [];
-
-    const [mode, setMode] = useState(defaultMode ?? Mode.DARK);
-    const [accent, setAccent] = useState(defaultAccent ?? Accent.GREEN);
+    const [mounted, setMounted] = useState(false);
+    const [mode, setMode] = useState<string>("");
+    const [accent, setAccent] = useState<string>("");
 
     const modeOptions = Object.values(Mode).map((item) => ({
         label: t(item),
-        value: item,
+        value: item.toString(),
         icon: modeIconOptions[item],
     }));
 
-    const accentOptions = Object.values(Accent).map((item) => ({
-        label: t(item),
-        value: item,
-        icon: renderGradientSwatch(item),
-    }));
+    const accentOptions = Object.values(Accent)
+        .filter((item) => item.toString() !== mode.toString())
+        .map((item) => ({
+            value: item.toString(),
+            icon: renderGradientSwatch(item),
+        }));
+
+    useEffect(() => setMounted(true), []);
 
     useEffect(() => {
-        setTheme(`${mode}-${accent}`);
-    }, [mode, accent, setTheme]);
+        if (!mounted || !resolvedTheme) {
+            return;
+        }
+
+        const themeToApply = defaultTheme || resolvedTheme || "dark-green";
+        const [initialMode, initialAccent] = themeToApply.split("-");
+
+        setMode((initialMode as Mode) || Mode.DARK);
+        setAccent((initialAccent as Accent) || Accent.GREEN);
+    }, [mounted, resolvedTheme, defaultTheme]);
+
+    useEffect(() => {
+        if (!mode || !accent) return;
+
+        const adjustedAccent = getAdjustedAccent(accent as Accent, mode as Mode);
+
+        if (adjustedAccent !== accent) {
+            setAccent(adjustedAccent);
+            return;
+        }
+
+        const newTheme = `${mode}-${adjustedAccent}`;
+
+        setTheme(newTheme);
+        saveTheme?.(newTheme);
+    }, [mode, accent, setTheme, saveTheme]);
 
     return (
         <ul className="flex flex-col gap-6">
             <li className="flex flex-col gap-1">
                 <Text>{t("mode")}</Text>
-                <SliderToggle options={modeOptions} selected={mode} setSelected={setMode} />
+                {!mounted && !mode ? (
+                    <Skeleton className="h-10 rounded-full" />
+                ) : (
+                    <SliderToggle
+                        options={modeOptions}
+                        selected={mode}
+                        setSelected={setMode}
+                        isDisabled={isLoading}
+                    />
+                )}
             </li>
             <li className="flex flex-col gap-1">
                 <Text>{t("accent")}</Text>
-                <SliderToggle options={accentOptions} selected={accent} setSelected={setAccent} />
+                {!mounted && !accent ? (
+                    <Skeleton className="h-10 rounded-full" />
+                ) : (
+                    <SliderToggle
+                        options={accentOptions}
+                        selected={accent}
+                        setSelected={setAccent}
+                        isDisabled={isLoading}
+                    />
+                )}
             </li>
         </ul>
     );

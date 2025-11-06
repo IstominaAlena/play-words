@@ -1,34 +1,30 @@
 "use client";
 
 import { motion } from "motion/react";
-import {
-    Dispatch,
-    ReactNode,
-    SetStateAction,
-    useCallback,
-    useLayoutEffect,
-    useRef,
-    useState,
-} from "react";
+import { Dispatch, FC, ReactNode, SetStateAction, useEffect, useRef, useState } from "react";
 
 import { cn } from "../utils/class-names";
 import { HoverBorderGradient } from "./hover-border-gradient";
 
-interface Option<T extends string> {
-    label: string;
-    value: T;
+interface Option {
+    label?: string;
+    value: string;
     icon?: ReactNode;
 }
 
-interface Props<T extends string> {
-    options: Option<T>[];
-    selected: T;
-    setSelected: Dispatch<SetStateAction<T>>;
+interface Props {
+    options: Option[];
+    selected: string;
+    setSelected: Dispatch<SetStateAction<string>>;
+    isDisabled?: boolean;
 }
 
-export const SliderToggle = <T extends string>({ options, selected, setSelected }: Props<T>) => {
+export const SliderToggle: FC<Props> = ({ options, selected, setSelected, isDisabled }) => {
     const containerRef = useRef<HTMLDivElement | null>(null);
     const buttonsRef = useRef<HTMLButtonElement[]>([]);
+
+    const leftRef = useRef<number>(0);
+    const widthRef = useRef<number>(0);
 
     const [leftPx, setLeftPx] = useState<number | null>(null);
     const [widthPx, setWidthPx] = useState<number>(0);
@@ -38,7 +34,7 @@ export const SliderToggle = <T extends string>({ options, selected, setSelected 
         options.findIndex((o) => o.value === selected),
     );
 
-    const measure = useCallback(() => {
+    const measure = () => {
         const container = containerRef.current;
         const btn = buttonsRef.current[selectedIndex];
         if (!container || !btn) return;
@@ -46,28 +42,23 @@ export const SliderToggle = <T extends string>({ options, selected, setSelected 
         const containerRect = container.getBoundingClientRect();
         const btnRect = btn.getBoundingClientRect();
 
-        const centerRelativeToContainer = btnRect.left - containerRect.left + btnRect.width / 2;
+        const newLeft = btnRect.left - containerRect.left + btnRect.width / 2;
+        const newWidth = btnRect.width;
 
-        setLeftPx(centerRelativeToContainer);
-        setWidthPx(btnRect.width);
-    }, [selectedIndex]);
+        if (leftRef.current !== newLeft) {
+            leftRef.current = newLeft;
+            setLeftPx(newLeft);
+        }
 
-    useLayoutEffect(() => {
-        measure();
+        if (widthRef.current !== newWidth) {
+            widthRef.current = newWidth;
+            setWidthPx(newWidth);
+        }
+    };
 
-        const container = containerRef.current;
-        if (!container) return;
+    const onOptionClick = (value: string) => () => setSelected(value);
 
-        const ro = new ResizeObserver(() => measure());
-        ro.observe(container);
-        buttonsRef.current.forEach((b) => b && ro.observe(b));
-
-        return () => ro.disconnect();
-    }, [selected, options.length, measure]);
-
-    const onOptionClick = (value: T) => () => setSelected(value);
-
-    const renderOption = ({ value, label, icon }: Option<T>, i: number) => (
+    const renderOption = ({ value, label, icon }: Option, i: number) => (
         <button
             key={value}
             ref={(el) => {
@@ -80,18 +71,40 @@ export const SliderToggle = <T extends string>({ options, selected, setSelected 
             onClick={onOptionClick(value)}
         >
             {icon}
-            <span>{label}</span>
+            {label && <span>{label}</span>}
         </button>
     );
+
+    useEffect(() => {
+        measure();
+    }, [selected, options.length]);
+
+    useEffect(() => {
+        const container = containerRef.current;
+
+        if (!container) {
+            return;
+        }
+
+        const ro = new ResizeObserver(() => measure());
+
+        ro.observe(container);
+        buttonsRef.current.forEach((btn) => btn && ro.observe(btn));
+
+        return () => ro.disconnect();
+    }, [options.length]);
 
     return (
         <div
             ref={containerRef}
-            className="bg-ghost relative flex w-full items-center gap-1 rounded-full"
+            className={cn(
+                "bg-ghost relative flex w-full items-center gap-1 rounded-full",
+                isDisabled && "pointer-events-none cursor-not-allowed opacity-50",
+            )}
         >
             {options.map(renderOption)}
 
-            {leftPx !== null && (
+            {leftPx !== null && widthPx > 0 && (
                 <motion.div
                     layout
                     transition={{ type: "spring", damping: 30, stiffness: 250 }}

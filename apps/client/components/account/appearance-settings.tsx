@@ -14,10 +14,16 @@ interface Props {
 export const AppearanceSettings: FC<Props> = ({ className }) => {
     const t = useTranslations("account");
 
+    const defaultTheme = "";
+
+    const saveTheme = (theme: string) => {
+        console.log("==========>>>", theme);
+    };
+
     return (
         <div className={cn("flex flex-col gap-6", className)}>
             <Title>{t("appearance")}</Title>
-            <ThemeSwitcher />
+            <ThemeSwitcher defaultTheme={defaultTheme} saveTheme={saveTheme} />
         </div>
     );
 };

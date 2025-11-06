@@ -10,15 +10,12 @@
         "empty_content": "Looks like it’s empty for now",
         "more": "more",
         "delete": "Delete",
+        "submit": "Submit",
         "demo_title": "Get the full experience - sign up now!",
         "mode": "Mode",
         "dark": "Dark",
         "light": "Light",
-        "accent": "Accent color",
-        "green": "Green",
-        "orange": "Orange",
-        "pink": "Pink",
-        "cyber": "Cyber"
+        "accent": "Accent color"
     },
     "navigation": {
         "home": "Home",

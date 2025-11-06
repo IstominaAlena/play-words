@@ -1,51 +1,66 @@
 @import "tailwindcss";
 
 @config "./tailwind.config.ts";
+/* E8EEF2  F5EFED  EFEFEF*/
 
 :root {
-  --dark-green: #104f55;
-  --light-green: #06d6a0;
-  --dark-orange: #8b2500;
-  --light-orange: #ffb347;
-  --dark-pink: #802752;
-  --light-pink: #ff6f91;
-  --dark-cyber: #3b00b9;
-  --light-cyber: #e100ff;
+  --dark-green: #25d976;
+  --light-green: #61ff9e;
+  --dark-orange: #d14900;
+  --light-orange: #ff8229;
+  --dark-pink: #d62b6d;
+  --light-pink: #ff6998;
+  --dark-purple: #7845bf;
+  --light-purple: #bc8af2;
+  --dark-blue: #00aad9;
+  --light-blue: #5cecff;
+  --dark-light: #808080;
+  --light-light: #ffffff;
+  --dark-dark: #000000;
+  --light-dark: #808080;
 }
 
 .light-green,
 .light-orange,
 .light-pink,
-.light-cyber,
+.light-purple,
+.light-blue,
+.light-dark,
 .dark-green,
 .dark-orange,
 .dark-pink,
-.dark-cyber {
-  --neutral: #707070;
-  --error_light: #e60a0c;
-  --error_dark: #800516;
-  --warn_light: #fcf936;
-  --warn_dark: #bf9003;
+.dark-purple,
+.dark-blue,
+.dark-light {
+  --neutral: #808080;
+  --error_light: #ff3029;
+  --error_dark: #cf0007;
+  --warn_light: #ffd93d;
+  --warn_dark: #ffa800;
 }
 
 .light-green,
 .light-orange,
 .light-pink,
-.light-cyber {
-  --primary-bg: #f8fafc;
-  --secondary-bg: #eef2f6;
-  --primary-text: #0a0a0a;
-  --secondary-text: #404040;
-  --primary-border: #d0d7de;
-  --secondary-border: #e2e8f0;
-  --neutral-glow: #1e293b;
-  --ghost: rgba(10, 10, 10, 0.08);
+.light-purple,
+.light-blue,
+.light-dark {
+  --primary-bg: #f5f5f5;
+  --secondary-bg: #e0e0e0;
+  --primary-text: #141414;
+  --secondary-text: #4c4c4c;
+  --primary-border: #f5f5f5;
+  --secondary-border: #e0e0e0;
+  --neutral-glow: #141414;
+  --ghost: rgba(20, 20, 20, 0.15);
 }
 
 .dark-green,
 .dark-orange,
 .dark-pink,
-.dark-cyber {
+.dark-purple,
+.dark-blue,
+.dark-light {
   --primary-bg: #0a0a0a;
   --secondary-bg: #1f1f1f;
   --primary-text: #ebebeb;
@@ -74,8 +89,24 @@
   --accent_light: var(--light-pink);
 }
 
-.light-cyber,
-.dark-cyber {
-  --accent_dark: var(--dark-cyber);
-  --accent_light: var(--light-cyber);
+.light-purple,
+.dark-purple {
+  --accent_dark: var(--dark-purple);
+  --accent_light: var(--light-purple);
+}
+
+.light-blue,
+.dark-blue {
+  --accent_dark: var(--dark-blue);
+  --accent_light: var(--light-blue);
+}
+
+.dark-light {
+  --accent_dark: var(--dark-light);
+  --accent_light: var(--light-light);
+}
+
+.light-dark {
+  --accent_dark: var(--dark-dark);
+  --accent_light: var(--light-dark);
 }
