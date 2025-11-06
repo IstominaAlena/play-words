@@ -10,7 +10,15 @@
         "empty_content": "Looks like it’s empty for now",
         "more": "more",
         "delete": "Delete",
-        "demo_title": "Get the full experience - sign up now!"
+        "demo_title": "Get the full experience - sign up now!",
+        "mode": "Mode",
+        "dark": "Dark",
+        "light": "Light",
+        "accent": "Accent color",
+        "green": "Green",
+        "orange": "Orange",
+        "pink": "Pink",
+        "cyber": "Cyber"
     },
     "navigation": {
         "home": "Home",
@@ -88,12 +96,7 @@
         "consent_failed": "The email you entered doesn’t match your account.",
         "settings": "Settings",
         "statistics": "Statistics",
-        "appearance": "Appearance",
-        "mode": "Mode",
-        "dark": "Dark",
-        "light": "Light",
-        "system": "System",
-        "accent": "Accent color"
+        "appearance": "Appearance"
     },
     "dictionary": {
         "add_word": "Add word",

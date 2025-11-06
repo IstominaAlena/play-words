@@ -2,7 +2,16 @@
 
 @config "./tailwind.config.ts";
 
-/* === BASE STRUCTURE === */
+:root {
+  --dark-green: #104f55;
+  --light-green: #06d6a0;
+  --dark-orange: #8b2500;
+  --light-orange: #ffb347;
+  --dark-pink: #802752;
+  --light-pink: #ff6f91;
+  --dark-cyber: #3b00b9;
+  --light-cyber: #e100ff;
+}
 
 .light-green,
 .light-orange,
@@ -12,14 +21,12 @@
 .dark-orange,
 .dark-pink,
 .dark-cyber {
-  --neutral: #707070; /* rgba(112, 112, 112, 1) */
-  --error_light: #e60a0c; /* rgba(230, 10, 12, 1) */
-  --error_dark: #800516; /* rgba(128, 5, 22, 1) */
-  --warn_light: #fcf936; /* rgba(252, 249, 54, 1) */
-  --warn_dark: #bf9003; /* rgba(191, 144, 3, 1) */
+  --neutral: #707070;
+  --error_light: #e60a0c;
+  --error_dark: #800516;
+  --warn_light: #fcf936;
+  --warn_dark: #bf9003;
 }
-
-/* === LIGHT THEMES === */
 
 .light-green,
 .light-orange,
@@ -35,28 +42,6 @@
   --ghost: rgba(10, 10, 10, 0.08);
 }
 
-.light-green {
-  --accent_dark: #104f55;
-  --accent_light: #06d6a0;
-}
-
-.light-orange {
-  --accent_dark: #8b2500;
-  --accent_light: #ffb347;
-}
-
-.light-pink {
-  --accent_dark: #802752;
-  --accent_light: #ff6f91;
-}
-
-.light-cyber {
-  --accent_dark: #3b00b9;
-  --accent_light: #e100ff;
-}
-
-/* === DARK THEMES === */
-
 .dark-green,
 .dark-orange,
 .dark-pink,
@@ -71,22 +56,26 @@
   --ghost: rgba(235, 235, 235, 0.15);
 }
 
+.light-green,
 .dark-green {
-  --accent_dark: #104f55;
-  --accent_light: #06d6a0;
+  --accent_dark: var(--dark-green);
+  --accent_light: var(--light-green);
 }
 
+.light-orange,
 .dark-orange {
-  --accent_dark: #8b2500;
-  --accent_light: #ffb347;
+  --accent_dark: var(--dark-orange);
+  --accent_light: var(--light-orange);
 }
 
+.light-pink,
 .dark-pink {
-  --accent_dark: #802752;
-  --accent_light: #ff6f91;
+  --accent_dark: var(--dark-pink);
+  --accent_light: var(--light-pink);
 }
 
+.light-cyber,
 .dark-cyber {
-  --accent_dark: #3b00b9;
-  --accent_light: #e100ff;
+  --accent_dark: var(--dark-cyber);
+  --accent_light: var(--light-cyber);
 }
