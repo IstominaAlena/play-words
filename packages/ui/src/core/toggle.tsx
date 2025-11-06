@@ -65,7 +65,7 @@ export const SliderToggle: FC<Props> = ({ options, selected, setSelected, isDisa
                 if (el) buttonsRef.current[i] = el;
             }}
             className={cn(
-                "relative z-20 flex h-10 w-full items-center justify-center gap-2 rounded-full px-4 text-base font-medium transition-colors",
+                "relative z-20 flex h-10 w-full items-center justify-center gap-2 rounded-full px-4 text-base font-medium transition-colors md:px-2",
                 selected === value ? "text-primary_text" : "text-neutral",
             )}
             onClick={onOptionClick(value)}
@@ -98,7 +98,7 @@ export const SliderToggle: FC<Props> = ({ options, selected, setSelected, isDisa
         <div
             ref={containerRef}
             className={cn(
-                "bg-ghost relative flex w-full items-center gap-1 rounded-full",
+                "bg-ghost relative flex w-full items-center gap-1 rounded-full py-1",
                 isDisabled && "pointer-events-none cursor-not-allowed opacity-50",
             )}
         >
