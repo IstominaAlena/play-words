@@ -2,72 +2,91 @@
 
 @config "./tailwind.config.ts";
 
-:root {
-  --primary-bg: #0a0a0a; /* rgba(10, 10, 10, 1) */
-  --secondary-bg: #1f1f1f; /* rgba(31, 31, 31, 1) */
-  --primary-text: #ebebeb; /* rgba(235, 235, 235, 1) */
-  --secondary-text: #b3b3b3; /* rgba(179, 179, 179, 1) */
-  --primary-border: #0a0a0a; /* rgba(10, 10, 10, 1) */
-  --secondary-border: #1f1f1f; /* rgba(31, 31, 31, 1) */
-  --neutral-glow: #ebebeb; /* rgba(235, 235, 235, 1) */
+/* === BASE STRUCTURE === */
+
+.light-green,
+.light-orange,
+.light-pink,
+.light-cyber,
+.dark-green,
+.dark-orange,
+.dark-pink,
+.dark-cyber {
   --neutral: #707070; /* rgba(112, 112, 112, 1) */
-  --ghost: rgba(235, 235, 235, 0.15);
-  --accent_dark: #104f55; /* rgba(16, 79, 85, 1) */
-  --accent_light: #06d6a0; /* rgba(6, 214, 160, 1) */
   --error_light: #e60a0c; /* rgba(230, 10, 12, 1) */
   --error_dark: #800516; /* rgba(128, 5, 22, 1) */
   --warn_light: #fcf936; /* rgba(252, 249, 54, 1) */
   --warn_dark: #bf9003; /* rgba(191, 144, 3, 1) */
 }
 
-.dark {
-  --primary-bg: #0a0a0a; /* rgba(10, 10, 10, 1) */
-  --secondary-bg: #1f1f1f; /* rgba(31, 31, 31, 1) */
-  --primary-text: #ebebeb; /* rgba(235, 235, 235, 1) */
-  --secondary-text: #b3b3b3; /* rgba(179, 179, 179, 1) */
-  --primary-border: #0a0a0a; /* rgba(10, 10, 10, 1) */
-  --secondary-border: #1f1f1f; /* rgba(31, 31, 31, 1) */
-  --neutral-glow: #ebebeb; /* rgba(235, 235, 235, 1) */
-  --ghost: rgba(235, 235, 235, 0.15);
-}
+/* === LIGHT THEMES === */
 
-.light {
-  --primary-bg: #f8fafc; /* rgba(248, 250, 252, 1) */
-  --secondary-bg: #eef2f6; /* rgba(238, 242, 246, 1) */
-  --primary-text: #0a0a0a; /* rgba(10, 10, 10, 1) */
-  --secondary-text: #404040; /* rgba(64, 64, 64, 1) */
-  --primary-border: #d0d7de; /* rgba(208, 215, 222, 1) */
-  --secondary-border: #e2e8f0; /* rgba(226, 232, 240, 1) */
-  --neutral-glow: #1e293b; /* rgba(30, 41, 59, 1) */
+.light-green,
+.light-orange,
+.light-pink,
+.light-cyber {
+  --primary-bg: #f8fafc;
+  --secondary-bg: #eef2f6;
+  --primary-text: #0a0a0a;
+  --secondary-text: #404040;
+  --primary-border: #d0d7de;
+  --secondary-border: #e2e8f0;
+  --neutral-glow: #1e293b;
   --ghost: rgba(10, 10, 10, 0.08);
 }
 
-.green {
-  --accent_dark: #104f55; /* rgba(16, 79, 85, 1) */
-  --accent_light: #06d6a0; /* rgba(6, 214, 160, 1) */
+.light-green {
+  --accent_dark: #104f55;
+  --accent_light: #06d6a0;
 }
 
-.blue {
-  --accent_dark: #003ba3; /* rgba(0, 59, 163, 1) */
-  --accent_light: #2ca8ff; /* rgba(44, 168, 255, 1) */
+.light-orange {
+  --accent_dark: #8b2500;
+  --accent_light: #ffb347;
 }
 
-.purple {
-  --accent_dark: #4b1d75; /* rgba(75, 29, 117, 1) */
-  --accent_light: #a678ff; /* rgba(166, 120, 255, 1) */
+.light-pink {
+  --accent_dark: #802752;
+  --accent_light: #ff6f91;
 }
 
-.orange {
-  --accent_dark: #8b2500; /* rgba(139, 37, 0, 1) */
-  --accent_light: #ffb347; /* rgba(255, 179, 71, 1) */
+.light-cyber {
+  --accent_dark: #3b00b9;
+  --accent_light: #e100ff;
 }
 
-.pink {
-  --accent_dark: #802752; /* rgba(128, 39, 82, 1) */
-  --accent_light: #ff6f91; /* rgba(255, 111, 145, 1) */
+/* === DARK THEMES === */
+
+.dark-green,
+.dark-orange,
+.dark-pink,
+.dark-cyber {
+  --primary-bg: #0a0a0a;
+  --secondary-bg: #1f1f1f;
+  --primary-text: #ebebeb;
+  --secondary-text: #b3b3b3;
+  --primary-border: #0a0a0a;
+  --secondary-border: #1f1f1f;
+  --neutral-glow: #ebebeb;
+  --ghost: rgba(235, 235, 235, 0.15);
 }
 
-.cyber {
-  --accent_dark: #3b00b9; /* rgba(59, 0, 185, 1) */
-  --accent_light: #e100ff; /* rgba(225, 0, 255, 1) */
+.dark-green {
+  --accent_dark: #104f55;
+  --accent_light: #06d6a0;
+}
+
+.dark-orange {
+  --accent_dark: #8b2500;
+  --accent_light: #ffb347;
+}
+
+.dark-pink {
+  --accent_dark: #802752;
+  --accent_light: #ff6f91;
+}
+
+.dark-cyber {
+  --accent_dark: #3b00b9;
+  --accent_light: #e100ff;
 }

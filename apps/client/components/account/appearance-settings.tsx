@@ -2,42 +2,60 @@
 
 import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 
 import { cn } from "@repo/ui/class-names";
 import { SliderToggle } from "@repo/ui/core/toggle";
 import { Text, Title } from "@repo/ui/core/typography";
 import { MoonIcon } from "@repo/ui/icons/moon";
-import { StarIcon } from "@repo/ui/icons/star";
 import { SunIcon } from "@repo/ui/icons/sun";
 
-import { Mode } from "@repo/common/enums/common";
+import { Accent, Mode } from "@repo/common/enums/common";
 
 interface Props {
     className?: string;
 }
 
-const modeOptions = [
-    { label: "Dark", value: Mode.DARK, icon: <MoonIcon width={18} height={18} /> },
-    { label: "Light", value: Mode.LIGHT, icon: <SunIcon width={20} height={20} /> },
-    { label: "System", value: Mode.SYSTEM, icon: <StarIcon width={18} height={18} /> },
-];
-
 export const AppearanceSettings: FC<Props> = ({ className }) => {
     const t = useTranslations("account");
 
-    const { theme, setTheme } = useTheme();
+    const { resolvedTheme, setTheme } = useTheme();
+
+    const [defaultMode, defaultAccent] = resolvedTheme?.split("-") ?? [];
+
+    const [mode, setMode] = useState(defaultMode ?? Mode.DARK);
+    const [accent, setAccent] = useState(defaultAccent ?? Accent.GREEN);
+
+    const modeOptions = [
+        { label: t("dark"), value: "dark", icon: <MoonIcon width={18} height={18} /> },
+        { label: t("light"), value: "light", icon: <SunIcon width={20} height={20} /> },
+    ];
+
+    const accentOptions = [
+        { label: "Green", value: "green" },
+        { label: "Orange", value: "orange" },
+        { label: "Pink", value: "pink" },
+        { label: "Cyber", value: "cyber" },
+    ];
+
+    useEffect(() => {
+        setTheme(`${mode}-${accent}`);
+    }, [mode, accent]);
 
     return (
         <div className={cn("flex flex-col gap-6", className)}>
             <Title>{t("appearance")}</Title>
-            <ul>
-                <li className="flex flex-col gap-4">
-                    <Text className="text-primary_text text-xl">{t("mode")}</Text>
+            <ul className="flex flex-col gap-6">
+                <li className="flex flex-col gap-1">
+                    <Text>{t("mode")}</Text>
+                    <SliderToggle options={modeOptions} selected={mode} setSelected={setMode} />
+                </li>
+                <li className="flex flex-col gap-1">
+                    <Text>{t("accent")}</Text>
                     <SliderToggle
-                        options={modeOptions}
-                        selected={theme ?? Mode.SYSTEM}
-                        setSelected={setTheme}
+                        options={accentOptions}
+                        selected={accent}
+                        setSelected={setAccent}
                     />
                 </li>
             </ul>

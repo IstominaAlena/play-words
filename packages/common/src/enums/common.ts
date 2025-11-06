@@ -6,5 +6,10 @@ export enum SupportedLanguages {
 export enum Mode {
     DARK = "dark",
     LIGHT = "light",
-    SYSTEM = "system",
+}
+export enum Accent {
+    GREEN = "green",
+    ORANGE = "orange",
+    PINK = "pink",
+    CYBER = "cyber",
 }

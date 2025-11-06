@@ -7,7 +7,7 @@ import { Suspense } from "react";
 import { LoaderScreen } from "@repo/ui/components/loader-screen";
 import { Toaster } from "@repo/ui/core/sonner";
 import "@repo/ui/styles";
-import { Theme } from "@repo/ui/theme/theme-provider";
+import { AppThemeProvider } from "@repo/ui/theme/theme-provider";
 
 import { QueryProvider } from "@repo/api-config/api-config";
 import { routing } from "@repo/i18n/config/routing";
@@ -44,7 +44,7 @@ const RootLayout = async ({ children, params }: Props) => {
             suppressHydrationWarning
         >
             <body className="bg-primary_bg w-ful no-scrollbar flex h-[100dvh] flex-col overflow-y-auto">
-                <Theme>
+                <AppThemeProvider>
                     <QueryProvider>
                         <NextIntlClientProvider locale={locale} messages={messages}>
                             <Suspense fallback={<LoaderScreen />}>
@@ -54,7 +54,7 @@ const RootLayout = async ({ children, params }: Props) => {
                             </Suspense>
                         </NextIntlClientProvider>
                     </QueryProvider>
-                </Theme>
+                </AppThemeProvider>
             </body>
         </html>
     );

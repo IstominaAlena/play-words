@@ -91,7 +91,9 @@
         "appearance": "Appearance",
         "mode": "Mode",
         "dark": "Dark",
-        "light": "Light"
+        "light": "Light",
+        "system": "System",
+        "accent": "Accent color"
     },
     "dictionary": {
         "add_word": "Add word",
