@@ -87,7 +87,11 @@
         "manage_account_modal_text": "After the remaining period, the changes will be irreversible.",
         "consent_failed": "The email you entered doesn’t match your account.",
         "settings": "Settings",
-        "statistics": "Statistics"
+        "statistics": "Statistics",
+        "appearance": "Appearance",
+        "mode": "Mode",
+        "dark": "Dark",
+        "light": "Light"
     },
     "dictionary": {
         "add_word": "Add word",

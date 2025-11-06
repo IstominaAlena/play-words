@@ -7,6 +7,7 @@ import { Suspense } from "react";
 import { LoaderScreen } from "@repo/ui/components/loader-screen";
 import { Toaster } from "@repo/ui/core/sonner";
 import "@repo/ui/styles";
+import { Theme } from "@repo/ui/theme/theme-provider";
 
 import { QueryProvider } from "@repo/api-config/api-config";
 import { routing } from "@repo/i18n/config/routing";
@@ -37,17 +38,23 @@ const RootLayout = async ({ children, params }: Props) => {
     const messages = await getMessages({ locale });
 
     return (
-        <html lang={locale} className="h-screen overflow-hidden scroll-smooth">
-            <body className="bg-primary_bg w-ful scrollbar flex h-[100dvh] flex-col overflow-y-auto">
-                <QueryProvider>
-                    <NextIntlClientProvider locale={locale} messages={messages}>
-                        <Suspense fallback={<LoaderScreen />}>
-                            <AppInitializer />
-                            <MainLayout>{children}</MainLayout>
-                            <Toaster />
-                        </Suspense>
-                    </NextIntlClientProvider>
-                </QueryProvider>
+        <html
+            lang={locale}
+            className="h-screen overflow-hidden scroll-smooth"
+            suppressHydrationWarning
+        >
+            <body className="bg-primary_bg w-ful no-scrollbar flex h-[100dvh] flex-col overflow-y-auto">
+                <Theme>
+                    <QueryProvider>
+                        <NextIntlClientProvider locale={locale} messages={messages}>
+                            <Suspense fallback={<LoaderScreen />}>
+                                <AppInitializer />
+                                <MainLayout>{children}</MainLayout>
+                                <Toaster />
+                            </Suspense>
+                        </NextIntlClientProvider>
+                    </QueryProvider>
+                </Theme>
             </body>
         </html>
     );
