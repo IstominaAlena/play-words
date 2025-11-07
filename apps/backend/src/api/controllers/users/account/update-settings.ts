@@ -19,7 +19,7 @@ export const updateSettings = async (
 
     const { theme, wordsPerTraining } = req.body;
 
-    if (!theme || !wordsPerTraining) {
+    if (!theme && !wordsPerTraining) {
         throw new AppError(400, messageKeys.BAD_REQUEST);
     }
 

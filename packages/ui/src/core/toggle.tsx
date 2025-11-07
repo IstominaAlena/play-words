@@ -1,7 +1,16 @@
 "use client";
 
 import { motion } from "motion/react";
-import { Dispatch, FC, ReactNode, SetStateAction, useEffect, useRef, useState } from "react";
+import {
+    Dispatch,
+    FC,
+    ReactNode,
+    SetStateAction,
+    useCallback,
+    useEffect,
+    useRef,
+    useState,
+} from "react";
 
 import { cn } from "../utils/class-names";
 import { HoverBorderGradient } from "./hover-border-gradient";
@@ -15,7 +24,7 @@ interface Option {
 interface Props {
     options: Option[];
     selected: string;
-    setSelected: Dispatch<SetStateAction<string>>;
+    setSelected: (value: string) => void;
     isDisabled?: boolean;
 }
 
@@ -34,7 +43,7 @@ export const SliderToggle: FC<Props> = ({ options, selected, setSelected, isDisa
         options.findIndex((o) => o.value === selected),
     );
 
-    const measure = () => {
+    const measure = useCallback(() => {
         const container = containerRef.current;
         const btn = buttonsRef.current[selectedIndex];
         if (!container || !btn) return;
@@ -54,7 +63,7 @@ export const SliderToggle: FC<Props> = ({ options, selected, setSelected, isDisa
             widthRef.current = newWidth;
             setWidthPx(newWidth);
         }
-    };
+    }, [selectedIndex]);
 
     const onOptionClick = (value: string) => () => setSelected(value);
 
@@ -77,7 +86,7 @@ export const SliderToggle: FC<Props> = ({ options, selected, setSelected, isDisa
 
     useEffect(() => {
         measure();
-    }, [selected, options.length]);
+    }, [selected, options.length, measure]);
 
     useEffect(() => {
         const container = containerRef.current;
@@ -92,7 +101,7 @@ export const SliderToggle: FC<Props> = ({ options, selected, setSelected, isDisa
         buttonsRef.current.forEach((btn) => btn && ro.observe(btn));
 
         return () => ro.disconnect();
-    }, [options.length]);
+    }, [measure, options.length]);
 
     return (
         <div

@@ -23,9 +23,12 @@ export const ThemeSwitcher: FC<Props> = ({ defaultTheme, saveTheme, isLoading })
     const { resolvedTheme, setTheme } = useTheme();
 
     const [mounted, setMounted] = useState(false);
+    const [hasInteracted, setHasInteracted] = useState(false);
 
-    const [mode, setMode] = useState<string>("");
-    const [accent, setAccent] = useState<string>("");
+    const [defaultMode, defaultAccent] = defaultTheme?.split("-") ?? [];
+
+    const [mode, setMode] = useState<string>(defaultMode ?? Mode.DARK);
+    const [accent, setAccent] = useState<string>(defaultAccent ?? Accent.GREEN);
 
     const modeOptions = Object.values(Mode).map((item) => ({
         label: t(item),
@@ -40,19 +43,28 @@ export const ThemeSwitcher: FC<Props> = ({ defaultTheme, saveTheme, isLoading })
             icon: renderGradientSwatch(item),
         }));
 
+    const handleModeChange = (newMode: string) => {
+        setHasInteracted(true);
+        setMode(newMode);
+    };
+
+    const handleAccentChange = (newAccent: string) => {
+        setHasInteracted(true);
+        setAccent(newAccent);
+    };
+
     useEffect(() => setMounted(true), []);
 
     useEffect(() => {
-        if (!mounted || !resolvedTheme) {
+        if (!mounted) {
             return;
         }
 
-        const themeToApply = defaultTheme || resolvedTheme || "dark-green";
-        const [initialMode, initialAccent] = themeToApply.split("-");
+        const [defaultMode, defaultAccent] = defaultTheme?.split("-") ?? [];
 
-        setMode((initialMode as Mode) || Mode.DARK);
-        setAccent((initialAccent as Accent) || Accent.GREEN);
-    }, [mounted, resolvedTheme, defaultTheme]);
+        setMode(defaultMode ?? Mode.DARK);
+        setAccent(defaultAccent ?? Accent.GREEN);
+    }, [defaultTheme, mounted]);
 
     useEffect(() => {
         if (!mode || !accent) return;
@@ -69,30 +81,38 @@ export const ThemeSwitcher: FC<Props> = ({ defaultTheme, saveTheme, isLoading })
         setTheme(newTheme);
     }, [mode, accent, setTheme]);
 
+    useEffect(() => {
+        if (!hasInteracted || !resolvedTheme || resolvedTheme === defaultTheme) {
+            return;
+        }
+
+        saveTheme?.(resolvedTheme);
+    }, [defaultTheme, hasInteracted, resolvedTheme]);
+
     return (
         <ul className="flex flex-col gap-6">
             <li className="flex flex-col gap-1">
                 <Text>{t("mode")}</Text>
-                {!mounted && !mode ? (
-                    <Skeleton className="h-10 rounded-full" />
+                {!mounted || !mode ? (
+                    <Skeleton className="h-12 rounded-full" />
                 ) : (
                     <SliderToggle
                         options={modeOptions}
                         selected={mode}
-                        setSelected={setMode}
+                        setSelected={handleModeChange}
                         isDisabled={isLoading}
                     />
                 )}
             </li>
             <li className="flex flex-col gap-1">
                 <Text>{t("accent")}</Text>
-                {!mounted && !accent ? (
-                    <Skeleton className="h-10 rounded-full" />
+                {!mounted || !accent ? (
+                    <Skeleton className="h-12 rounded-full" />
                 ) : (
                     <SliderToggle
                         options={accentOptions}
                         selected={accent}
-                        setSelected={setAccent}
+                        setSelected={handleAccentChange}
                         isDisabled={isLoading}
                     />
                 )}

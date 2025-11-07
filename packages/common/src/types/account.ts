@@ -28,6 +28,8 @@ export interface Settings {
     google: boolean;
     otp: boolean;
     verified: boolean;
+    theme: string;
+    wordsPerTraining: number;
 }
 
 export interface AccountResponse {
