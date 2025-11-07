@@ -23,6 +23,7 @@ export const ThemeSwitcher: FC<Props> = ({ defaultTheme, saveTheme, isLoading })
     const { resolvedTheme, setTheme } = useTheme();
 
     const [mounted, setMounted] = useState(false);
+
     const [mode, setMode] = useState<string>("");
     const [accent, setAccent] = useState<string>("");
 
@@ -33,7 +34,7 @@ export const ThemeSwitcher: FC<Props> = ({ defaultTheme, saveTheme, isLoading })
     }));
 
     const accentOptions = Object.values(Accent)
-        .filter((item) => item.toString() !== mode.toString())
+        .filter((item) => item !== mode)
         .map((item) => ({
             value: item.toString(),
             icon: renderGradientSwatch(item),
@@ -66,8 +67,7 @@ export const ThemeSwitcher: FC<Props> = ({ defaultTheme, saveTheme, isLoading })
         const newTheme = `${mode}-${adjustedAccent}`;
 
         setTheme(newTheme);
-        saveTheme?.(newTheme);
-    }, [mode, accent, setTheme, saveTheme]);
+    }, [mode, accent, setTheme]);
 
     return (
         <ul className="flex flex-col gap-6">

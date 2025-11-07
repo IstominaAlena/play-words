@@ -9,6 +9,7 @@ import {
     resetPasswordSchema,
     signUpDtoSchema,
     updateAccountSchema,
+    updateAccountSettingsSchema,
 } from "../schemas/account";
 
 export interface ErrorResponse {
@@ -64,3 +65,5 @@ export type ResetPasswordDto = z.infer<typeof resetPasswordSchema>;
 export type ChangePassword = z.infer<typeof changePasswordSchema>;
 
 export type ChangePasswordDto = z.infer<typeof changePasswordDtoSchema>;
+
+export type UpdateAccountSettingsDto = z.infer<typeof updateAccountSettingsSchema>;

@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
 @config "./tailwind.config.ts";
-/* E8EEF2  F5EFED  EFEFEF*/
 
 :root {
   --dark-green: #25d976;
