@@ -41,13 +41,15 @@
         "word_placeholder": "Apple",
         "translations": "Translations",
         "definitions": "Definitions",
-        "tips": "Tips ({number})"
+        "tips": "Tips ({number})",
+        "words_per_training": "Words per training"
     },
     "form_error": {
         "REQUIRED": "This field is required",
         "SHORT_PASSWORD": "Password is too short",
         "PASSWORD_MATCH": "Passwords must match",
-        "INVALID_EMAIL": "Please enter a valid email"
+        "INVALID_EMAIL": "Please enter a valid email",
+        "BIG_VALUE": "Enter a value less than 50"
     },
     "auth": {
         "sign_in": "Sign In",
@@ -93,7 +95,9 @@
         "consent_failed": "The email you entered doesn’t match your account.",
         "settings": "Settings",
         "statistics": "Statistics",
-        "appearance": "Appearance"
+        "appearance": "Appearance",
+        "other": "Other settings",
+        "settings_update_success": "Settings updated successfully"
     },
     "dictionary": {
         "add_word": "Add word",

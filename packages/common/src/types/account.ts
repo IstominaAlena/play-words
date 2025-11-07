@@ -52,6 +52,8 @@ export interface VerifyOtpDto {
     email: string;
 }
 
+export type OtherSettingsDto = Omit<UpdateAccountSettingsDto, "theme">;
+
 export type CreateAccountDto = z.infer<typeof createAccountSchema>;
 
 export type UpdateAccountDto = z.infer<typeof updateAccountSchema>;

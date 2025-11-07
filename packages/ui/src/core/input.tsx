@@ -35,6 +35,9 @@ export const Input: FC<Props> = ({ className, type, isError, onInputBlur, ...pro
                 data-slot="input"
                 className={cn(
                     "placeholder:text-neutral text-secondary_text caret-accent_light w-full rounded-[inherit] px-5 py-2 outline-none",
+                    "[&::-webkit-inner-spin-button]:appearance-none",
+                    "[&::-webkit-outer-spin-button]:appearance-none",
+                    "[appearance:textfield]",
                     className,
                 )}
                 {...props}

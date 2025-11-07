@@ -57,7 +57,7 @@ export const EditUser: FC<Props> = ({ className }) => {
                     defaultValues={defaultValues}
                     schema={updateAccountSchema}
                     onSubmit={onSubmit}
-                    submitButtonClassName=" max-w-default self-end"
+                    submitButtonClassName="max-w-default self-end"
                     isLoading={isPending}
                     render={({ control }) => (
                         <>
