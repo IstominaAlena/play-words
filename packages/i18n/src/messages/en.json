@@ -22,7 +22,10 @@
         "dictionary": "Dictionary",
         "practice": "Practice",
         "games": "Games",
-        "account": "Account"
+        "account": "Account",
+        "security": "Security",
+        "settings": "Settings",
+        "statistics": "Statistics"
     },
     "form": {
         "submit": "Submit",

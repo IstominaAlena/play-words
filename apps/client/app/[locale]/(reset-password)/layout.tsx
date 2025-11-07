@@ -1,5 +1,3 @@
-"use client";
-
 import { FC, PropsWithChildren } from "react";
 
 import { GlowingStarsBackground } from "@repo/ui/core/glowing-starts";

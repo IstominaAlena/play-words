@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { FC, useMemo } from "react";
+import { FC, SVGProps, useMemo } from "react";
 
 import { Link } from "@repo/i18n/config/navigation";
 
@@ -12,14 +12,20 @@ import { AccountIcon } from "../icons/account";
 import { LogoutIcon } from "../icons/logout";
 import { cn } from "../utils/class-names";
 
+interface Link {
+    text: string;
+    icon: FC<SVGProps<SVGSVGElement>>;
+    path: string;
+}
+
 interface Props {
     name: string;
-    accountPath: string;
+    links: Link[];
     onLogout: () => void;
     className?: string;
 }
 
-export const AccountDropdown: FC<Props> = ({ name, accountPath, onLogout, className }) => {
+export const AccountDropdown: FC<Props> = ({ name, links, onLogout, className }) => {
     const t = useTranslations("auth");
     const tNav = useTranslations("navigation");
 
@@ -37,21 +43,9 @@ export const AccountDropdown: FC<Props> = ({ name, accountPath, onLogout, classN
         [name],
     );
 
-    const accountLink = (
-        <Link
-            key="0"
-            href={accountPath}
-            className={cn(
-                "text-secondary_text group hover:text-accent_dark flex items-center gap-2 px-4 py-2 transition-all duration-300",
-            )}
-        >
-            <AccountIcon className="text-inherit" width={16} height={16} />
-            <Text className="text-inherit">{tNav("account")}</Text>
-        </Link>
-    );
-
     const logoutButton = (
         <div onClick={onLogout} className="group">
+            <div className="bg-horizontal_neutral_gradient h-px w-full" />
             <div className="text-secondary_text group-hover:text-error_dark flex cursor-pointer items-center gap-2 px-4 py-2 transition-all duration-300">
                 <LogoutIcon className="text-inherit" width={16} height={16} />
                 <Text className="text-inherit">{t("logout")}</Text>
@@ -59,7 +53,22 @@ export const AccountDropdown: FC<Props> = ({ name, accountPath, onLogout, classN
         </div>
     );
 
-    const content = [accountLink, logoutButton];
+    const renderLinkItem = ({ path, text, icon: Icon }: Link, i: number) => (
+        <Link
+            key={i}
+            href={path}
+            className={cn(
+                "text-secondary_text group hover:text-accent_dark flex items-center gap-2 px-4 py-2 transition-all duration-300",
+            )}
+        >
+            <Icon className="text-inherit" width={16} height={16} />
+            <Text className="text-inherit">{tNav(text)}</Text>
+        </Link>
+    );
+
+    const accountLinks = links.map(renderLinkItem);
+
+    const content = [...accountLinks, logoutButton];
 
     return (
         <DropdownMenu

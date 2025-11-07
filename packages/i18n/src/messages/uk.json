@@ -22,7 +22,10 @@
         "dictionary": "Словник",
         "practice": "Практика",
         "games": "Ігри",
-        "account": "Обліковий запис"
+        "account": "Обліковий запис",
+        "security": "Безпека",
+        "settings": "Налаштування",
+        "statistics": "Статистика"
     },
     "form": {
         "submit": "Відправити",
