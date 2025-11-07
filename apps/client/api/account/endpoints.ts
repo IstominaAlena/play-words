@@ -4,6 +4,7 @@ import {
     OtpResponse,
     ResetPasswordDto,
     UpdateAccountDto,
+    UpdateAccountSettingsDto,
 } from "@repo/common/types/account";
 
 export const getCurrentUser = async (): Promise<AccountResponse> => {
@@ -46,4 +47,8 @@ export const getOtpSettings = async (): Promise<OtpResponse> => {
     const { data } = await api.get<OtpResponse>("/users/otp");
 
     return data;
+};
+
+export const updateSettings = async (dto: UpdateAccountSettingsDto): Promise<void> => {
+    await api.patch("/users/settings", dto);
 };
