@@ -1,0 +1,12 @@
+"use client";
+
+import { FC, SVGProps } from "react";
+
+export const SecurityIcon: FC<SVGProps<SVGSVGElement>> = (props) => (
+    <svg viewBox="0 0 32 32" fill="none" width={32} height={32} {...props}>
+        <path
+            d="M30 0l-14 4-14-4c0 0-0.141 1.616 0 4l14 4.378 14-4.378c0.141-2.384 0-4 0-4zM2.256 6.097c0.75 7.834 3.547 21.007 13.744 25.903 10.197-4.896 12.995-18.069 13.744-25.903l-13.744 5.167-13.744-5.167z"
+            fill="currentColor"
+        ></path>
+    </svg>
+);

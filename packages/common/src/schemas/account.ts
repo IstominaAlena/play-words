@@ -55,3 +55,8 @@ export const changePasswordDtoSchema = z
         path: ["confirmPassword"],
         message: "PASSWORD_MATCH",
     });
+
+export const updateAccountSettingsSchema = z.object({
+    theme: z.string().min(1, "REQUIRED").optional(),
+    wordsPerTraining: z.coerce.number().min(1, "REQUIRED").max(50, "BIG_VALUE").optional(),
+});

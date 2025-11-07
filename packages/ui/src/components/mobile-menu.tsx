@@ -26,7 +26,7 @@ export const MobileMenu: FC<Props> = ({ children, links, className }) => {
             <div className="w-full max-w-11">
                 <HoverBorderGradient
                     containerClassName="w-full h-fit"
-                    className="text-secondary_light group-hover:text-primary_light p-0"
+                    className="text-secondary_text group-hover:text-primary_text p-0"
                 >
                     <MenuIcon width={20} height={20} className="text-inherit" />
                 </HoverBorderGradient>
@@ -41,7 +41,7 @@ export const MobileMenu: FC<Props> = ({ children, links, className }) => {
                 key={key}
                 href={path}
                 className={cn(
-                    "text-secondary_light hover:text-accent_dark flex items-center gap-2 px-4 py-2",
+                    "text-secondary_text hover:text-accent_dark flex items-center gap-2 px-4 py-2",
                     currentPath === path && "text-accent_light",
                 )}
             >

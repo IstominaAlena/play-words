@@ -33,7 +33,7 @@ export const Footer: FC = () => {
             key={lang}
             onClick={onLocaleChange(lang)}
             className={cn(
-                "text-secondary_light hover:text-accent_dark cursor-pointer text-sm uppercase",
+                "text-secondary_text hover:text-accent_dark cursor-pointer text-sm uppercase",
                 locale === lang && "text-accent_light",
             )}
         >

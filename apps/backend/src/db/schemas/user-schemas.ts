@@ -1,5 +1,7 @@
 import { boolean, integer, pgTable, serial, timestamp, varchar } from "drizzle-orm/pg-core";
 
+import { DEFAULT_THEME, DEFAULT_WORDS_PER_TRAINING } from "@repo/common/constants/common";
+
 import { authProvider } from "./types";
 
 export const usersTable = pgTable("users", {
@@ -33,6 +35,8 @@ export const userSettingsTable = pgTable("user_settings", {
     google: boolean("google").notNull().default(false),
     otp: boolean("otp").notNull().default(false),
     password: boolean("password").notNull().default(false),
+    theme: varchar("theme", { length: 255 }).default(DEFAULT_THEME),
+    wordsPerTraining: integer("words_per_training").default(DEFAULT_WORDS_PER_TRAINING),
     createdAt: timestamp("created_at", { mode: "string" }).notNull().defaultNow(),
     updatedAt: timestamp("updated_at", { mode: "string" }).notNull().defaultNow(),
 });

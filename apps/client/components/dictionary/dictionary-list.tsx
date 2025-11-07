@@ -19,15 +19,9 @@ interface Props {
 export const DictionaryList: FC<Props> = ({ dictionary, isLoading }) => {
     const { Modal, openModal, closeModal } = useModal();
 
-    const onCardClick = useCallback(
-        (item: Word) => () =>
-            openModal(<DictionaryCard data={item} openModal={openModal} closeModal={closeModal} />),
-        [closeModal, openModal],
-    );
-
     const renderCard = useCallback(
         (item: Word) => (
-            <li key={item.wordId} onClick={onCardClick(item)}>
+            <li key={item.wordId} className="max-h-40 flex-1 md:max-h-80">
                 <DictionaryCard
                     data={item}
                     isPreview
@@ -36,40 +30,32 @@ export const DictionaryList: FC<Props> = ({ dictionary, isLoading }) => {
                 />
             </li>
         ),
-        [closeModal, onCardClick, openModal],
+        [closeModal, openModal],
     );
 
     const content = useMemo(() => {
         if (isLoading) {
             const arr = Array.from({ length: DEFAULT_ITEMS_PER_PAGE }, (_, i) => (
-                <li key={i} className="min-h-60">
+                <li key={i} className="min-h-20 flex-1">
                     <Skeleton />
                 </li>
             ));
 
-            return (
-                <ul className="grid w-full grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-5">
-                    {arr}
-                </ul>
-            );
+            return <ul className="flex w-full flex-col gap-4">{arr}</ul>;
         }
 
         if (!isLoading && dictionary.length === 0) {
             return <EmptyContent />;
         }
 
-        return (
-            <ul className="grid w-full grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-5">
-                {dictionary.map(renderCard)}
-            </ul>
-        );
+        return <ul className="flex w-full flex-col gap-4">{dictionary.map(renderCard)}</ul>;
     }, [dictionary, isLoading, renderCard]);
 
     return (
         <div className="flex flex-1">
             {content}
 
-            <Modal contentClassName="p-10" />
+            <Modal contentClassName="p-3" />
         </div>
     );
 };

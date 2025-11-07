@@ -12,6 +12,8 @@ export class UserSettingService {
         google: this.table.google,
         password: this.table.password,
         otp: this.table.otp,
+        theme: this.table.theme,
+        wordsPerTraining: this.table.wordsPerTraining,
     };
 
     async createUserSettings(data: CreateUserSettings) {

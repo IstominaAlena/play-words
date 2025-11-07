@@ -48,7 +48,7 @@ const InputOTPSlot: FC<
             data-slot="input-otp-slot"
             data-active={isActive}
             className={cn(
-                "border-neutral text-primary_light relative flex h-10 w-10 items-center justify-center border text-base",
+                "border-neutral text-primary_text relative flex h-10 w-10 items-center justify-center border text-base",
                 className,
             )}
             {...props}
@@ -77,7 +77,7 @@ export const InputOTP: FC<InputOtpProps> = ({ maxLength = 6, value, onChange }) 
     return (
         <GlowingContainer
             containerClassName="w-fit rounded-lg"
-            contentClassName="p-0 bg-secondary_dark"
+            contentClassName="p-0 bg-secondary_bg"
         >
             <CoreInputOTP maxLength={maxLength} value={value} onChange={onChange}>
                 <InputOTPGroup>{slots}</InputOTPGroup>

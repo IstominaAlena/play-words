@@ -7,6 +7,7 @@ import {
     resetPasswordRequestSchema,
     resetPasswordSchema,
     updateAccountSchema,
+    updateAccountSettingsSchema,
     verifyOtpSchema,
 } from "@repo/common/schemas/account";
 
@@ -81,5 +82,12 @@ router.patch("/otp/enable", authValidation, controllerWrapper(usersControllersSe
 router.patch("/otp/disable", authValidation, controllerWrapper(usersControllersService.disableOtp));
 
 router.get("/otp", authValidation, controllerWrapper(usersControllersService.getOtpSettings));
+
+router.patch(
+    "/settings",
+    authValidation,
+    validateBody(updateAccountSettingsSchema),
+    controllerWrapper(usersControllersService.updateSettings),
+);
 
 export default router;

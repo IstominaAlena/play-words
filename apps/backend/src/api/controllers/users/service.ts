@@ -9,6 +9,7 @@ import { googleConnectCallback } from "./account/google-connect-callback";
 import { initiateGoogleConnect } from "./account/initiate-google-connect";
 import { restoreUser } from "./account/restore-user";
 import { updateCurrentUser } from "./account/update-current-user";
+import { updateSettings } from "./account/update-settings";
 import { googleAuthCallback } from "./auth/google-auth-callback";
 import { initiateGoogleAuth } from "./auth/initiate-google-auth";
 import { logoutUser } from "./auth/logout-user";
@@ -43,4 +44,5 @@ export const usersControllersService = {
     getOtpSettings,
     deleteUser,
     restoreUser,
+    updateSettings,
 };

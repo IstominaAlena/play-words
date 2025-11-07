@@ -1,3 +1,111 @@
 @import "tailwindcss";
 
 @config "./tailwind.config.ts";
+
+:root {
+  --dark-green: #25d976;
+  --light-green: #61ff9e;
+  --dark-orange: #d14900;
+  --light-orange: #ff8229;
+  --dark-pink: #d62b6d;
+  --light-pink: #ff6998;
+  --dark-purple: #7845bf;
+  --light-purple: #bc8af2;
+  --dark-blue: #00aad9;
+  --light-blue: #5cecff;
+  --dark-light: #808080;
+  --light-light: #ffffff;
+  --light-dark: #000000;
+  --dark-dark: #808080;
+}
+
+.light-green,
+.light-orange,
+.light-pink,
+.light-purple,
+.light-blue,
+.light-dark,
+.dark-green,
+.dark-orange,
+.dark-pink,
+.dark-purple,
+.dark-blue,
+.dark-light {
+  --neutral: #808080;
+  --error_light: #ff3029;
+  --error_dark: #cf0007;
+  --warn_light: #ffd93d;
+  --warn_dark: #ffa800;
+}
+
+.light-green,
+.light-orange,
+.light-pink,
+.light-purple,
+.light-blue,
+.light-dark {
+  --primary-bg: #f5f5f5;
+  --secondary-bg: #e0e0e0;
+  --primary-text: #141414;
+  --secondary-text: #4c4c4c;
+  --primary-border: #f5f5f5;
+  --secondary-border: #e0e0e0;
+  --neutral-glow: #141414;
+  --ghost: rgba(20, 20, 20, 0.15);
+}
+
+.dark-green,
+.dark-orange,
+.dark-pink,
+.dark-purple,
+.dark-blue,
+.dark-light {
+  --primary-bg: #0a0a0a;
+  --secondary-bg: #1f1f1f;
+  --primary-text: #ebebeb;
+  --secondary-text: #b3b3b3;
+  --primary-border: #0a0a0a;
+  --secondary-border: #1f1f1f;
+  --neutral-glow: #ebebeb;
+  --ghost: rgba(235, 235, 235, 0.15);
+}
+
+.light-green,
+.dark-green {
+  --accent_dark: var(--dark-green);
+  --accent_light: var(--light-green);
+}
+
+.light-orange,
+.dark-orange {
+  --accent_dark: var(--dark-orange);
+  --accent_light: var(--light-orange);
+}
+
+.light-pink,
+.dark-pink {
+  --accent_dark: var(--dark-pink);
+  --accent_light: var(--light-pink);
+}
+
+.light-purple,
+.dark-purple {
+  --accent_dark: var(--dark-purple);
+  --accent_light: var(--light-purple);
+}
+
+.light-blue,
+.dark-blue {
+  --accent_dark: var(--dark-blue);
+  --accent_light: var(--light-blue);
+}
+
+.dark-light {
+  --accent_dark: var(--dark-light);
+  --accent_light: var(--light-light);
+}
+
+.light-dark {
+  --accent_dark: var(--dark-dark);
+  --accent_light: var(--light-dark);
+}

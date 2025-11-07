@@ -36,39 +36,49 @@ const TabsTrigger: FC<ComponentProps<typeof TabsPrimitive.Trigger>> = ({ classNa
 const TabsContent: FC<ComponentProps<typeof TabsPrimitive.Content>> = ({ className, ...props }) => (
     <TabsPrimitive.Content
         data-slot="tabs-content"
-        className={cn("bg-secondary_dark/80 z-20 w-full flex-3 rounded-lg p-6", className)}
+        className={cn("bg-secondary_bg/80 z-20 w-full flex-3 rounded-lg p-6", className)}
         {...props}
     />
 );
 
 interface Tab {
     name: string;
+    label: string;
     content: JSX.Element;
 }
 
 interface Props {
     tabs: Tab[];
+    defaultTab?: string;
     className?: string;
     listClassName?: string;
     contentClassName?: string;
     tabClassName?: string;
+    onTabClick?: (tab: string) => () => void;
 }
 
 export const Tabs: FC<Props> = ({
     tabs,
+    defaultTab,
     className,
     listClassName,
     contentClassName,
     tabClassName,
+    onTabClick,
 }) => {
-    const renderTabTrigger = ({ name }: Tab) => (
-        <TabsTrigger value={name} className={cn("flex-1", tabClassName)} key={name}>
+    const renderTabTrigger = ({ name, label }: Tab) => (
+        <TabsTrigger
+            value={name}
+            className={cn("flex-1", tabClassName)}
+            key={name}
+            onClick={onTabClick?.(name)}
+        >
             <GlowingContainer
                 containerClassName="rounded-lg"
                 glowClassName="group-data-[state=active]:bg-accent_dark"
-                contentClassName="group-data-[state=active]:text-accent_light text-secondary_light"
+                contentClassName="group-data-[state=active]:text-accent_dark text-secondary_text capitalize"
             >
-                {name}
+                {label}
             </GlowingContainer>
         </TabsTrigger>
     );
@@ -79,10 +89,8 @@ export const Tabs: FC<Props> = ({
         </TabsContent>
     );
 
-    const defaultTab = tabs[0]?.name ?? "";
-
     return (
-        <CoreTabs defaultValue={defaultTab} className={className}>
+        <CoreTabs defaultValue={defaultTab ?? tabs[0]?.name ?? ""} className={className}>
             <TabsList className={listClassName}>{tabs.map(renderTabTrigger)}</TabsList>
 
             {tabs.map(renderTabItem)}

@@ -43,6 +43,13 @@
       "when": 1762311257511,
       "tag": "0005_flashy_shooting_star",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1762473003904,
+      "tag": "0006_fancy_zarda",
+      "breakpoints": true
     }
   ]
 }

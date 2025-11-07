@@ -49,12 +49,12 @@ export const OtpModal: FC<Props> = ({ email, closeModal }) => {
                     variant="SUCCESS"
                     isLoading={isPending}
                     onClick={onSubmitButtonClick}
-                    className="bg-secondary_dark"
+                    className="bg-secondary_bg"
                     disabled={value.length < 6}
                 >
                     {tForm("submit")}
                 </Button>
-                <Button className="bg-secondary_dark" onClick={closeModal}>
+                <Button className="bg-secondary_bg" onClick={closeModal}>
                     {tGlobal("cancel")}
                 </Button>
             </div>

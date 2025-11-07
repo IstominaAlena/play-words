@@ -29,7 +29,7 @@ export const AuthBar: FC<Props> = ({ openModal, className, isDropdownItem, close
         return (
             <div className={cn("flex-col gap-2 px-4 py-4", className)}>
                 <DropdownMenuItem>
-                    <Button onClick={onSignupButtonClick} className="md:bg-secondary_dark">
+                    <Button onClick={onSignupButtonClick} className="md:bg-secondary_bg">
                         {t("sign_up")}
                     </Button>
                 </DropdownMenuItem>
@@ -37,7 +37,7 @@ export const AuthBar: FC<Props> = ({ openModal, className, isDropdownItem, close
                     <Button
                         variant="SUCCESS"
                         onClick={onSignInButtonClick}
-                        className="md:bg-secondary_dark"
+                        className="md:bg-secondary_bg"
                     >
                         {t("sign_in")}
                     </Button>
@@ -50,15 +50,11 @@ export const AuthBar: FC<Props> = ({ openModal, className, isDropdownItem, close
         <div
             className={cn("flex w-full items-center gap-4 md:flex-col md:p-4 lg:gap-2", className)}
         >
-            <Button onClick={onSignupButtonClick} className="md:bg-secondary_dark">
+            <Button onClick={onSignupButtonClick} className="md:bg-secondary_bg">
                 {t("sign_up")}
             </Button>
 
-            <Button
-                variant="SUCCESS"
-                onClick={onSignInButtonClick}
-                className="md:bg-secondary_dark"
-            >
+            <Button variant="SUCCESS" onClick={onSignInButtonClick} className="md:bg-secondary_bg">
                 {t("sign_in")}
             </Button>
         </div>
