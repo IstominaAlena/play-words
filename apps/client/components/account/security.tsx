@@ -88,7 +88,7 @@ export const Security: FC<Props> = ({ className }) => {
                         <Button
                             type="button"
                             variant={isEnabled ? "ERROR" : "SUCCESS"}
-                            className="bg-secondary_dark"
+                            className="bg-secondary_bg"
                             onClick={onEnableButtonClick}
                             isLoading={enable.isPending}
                         >
@@ -97,7 +97,7 @@ export const Security: FC<Props> = ({ className }) => {
                         {isEnabled && (
                             <Button
                                 type="button"
-                                className="bg-secondary_dark"
+                                className="bg-secondary_bg"
                                 onClick={onGenerateQrButtonClick}
                                 isLoading={isPending}
                             >

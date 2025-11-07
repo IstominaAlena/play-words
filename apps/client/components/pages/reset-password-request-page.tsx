@@ -49,7 +49,7 @@ export const ResetPasswordRequestPage: FC = () => {
                             type="email"
                             label={tForm("email")}
                             placeholder={tForm("email_placeholder")}
-                            className="bg-secondary_dark"
+                            className="bg-secondary_bg"
                         />
                     </>
                 )}

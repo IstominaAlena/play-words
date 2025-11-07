@@ -10,9 +10,9 @@ export const OutlinedText: FC<Props> = ({ text, ...props }) => (
     <svg viewBox="0 0 300 100" fill="none" width={300} height={100} {...props}>
         <defs>
             <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#104F55" />
-                <stop offset="40%" stopColor="#06D6A0" />
-                <stop offset="90%" stopColor="#104F55" />
+                <stop offset="0%" stopColor="var(--accent_dark)" />
+                <stop offset="40%" stopColor="var(--accent_light)" />
+                <stop offset="90%" stopColor="var(--accent_dark)" />
             </linearGradient>
         </defs>
 

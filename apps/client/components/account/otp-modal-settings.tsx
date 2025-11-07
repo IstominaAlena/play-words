@@ -34,8 +34,8 @@ export const OtpModalSettings: FC<Props> = ({ url, secret }) => {
             {divider}
             <div className="flex w-full flex-col gap-1">
                 <Text>{t("otp_enter_manually")}</Text>
-                <GlowingContainer contentClassName="bg-secondary_dark flex items-center justify-between gap-2">
-                    <Text className="text-primary_light sm:text-xxs!">{secret}</Text>
+                <GlowingContainer contentClassName="bg-secondary_bg flex items-center justify-between gap-2">
+                    <Text className="text-primary_text sm:text-xxs!">{secret}</Text>
                     <CopyButton value={secret} />
                 </GlowingContainer>
             </div>

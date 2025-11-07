@@ -57,7 +57,7 @@ export const EditUser: FC<Props> = ({ className }) => {
                     defaultValues={defaultValues}
                     schema={updateAccountSchema}
                     onSubmit={onSubmit}
-                    submitButtonClassName=" max-w-default self-end"
+                    submitButtonClassName="max-w-default self-end"
                     isLoading={isPending}
                     render={({ control }) => (
                         <>
@@ -67,7 +67,7 @@ export const EditUser: FC<Props> = ({ className }) => {
                                 type="email"
                                 label={tForm("email")}
                                 placeholder={tForm("email_placeholder")}
-                                className="bg-secondary_dark"
+                                className="bg-secondary_bg"
                             />
                             <FormInput
                                 control={control}
@@ -75,7 +75,7 @@ export const EditUser: FC<Props> = ({ className }) => {
                                 type="username"
                                 label={tForm("username")}
                                 placeholder={tForm("username_placeholder")}
-                                className="bg-secondary_dark"
+                                className="bg-secondary_bg"
                             />
                         </>
                     )}

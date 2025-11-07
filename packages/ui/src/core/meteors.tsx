@@ -42,7 +42,7 @@ const MeteorsComponent: FC<Props> = ({ number, className, containerWidth = 800 }
                         className={cn(
                             "animate-meteor-effect bg-accent_light w-0.3 absolute h-0.5 rotate-[45deg] rounded-[9999px] shadow-[0_0_0_1px_#104F5510]",
                             "before:from-accent_dark before:absolute before:top-1/2 before:h-[1px] before:w-[50px] before:-translate-y-[50%] before:transform before:bg-gradient-to-r before:to-transparent before:content-['']",
-                            "after:from-secondary_light before:content-[''] after:absolute after:top-1/2 after:h-[1px] after:w-[50px] after:-translate-y-[50%] after:transform after:bg-gradient-to-r after:to-transparent after:blur-xs",
+                            "after:from-ghost before:content-[''] after:absolute after:top-1/2 after:h-[1px] after:w-[50px] after:-translate-y-[50%] after:transform after:bg-gradient-to-r after:to-transparent after:blur-xs",
                             className,
                         )}
                         style={{

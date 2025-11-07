@@ -59,7 +59,7 @@ export const ManageAccountStateConsentModal: FC<Props> = ({ closeModal, deletion
                 )}
             </div>
 
-            <Input className="bg-secondary_dark" value={value} onChange={onInputChange} />
+            <Input className="bg-secondary_bg" value={value} onChange={onInputChange} />
 
             <div className="xs:flex-col flex w-full items-center gap-4">
                 <Button
@@ -67,11 +67,11 @@ export const ManageAccountStateConsentModal: FC<Props> = ({ closeModal, deletion
                     isLoading={deleteUser.isPending || restoreUser.isPending}
                     disabled={!value}
                     onClick={onButtonClick}
-                    className="bg-secondary_dark"
+                    className="bg-secondary_bg"
                 >
                     {t(deletionDate ? "restore" : "delete")}
                 </Button>
-                <Button className="bg-secondary_dark" onClick={closeModal}>
+                <Button className="bg-secondary_bg" onClick={closeModal}>
                     {tGlobal("cancel")}
                 </Button>
             </div>

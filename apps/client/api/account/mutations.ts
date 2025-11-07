@@ -9,6 +9,7 @@ import {
     OtpResponse,
     ResetPasswordDto,
     UpdateAccountDto,
+    UpdateAccountSettingsDto,
 } from "@repo/common/types/account";
 
 import {
@@ -21,6 +22,7 @@ import {
     getOtpSettings,
     restoreCurrentUser,
     updateCurrentUser,
+    updateSettings,
 } from "./endpoints";
 
 export const useGetCurrentUser = () => {
@@ -130,4 +132,17 @@ export const useManageAccountState = () => {
     });
 
     return { deleteUser, restoreUser };
+};
+
+export const useUpdateSettings = () => {
+    const { mutateAsync: getCurrentUser } = useGetCurrentUser();
+
+    return useApiMutation<void, UpdateAccountSettingsDto>({
+        retry: false,
+        mutationFn: updateSettings,
+        mutationKey: ["update-settings"],
+        onSuccess: async () => {
+            await getCurrentUser();
+        },
+    });
 };

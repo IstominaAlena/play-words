@@ -11,10 +11,7 @@ interface Props {
 }
 
 export const QrCode: FC<Props> = ({ value, size = 256 }) => (
-    <GlowingContainer
-        containerClassName="rounded-lg w-fit"
-        contentClassName="bg-secondary_dark py-4"
-    >
+    <GlowingContainer containerClassName="rounded-lg w-fit" contentClassName="bg-secondary_bg py-4">
         <QRCode value={value} size={size} />
     </GlowingContainer>
 );

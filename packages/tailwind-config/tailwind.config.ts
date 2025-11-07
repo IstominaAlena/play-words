@@ -21,29 +21,37 @@ const config: Config = {
         sans: ["Balsamiq Sans", "sans-serif"],
       },
       colors: {
-        accent_dark: "#104F55", // rgba(16, 79, 85, 1)
-        accent_light: "#06D6A0", // rgba(6, 214, 160, 1)
-        primary_dark: "#0a0a0a", // rgba(10, 10, 10, 1)
-        primary_light: "#ebebeb", // rgba(235, 235, 235, 1)
-        secondary_dark: "#1f1f1f", // rgba(31, 31, 31, 1)
-        secondary_light: "#b3b3b3", // rgba(179, 179, 179, 1)
-        neutral: "#707070", // rgba(112, 112, 112, 1)
-        error_light: "#E60A0C", // rgba(230, 10, 12, 1)
-        error_dark: "#800516", // rgba(128, 5, 22, 1)
-        warn_light: "#FCF936", // rgba(252, 249, 54, 1)
-        warn_dark: "#BF9003", // rgba(191, 144, 3, 1)
+        primary_bg: "var(--primary-bg)",
+        secondary_bg: "var(--secondary-bg)",
+        primary_text: "var(--primary-text)",
+        secondary_text: "var(--secondary-text)",
+        primary_border: "var(--primary-border)",
+        secondary_border: "var(--secondary-border)",
+        neutral_glow: "var(--neutral-glow)",
+        neutral: "var(--neutral)",
+        ghost: "var(--ghost)",
+        accent_dark: "var(--accent_dark)",
+        accent_light: "var(--accent_light)",
+        error_light: "var(--error_light)",
+        error_dark: "var(--error_dark)",
+        warn_light: "var(--warn_light)",
+        warn_dark: "var(--warn_dark)",
       },
       backgroundImage: {
         accent_dark_gradient:
-          "linear-gradient(to right, rgba(235, 235, 235, 0.1), rgba(16, 79, 85, 1), rgba(6, 214, 160, 1), rgba(16, 79, 85, 1), rgba(235, 235, 235, 0.1))",
+          "linear-gradient(to right, var(--ghost), var(--accent_dark), var(--accent_light), var(--accent_dark), var(--ghost))",
+
         accent_light_gradient:
-          "linear-gradient(to right, rgba(10, 10, 10, 0.1), rgba(6, 214, 160, 1), rgba(16, 79, 85, 1), rgba(6, 214, 160, 1), rgba(10, 10, 10, 0.1))",
+          "linear-gradient(to right, color-mix(in srgb, var(--primary-bg) 90%, transparent), var(--accent_light), var(--accent_dark), var(--accent_light), color-mix(in srgb, var(--primary-bg) 90%, transparent))",
+
         error_gradient:
-          "linear-gradient(to right, rgba(235, 235, 235, 0.1), rgba(128, 5, 22, 1), rgba(230, 10, 12, 1), rgba(128, 5, 22, 1), rgba(235, 235, 235, 0.1))",
+          "linear-gradient(to right, var(--ghost), var(--error_dark), var(--error_light), var(--error_dark), var(--ghost))",
+
         vertical_neutral_gradient:
-          "linear-gradient(to bottom, rgba(235, 235, 235, 0.1), rgba(112, 112, 112, 0.5), rgba(112, 112, 112, 1), rgba(112, 112, 112, 0.5), rgba(235, 235, 235, 0.1))",
+          "linear-gradient(to bottom, var(--ghost), color-mix(in srgb, var(--neutral) 50%, transparent), var(--neutral), color-mix(in srgb, var(--neutral) 50%, transparent), var(--ghost))",
+
         horizontal_neutral_gradient:
-          "linear-gradient(to right, rgba(235, 235, 235, 0.1), rgba(112, 112, 112, 0.5), rgba(112, 112, 112, 1), rgba(112, 112, 112, 0.5), rgba(235, 235, 235, 0.1))",
+          "linear-gradient(to right, var(--ghost), color-mix(in srgb, var(--neutral) 50%, transparent), var(--neutral), color-mix(in srgb, var(--neutral) 50%, transparent), var(--ghost))",
       },
       animation: {
         "meteor-effect": "meteor 5s linear infinite",

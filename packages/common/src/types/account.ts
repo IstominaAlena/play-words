@@ -9,6 +9,7 @@ import {
     resetPasswordSchema,
     signUpDtoSchema,
     updateAccountSchema,
+    updateAccountSettingsSchema,
 } from "../schemas/account";
 
 export interface ErrorResponse {
@@ -27,6 +28,8 @@ export interface Settings {
     google: boolean;
     otp: boolean;
     verified: boolean;
+    theme: string;
+    wordsPerTraining: number;
 }
 
 export interface AccountResponse {
@@ -49,6 +52,8 @@ export interface VerifyOtpDto {
     email: string;
 }
 
+export type OtherSettingsDto = Omit<UpdateAccountSettingsDto, "theme">;
+
 export type CreateAccountDto = z.infer<typeof createAccountSchema>;
 
 export type UpdateAccountDto = z.infer<typeof updateAccountSchema>;
@@ -64,3 +69,5 @@ export type ResetPasswordDto = z.infer<typeof resetPasswordSchema>;
 export type ChangePassword = z.infer<typeof changePasswordSchema>;
 
 export type ChangePasswordDto = z.infer<typeof changePasswordDtoSchema>;
+
+export type UpdateAccountSettingsDto = z.infer<typeof updateAccountSettingsSchema>;

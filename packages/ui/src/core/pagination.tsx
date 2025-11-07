@@ -34,14 +34,11 @@ export const Pagination: FC<InfinitePaginationProps> = ({
                 className={cn(
                     "flex items-center gap-1 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors",
                     !hasPreviousPage
-                        ? "cursor-not-allowed opacity-50"
-                        : "hover:bg-primary_light/10",
+                        ? "text-neutral/50 cursor-not-allowed"
+                        : "text-secondary_text hover:text-primary_text",
                 )}
             >
-                <ChevronLeft
-                    size={24}
-                    className={!hasPreviousPage ? "text-neutral" : "text-accent_light"}
-                />
+                <ChevronLeft size={24} />
             </button>
 
             {isLoading ? (
@@ -57,13 +54,12 @@ export const Pagination: FC<InfinitePaginationProps> = ({
                 disabled={!hasNextPage}
                 className={cn(
                     "flex items-center gap-1 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors",
-                    !hasNextPage ? "cursor-not-allowed opacity-50" : "hover:bg-primary_light/10",
+                    !hasNextPage
+                        ? "text-neutral/50 cursor-not-allowed"
+                        : "text-secondary_text hover:text-primary_text",
                 )}
             >
-                <ChevronRight
-                    size={24}
-                    className={!hasNextPage ? "text-neutral" : "text-accent_light"}
-                />
+                <ChevronRight size={24} />
             </button>
         </div>
     );

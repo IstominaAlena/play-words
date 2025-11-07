@@ -9,9 +9,5 @@ interface Props {
 }
 
 export const Skeleton: FC<Props> = ({ className }) => {
-    return (
-        <div
-            className={cn("bg-primary_light/15 h-full w-full animate-pulse rounded-lg", className)}
-        />
-    );
+    return <div className={cn("bg-ghost h-full w-full animate-pulse rounded-lg", className)} />;
 };

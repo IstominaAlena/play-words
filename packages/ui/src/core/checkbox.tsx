@@ -25,7 +25,7 @@ export const Checkbox: FC<Props> = ({
                 data-slot="checkbox"
                 id="checkbox"
                 className={cn(
-                    "data-[state=checked]:border-primary bg-secondary_dark border-primary_light/20 group-hover:border-accent_dark z-10 size-4 shrink-0 rounded-sm border outline-none",
+                    "data-[state=checked]:border-primary_border bg-secondary_bg border-neutral group-hover:border-accent_dark z-10 size-4 shrink-0 rounded-sm border outline-none",
                     className,
                 )}
                 {...props}

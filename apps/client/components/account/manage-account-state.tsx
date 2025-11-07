@@ -47,7 +47,7 @@ export const ManageAccountState: FC<Props> = ({ deletionDate, email }) => {
         <>
             <div className="flex flex-wrap items-center justify-between gap-6">
                 <div className="flex-1">
-                    <Text className="text-primary_light">{t("delete_account")}</Text>
+                    <Text className="text-primary_text">{t("delete_account")}</Text>
                     <Text>
                         {t.rich("delete_account_description", {
                             accent: (chunks) => (
@@ -67,7 +67,7 @@ export const ManageAccountState: FC<Props> = ({ deletionDate, email }) => {
                     variant={deletionDate ? "SUCCESS" : "ERROR"}
                     onClick={onButtonClick}
                     buttonClassName="ml-auto w-default! sm:w-full"
-                    className="bg-secondary_dark"
+                    className="bg-secondary_bg"
                 >
                     {t(deletionDate ? "restore" : "delete")}
                 </Button>

@@ -7,6 +7,10 @@ import { AccountDropdown } from "@repo/ui/components/account-dropdown";
 import { ConsentModal } from "@repo/ui/components/consent-modal";
 import { Skeleton } from "@repo/ui/core/skeleton";
 import { showToast } from "@repo/ui/core/sonner";
+import { AccountIcon } from "@repo/ui/icons/account";
+import { SecurityIcon } from "@repo/ui/icons/security";
+import { SettingsIcon } from "@repo/ui/icons/settings";
+import { StatisticsIcon } from "@repo/ui/icons/statistics";
 
 import { Account } from "@repo/common/types/account";
 
@@ -20,6 +24,29 @@ interface Props {
     openModal: (content: ReactNode) => void;
     closeModal: () => void;
 }
+
+const links = [
+    {
+        text: "account",
+        path: `${SecondaryRoutes.ACCOUNT}`,
+        icon: AccountIcon,
+    },
+    {
+        text: "security",
+        path: `${SecondaryRoutes.ACCOUNT}/security`,
+        icon: SecurityIcon,
+    },
+    {
+        text: "settings",
+        path: `${SecondaryRoutes.ACCOUNT}/settings`,
+        icon: SettingsIcon,
+    },
+    {
+        text: "statistics",
+        path: `${SecondaryRoutes.ACCOUNT}/statistics`,
+        icon: StatisticsIcon,
+    },
+];
 
 export const HeaderAuth: FC<Props> = ({ user, openModal, closeModal }) => {
     const t = useTranslations("auth");
@@ -58,11 +85,7 @@ export const HeaderAuth: FC<Props> = ({ user, openModal, closeModal }) => {
     }
 
     return user ? (
-        <AccountDropdown
-            name={user.username}
-            accountPath={SecondaryRoutes.ACCOUNT}
-            onLogout={onLogout}
-        />
+        <AccountDropdown name={user.username} links={links} onLogout={onLogout} />
     ) : (
         <AuthBar className="md:hidden" openModal={openModal} closeModal={closeModal} />
     );

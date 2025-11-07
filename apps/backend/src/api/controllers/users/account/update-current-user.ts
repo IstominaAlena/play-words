@@ -1,14 +1,18 @@
 import { Response } from "express";
 
+import { UpdateAccountDto } from "@repo/common/types/account";
+
 import { messageKeys } from "@/constants/common";
 import { userCredentialsService } from "@/db/services/users/user-credentials-service";
 import { userSettingsService } from "@/db/services/users/user-settings-service";
 import { usersService } from "@/db/services/users/users-service";
 import { AppError } from "@/services/error-service";
 import { AuthenticatedRequest } from "@/types/common";
-import { UpdateUser } from "@/types/users";
 
-export const updateCurrentUser = async (req: AuthenticatedRequest<UpdateUser>, res: Response) => {
+export const updateCurrentUser = async (
+    req: AuthenticatedRequest<UpdateAccountDto>,
+    res: Response,
+) => {
     const userId = req.user?.id;
 
     if (!userId) {
@@ -26,7 +30,7 @@ export const updateCurrentUser = async (req: AuthenticatedRequest<UpdateUser>, r
 
     const { username: rawUsername, email: rawEmail } = req.body;
 
-    const updateData: UpdateUser = {};
+    const updateData: UpdateAccountDto = {};
 
     if (rawUsername) {
         updateData.username = rawUsername.trim();
