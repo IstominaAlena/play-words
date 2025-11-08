@@ -1,6 +1,8 @@
 "use client";
 
-import { ComponentProps, FC, useState } from "react";
+import { ComponentProps, FC, useMemo, useState } from "react";
+
+import { Variant } from "@repo/common/types/common";
 
 import { cn } from "../utils/class-names";
 import { GlowingContainer } from "./glowing-container";
@@ -20,15 +22,13 @@ export const Input: FC<Props> = ({ className, type, isError, onInputBlur, ...pro
         setIsFocused(false);
     };
 
+    const variant: Variant = isError ? "ERROR" : isFocused ? "SUCCESS" : "NEUTRAL";
+
     return (
         <GlowingContainer
             containerClassName="disabled:pointer-events-none disabled:opacity-50"
             contentClassName={cn("p-0", isFocused && "border-accent_dark")}
-            glowClassName={cn(
-                "border border-transparent",
-                isFocused && "bg-accent_light_gradient border-accent_dark",
-                isError && "bg-error_gradient border-error_dark",
-            )}
+            variant={variant}
         >
             <input
                 type={type}

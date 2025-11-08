@@ -2,6 +2,12 @@
 
 @config "./tailwind.config.ts";
 
+@font-face {
+  font-family: "Balsamiq Sans";
+  src: url("/fonts/BalsamiqSans.woff2") format("woff2");
+  font-display: swap;
+}
+
 :root {
   --dark-green: #25d976;
   --light-green: #61ff9e;

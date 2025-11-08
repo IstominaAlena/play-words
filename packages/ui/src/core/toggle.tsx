@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 import { FC, ReactNode, useCallback, useEffect, useRef, useState } from "react";
 
 import { cn } from "../utils/class-names";
-import { HoverBorderGradient } from "./hover-border-gradient";
+import { GlowingContainer } from "./glowing-container";
 
 interface Option {
     label?: string;
@@ -115,9 +115,9 @@ export const SliderToggle: FC<Props> = ({ options, selected, setSelected, isDisa
                         pointerEvents: "none",
                     }}
                 >
-                    <HoverBorderGradient
+                    <GlowingContainer
                         containerClassName="rounded-full w-full h-full"
-                        className="bg-secondary_bg"
+                        contentClassName="bg-secondary_bg"
                         variant="SUCCESS"
                     />
                 </motion.div>

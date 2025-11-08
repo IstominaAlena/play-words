@@ -1,6 +1,7 @@
 "use client";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { FC } from "react";
 
 import { cn } from "@repo/ui/class-names";
@@ -26,9 +27,12 @@ export const Pagination: FC<InfinitePaginationProps> = ({
     fetchPreviousPage,
     isLoading,
 }) => {
+    const t = useTranslations("aria");
+
     return (
         <div className="mt-6 flex items-center justify-center gap-2">
             <button
+                aria-label={t("pagination_prev")}
                 onClick={fetchPreviousPage}
                 disabled={!hasPreviousPage}
                 className={cn(
@@ -44,12 +48,13 @@ export const Pagination: FC<InfinitePaginationProps> = ({
             {isLoading ? (
                 <Skeleton className="h-6 w-10" />
             ) : (
-                <span className="text-neutral px-3 py-1.5 text-lg font-medium">
+                <span className="text-secondary_text px-3 py-1.5 text-lg font-medium">
                     {currentPage}/{totalPages}
                 </span>
             )}
 
             <button
+                aria-label={t("pagination_next")}
                 onClick={fetchNextPage}
                 disabled={!hasNextPage}
                 className={cn(

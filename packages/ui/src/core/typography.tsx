@@ -19,5 +19,7 @@ export const Title: FC<Props> = ({ children, className }) => (
 );
 
 export const Text: FC<Props> = ({ children, className }) => (
-    <p className={cn("text-neutral text-base font-normal md:text-sm", className)}>{children}</p>
+    <p className={cn("text-secondary_text text-base font-normal md:text-sm", className)}>
+        {children}
+    </p>
 );

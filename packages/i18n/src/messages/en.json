@@ -115,12 +115,19 @@
     "meta": {
         "home_page_title": "Home",
         "home_page_description": "Let's play words!",
+        "dictionary_page_title": "Dictionary",
+        "dictionary_page_description": "Dictionary",
         "reset_password_title": "",
         "reset_password_description": ""
     },
     "aria": {
         "logo": "Link to the home page",
         "mobile_menu": "Mobile menu",
-        "account_menu": "Account menu"
+        "account_menu": "Account menu",
+        "view_details": "View details",
+        "edit": "Edit",
+        "delete": "Delete",
+        "pagination_next": "Next page",
+        "pagination_prev": "Previous page"
     }
 }

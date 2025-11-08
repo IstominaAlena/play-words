@@ -40,13 +40,13 @@ const RootLayout = async ({ children, params }: Props) => {
     return (
         <html
             lang={locale}
-            className={cn("h-screen overflow-hidden scroll-smooth", balsamiqSans.variable)}
+            className={cn("no-scrollbar scroll-smooth", balsamiqSans.variable)}
             suppressHydrationWarning
         >
             <head>
                 <SchemaMarkup />
             </head>
-            <body className="bg-primary_bg w-ful no-scrollbar flex h-[100dvh] flex-col overflow-y-auto">
+            <body className="bg-primary_bg w-ful flex min-h-[100dvh] flex-col">
                 <AppThemeProvider>
                     <QueryProvider>
                         <NextIntlClientProvider locale={locale} messages={messages}>

@@ -18,14 +18,15 @@ interface Props extends PropsWithChildren {
 
 export const MobileMenu: FC<Props> = ({ children, links, className }) => {
     const t = useTranslations("navigation");
+    const tAria = useTranslations("aria");
 
     const currentPath = usePathname();
 
     const trigger = useMemo(
         () => (
             <GlowingContainer
-                containerClassName={cn("max-w-default w-full md:max-w-10", className)}
-                contentClassName="flex items-center justify-center p-0 h-10"
+                containerClassName="max-w-default w-full md:max-w-10"
+                contentClassName="md:px-2"
                 glowClassName="bg-accent_light"
             >
                 <MenuIcon width={20} height={20} className="text-inherit" />
@@ -59,6 +60,7 @@ export const MobileMenu: FC<Props> = ({ children, links, className }) => {
             triggerClassName={cn("rounded-full transition-all duration-300 p-1", className)}
             content={content}
             contentClassName={className}
+            ariaLabel={tAria("mobile_menu")}
         >
             {children}
         </DropdownMenu>

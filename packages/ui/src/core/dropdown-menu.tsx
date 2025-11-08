@@ -74,7 +74,10 @@ export const DropdownMenu: FC<DropdownMenuProps> = ({
 
     return (
         <CoreDropdownMenu>
-            <DropdownMenuTrigger asChild className={triggerClassName} aria-label={ariaLabel}>
+            <DropdownMenuTrigger
+                className={cn("w-fit cursor-pointer outline-none", triggerClassName)}
+                aria-label={ariaLabel}
+            >
                 {trigger}
             </DropdownMenuTrigger>
             <DropdownMenuContent className={contentClassName} side={"bottom"}>
