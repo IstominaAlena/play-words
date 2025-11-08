@@ -1,5 +1,3 @@
-"use client";
-
 import { FC, SVGProps } from "react";
 
 export const CloseEyeIcon: FC<SVGProps<SVGSVGElement>> = (props) => (

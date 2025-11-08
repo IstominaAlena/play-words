@@ -8,7 +8,6 @@ import { Link, usePathname } from "@repo/i18n/config/navigation";
 
 import { DropdownMenu } from "../core/dropdown-menu";
 import { GlowingContainer } from "../core/glowing-container";
-import { HoverBorderGradient } from "../core/hover-border-gradient";
 import { MenuIcon } from "../icons/menu";
 import { cn } from "../utils/class-names";
 

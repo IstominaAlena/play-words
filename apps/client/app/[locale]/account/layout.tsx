@@ -1,5 +1,3 @@
-"use client";
-
 import { FC, PropsWithChildren } from "react";
 
 import { AccountNav } from "@/components/account/account-navigation";

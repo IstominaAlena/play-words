@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { FC, MouseEvent, ReactNode, useCallback, useMemo } from "react";
+import { FC, ReactNode, useCallback, useMemo } from "react";
 
 import { cn } from "@repo/ui/class-names";
 import { ConsentModal } from "@repo/ui/components/consent-modal";

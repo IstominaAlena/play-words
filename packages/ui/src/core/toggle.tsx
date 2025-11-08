@@ -1,16 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import {
-    Dispatch,
-    FC,
-    ReactNode,
-    SetStateAction,
-    useCallback,
-    useEffect,
-    useRef,
-    useState,
-} from "react";
+import { FC, ReactNode, useCallback, useEffect, useRef, useState } from "react";
 
 import { cn } from "../utils/class-names";
 import { HoverBorderGradient } from "./hover-border-gradient";

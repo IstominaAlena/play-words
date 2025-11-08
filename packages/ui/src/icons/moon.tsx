@@ -1,5 +1,3 @@
-"use client";
-
 import { FC, SVGProps } from "react";
 
 export const MoonIcon: FC<SVGProps<SVGSVGElement>> = (props) => (

@@ -1,5 +1,3 @@
-"use client";
-
 import { FC } from "react";
 
 import { PageTitle } from "@repo/ui/core/typography";

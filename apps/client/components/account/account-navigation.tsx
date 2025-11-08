@@ -1,5 +1,3 @@
-"use client";
-
 import { FC } from "react";
 
 import { cn } from "@repo/ui/class-names";
