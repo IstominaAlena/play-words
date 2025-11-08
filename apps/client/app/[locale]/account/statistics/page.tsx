@@ -1,12 +1,12 @@
 import { Metadata } from "next";
 
-import { UnderConstructionPage } from "@/components/pages/under-construction-page";
+import { createMeta } from "@repo/common/utils/seo";
 
-export const metadata: Metadata = {
-    title: "Statistics",
-    description: "",
-    keywords: "",
-};
+import { UnderConstructionPage } from "@/components/pages/under-construction-page";
+import { AccountRoutes } from "@/enums/routes";
+
+export const generateMetadata = async (): Promise<Metadata> =>
+    createMeta("account_page", AccountRoutes.STATISTICS);
 
 const Statistics = () => <UnderConstructionPage />;
 

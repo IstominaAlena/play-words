@@ -39,8 +39,10 @@ export const ThemeSwitcher: FC<Props> = ({ defaultTheme, saveTheme, isLoading })
     const accentOptions = Object.values(Accent)
         .filter((item) => item !== mode)
         .map((item) => ({
+            label: t(item),
             value: item.toString(),
             icon: renderGradientSwatch(item),
+            showLabel: false,
         }));
 
     const handleModeChange = (newMode: string) => {

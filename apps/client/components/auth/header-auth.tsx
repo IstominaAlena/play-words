@@ -15,7 +15,7 @@ import { StatisticsIcon } from "@repo/ui/icons/statistics";
 import { Account } from "@repo/common/types/account";
 
 import { useLogout } from "@/api/auth/mutations";
-import { SecondaryRoutes } from "@/enums/routes";
+import { AccountRoutes, SecondaryRoutes } from "@/enums/routes";
 
 import { AuthBar } from "./auth-bar";
 
@@ -28,22 +28,22 @@ interface Props {
 const links = [
     {
         text: "account",
-        path: `${SecondaryRoutes.ACCOUNT}`,
+        path: AccountRoutes.ACCOUNT,
         icon: AccountIcon,
     },
     {
         text: "security",
-        path: `${SecondaryRoutes.ACCOUNT}/security`,
+        path: AccountRoutes.SECURITY,
         icon: SecurityIcon,
     },
     {
         text: "settings",
-        path: `${SecondaryRoutes.ACCOUNT}/settings`,
+        path: AccountRoutes.SETTINGS,
         icon: SettingsIcon,
     },
     {
         text: "statistics",
-        path: `${SecondaryRoutes.ACCOUNT}/statistics`,
+        path: AccountRoutes.STATISTICS,
         icon: StatisticsIcon,
     },
 ];

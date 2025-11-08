@@ -7,9 +7,10 @@ import { cn } from "../utils/class-names";
 import { GlowingContainer } from "./glowing-container";
 
 interface Option {
-    label?: string;
+    label: string;
     value: string;
     icon?: ReactNode;
+    showLabel?: boolean;
 }
 
 interface Props {
@@ -58,7 +59,7 @@ export const SliderToggle: FC<Props> = ({ options, selected, setSelected, isDisa
 
     const onOptionClick = (value: string) => () => setSelected(value);
 
-    const renderOption = ({ value, label, icon }: Option, i: number) => (
+    const renderOption = ({ value, label, icon, showLabel = true }: Option, i: number) => (
         <button
             key={value}
             ref={(el) => {
@@ -66,12 +67,13 @@ export const SliderToggle: FC<Props> = ({ options, selected, setSelected, isDisa
             }}
             className={cn(
                 "relative z-20 flex h-10 w-full items-center justify-center gap-2 rounded-full px-4 text-base font-medium transition-colors md:px-2",
-                selected === value ? "text-primary_text" : "text-neutral",
+                selected === value ? "text-primary_text" : "text-secondary_text",
             )}
             onClick={onOptionClick(value)}
+            aria-label={label}
         >
             {icon}
-            {label && <span>{label}</span>}
+            {showLabel && <span>{label}</span>}
         </button>
     );
 
