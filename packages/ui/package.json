@@ -9,6 +9,7 @@
     },
     "./*": "./src/*.tsx",
     "./styles": "./src/styles/global.css",
+    "./fonts": "./src/fonts/fonts.ts",
     "./class-names": "./src/utils/class-names.ts"
   },
   "scripts": {

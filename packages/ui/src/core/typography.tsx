@@ -9,9 +9,9 @@ interface Props extends PropsWithChildren {
 }
 
 export const PageTitle: FC<Props> = ({ children, className }) => (
-    <h2 className={cn("text-secondary_text text-6xl font-bold md:text-3xl", className)}>
+    <h1 className={cn("text-secondary_text text-6xl font-bold md:text-3xl", className)}>
         {children}
-    </h2>
+    </h1>
 );
 
 export const Title: FC<Props> = ({ children, className }) => (

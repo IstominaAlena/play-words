@@ -111,5 +111,16 @@
         "delete_word": "Delete word",
         "delete_word_subtitle": "Are you sure you want to delete word \"{word}\" from your dictionary?",
         "actions": "Actions"
+    },
+    "meta": {
+        "home_page_title": "Home",
+        "home_page_description": "Let's play words!",
+        "reset_password_title": "",
+        "reset_password_description": ""
+    },
+    "aria": {
+        "logo": "Link to the home page",
+        "mobile_menu": "Mobile menu",
+        "account_menu": "Account menu"
     }
 }

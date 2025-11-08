@@ -28,11 +28,12 @@ interface Props {
 export const AccountDropdown: FC<Props> = ({ name, links, onLogout, className }) => {
     const t = useTranslations("auth");
     const tNav = useTranslations("navigation");
+    const tAria = useTranslations("aria");
 
     const trigger = useMemo(
         () => (
             <HoverBorderGradient
-                containerClassName="max-w-default w-full md:max-w-11"
+                containerClassName="max-w-default w-full md:max-w-10"
                 className="text-secondary_text group-hover:text-primary_text flex items-center gap-2"
                 variant="SUCCESS"
             >
@@ -73,12 +74,10 @@ export const AccountDropdown: FC<Props> = ({ name, links, onLogout, className })
     return (
         <DropdownMenu
             trigger={trigger}
-            triggerClassName={cn(
-                "border border-transparent rounded-full p-1 data-[state=open]:border-accent_light transition-all duration-300",
-                className,
-            )}
+            triggerClassName={cn("rounded-full p-1 transition-all duration-300", className)}
             content={content}
             contentClassName={className}
+            ariaLabel={tAria("account_menu")}
         />
     );
 };

@@ -34,6 +34,7 @@ const Button: FC<Props> = ({
         )}
     >
         <HoverBorderGradient
+            as="div"
             containerClassName="rounded-full w-full"
             className={className}
             variant={variant}

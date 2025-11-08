@@ -8,6 +8,13 @@ const nextConfig = {
     env: {
         API_URL: process.env.NEXT_PUBLIC_API_URL,
     },
+    output: "standalone",
+    experimental: {
+        modern: true,
+    },
+    compiler: {
+        removeConsole: process.env.NODE_ENV === "production",
+    },
 };
 
 export default withNextIntl(nextConfig);

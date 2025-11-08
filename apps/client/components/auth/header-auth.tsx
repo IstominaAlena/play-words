@@ -81,7 +81,7 @@ export const HeaderAuth: FC<Props> = ({ user, openModal, closeModal }) => {
     }, []);
 
     if (!isMounted) {
-        return <Skeleton className="w-default! h-10 rounded-full" />;
+        return <Skeleton className="w-default! h-10 rounded-full md:hidden" />;
     }
 
     return user ? (

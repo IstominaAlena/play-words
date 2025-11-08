@@ -11,7 +11,8 @@
     "./stores/*": "./src/stores/*.ts",
     "./config/*": "./src/config/*.ts",
     "./hooks/*.ts": "./src/hooks/*.ts",
-    "./hooks/*.tsx": "./src/hooks/*.tsx"
+    "./hooks/*.tsx": "./src/hooks/*.tsx",
+    "./utils/*": "./src/utils/*.ts"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
