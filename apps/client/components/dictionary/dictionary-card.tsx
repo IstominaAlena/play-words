@@ -1,12 +1,12 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { FC, MouseEvent, ReactNode, useCallback, useMemo } from "react";
+import { FC, ReactNode, useCallback, useMemo } from "react";
 
 import { cn } from "@repo/ui/class-names";
 import { ConsentModal } from "@repo/ui/components/consent-modal";
 import { GhostButton } from "@repo/ui/core/button";
-import { HoverBorderGradient } from "@repo/ui/core/hover-border-gradient";
+import { GlowingContainer } from "@repo/ui/core/glowing-container";
 import { showToast } from "@repo/ui/core/sonner";
 import { Text, Title } from "@repo/ui/core/typography";
 import { DeleteIcon } from "@repo/ui/icons/delete";
@@ -30,6 +30,7 @@ interface Props {
 export const DictionaryCard: FC<Props> = ({ data, isPreview, openModal, closeModal }) => {
     const t = useTranslations("dictionary");
     const tGlobal = useTranslations("global");
+    const tAria = useTranslations("aria");
 
     const { user } = useUserStore();
 
@@ -46,8 +47,10 @@ export const DictionaryCard: FC<Props> = ({ data, isPreview, openModal, closeMod
     const onConfirmButtonClick = useCallback(async () => {
         try {
             await deleteWord(wordId);
-        } catch (error: any) {
-            showToast.error(error.message);
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                showToast.error(error.message);
+            }
         } finally {
             closeModal();
         }
@@ -108,11 +111,17 @@ export const DictionaryCard: FC<Props> = ({ data, isPreview, openModal, closeMod
 
     const buttons = useMemo(
         () => (
-            <div className={cn("flex items-center gap-1", isPreview && "justify-center")}>
+            <div
+                className={cn(
+                    "flex items-center gap-1",
+                    isPreview && "justify-center md:justify-end",
+                )}
+            >
                 {isPreview && (
                     <GhostButton
                         onClick={onViewButtonClick}
                         className="text-accent_dark hover:text-accent_light p-2 duration-300"
+                        aria-label={tAria("view_details")}
                     >
                         <OpenEyeIcon width={18} height={18} />
                     </GhostButton>
@@ -122,12 +131,14 @@ export const DictionaryCard: FC<Props> = ({ data, isPreview, openModal, closeMod
                         <GhostButton
                             onClick={onEditButtonClick}
                             className="text-warn_dark hover:text-warn_light p-2 duration-300"
+                            aria-label={tAria("edit")}
                         >
                             <EditIcon width={16} height={16} />
                         </GhostButton>
                         <GhostButton
                             onClick={onDeleteButtonClick}
                             className="text-error_dark hover:text-error_light p-2 duration-300"
+                            aria-label={tAria("delete")}
                         >
                             <DeleteIcon width={16} height={16} />
                         </GhostButton>
@@ -135,13 +146,13 @@ export const DictionaryCard: FC<Props> = ({ data, isPreview, openModal, closeMod
                 )}
             </div>
         ),
-        [isPreview, onDeleteButtonClick, onEditButtonClick, onViewButtonClick, user],
+        [isPreview, onDeleteButtonClick, onEditButtonClick, onViewButtonClick, user, tAria],
     );
 
     return (
-        <HoverBorderGradient
+        <GlowingContainer
             containerClassName="rounded-lg w-full h-full"
-            className="bg-secondary_bg group h-full"
+            contentClassName="bg-secondary_bg group"
             variant="SUCCESS"
         >
             <div
@@ -166,10 +177,10 @@ export const DictionaryCard: FC<Props> = ({ data, isPreview, openModal, closeMod
                     )}
                 </div>
                 <div className={cn("flex flex-col gap-1", !isPreview && "ml-auto")}>
-                    {isPreview && <Text>{t("actions")}</Text>}
+                    {isPreview && <Text className="md:hidden">{t("actions")}</Text>}
                     {buttons}
                 </div>
             </div>
-        </HoverBorderGradient>
+        </GlowingContainer>
     );
 };

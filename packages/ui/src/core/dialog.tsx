@@ -5,7 +5,6 @@ import { XIcon } from "lucide-react";
 import { ComponentProps, FC, PropsWithChildren } from "react";
 
 import { cn } from "../utils/class-names";
-import { Meteors } from "./meteors";
 
 const CoreDialog: FC<ComponentProps<typeof DialogPrimitive.Root>> = ({ ...props }) => (
     <DialogPrimitive.Root data-slot="dialog" {...props} />
@@ -107,7 +106,6 @@ export const Dialog: FC<DialogDemoProps> = ({
                     <DialogDescription></DialogDescription>
                 </DialogHeader>
                 {children}
-                <Meteors number={10} />
             </DialogContent>
         </CoreDialog>
     );

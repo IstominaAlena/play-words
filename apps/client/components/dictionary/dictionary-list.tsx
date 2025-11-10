@@ -21,7 +21,7 @@ export const DictionaryList: FC<Props> = ({ dictionary, isLoading }) => {
 
     const renderCard = useCallback(
         (item: Word) => (
-            <li key={item.wordId} className="max-h-40 flex-1 md:max-h-80">
+            <li key={item.wordId} className="h-40 md:h-80">
                 <DictionaryCard
                     data={item}
                     isPreview
@@ -36,8 +36,8 @@ export const DictionaryList: FC<Props> = ({ dictionary, isLoading }) => {
     const content = useMemo(() => {
         if (isLoading) {
             const arr = Array.from({ length: DEFAULT_ITEMS_PER_PAGE }, (_, i) => (
-                <li key={i} className="min-h-20 flex-1">
-                    <Skeleton />
+                <li key={i} className="">
+                    <Skeleton className="h-40 md:h-80" />
                 </li>
             ));
 
@@ -55,7 +55,7 @@ export const DictionaryList: FC<Props> = ({ dictionary, isLoading }) => {
         <div className="flex flex-1">
             {content}
 
-            <Modal contentClassName="p-3" />
+            <Modal />
         </div>
     );
 };

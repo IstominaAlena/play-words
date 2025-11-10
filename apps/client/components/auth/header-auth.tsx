@@ -15,7 +15,7 @@ import { StatisticsIcon } from "@repo/ui/icons/statistics";
 import { Account } from "@repo/common/types/account";
 
 import { useLogout } from "@/api/auth/mutations";
-import { SecondaryRoutes } from "@/enums/routes";
+import { AccountRoutes } from "@/enums/routes";
 
 import { AuthBar } from "./auth-bar";
 
@@ -28,22 +28,22 @@ interface Props {
 const links = [
     {
         text: "account",
-        path: `${SecondaryRoutes.ACCOUNT}`,
+        path: AccountRoutes.ACCOUNT,
         icon: AccountIcon,
     },
     {
         text: "security",
-        path: `${SecondaryRoutes.ACCOUNT}/security`,
+        path: AccountRoutes.SECURITY,
         icon: SecurityIcon,
     },
     {
         text: "settings",
-        path: `${SecondaryRoutes.ACCOUNT}/settings`,
+        path: AccountRoutes.SETTINGS,
         icon: SettingsIcon,
     },
     {
         text: "statistics",
-        path: `${SecondaryRoutes.ACCOUNT}/statistics`,
+        path: AccountRoutes.STATISTICS,
         icon: StatisticsIcon,
     },
 ];
@@ -58,8 +58,10 @@ export const HeaderAuth: FC<Props> = ({ user, openModal, closeModal }) => {
     const onConfirmButtonClick = async () => {
         try {
             await logout();
-        } catch (error: any) {
-            showToast.error(error.message);
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                showToast.error(error.message);
+            }
         } finally {
             closeModal();
         }
@@ -81,7 +83,7 @@ export const HeaderAuth: FC<Props> = ({ user, openModal, closeModal }) => {
     }, []);
 
     if (!isMounted) {
-        return <Skeleton className="w-default! h-10 rounded-full" />;
+        return <Skeleton className="w-default! h-10 rounded-full md:hidden" />;
     }
 
     return user ? (

@@ -10,7 +10,7 @@ import { SuccessIcon } from "../icons/success";
 import { cn } from "../utils/class-names";
 import { Text } from "./typography";
 
-export const Toaster = ({ ...props }: ToasterProps) => {
+const Toaster = ({ ...props }: ToasterProps) => {
     const { theme = "system" } = useTheme();
 
     return (
@@ -77,3 +77,5 @@ export const showToast = {
     success: (message: string) => toast.custom(() => <Toast message={message} />),
     error: (message: string) => toast.custom(() => <Toast message={message} isError />),
 };
+
+export default Toaster;

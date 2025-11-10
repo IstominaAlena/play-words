@@ -1,5 +1,3 @@
-"use client";
-
 import { FC, SVGProps } from "react";
 
 export const SecurityIcon: FC<SVGProps<SVGSVGElement>> = (props) => (

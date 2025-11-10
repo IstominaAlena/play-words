@@ -39,8 +39,10 @@ export const ChangePassword: FC<Props> = ({ className }) => {
         try {
             await resetPassword(dto);
             showToast.success(tAuth("reset_password_success"));
-        } catch (error: any) {
-            showToast.error(error.message);
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                showToast.error(error.message);
+            }
         }
     };
 

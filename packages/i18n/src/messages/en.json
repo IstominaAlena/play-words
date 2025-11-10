@@ -15,7 +15,12 @@
         "mode": "Mode",
         "dark": "Dark",
         "light": "Light",
-        "accent": "Accent color"
+        "accent": "Accent color",
+        "green": "Green",
+        "orange": "Orange",
+        "pink": "Pink",
+        "purple": "Purple",
+        "blue": "Blue"
     },
     "navigation": {
         "home": "Home",
@@ -111,5 +116,31 @@
         "delete_word": "Delete word",
         "delete_word_subtitle": "Are you sure you want to delete word \"{word}\" from your dictionary?",
         "actions": "Actions"
+    },
+    "meta": {
+        "home_page_title": "Home",
+        "home_page_description": "Let's play words!",
+        "account_page_title": "Account",
+        "account_page_description": "Account",
+        "dictionary_page_title": "Dictionary",
+        "dictionary_page_description": "Dictionary",
+        "security_page_title": "Security",
+        "security_page_description": "Security",
+        "settings_page_title": "Settings",
+        "settings_page_description": "Settings",
+        "statistics_page_title": "Statistics",
+        "statistics_page_description": "Statistics",
+        "reset_password_title": "",
+        "reset_password_description": ""
+    },
+    "aria": {
+        "logo": "Link to the home page",
+        "mobile_menu": "Mobile menu",
+        "account_menu": "Account menu",
+        "view_details": "View details",
+        "edit": "Edit",
+        "delete": "Delete",
+        "pagination_next": "Next page",
+        "pagination_prev": "Previous page"
     }
 }

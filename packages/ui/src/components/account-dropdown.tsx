@@ -6,7 +6,7 @@ import { FC, SVGProps, useMemo } from "react";
 import { Link } from "@repo/i18n/config/navigation";
 
 import { DropdownMenu } from "../core/dropdown-menu";
-import { HoverBorderGradient } from "../core/hover-border-gradient";
+import { GlowingContainer } from "../core/glowing-container";
 import { Text } from "../core/typography";
 import { AccountIcon } from "../icons/account";
 import { LogoutIcon } from "../icons/logout";
@@ -28,17 +28,19 @@ interface Props {
 export const AccountDropdown: FC<Props> = ({ name, links, onLogout, className }) => {
     const t = useTranslations("auth");
     const tNav = useTranslations("navigation");
+    const tAria = useTranslations("aria");
 
     const trigger = useMemo(
         () => (
-            <HoverBorderGradient
-                containerClassName="max-w-default w-full md:max-w-11"
-                className="text-secondary_text group-hover:text-primary_text flex items-center gap-2"
+            <GlowingContainer
+                containerClassName="max-w-default w-full md:max-w-10"
+                contentClassName="md:px-2"
+                glowClassName="bg-accent_light"
                 variant="SUCCESS"
             >
                 <AccountIcon width={16} height={16} className="text-inherit" />
                 <Text className="text-inherit md:hidden">{name}</Text>
-            </HoverBorderGradient>
+            </GlowingContainer>
         ),
         [name],
     );
@@ -48,7 +50,7 @@ export const AccountDropdown: FC<Props> = ({ name, links, onLogout, className })
             <div className="bg-horizontal_neutral_gradient h-px w-full" />
             <div className="text-secondary_text group-hover:text-error_dark flex cursor-pointer items-center gap-2 px-4 py-2 transition-all duration-300">
                 <LogoutIcon className="text-inherit" width={16} height={16} />
-                <Text className="text-inherit">{t("logout")}</Text>
+                <Text className="text-base! text-inherit">{t("logout")}</Text>
             </div>
         </div>
     );
@@ -62,7 +64,7 @@ export const AccountDropdown: FC<Props> = ({ name, links, onLogout, className })
             )}
         >
             <Icon className="text-inherit" width={16} height={16} />
-            <Text className="text-inherit">{tNav(text)}</Text>
+            <Text className="text-base! text-inherit">{tNav(text)}</Text>
         </Link>
     );
 
@@ -73,12 +75,10 @@ export const AccountDropdown: FC<Props> = ({ name, links, onLogout, className })
     return (
         <DropdownMenu
             trigger={trigger}
-            triggerClassName={cn(
-                "border border-transparent rounded-full p-1 data-[state=open]:border-accent_light transition-all duration-300",
-                className,
-            )}
+            triggerClassName={cn("rounded-full p-1 transition-all duration-300", className)}
             content={content}
             contentClassName={className}
+            ariaLabel={tAria("account_menu")}
         />
     );
 };

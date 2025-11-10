@@ -8,5 +8,11 @@ export enum Routes {
 export enum SecondaryRoutes {
     FORGOT_PASSWORD = "/reset-password-request",
     RESET_PASSWORD = "/reset-password",
-    ACCOUNT = "/account",
+}
+
+export enum AccountRoutes {
+    ACCOUNT = "/account/",
+    SECURITY = "/account/security",
+    SETTINGS = "/account/settings",
+    STATISTICS = "/account/statistics",
 }
