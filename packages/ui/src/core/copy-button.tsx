@@ -31,7 +31,7 @@ export const CopyButton: FC<Props> = ({ value, buttonClassName, text, iconSize =
                     setStatus("idle");
                 }, 600);
             }, 600);
-        } catch (err) {
+        } catch {
             setStatus("idle");
             throw new Error("Copy failed");
         }

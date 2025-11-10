@@ -35,7 +35,6 @@ export const AccountDropdown: FC<Props> = ({ name, links, onLogout, className })
             <GlowingContainer
                 containerClassName="max-w-default w-full md:max-w-10"
                 contentClassName="md:px-2"
-                glowClassName="bg-accent_light"
                 variant="SUCCESS"
             >
                 <AccountIcon width={16} height={16} className="text-inherit" />

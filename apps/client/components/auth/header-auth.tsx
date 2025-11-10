@@ -15,7 +15,7 @@ import { StatisticsIcon } from "@repo/ui/icons/statistics";
 import { Account } from "@repo/common/types/account";
 
 import { useLogout } from "@/api/auth/mutations";
-import { AccountRoutes, SecondaryRoutes } from "@/enums/routes";
+import { AccountRoutes } from "@/enums/routes";
 
 import { AuthBar } from "./auth-bar";
 

@@ -27,7 +27,6 @@ export const MobileMenu: FC<Props> = ({ children, links, className }) => {
             <GlowingContainer
                 containerClassName="max-w-default w-full md:max-w-10"
                 contentClassName="md:px-2"
-                glowClassName="bg-accent_light"
             >
                 <MenuIcon width={20} height={20} className="text-inherit" />
             </GlowingContainer>
