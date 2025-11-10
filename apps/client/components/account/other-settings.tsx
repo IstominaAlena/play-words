@@ -39,8 +39,10 @@ export const OtherSettings: FC<Props> = ({ className }) => {
         try {
             await updateSettings(formData);
             showToast.success(t("settings_update_success"));
-        } catch (error: any) {
-            showToast.error(error.message);
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                showToast.error(error.message);
+            }
         }
     };
 

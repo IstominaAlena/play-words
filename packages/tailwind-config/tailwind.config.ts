@@ -37,6 +37,10 @@ const config: Config = {
         warn_light: "var(--warn_light)",
         warn_dark: "var(--warn_dark)",
       },
+      boxShadow: {
+        uniform: "0 0 5px 0 rgba(0,0,0,0.25)",
+        uniform_hover: "0 0 15px 0 rgba(0,0,0,0.25)",
+      },
       backgroundImage: {
         accent_dark_gradient:
           "linear-gradient(to right, var(--ghost), var(--accent_dark), var(--accent_light), var(--accent_dark), var(--ghost))",

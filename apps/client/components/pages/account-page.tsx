@@ -1,5 +1,3 @@
-"use client";
-
 import { FC } from "react";
 
 import { ConnectOtherAccounts } from "../account/connect-other-accounts";

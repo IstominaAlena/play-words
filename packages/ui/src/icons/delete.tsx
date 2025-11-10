@@ -1,5 +1,3 @@
-"use client";
-
 import { FC, SVGProps } from "react";
 
 export const DeleteIcon: FC<SVGProps<SVGSVGElement>> = (props) => (

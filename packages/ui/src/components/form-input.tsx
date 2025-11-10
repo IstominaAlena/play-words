@@ -37,7 +37,11 @@ export const FormInput = <T extends FieldValues>({
     onInputChange,
 }: FormInputProps<T>) => (
     <div className={cn("relative flex w-full flex-col gap-1", containerClassName)}>
-        {label && <Label className={labelClassName}>{label}</Label>}
+        {label && (
+            <Label className={labelClassName} htmlFor={name}>
+                {label}
+            </Label>
+        )}
         <Controller
             name={name}
             control={control}

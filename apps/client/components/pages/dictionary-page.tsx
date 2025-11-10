@@ -2,7 +2,6 @@
 
 import { ChangeEvent, FC, useMemo, useState } from "react";
 
-import { GlowingStarsBackground } from "@repo/ui/core/glowing-starts";
 import { Pagination } from "@repo/ui/core/pagination";
 
 import { DEBOUNCE_DELAY, DEFAULT_ITEMS_PER_PAGE } from "@repo/common/constants/common";
@@ -61,8 +60,6 @@ export const DictionaryPage: FC = () => {
 
     return (
         <section className="relative flex flex-1 flex-col overflow-hidden py-10 md:py-6">
-            <GlowingStarsBackground />
-
             <div className="relative container flex w-full flex-1 flex-col gap-6 md:gap-4">
                 <DictionaryHeader showDemo={!user} search={search} searchChange={searchChange} />
 

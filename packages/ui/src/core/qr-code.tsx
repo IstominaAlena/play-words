@@ -1,5 +1,3 @@
-"use client";
-
 import { FC } from "react";
 import QRCode from "react-qr-code";
 

@@ -1,12 +1,12 @@
 import { Metadata } from "next";
 
-import { SettingsPage } from "@/components/pages/settings-page";
+import { createMeta } from "@repo/common/utils/seo";
 
-export const metadata: Metadata = {
-    title: "Settings",
-    description: "",
-    keywords: "",
-};
+import { SettingsPage } from "@/components/pages/settings-page";
+import { AccountRoutes } from "@/enums/routes";
+
+export const generateMetadata = async (): Promise<Metadata> =>
+    createMeta("settings_page", AccountRoutes.SETTINGS);
 
 const Settings = () => <SettingsPage />;
 

@@ -1,12 +1,12 @@
 import { Metadata } from "next";
 
-import { DictionaryPage } from "@/components/pages/dictionary-page";
+import { createMeta } from "@repo/common/utils/seo";
 
-export const metadata: Metadata = {
-    title: "Dictionary",
-    description: "",
-    keywords: "",
-};
+import { DictionaryPage } from "@/components/pages/dictionary-page";
+import { Routes } from "@/enums/routes";
+
+export const generateMetadata = async (): Promise<Metadata> =>
+    createMeta("dictionary_page", Routes.DICTIONARY);
 
 const Dictionary = () => <DictionaryPage />;
 

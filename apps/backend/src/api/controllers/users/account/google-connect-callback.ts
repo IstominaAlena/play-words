@@ -36,15 +36,17 @@ export const googleConnectCallback = async (req: AppRequest, res: Response, next
         }
 
         res.redirect(`${BASE_CLIENT_URL}/auth/success`);
-    } catch (error: any) {
+    } catch (error: unknown) {
         const lang = getLanguageFromRequest(req);
 
         const messages = i18nService.getMessages(lang);
 
-        const key = error.messageKey as keyof Messages;
+        if (error instanceof AppError) {
+            const key = error.messageKey as keyof Messages;
 
-        const errorMessage = encodeURIComponent(messages[key] || "Unknown Error");
+            const errorMessage = encodeURIComponent(messages[key] || "Unknown Error");
 
-        res.redirect(`${BASE_CLIENT_URL}?error=${errorMessage}`);
+            res.redirect(`${BASE_CLIENT_URL}?error=${errorMessage}`);
+        }
     }
 };

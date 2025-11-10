@@ -5,7 +5,7 @@ import { ComponentProps, FC, ReactNode } from "react";
 import { Variant } from "@repo/common/types/common";
 
 import { cn } from "../utils/class-names";
-import { HoverBorderGradient } from "./hover-border-gradient";
+import { GlowingContainer } from "./glowing-container";
 import { Loader } from "./loader";
 
 interface Props extends ComponentProps<"button"> {
@@ -33,13 +33,13 @@ const Button: FC<Props> = ({
             buttonClassName,
         )}
     >
-        <HoverBorderGradient
+        <GlowingContainer
             containerClassName="rounded-full w-full"
-            className={className}
+            contentClassName={className}
             variant={variant}
         >
             {isLoading ? <Loader /> : children}
-        </HoverBorderGradient>
+        </GlowingContainer>
     </button>
 );
 

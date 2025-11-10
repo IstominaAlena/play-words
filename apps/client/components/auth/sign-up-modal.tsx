@@ -42,8 +42,10 @@ export const SignUpModal: FC<Props> = ({ closeModal }) => {
 
         try {
             await signUp(dto);
-        } catch (error: any) {
-            showToast.error(error.message);
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                showToast.error(error.message);
+            }
         } finally {
             closeModal();
         }

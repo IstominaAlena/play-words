@@ -27,8 +27,10 @@ export const ResetPasswordRequestPage: FC = () => {
     const onSubmit: SubmitHandler<ResetPasswordRequest> = async (formData) => {
         try {
             await resetPasswordRequest(formData);
-        } catch (error: any) {
-            showToast.error(error.message);
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                showToast.error(error.message);
+            }
         }
     };
     return (

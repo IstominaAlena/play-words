@@ -32,8 +32,8 @@ export const CopyButton: FC<Props> = ({ value, buttonClassName, text, iconSize =
                 }, 600);
             }, 600);
         } catch (err) {
-            console.error("Failed to copy: ", err);
             setStatus("idle");
+            throw new Error("Copy failed");
         }
     };
 

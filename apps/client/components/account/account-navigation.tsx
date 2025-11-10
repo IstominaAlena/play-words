@@ -1,43 +1,44 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { FC } from "react";
 
-import { cn } from "@repo/ui/class-names";
 import { GlowingContainer } from "@repo/ui/core/glowing-container";
 
 import { Link, usePathname } from "@repo/i18n/config/navigation";
 
-import { SecondaryRoutes } from "@/enums/routes";
+import { AccountRoutes } from "@/enums/routes";
 
-const nav = ["account", "security", "settings", "statistics"];
+const nav = [
+    AccountRoutes.ACCOUNT,
+    AccountRoutes.SECURITY,
+    AccountRoutes.SETTINGS,
+    AccountRoutes.STATISTICS,
+];
 
 export const AccountNav: FC = () => {
+    const t = useTranslations("navigation");
+
     const currentPath = usePathname();
 
     const renderLinkItem = (item: string) => {
-        const href = `${SecondaryRoutes.ACCOUNT}${item === "account" ? "" : `/${item}`}`;
+        const isActive = currentPath === item;
 
-        const isActive =
-            item === "account"
-                ? currentPath === href
-                : currentPath === href || currentPath.startsWith(`${href}/`);
-
+        const label =
+            item === AccountRoutes.ACCOUNT ? "account" : item.replace(AccountRoutes.ACCOUNT, "");
         return (
             <li key={item} className="w-full">
                 <Link
-                    href={href}
+                    href={item}
                     className="group w-full"
                     data-state={isActive ? "active" : "inactive"}
                 >
                     <GlowingContainer
                         containerClassName="rounded-lg"
-                        glowClassName={cn(isActive && "bg-accent_dark")}
-                        contentClassName={cn(
-                            "text-secondary_text capitalize text-center md:px-2",
-                            isActive && "text-accent_dark",
-                        )}
+                        contentClassName="text-secondary_text capitalize text-center md:px-2"
+                        variant={isActive ? "SUCCESS" : "NEUTRAL"}
                     >
-                        {item}
+                        {t(label)}
                     </GlowingContainer>
                 </Link>
             </li>

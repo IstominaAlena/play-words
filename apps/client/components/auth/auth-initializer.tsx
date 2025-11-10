@@ -1,9 +1,15 @@
 "use client";
 
+import dynamic from "next/dynamic";
+
 import { useAuthHandlers } from "@/hooks/use-auth-handlers";
 
-export const AppInitializer = () => {
+const Toaster = dynamic(() => import("@repo/ui/core/sonner"), { ssr: false });
+
+const AppInitializer = () => {
     useAuthHandlers();
 
-    return null;
+    return <Toaster />;
 };
+
+export default AppInitializer;

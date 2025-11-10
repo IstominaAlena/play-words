@@ -1,5 +1,3 @@
-"use client";
-
 import { FC, PropsWithChildren } from "react";
 
 import { cn } from "../utils/class-names";
@@ -9,9 +7,9 @@ interface Props extends PropsWithChildren {
 }
 
 export const PageTitle: FC<Props> = ({ children, className }) => (
-    <h2 className={cn("text-secondary_text text-6xl font-bold md:text-3xl", className)}>
+    <h1 className={cn("text-secondary_text text-6xl font-bold md:text-3xl", className)}>
         {children}
-    </h2>
+    </h1>
 );
 
 export const Title: FC<Props> = ({ children, className }) => (
@@ -21,5 +19,7 @@ export const Title: FC<Props> = ({ children, className }) => (
 );
 
 export const Text: FC<Props> = ({ children, className }) => (
-    <p className={cn("text-neutral text-base font-normal md:text-sm", className)}>{children}</p>
+    <p className={cn("text-secondary_text text-base font-normal md:text-sm", className)}>
+        {children}
+    </p>
 );

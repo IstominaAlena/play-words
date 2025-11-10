@@ -19,8 +19,10 @@ const AuthSuccessPage = () => {
         const handleAuth = async () => {
             try {
                 await getCurrentUser();
-            } catch (error: any) {
-                showToast.error(error.message);
+            } catch (error: unknown) {
+                if (error instanceof Error) {
+                    showToast.error(error.message);
+                }
             } finally {
                 const path = localStorage.getItem("path") ?? Routes.HOME;
                 localStorage.removeItem("path");

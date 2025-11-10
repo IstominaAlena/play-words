@@ -14,7 +14,7 @@ export const passportControllerWrapper = <
 ) => {
     return async (
         req: AppRequest<TBody>,
-        res: Response<any, Record<string, any>>,
+        res: Response<object>,
         next: NextFunction,
     ): Promise<StrategyReturn[TStrategy]> => {
         return new Promise<StrategyReturn[TStrategy]>((resolve, reject) => {

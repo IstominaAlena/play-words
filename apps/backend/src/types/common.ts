@@ -21,7 +21,7 @@ export type AppError = Error & {
 
 export type AppRequest<TBody = object, TQuery = object, TParams = object> = Request<
     TParams,
-    any,
+    unknown,
     TBody,
     TQuery
 >;
@@ -32,11 +32,11 @@ export type AuthenticatedRequest<TBody = object, TQuery = object, TParams = obje
     TParams
 > & { user: AuthUser };
 
-export type AsyncController<TReq extends AppRequest = AppRequest, TResBody = any> = (
+export type AsyncController<TReq extends AppRequest = AppRequest, TResBody = object> = (
     req: TReq,
     res: Response<TResBody>,
     next: NextFunction,
-) => Promise<any>;
+) => Promise<object>;
 
 export type StrategyReturn = {
     "local-signup": { user: Account; refreshToken: string };

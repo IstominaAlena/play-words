@@ -11,7 +11,7 @@ import { Text, Title } from "@repo/ui/core/typography";
 import { useUserStore } from "@repo/common/stores/user-store";
 
 import { useDisconnectGoogleAccount } from "@/api/account/mutations";
-import { SecondaryRoutes } from "@/enums/routes";
+import { AccountRoutes } from "@/enums/routes";
 
 interface Props {
     className?: string;
@@ -30,13 +30,15 @@ export const ConnectOtherAccounts: FC<Props> = ({ className }) => {
         try {
             await disconnectGoogleAccount();
             showToast.success(t("disconnected"));
-        } catch (error: any) {
-            showToast.error(error.message);
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                showToast.error(error.message);
+            }
         }
     };
 
     const onConnectButtonClick = () => {
-        localStorage.setItem("path", SecondaryRoutes.ACCOUNT);
+        localStorage.setItem("path", AccountRoutes.ACCOUNT);
     };
 
     return (

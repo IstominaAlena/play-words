@@ -54,6 +54,7 @@ interface DropdownMenuProps extends PropsWithChildren {
     triggerClassName?: string;
     contentClassName?: string;
     itemClassName?: string;
+    ariaLabel?: string;
 }
 
 export const DropdownMenu: FC<DropdownMenuProps> = ({
@@ -63,6 +64,7 @@ export const DropdownMenu: FC<DropdownMenuProps> = ({
     triggerClassName,
     contentClassName,
     itemClassName,
+    ariaLabel,
 }) => {
     const renderContentItem = (content: JSX.Element, index: number) => (
         <DropdownMenuItem key={index} className={itemClassName} asChild>
@@ -72,7 +74,10 @@ export const DropdownMenu: FC<DropdownMenuProps> = ({
 
     return (
         <CoreDropdownMenu>
-            <DropdownMenuTrigger asChild className={triggerClassName}>
+            <DropdownMenuTrigger
+                className={cn("w-fit cursor-pointer outline-none", triggerClassName)}
+                aria-label={ariaLabel}
+            >
                 {trigger}
             </DropdownMenuTrigger>
             <DropdownMenuContent className={contentClassName} side={"bottom"}>
