@@ -75,7 +75,6 @@ export const Tabs: FC<Props> = ({
         >
             <GlowingContainer
                 containerClassName="rounded-lg"
-                glowClassName="group-data-[state=active]:bg-accent_dark"
                 contentClassName="group-data-[state=active]:text-accent_dark text-secondary_text capitalize"
             >
                 {label}
