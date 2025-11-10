@@ -33,8 +33,10 @@ export const ResetPasswordPage: FC = () => {
         try {
             await resetPassword(dto);
             showToast.success(t("reset_password_success"));
-        } catch (error: any) {
-            showToast.error(error.message);
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                showToast.error(error.message);
+            }
         }
     };
 

@@ -58,8 +58,10 @@ export const HeaderAuth: FC<Props> = ({ user, openModal, closeModal }) => {
     const onConfirmButtonClick = async () => {
         try {
             await logout();
-        } catch (error: any) {
-            showToast.error(error.message);
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                showToast.error(error.message);
+            }
         } finally {
             closeModal();
         }

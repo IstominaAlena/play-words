@@ -29,8 +29,10 @@ export const OtpModal: FC<Props> = ({ email, closeModal }) => {
     const onSubmitButtonClick = async () => {
         try {
             await verifyOtp({ code: value, email });
-        } catch (error: any) {
-            showToast.error(error.message);
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                showToast.error(error.message);
+            }
         } finally {
             closeModal();
         }

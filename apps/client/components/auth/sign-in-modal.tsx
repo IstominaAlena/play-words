@@ -45,8 +45,10 @@ export const SignInModal: FC<Props> = ({ openModal, closeModal }) => {
             } else {
                 closeModal();
             }
-        } catch (error: any) {
-            showToast.error(error.message);
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                showToast.error(error.message);
+            }
             closeModal();
         }
     };

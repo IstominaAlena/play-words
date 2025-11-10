@@ -47,8 +47,10 @@ export const DictionaryCard: FC<Props> = ({ data, isPreview, openModal, closeMod
     const onConfirmButtonClick = useCallback(async () => {
         try {
             await deleteWord(wordId);
-        } catch (error: any) {
-            showToast.error(error.message);
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                showToast.error(error.message);
+            }
         } finally {
             closeModal();
         }

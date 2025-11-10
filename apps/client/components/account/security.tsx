@@ -37,8 +37,10 @@ export const Security: FC<Props> = ({ className }) => {
         try {
             await disable.mutateAsync();
             showToast.success(t("otp_disabled"));
-        } catch (error: any) {
-            showToast.error(error.message);
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                showToast.error(error.message);
+            }
         } finally {
             closeModal();
         }
@@ -61,8 +63,10 @@ export const Security: FC<Props> = ({ className }) => {
                 showToast.success(t("otp_enabled"));
                 openModal(<OtpModalSettings url={data.otpAuthUrl} secret={data.secret} />);
             }
-        } catch (error: any) {
-            showToast.error(error.message);
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                showToast.error(error.message);
+            }
         }
     };
 
@@ -73,8 +77,10 @@ export const Security: FC<Props> = ({ className }) => {
             if (data.otpAuthUrl && data.secret) {
                 openModal(<OtpModalSettings url={data.otpAuthUrl} secret={data.secret} />);
             }
-        } catch (error: any) {
-            showToast.error(error.message);
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                showToast.error(error.message);
+            }
         }
     };
 

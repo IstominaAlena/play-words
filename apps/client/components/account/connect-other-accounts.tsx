@@ -30,8 +30,10 @@ export const ConnectOtherAccounts: FC<Props> = ({ className }) => {
         try {
             await disconnectGoogleAccount();
             showToast.success(t("disconnected"));
-        } catch (error: any) {
-            showToast.error(error.message);
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                showToast.error(error.message);
+            }
         }
     };
 

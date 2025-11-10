@@ -42,8 +42,10 @@ export const ManageAccountStateConsentModal: FC<Props> = ({ closeModal, deletion
                 await deleteUser.mutateAsync();
             }
             showToast.success(tGlobal("request_sent"));
-        } catch (error: any) {
-            showToast.error(error.message);
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                showToast.error(error.message);
+            }
         } finally {
             closeModal();
         }
