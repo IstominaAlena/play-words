@@ -117,6 +117,19 @@
         "delete_word_subtitle": "Are you sure you want to delete word \"{word}\" from your dictionary?",
         "actions": "Actions"
     },
+    "practice": {
+        "go": "Go",
+        "words": "Words",
+        "words_description": "Choose {number} words for practice",
+        "random_words": "{number} random words",
+        "trainings": "Trainings",
+        "quiz": "Quiz",
+        "flip_cards": "Flip Cards",
+        "word_translations": "Word - Translation",
+        "translations_word": "Translation - Word",
+        "word_definitions": "Word - Definition",
+        "definitions_word": "Definition - Word"
+    },
     "meta": {
         "home_page_title": "Home",
         "home_page_description": "Let's play words!",
@@ -130,8 +143,10 @@
         "settings_page_description": "Settings",
         "statistics_page_title": "Statistics",
         "statistics_page_description": "Statistics",
-        "reset_password_title": "",
-        "reset_password_description": ""
+        "practice_page_title": "Practice",
+        "practice_page_description": "Practice",
+        "reset_password_title": "Reset Password",
+        "reset_password_description": "Reset Password"
     },
     "aria": {
         "logo": "Link to the home page",

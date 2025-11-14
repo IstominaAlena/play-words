@@ -16,3 +16,8 @@ export enum AccountRoutes {
     SETTINGS = "/account/settings",
     STATISTICS = "/account/statistics",
 }
+
+export enum PracticeRoutes {
+    FLIP_CARDS = "/practice/flip-cards",
+    QUIZ = "/practice/quiz",
+}

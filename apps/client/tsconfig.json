@@ -23,7 +23,8 @@
         "next-env.d.ts",
         "next.config.js",
         ".next/types/**/*.ts",
-        "../../packages/ui/src/components/empty-content.tsx"
+        "../../packages/ui/src/components/empty-content.tsx",
+        "app/[locale]/practice/quiz"
     ],
     "exclude": ["node_modules"]
 }

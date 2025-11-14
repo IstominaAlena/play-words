@@ -8,6 +8,7 @@ interface Props extends PropsWithChildren {
     containerClassName?: string;
     contentClassName?: string;
     variant?: Variant;
+    onClick?: () => void;
 }
 
 const colorMap = {
@@ -29,14 +30,16 @@ export const GlowingContainer: FC<Props> = ({
     containerClassName,
     contentClassName,
     variant = "NEUTRAL",
+    onClick,
 }) => {
     return (
         <div
             className={cn(
-                "group relative h-10 w-full rounded-full p-px hover:shadow-[0_0_15px_0_rgba(0,0,0,0.25)]",
+                "group relative min-h-10 w-full rounded-full p-px hover:shadow-[0_0_15px_0_rgba(0,0,0,0.25)]",
                 colorMap[variant],
                 containerClassName,
             )}
+            onClick={onClick}
         >
             <div
                 className={cn(

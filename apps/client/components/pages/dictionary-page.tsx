@@ -63,7 +63,7 @@ export const DictionaryPage: FC = () => {
             <div className="relative container flex w-full flex-1 flex-col gap-6 md:gap-4">
                 <DictionaryHeader showDemo={!user} search={search} searchChange={searchChange} />
 
-                <div className="bg-secondary_bg/80 relative container flex w-full flex-1 flex-col rounded-lg p-6 md:p-4">
+                <div className="bg-secondary_bg/80 relative container flex w-full flex-1 flex-col gap-6 rounded-lg p-6 md:p-4">
                     <DictionaryList dictionary={dictionary} isLoading={isLoading} />
                     <Pagination
                         currentPage={page}

@@ -30,7 +30,7 @@ export const Pagination: FC<InfinitePaginationProps> = ({
     const t = useTranslations("aria");
 
     return (
-        <div className="mt-6 flex items-center justify-center gap-2">
+        <div className="flex items-center justify-center gap-2">
             <button
                 aria-label={t("pagination_prev")}
                 onClick={fetchPreviousPage}

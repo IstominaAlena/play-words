@@ -19,12 +19,11 @@ export const getDictionary = async (
 
     const { pageSize, page, search } = req.query;
 
-    const dictionary = await dictionaryService.getDictionary(
-        userId,
-        Number(pageSize),
-        Number(page),
-        search?.trim().toLowerCase(),
-    );
+    const dictionary = await dictionaryService.getDictionary(userId, {
+        pageSize: Number(pageSize),
+        page: Number(page),
+        search: search?.trim().toLowerCase() ?? "",
+    });
 
     return res.status(200).json(dictionary);
 };

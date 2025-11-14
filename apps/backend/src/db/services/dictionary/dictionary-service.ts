@@ -1,4 +1,4 @@
-import { and, asc, eq, ilike, sql } from "drizzle-orm";
+import { and, asc, eq, ilike, inArray, sql } from "drizzle-orm";
 import { count } from "drizzle-orm";
 
 import { DEFAULT_ITEMS_PER_PAGE } from "@repo/common/constants/common";
@@ -64,9 +64,12 @@ export class DictionaryService {
 
     async getDictionary(
         userId: DictionaryTable["userId"],
-        pageSize: number = DEFAULT_ITEMS_PER_PAGE,
-        page: number = 1,
-        search = "",
+        {
+            pageSize = DEFAULT_ITEMS_PER_PAGE,
+            page = 1,
+            search = "",
+            ids,
+        }: { pageSize?: number; page?: number; search?: string; ids?: number[] },
     ) {
         const baseWhere = [eq(this.table.userId, userId)];
 
@@ -74,16 +77,20 @@ export class DictionaryService {
             baseWhere.push(ilike(wordsTable.value, `%${search.trim()}%`));
         }
 
+        if (ids && ids.length > 0) {
+            baseWhere.push(inArray(this.table.wordId, ids));
+        }
+
         const data = await db
             .select({
-                wordId: dictionaryTable.wordId,
+                wordId: this.table.wordId,
                 word: wordsTable.value,
                 definitions: sql<string[]>`
-                            json_agg(distinct ${definitionsTable.value})
-                        `.as("definitions"),
+                json_agg(distinct ${definitionsTable.value})
+            `.as("definitions"),
                 translations: sql<string[]>`
-                            json_agg(distinct ${translationsTable.value})
-                        `.as("translations"),
+                json_agg(distinct ${translationsTable.value})
+            `.as("translations"),
             })
             .from(this.table)
             .where(and(...baseWhere))
@@ -108,12 +115,11 @@ export class DictionaryService {
             .offset((page - 1) * pageSize);
 
         const [countRows] = await db
-            .select({ total: count(sql`distinct ${dictionaryTable.wordId}`) })
-            .from(dictionaryTable)
-            .where(eq(dictionaryTable.userId, userId));
+            .select({ total: count(sql`distinct ${this.table.wordId}`) })
+            .from(this.table)
+            .where(eq(this.table.userId, userId));
 
         const total = countRows?.total ?? 0;
-
         const pages = Math.ceil(total / pageSize);
 
         return { data, total, pages, page };

@@ -10,22 +10,23 @@ import { Label } from "./label";
 interface Props extends ComponentProps<typeof CheckboxPrimitive.Root & PropsWithChildren> {
     labelClassName?: string;
     containerClassName?: string;
+    label: string;
 }
 
 export const Checkbox: FC<Props> = ({
-    children,
     className,
     labelClassName,
     containerClassName,
+    label,
     ...props
 }) => {
     return (
         <div className={cn("group flex w-fit items-center gap-2", containerClassName)}>
             <CheckboxPrimitive.Root
                 data-slot="checkbox"
-                id="checkbox"
+                id={`checkbox-${label}-${props.value ?? ""}`}
                 className={cn(
-                    "data-[state=checked]:border-primary_border bg-secondary_bg border-neutral group-hover:border-accent_dark z-10 size-4 shrink-0 rounded-sm border outline-none",
+                    "bg-secondary_bg border-neutral group-hover:border-accent_dark z-10 size-4 shrink-0 rounded-sm border outline-none disabled:opacity-50",
                     className,
                 )}
                 {...props}
@@ -38,8 +39,8 @@ export const Checkbox: FC<Props> = ({
                 </CheckboxPrimitive.Indicator>
             </CheckboxPrimitive.Root>
 
-            <Label htmlFor="checkbox" className={labelClassName}>
-                {children}
+            <Label htmlFor={`checkbox-${label}-${props.value ?? ""}`} className={labelClassName}>
+                {label}
             </Label>
         </div>
     );
